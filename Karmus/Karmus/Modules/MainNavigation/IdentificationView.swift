@@ -7,10 +7,10 @@
 
 import UIKit
 
-class IdentificationView: UIViewController {
+final class IdentificationView: UIViewController {
 
-    @IBOutlet weak var loginTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet private weak var loginTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 //        setupLabelTapRecognazer()
@@ -39,7 +39,7 @@ class IdentificationView: UIViewController {
 //        self.present(regLabView, animated: true)
 //    }
 //
-    @IBAction func didTapToRegistration(_ sender: UITapGestureRecognizer) {
+    @IBAction private func didTapToRegistration(_ sender: UITapGestureRecognizer) {
         performSegue(withIdentifier: "toRegistrationSegue", sender: self)
         
     }

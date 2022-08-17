@@ -66,20 +66,100 @@
 		5316D72428AC0FBE004C8A90 /* Karmus */ = {
 			isa = PBXGroup;
 			children = (
-				5316D72528AC0FBE004C8A90 /* AppDelegate.swift */,
-				5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */,
-				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
-				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
-				5316D73128AC0FC2004C8A90 /* Assets.xcassets */,
-				5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */,
+				CE70E85728ACDC0C001F508B /* Application */,
+				CE70E85528ACDBD6001F508B /* CoreData */,
+				CE70E85928ACDC47001F508B /* Models */,
+				CE70E85A28ACDC57001F508B /* Modules */,
+				CE70E85628ACDBF3001F508B /* Network */,
+				CE70E85B28ACDC6E001F508B /* Resources */,
+				CE70E85C28ACDC95001F508B /* Utils */,
 				5316D73628AC0FC2004C8A90 /* Info.plist */,
-				5316D72E28AC0FBE004C8A90 /* Karmus.xcdatamodeld */,
-				5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */,
-				5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */,
-				5316D74028AC1313004C8A90 /* IdentificationView.swift */,
-				5316D74228AC1326004C8A90 /* RegistrationView.swift */,
 			);
 			path = Karmus;
+			sourceTree = "<group>";
+		};
+		CE70E85528ACDBD6001F508B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				5316D72E28AC0FBE004C8A90 /* Karmus.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		CE70E85628ACDBF3001F508B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CE70E85728ACDC0C001F508B /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				5316D72528AC0FBE004C8A90 /* AppDelegate.swift */,
+				5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		CE70E85928ACDC47001F508B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE70E85A28ACDC57001F508B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				CE70E86128ACDE01001F508B /* MainNavigation */,
+				5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		CE70E85B28ACDC6E001F508B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5316D73128AC0FC2004C8A90 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CE70E85C28ACDC95001F508B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CE70E86028ACDCFB001F508B /* Extensions */,
+				CE70E85E28ACDCB9001F508B /* Constants */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CE70E85E28ACDCB9001F508B /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		CE70E86028ACDCFB001F508B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CE70E86128ACDE01001F508B /* MainNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
+				5316D74028AC1313004C8A90 /* IdentificationView.swift */,
+				5316D74228AC1326004C8A90 /* RegistrationView.swift */,
+				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
+				5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */,
+				5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */,
+			);
+			path = MainNavigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     }
 
 
-    @IBAction func didTapToIdentification(_ sender: UIButton) {
+    @IBAction private func didTapToIdentification(_ sender: UIButton) {
         performSegue(withIdentifier: "toIdentificationSegue", sender: self)
     }
 }
