@@ -16,8 +16,9 @@
 		5316D73528AC0FC2004C8A90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */; };
 		5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */; };
 		5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */; };
-		5316D74128AC1313004C8A90 /* IdentificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74028AC1313004C8A90 /* IdentificationView.swift */; };
-		5316D74328AC1326004C8A90 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74228AC1326004C8A90 /* RegistrationView.swift */; };
+		5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74028AC1313004C8A90 /* IdentificationViewController.swift */; };
+		5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74228AC1326004C8A90 /* RegistrationViewController.swift */; };
+		CE6EBC0F28ACEE4C0095F9BA /* ConstantReferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6EBC0E28ACEE4C0095F9BA /* ConstantReferences.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +33,9 @@
 		5316D73628AC0FC2004C8A90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegistrationScreen.storyboard; sourceTree = "<group>"; };
 		5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IdentificationScreen.storyboard; sourceTree = "<group>"; };
-		5316D74028AC1313004C8A90 /* IdentificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationView.swift; sourceTree = "<group>"; };
-		5316D74228AC1326004C8A90 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		5316D74028AC1313004C8A90 /* IdentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationViewController.swift; sourceTree = "<group>"; };
+		5316D74228AC1326004C8A90 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		CE6EBC0E28ACEE4C0095F9BA /* ConstantReferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConstantReferences.swift; path = ../../../../../ConstantReferences.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,10 +74,34 @@
 				CE70E85A28ACDC57001F508B /* Modules */,
 				CE70E85628ACDBF3001F508B /* Network */,
 				CE70E85B28ACDC6E001F508B /* Resources */,
-				CE70E85C28ACDC95001F508B /* Utils */,
+				CE6EBC0A28ACEE080095F9BA /* Utils */,
 				5316D73628AC0FC2004C8A90 /* Info.plist */,
 			);
 			path = Karmus;
+			sourceTree = "<group>";
+		};
+		CE6EBC0A28ACEE080095F9BA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CE6EBC0D28ACEE380095F9BA /* Extentions */,
+				CE6EBC0B28ACEE110095F9BA /* Constants */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CE6EBC0B28ACEE110095F9BA /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				CE6EBC0E28ACEE4C0095F9BA /* ConstantReferences.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		CE6EBC0D28ACEE380095F9BA /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extentions;
 			sourceTree = "<group>";
 		};
 		CE70E85528ACDBD6001F508B /* CoreData */ = {
@@ -126,35 +152,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		CE70E85C28ACDC95001F508B /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				CE70E86028ACDCFB001F508B /* Extensions */,
-				CE70E85E28ACDCB9001F508B /* Constants */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		CE70E85E28ACDCB9001F508B /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
-		CE70E86028ACDCFB001F508B /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		CE70E86128ACDE01001F508B /* MainNavigation */ = {
 			isa = PBXGroup;
 			children = (
 				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
-				5316D74028AC1313004C8A90 /* IdentificationView.swift */,
-				5316D74228AC1326004C8A90 /* RegistrationView.swift */,
+				5316D74028AC1313004C8A90 /* IdentificationViewController.swift */,
+				5316D74228AC1326004C8A90 /* RegistrationViewController.swift */,
 				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
 				5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */,
 				5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */,
@@ -236,9 +239,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5316D72A28AC0FBE004C8A90 /* ViewController.swift in Sources */,
-				5316D74128AC1313004C8A90 /* IdentificationView.swift in Sources */,
+				5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */,
 				5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */,
-				5316D74328AC1326004C8A90 /* RegistrationView.swift in Sources */,
+				CE6EBC0F28ACEE4C0095F9BA /* ConstantReferences.swift in Sources */,
+				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
 				5316D73028AC0FBE004C8A90 /* Karmus.xcdatamodeld in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
 			);

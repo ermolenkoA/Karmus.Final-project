@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5qN-Cf-BXg">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,30 +13,57 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemCyanColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Fbh-Pr-QBc">
-                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="EIf-GS-ebq">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="3Td-Tt-5FH">
-                                <rect key="frame" x="212" y="6" width="92" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="didTapToIdentification:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dsC-n3-lIW"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Fbh-Pr-QBc">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Log in" id="zGj-vt-94q">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ejo-Qi-9nS">
+                                    <rect key="frame" x="345" y="6" width="49" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="LOG IN">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="didTapToIdentification:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8cY-Nq-V51"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem title="Sign up" id="LOR-yy-m7D">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="o5K-a2-4p0">
+                                    <rect key="frame" x="277" y="6" width="60" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="SIGN UP">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="didTapSingUpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u2A-OZ-bZM"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <segue destination="DOq-K3-dgz" kind="show" identifier="toIdentificationSegue" id="tQQ-3b-swW"/>
+                        <segue destination="DOq-K3-dgz" kind="show" identifier="toIdentificationScreen" id="tQQ-3b-swW"/>
+                        <segue destination="OQ4-gB-JDT" kind="show" identifier="toRegistrationScreen" id="6ie-wm-Zka"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="939.13043478260875" y="83.705357142857139"/>
+            <point key="canvasLocation" x="936" y="83"/>
+        </scene>
+        <!--RegistrationScreen-->
+        <scene sceneID="kTE-Xb-9ZY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="RegistrationScreen" id="OQ4-gB-JDT" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="bvc-hx-K0r"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="alh-eZ-B50" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1626" y="83"/>
         </scene>
         <!--IdentificationScreen-->
         <scene sceneID="IaW-I7-Jyl">
@@ -46,7 +73,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XVG-oU-hfl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="938" y="603"/>
+            <point key="canvasLocation" x="938" y="595"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kdf-VY-Pv6">
@@ -54,7 +81,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5qN-Cf-BXg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gdp-DB-SKM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
