@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Identification View-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="IdentificationView" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wq-6J-PeH">
+                                <rect key="frame" x="42.5" y="172" width="235" height="136"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите имя пользователя" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="liK-pt-wkK">
+                                        <rect key="frame" x="8" y="8" width="219" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uax-8W-JfH">
+                                        <rect key="frame" x="8" y="50" width="219" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас нет аккаунта?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgD-Ca-LmE">
+                                        <rect key="frame" x="55" y="112" width="125" height="16"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="jr4-bg-VKR" appends="YES" id="g1D-G6-7z2"/>
+                                        </connections>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemCyanColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="sgD-Ca-LmE" secondAttribute="trailing" constant="55" id="4GW-jK-SZg"/>
+                                    <constraint firstAttribute="bottom" secondItem="sgD-Ca-LmE" secondAttribute="bottom" constant="8" id="H2Z-4B-UEM"/>
+                                    <constraint firstAttribute="trailing" secondItem="Uax-8W-JfH" secondAttribute="trailing" constant="8" id="HrT-LK-WzQ"/>
+                                    <constraint firstItem="sgD-Ca-LmE" firstAttribute="leading" secondItem="2wq-6J-PeH" secondAttribute="leading" constant="55" id="JMj-SX-bxf"/>
+                                    <constraint firstItem="Uax-8W-JfH" firstAttribute="leading" secondItem="2wq-6J-PeH" secondAttribute="leading" constant="8" id="LxU-02-dOD"/>
+                                    <constraint firstAttribute="trailing" secondItem="liK-pt-wkK" secondAttribute="trailing" constant="8" id="O2a-GH-5Cd"/>
+                                    <constraint firstItem="sgD-Ca-LmE" firstAttribute="top" secondItem="Uax-8W-JfH" secondAttribute="bottom" constant="28" id="Smx-LH-Qqc"/>
+                                    <constraint firstItem="liK-pt-wkK" firstAttribute="top" secondItem="2wq-6J-PeH" secondAttribute="top" constant="8" id="cVd-sa-h3P"/>
+                                    <constraint firstItem="liK-pt-wkK" firstAttribute="leading" secondItem="2wq-6J-PeH" secondAttribute="leading" constant="8" id="nbm-Fm-pGi"/>
+                                    <constraint firstItem="Uax-8W-JfH" firstAttribute="top" secondItem="liK-pt-wkK" secondAttribute="bottom" constant="8" symbolic="YES" id="yjP-fx-o3J"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2wq-6J-PeH" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="63Y-3Y-hLC"/>
+                            <constraint firstItem="2wq-6J-PeH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="top" constant="172" id="Bv6-Of-Xhe"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="2wq-6J-PeH" secondAttribute="trailing" constant="42.5" id="HNk-9P-qI4"/>
+                            <constraint firstItem="2wq-6J-PeH" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="jn4-kc-Io1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="loginTextField" destination="liK-pt-wkK" id="5I9-IA-Ivo"/>
+                        <outlet property="passwordTextField" destination="Uax-8W-JfH" id="arv-LS-r3f"/>
+                        <segue destination="xhX-dR-wYS" kind="show" identifier="toRegistrationSegue" id="cFw-pf-9CJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="jr4-bg-VKR">
+                    <connections>
+                        <action selector="didTapToRegistration:" destination="Y6W-OH-hqX" id="li9-pd-yVu"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-1" y="84"/>
+        </scene>
+        <!--RegistrationScreen-->
+        <scene sceneID="G2X-Kq-K0I">
+            <objects>
+                <viewControllerPlaceholder storyboardName="RegistrationScreen" id="xhX-dR-wYS" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="qTG-P5-1Gs"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qIg-ll-lA7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="26" y="574"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemCyanColor">
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
