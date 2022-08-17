@@ -1,1 +1,5 @@
-# Karmus.Final-project
+# Karmus
+
+Here is our final project
+
+Architectural pattern - MVVM
