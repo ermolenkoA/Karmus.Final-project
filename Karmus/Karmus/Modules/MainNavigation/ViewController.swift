@@ -21,5 +21,6 @@ final class ViewController: UIViewController {
     @IBAction func didTapSingUpButton(_ sender: UIButton) {
         performSegue(withIdentifier: References.fromMainToRegistrationScreen, sender: self)
     }
+
 }
 

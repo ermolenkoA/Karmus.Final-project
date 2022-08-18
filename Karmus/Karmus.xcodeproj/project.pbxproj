@@ -19,6 +19,12 @@
 		5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */; };
 		5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74028AC1313004C8A90 /* IdentificationViewController.swift */; };
 		5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74228AC1326004C8A90 /* RegistrationViewController.swift */; };
+		53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
+		53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */; };
+		53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */; };
+		53BC394228AD3E9F00867BC9 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394128AD3E9F00867BC9 /* TasksViewController.swift */; };
+		53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC394328AD43E300867BC9 /* MapScreen.storyboard */; };
+		53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394528AD43FE00867BC9 /* MapViewController.swift */; };
 		CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE8C1C28ACFF1F00957E21 /* ConstantReferences.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +43,12 @@
 		5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IdentificationScreen.storyboard; sourceTree = "<group>"; };
 		5316D74028AC1313004C8A90 /* IdentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationViewController.swift; sourceTree = "<group>"; };
 		5316D74228AC1326004C8A90 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountScreen.storyboard; sourceTree = "<group>"; };
+		53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksScreen.storyboard; sourceTree = "<group>"; };
+		53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		53BC394128AD3E9F00867BC9 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
+		53BC394328AD43E300867BC9 /* MapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapScreen.storyboard; sourceTree = "<group>"; };
+		53BC394528AD43FE00867BC9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		65689B1432EC0F43A94F86A6 /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
 		7A84BE45A66E17000DD2652D /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
 		CEDE8C1C28ACFF1F00957E21 /* ConstantReferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantReferences.swift; sourceTree = "<group>"; };
@@ -145,6 +157,12 @@
 				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
 				5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */,
 				5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */,
+				53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */,
+				53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */,
+				53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */,
+				53BC394128AD3E9F00867BC9 /* TasksViewController.swift */,
+				53BC394328AD43E300867BC9 /* MapScreen.storyboard */,
+				53BC394528AD43FE00867BC9 /* MapViewController.swift */,
 			);
 			path = MainNavigation;
 			sourceTree = "<group>";
@@ -232,10 +250,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */,
+				53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */,
 				5316D73528AC0FC2004C8A90 /* LaunchScreen.storyboard in Resources */,
 				5316D73228AC0FC2004C8A90 /* Assets.xcassets in Resources */,
 				5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */,
 				5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */,
+				53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */,
 				5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,11 +295,14 @@
 			files = (
 				5316D72A28AC0FBE004C8A90 /* ViewController.swift in Sources */,
 				5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */,
+				53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */,
+				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */,
 				CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
 				5316D73028AC0FBE004C8A90 /* Karmus.xcdatamodeld in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
+				53BC394228AD3E9F00867BC9 /* TasksViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
