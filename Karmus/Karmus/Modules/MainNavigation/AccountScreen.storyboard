@@ -4,12 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Account View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="AccountViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +20,10 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemCyanColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="p8H-it-SnY"/>
+                    <tabBarItem key="tabBarItem" image="list.bullet.rectangle.portrait.fill" catalog="system" id="p8H-it-SnY">
+                        <color key="badgeColor" systemColor="systemYellowColor"/>
+                        <imageReference key="selectedImage" image="list.bullet.rectangle.portrait" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -35,10 +39,10 @@
             </objects>
             <point key="canvasLocation" x="69" y="541"/>
         </scene>
-        <!--TasksScreen-->
+        <!--MapScreen-->
         <scene sceneID="o0T-NR-SjR">
             <objects>
-                <viewControllerPlaceholder storyboardName="TasksScreen" id="MS7-xC-Qqv" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="MapScreen" id="MS7-xC-Qqv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="pEN-It-vzv"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pM8-rl-wWJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -51,12 +55,15 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="L0P-KX-AMB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9p5-3R-Vv9">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" systemColor="systemMintColor"/>
+                        <color key="selectedImageTintColor" red="0.45737490089999999" green="0.45737490089999999" blue="0.45737490089999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="z1O-5n-001"/>
-                        <segue destination="MS7-xC-Qqv" kind="relationship" relationship="viewControllers" id="bPQ-xS-36m"/>
+                        <segue destination="MS7-xC-Qqv" kind="relationship" relationship="viewControllers" id="hkI-FD-nF3"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c3j-vO-yT4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -65,8 +72,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
+        <image name="list.bullet.rectangle.portrait.fill" catalog="system" width="115" height="128"/>
         <systemColor name="systemCyanColor">
             <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemMintColor">
+            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
