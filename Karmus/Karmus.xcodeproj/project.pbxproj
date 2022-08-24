@@ -12,7 +12,6 @@
 		5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */; };
 		5316D72A28AC0FBE004C8A90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72928AC0FBE004C8A90 /* ViewController.swift */; };
 		5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D72B28AC0FBE004C8A90 /* Main.storyboard */; };
-		5316D73028AC0FBE004C8A90 /* Karmus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72E28AC0FBE004C8A90 /* Karmus.xcdatamodeld */; };
 		5316D73228AC0FC2004C8A90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73128AC0FC2004C8A90 /* Assets.xcassets */; };
 		5316D73528AC0FC2004C8A90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */; };
 		5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */; };
@@ -25,6 +24,23 @@
 		53BC394228AD3E9F00867BC9 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394128AD3E9F00867BC9 /* TasksViewController.swift */; };
 		53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC394328AD43E300867BC9 /* MapScreen.storyboard */; };
 		53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394528AD43FE00867BC9 /* MapViewController.swift */; };
+		CE15417C28B266E0007731FA /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15417B28B266E0007731FA /* PopViewController.swift */; };
+		CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15418928B29A71007731FA /* RegistrationEnumeration.swift */; };
+		CE15419628B2AC16007731FA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15419528B2AC16007731FA /* CoreDataManager.swift */; };
+		CE26DC8228B414CD0022F401 /* PhoneNumberVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */; };
+		CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26DC8428B4393F0022F401 /* ConstantValues.swift */; };
+		CE26DC8928B4A4BA0022F401 /* SMSManagerResultEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26DC8828B4A4BA0022F401 /* SMSManagerResultEnum.swift */; };
+		CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE2985F128B3759700B4AE9D /* KarmusDataBase.xcdatamodeld */; };
+		CE29860F28B37C8B00B4AE9D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29860E28B37C8B00B4AE9D /* StringExtension.swift */; };
+		CE29861528B3977B00B4AE9D /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29861328B3977B00B4AE9D /* Profile+CoreDataClass.swift */; };
+		CE29861A28B3B1DC00B4AE9D /* RegistrationScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29861928B3B1DC00B4AE9D /* RegistrationScrollView.swift */; };
+		CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29861E28B3C55B00B4AE9D /* SMSManager.swift */; };
+		CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29862228B3C6A700B4AE9D /* SMSAPIConstants.swift */; };
+		CE29863028B3E0E200B4AE9D /* BalanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29862F28B3E0E200B4AE9D /* BalanceModel.swift */; };
+		CE29863328B3E12C00B4AE9D /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863228B3E12C00B4AE9D /* ResultModel.swift */; };
+		CE29863A28B3F55300B4AE9D /* CodeGenerate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863928B3F55300B4AE9D /* CodeGenerate.swift */; };
+		CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863D28B400B800B4AE9D /* ConstantKeys.swift */; };
+		CE29864128B4054B00B4AE9D /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29864028B4054B00B4AE9D /* DateExtention.swift */; };
 		CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE8C1C28ACFF1F00957E21 /* ConstantReferences.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +51,6 @@
 		5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5316D72928AC0FBE004C8A90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5316D72C28AC0FBE004C8A90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5316D72F28AC0FBE004C8A90 /* Karmus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Karmus.xcdatamodel; sourceTree = "<group>"; };
 		5316D73128AC0FC2004C8A90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5316D73428AC0FC2004C8A90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5316D73628AC0FC2004C8A90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +66,23 @@
 		53BC394528AD43FE00867BC9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		65689B1432EC0F43A94F86A6 /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
 		7A84BE45A66E17000DD2652D /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
+		CE15417B28B266E0007731FA /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
+		CE15418928B29A71007731FA /* RegistrationEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEnumeration.swift; sourceTree = "<group>"; };
+		CE15419528B2AC16007731FA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberVerification.swift; sourceTree = "<group>"; };
+		CE26DC8428B4393F0022F401 /* ConstantValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantValues.swift; sourceTree = "<group>"; };
+		CE26DC8828B4A4BA0022F401 /* SMSManagerResultEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSManagerResultEnum.swift; sourceTree = "<group>"; };
+		CE2985F228B3759700B4AE9D /* Karmus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Karmus.xcdatamodel; sourceTree = "<group>"; };
+		CE29860E28B37C8B00B4AE9D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		CE29861328B3977B00B4AE9D /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		CE29861928B3B1DC00B4AE9D /* RegistrationScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScrollView.swift; sourceTree = "<group>"; };
+		CE29861E28B3C55B00B4AE9D /* SMSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSManager.swift; sourceTree = "<group>"; };
+		CE29862228B3C6A700B4AE9D /* SMSAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSAPIConstants.swift; sourceTree = "<group>"; };
+		CE29862F28B3E0E200B4AE9D /* BalanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceModel.swift; sourceTree = "<group>"; };
+		CE29863228B3E12C00B4AE9D /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
+		CE29863928B3F55300B4AE9D /* CodeGenerate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeGenerate.swift; sourceTree = "<group>"; };
+		CE29863D28B400B800B4AE9D /* ConstantKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantKeys.swift; sourceTree = "<group>"; };
+		CE29864028B4054B00B4AE9D /* DateExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
 		CEDE8C1C28ACFF1F00957E21 /* ConstantReferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantReferences.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +119,7 @@
 		5316D72428AC0FBE004C8A90 /* Karmus */ = {
 			isa = PBXGroup;
 			children = (
+				CE29861C28B3C52800B4AE9D /* Network */,
 				CE70E85728ACDC0C001F508B /* Application */,
 				CE70E85528ACDBD6001F508B /* CoreData */,
 				CE70E85A28ACDC57001F508B /* Modules */,
@@ -105,10 +138,67 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CE15417328B24040007731FA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE29861328B3977B00B4AE9D /* Profile+CoreDataClass.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE15417A28B26693007731FA /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */,
+				CE15417B28B266E0007731FA /* PopViewController.swift */,
+				5316D74228AC1326004C8A90 /* RegistrationViewController.swift */,
+				CE29861928B3B1DC00B4AE9D /* RegistrationScrollView.swift */,
+				CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		CE29860A28B37C5B00B4AE9D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CE29860E28B37C8B00B4AE9D /* StringExtension.swift */,
+				CE29864028B4054B00B4AE9D /* DateExtention.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CE29861C28B3C52800B4AE9D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				CE29861D28B3C53700B4AE9D /* SMS_API */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CE29861D28B3C53700B4AE9D /* SMS_API */ = {
+			isa = PBXGroup;
+			children = (
+				CE29862528B3CF0A00B4AE9D /* Model */,
+				CE29861E28B3C55B00B4AE9D /* SMSManager.swift */,
+				CE29862228B3C6A700B4AE9D /* SMSAPIConstants.swift */,
+				CE26DC8828B4A4BA0022F401 /* SMSManagerResultEnum.swift */,
+			);
+			path = SMS_API;
+			sourceTree = "<group>";
+		};
+		CE29862528B3CF0A00B4AE9D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE29862F28B3E0E200B4AE9D /* BalanceModel.swift */,
+				CE29863228B3E12C00B4AE9D /* ResultModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		CE6EBC0A28ACEE080095F9BA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				CEDE8C1B28ACFEF800957E21 /* Extensions */,
+				CE29860A28B37C5B00B4AE9D /* Extensions */,
 				CEDE8C1A28ACFEEE00957E21 /* Constants */,
 			);
 			path = Utils;
@@ -117,7 +207,9 @@
 		CE70E85528ACDBD6001F508B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				5316D72E28AC0FBE004C8A90 /* Karmus.xcdatamodeld */,
+				CE15417328B24040007731FA /* Models */,
+				CE15419528B2AC16007731FA /* CoreDataManager.swift */,
+				CE2985F128B3759700B4AE9D /* KarmusDataBase.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -153,10 +245,9 @@
 			children = (
 				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
 				5316D74028AC1313004C8A90 /* IdentificationViewController.swift */,
-				5316D74228AC1326004C8A90 /* RegistrationViewController.swift */,
+				CE15417A28B26693007731FA /* Registration */,
 				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
 				5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */,
-				5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */,
 				53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */,
 				53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */,
 				53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */,
@@ -171,15 +262,12 @@
 			isa = PBXGroup;
 			children = (
 				CEDE8C1C28ACFF1F00957E21 /* ConstantReferences.swift */,
+				CE15418928B29A71007731FA /* RegistrationEnumeration.swift */,
+				CE29863928B3F55300B4AE9D /* CodeGenerate.swift */,
+				CE29863D28B400B800B4AE9D /* ConstantKeys.swift */,
+				CE26DC8428B4393F0022F401 /* ConstantValues.swift */,
 			);
 			path = Constants;
-			sourceTree = "<group>";
-		};
-		CEDE8C1B28ACFEF800957E21 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EFE8003D3A212837F1ABA9F0 /* Pods */ = {
@@ -294,14 +382,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				5316D72A28AC0FBE004C8A90 /* ViewController.swift in Sources */,
+				CE29863A28B3F55300B4AE9D /* CodeGenerate.swift in Sources */,
+				CE26DC8928B4A4BA0022F401 /* SMSManagerResultEnum.swift in Sources */,
+				CE29864128B4054B00B4AE9D /* DateExtention.swift in Sources */,
+				CE29861528B3977B00B4AE9D /* Profile+CoreDataClass.swift in Sources */,
 				5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */,
+				CE29860F28B37C8B00B4AE9D /* StringExtension.swift in Sources */,
+				CE29863028B3E0E200B4AE9D /* BalanceModel.swift in Sources */,
+				CE29863328B3E12C00B4AE9D /* ResultModel.swift in Sources */,
 				53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */,
+				CE15417C28B266E0007731FA /* PopViewController.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
+				CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */,
 				5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */,
 				CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */,
+				CE26DC8228B414CD0022F401 /* PhoneNumberVerification.swift in Sources */,
+				CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
-				5316D73028AC0FBE004C8A90 /* Karmus.xcdatamodeld in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
+				CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */,
+				CE29861A28B3B1DC00B4AE9D /* RegistrationScrollView.swift in Sources */,
+				CE15419628B2AC16007731FA /* CoreDataManager.swift in Sources */,
+				CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */,
+				CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */,
+				CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */,
 				53BC394228AD3E9F00867BC9 /* TasksViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,13 +630,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		5316D72E28AC0FBE004C8A90 /* Karmus.xcdatamodeld */ = {
+		CE2985F128B3759700B4AE9D /* KarmusDataBase.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				5316D72F28AC0FBE004C8A90 /* Karmus.xcdatamodel */,
+				CE2985F228B3759700B4AE9D /* Karmus.xcdatamodel */,
 			);
-			currentVersion = 5316D72F28AC0FBE004C8A90 /* Karmus.xcdatamodel */;
-			path = Karmus.xcdatamodeld;
+			currentVersion = CE2985F228B3759700B4AE9D /* Karmus.xcdatamodel */;
+			path = KarmusDataBase.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

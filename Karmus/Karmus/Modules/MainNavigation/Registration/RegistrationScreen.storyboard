@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sED-q2-525">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sED-q2-525" customClass="RegistrationScrollView" customModule="Karmus" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mMu-6q-IHH">
@@ -30,33 +30,33 @@
                                             </label>
                                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0wj-eI-3LJ">
                                                 <rect key="frame" x="40" y="113" width="240" height="34"/>
-                                                <nil key="textColor"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="name"/>
                                             </textField>
                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Фамилия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3VN-gH-XNz">
                                                 <rect key="frame" x="40" y="157" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="name"/>
                                             </textField>
                                             <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tja-7F-tra">
                                                 <rect key="frame" x="40" y="245" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="password"/>
                                             </textField>
                                             <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Повторите пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zCG-aP-QqY">
                                                 <rect key="frame" x="40" y="289" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="password"/>
                                             </textField>
-                                            <textField opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Электронная почта" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z63-6Q-15o">
+                                            <textField opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер телефона" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z63-6Q-15o">
                                                 <rect key="frame" x="40" y="333" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                                             </textField>
                                             <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Логин" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t4S-YP-iPI">
                                                 <rect key="frame" x="40" y="201" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="username"/>
                                             </textField>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="liB-U4-8vv">
                                                 <rect key="frame" x="40" y="377" width="52" height="30"/>
@@ -64,6 +64,9 @@
                                                     <constraint firstAttribute="width" constant="50" id="MiS-nF-7zZ"/>
                                                     <constraint firstAttribute="height" constant="30" id="xQU-qR-thP"/>
                                                 </constraints>
+                                                <connections>
+                                                    <action selector="changedAgreementSwitch:" destination="Y6W-OH-hqX" eventType="valueChanged" id="ozH-MP-K6C"/>
+                                                </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Я принимаю политику Karmus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hU-3V-Nz6">
                                                 <rect key="frame" x="100" y="385" width="177.5" height="14.5"/>
@@ -80,59 +83,96 @@
                                                 </constraints>
                                                 <state key="normal" title="Зарегестрироваться"/>
                                                 <connections>
-                                                    <action selector="didTapRegistrationButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="y9d-Na-S6J"/>
+                                                    <action selector="didTapRegistrationButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="OGY-a9-ahD"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRi-P3-VEA">
+                                            <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRi-P3-VEA">
                                                 <rect key="frame" x="290" y="120" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="BSg-wj-3Lr"/>
                                                     <constraint firstAttribute="height" constant="20" id="WRS-kX-hEK"/>
                                                 </constraints>
                                                 <state key="normal" backgroundImage="iconError"/>
+                                                <connections>
+                                                    <action selector="didTapCheckButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="PWb-Tg-gA7"/>
+                                                    <segue destination="VTB-X4-4gq" kind="popoverPresentation" popoverAnchorView="SRi-P3-VEA" id="lye-av-RMx">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
+                                                </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmt-n9-XXk">
+                                            <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmt-n9-XXk">
                                                 <rect key="frame" x="290" y="164" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="T6Q-fy-Z6O"/>
                                                     <constraint firstAttribute="height" constant="20" id="avN-pu-vnd"/>
                                                 </constraints>
                                                 <state key="normal" backgroundImage="iconError"/>
+                                                <connections>
+                                                    <action selector="didTapCheckButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="wXt-AA-hr8"/>
+                                                    <segue destination="VTB-X4-4gq" kind="popoverPresentation" popoverAnchorView="dmt-n9-XXk" id="xKl-VL-ftg">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
+                                                </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiN-zY-GHt">
+                                            <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiN-zY-GHt">
                                                 <rect key="frame" x="290" y="208" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="36n-K6-OMY"/>
                                                     <constraint firstAttribute="height" constant="20" id="haA-70-ZFZ"/>
                                                 </constraints>
                                                 <state key="normal" backgroundImage="iconError"/>
+                                                <connections>
+                                                    <action selector="didTapCheckButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Bcp-ec-yja"/>
+                                                    <segue destination="VTB-X4-4gq" kind="popoverPresentation" popoverAnchorView="yiN-zY-GHt" id="Xkj-LQ-3aX">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
+                                                </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3k-Ct-Vjh">
+                                            <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3k-Ct-Vjh">
                                                 <rect key="frame" x="290" y="252" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="THh-kp-6O7"/>
                                                     <constraint firstAttribute="height" constant="20" id="Zvp-aA-HkM"/>
                                                 </constraints>
                                                 <state key="normal" backgroundImage="iconError"/>
+                                                <connections>
+                                                    <action selector="didTapCheckButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="iG1-41-vDY"/>
+                                                    <segue destination="VTB-X4-4gq" kind="popoverPresentation" popoverAnchorView="c3k-Ct-Vjh" id="NQL-bs-up5">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
+                                                </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oq2-gH-7YB">
+                                            <button hidden="YES" opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oq2-gH-7YB">
                                                 <rect key="frame" x="290" y="296" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="puk-uC-D6f"/>
                                                     <constraint firstAttribute="width" constant="20" id="sow-yS-W49"/>
                                                 </constraints>
                                                 <state key="normal" backgroundImage="iconError"/>
+                                                <connections>
+                                                    <action selector="didTapCheckButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="KzP-CS-bGb"/>
+                                                    <segue destination="VTB-X4-4gq" kind="popoverPresentation" popoverAnchorView="oq2-gH-7YB" id="c8M-jU-die">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
+                                                </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmu-PB-pk2">
+                                            <button hidden="YES" opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmu-PB-pk2">
                                                 <rect key="frame" x="290" y="340" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="rFz-1P-QwV"/>
                                                     <constraint firstAttribute="height" constant="20" id="zsa-ws-kkO"/>
                                                 </constraints>
                                                 <state key="normal" backgroundImage="iconError"/>
+                                                <connections>
+                                                    <action selector="didTapCheckButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="cfR-kM-lbu"/>
+                                                    <segue destination="VTB-X4-4gq" kind="popoverPresentation" popoverAnchorView="wmu-PB-pk2" id="lEC-Kw-Asc">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="liB-U4-8vv" firstAttribute="leading" secondItem="mMu-6q-IHH" secondAttribute="leading" constant="40" id="0ck-S0-dOe"/>
                                             <constraint firstItem="SRi-P3-VEA" firstAttribute="leading" secondItem="0wj-eI-3LJ" secondAttribute="trailing" constant="10" id="0qo-aJ-iKc"/>
@@ -176,6 +216,9 @@
                                             <constraint firstItem="0wj-eI-3LJ" firstAttribute="leading" secondItem="mMu-6q-IHH" secondAttribute="leading" constant="40" id="wm7-u2-bv2"/>
                                             <constraint firstAttribute="trailing" secondItem="SRi-P3-VEA" secondAttribute="trailing" constant="10" id="zc4-3E-AgZ"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="ehF-U7-zRL" appends="YES" id="DAO-Vv-l8R"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -193,6 +236,7 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
                         <color key="tintColor" red="0.66522795209999996" green="1" blue="0.98606638339999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="sED-q2-525" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="5Yi-h4-rct"/>
                             <constraint firstItem="sED-q2-525" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Ha9-i7-4ay"/>
@@ -202,8 +246,6 @@
                     </view>
                     <connections>
                         <outlet property="agreementSwitch" destination="liB-U4-8vv" id="Mb1-Le-0Iv"/>
-                        <outlet property="emailCheckButton" destination="wmu-PB-pk2" id="O0p-wi-F5R"/>
-                        <outlet property="emailTextField" destination="Z63-6Q-15o" id="TyE-Qm-HqB"/>
                         <outlet property="firstNameCheckButton" destination="SRi-P3-VEA" id="aZD-f7-lhO"/>
                         <outlet property="firstNameTextField" destination="0wj-eI-3LJ" id="r1v-es-v2X"/>
                         <outlet property="loginCheckButton" destination="yiN-zY-GHt" id="fcD-KK-5hj"/>
@@ -211,6 +253,8 @@
                         <outlet property="mainScrollView" destination="sED-q2-525" id="fvD-bC-mfS"/>
                         <outlet property="passwordCheckButton" destination="c3k-Ct-Vjh" id="U3V-wV-Yw9"/>
                         <outlet property="passwordTextField" destination="Tja-7F-tra" id="cv2-bb-51Z"/>
+                        <outlet property="phoneNumberCheckButton" destination="wmu-PB-pk2" id="gSh-8N-5hQ"/>
+                        <outlet property="phoneNumberTextField" destination="Z63-6Q-15o" id="32S-Co-oWg"/>
                         <outlet property="registrationButton" destination="WVK-az-Nbj" id="rvM-IJ-Ffd"/>
                         <outlet property="repeatPasswordCheckButton" destination="oq2-gH-7YB" id="ssA-aK-N3r"/>
                         <outlet property="repeatPasswordTextField" destination="zCG-aP-QqY" id="CLy-ef-QZE"/>
@@ -219,12 +263,63 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ehF-U7-zRL">
+                    <connections>
+                        <action selector="touchBeganOutside:" destination="Y6W-OH-hqX" id="dJZ-Lg-mdh"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1.875" y="83.75"/>
+            <point key="canvasLocation" x="-99" y="84"/>
+        </scene>
+        <!--Storyboard Reference-->
+        <scene sceneID="kzx-wO-bZO">
+            <objects>
+                <viewControllerPlaceholder id="LgG-7b-xBw" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wDD-ya-sAo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-38" y="523"/>
+        </scene>
+        <!--Pop View Controller-->
+        <scene sceneID="P07-8H-Mbj">
+            <objects>
+                <viewController storyboardIdentifier="popVC" id="VTB-X4-4gq" customClass="PopViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CwL-go-JNK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SM4-Hy-yis">
+                                <rect key="frame" x="10" y="10" width="300" height="440"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xSH-mi-GqA"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstItem="xSH-mi-GqA" firstAttribute="trailing" secondItem="SM4-Hy-yis" secondAttribute="trailing" constant="10" id="GMi-U0-oqE"/>
+                            <constraint firstItem="SM4-Hy-yis" firstAttribute="top" secondItem="xSH-mi-GqA" secondAttribute="top" constant="10" id="P8l-lN-NCX"/>
+                            <constraint firstItem="SM4-Hy-yis" firstAttribute="leading" secondItem="xSH-mi-GqA" secondAttribute="leading" constant="10" id="cfK-Ip-nfd"/>
+                            <constraint firstItem="xSH-mi-GqA" firstAttribute="bottom" secondItem="SM4-Hy-yis" secondAttribute="bottom" constant="10" id="hNq-5M-35c"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="errorDescriptionLabel" destination="SM4-Hy-yis" id="Kks-Q5-VSp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QcO-Qd-Tiz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="836.25" y="83.75"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Xkj-LQ-3aX"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="iconError" width="32" height="32"/>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
