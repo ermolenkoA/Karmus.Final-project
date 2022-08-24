@@ -19,10 +19,14 @@
 		5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */; };
 		5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74028AC1313004C8A90 /* IdentificationViewController.swift */; };
 		5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74228AC1326004C8A90 /* RegistrationViewController.swift */; };
+		534700DC28B6099B00F23539 /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DB28B6099A00F23539 /* TasksTableViewController.swift */; };
+		534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DD28B6105C00F23539 /* TasksTableViewCell.swift */; };
+		534700E028B6135300F23539 /* ModelTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DF28B6135300F23539 /* ModelTasks.swift */; };
+		534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700E128B621A700F23539 /* CreationTaskViewController.swift */; };
+		534700E428B621D900F23539 /* CreationTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 534700E328B621D900F23539 /* CreationTaskScreen.storyboard */; };
 		53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
 		53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */; };
 		53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */; };
-		53BC394228AD3E9F00867BC9 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394128AD3E9F00867BC9 /* TasksViewController.swift */; };
 		53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC394328AD43E300867BC9 /* MapScreen.storyboard */; };
 		53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394528AD43FE00867BC9 /* MapViewController.swift */; };
 		CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE8C1C28ACFF1F00957E21 /* ConstantReferences.swift */; };
@@ -43,10 +47,14 @@
 		5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IdentificationScreen.storyboard; sourceTree = "<group>"; };
 		5316D74028AC1313004C8A90 /* IdentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationViewController.swift; sourceTree = "<group>"; };
 		5316D74228AC1326004C8A90 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		534700DB28B6099A00F23539 /* TasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
+		534700DD28B6105C00F23539 /* TasksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCell.swift; sourceTree = "<group>"; };
+		534700DF28B6135300F23539 /* ModelTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTasks.swift; sourceTree = "<group>"; };
+		534700E128B621A700F23539 /* CreationTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTaskViewController.swift; sourceTree = "<group>"; };
+		534700E328B621D900F23539 /* CreationTaskScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreationTaskScreen.storyboard; sourceTree = "<group>"; };
 		53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountScreen.storyboard; sourceTree = "<group>"; };
 		53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksScreen.storyboard; sourceTree = "<group>"; };
 		53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		53BC394128AD3E9F00867BC9 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		53BC394328AD43E300867BC9 /* MapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapScreen.storyboard; sourceTree = "<group>"; };
 		53BC394528AD43FE00867BC9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		65689B1432EC0F43A94F86A6 /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
@@ -160,9 +168,13 @@
 				53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */,
 				53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */,
 				53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */,
-				53BC394128AD3E9F00867BC9 /* TasksViewController.swift */,
 				53BC394328AD43E300867BC9 /* MapScreen.storyboard */,
 				53BC394528AD43FE00867BC9 /* MapViewController.swift */,
+				534700DB28B6099A00F23539 /* TasksTableViewController.swift */,
+				534700DD28B6105C00F23539 /* TasksTableViewCell.swift */,
+				534700DF28B6135300F23539 /* ModelTasks.swift */,
+				534700E128B621A700F23539 /* CreationTaskViewController.swift */,
+				534700E328B621D900F23539 /* CreationTaskScreen.storyboard */,
 			);
 			path = MainNavigation;
 			sourceTree = "<group>";
@@ -256,6 +268,7 @@
 				5316D73228AC0FC2004C8A90 /* Assets.xcassets in Resources */,
 				5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */,
 				5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */,
+				534700E428B621D900F23539 /* CreationTaskScreen.storyboard in Resources */,
 				53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */,
 				5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */,
 			);
@@ -295,14 +308,17 @@
 			files = (
 				5316D72A28AC0FBE004C8A90 /* ViewController.swift in Sources */,
 				5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */,
+				534700E028B6135300F23539 /* ModelTasks.swift in Sources */,
 				53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */,
 				CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */,
+				534700DC28B6099B00F23539 /* TasksTableViewController.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
+				534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */,
 				5316D73028AC0FBE004C8A90 /* Karmus.xcdatamodeld in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
-				53BC394228AD3E9F00867BC9 /* TasksViewController.swift in Sources */,
+				534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,21 +466,25 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7KWY9SWUN6;
+				DEVELOPMENT_TEAM = X9JXK35MFD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Karmus/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Для выбора фото";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "нужно определение местоположения";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Для определения местоположения";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vironit.Nesterovich.Ermolenko.Karmus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vironit.Nesterovich.Ermolenko;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -480,21 +500,25 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7KWY9SWUN6;
+				DEVELOPMENT_TEAM = X9JXK35MFD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Karmus/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Для выбора фото";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "нужно определение местоположения";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Для определения местоположения";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vironit.Nesterovich.Ermolenko.Karmus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vironit.Nesterovich.Ermolenko;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

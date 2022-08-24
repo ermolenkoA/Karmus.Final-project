@@ -26,37 +26,38 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asj-mY-oTr">
                                         <rect key="frame" x="8" y="8" width="412" height="114"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xdr-ov-xu2">
-                                                <rect key="frame" x="30" y="8.3333333333333712" width="98" height="96.666666666666671"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="98" id="DqN-j3-mmw"/>
-                                                    <constraint firstAttribute="width" constant="98" id="as3-fk-48N"/>
-                                                </constraints>
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xdr-ov-xu2">
+                                                <rect key="frame" x="30" y="8" width="98" height="98.666666666666671"/>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="18t-X5-ovE" appends="YES" id="mo2-P1-qAK"/>
+                                                </connections>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="books.vertical.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ejb-9A-Y2a">
-                                                <rect key="frame" x="157" y="8.0000000000000355" width="98" height="98.333333333333343"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="98" id="CTl-tx-UM4"/>
-                                                    <constraint firstAttribute="width" constant="98" id="UMG-CT-GMf"/>
-                                                </constraints>
+                                                <rect key="frame" x="157" y="8.0000000000000355" width="98" height="98"/>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Pa6-l2-jvF">
-                                                <rect key="frame" x="285" y="7.9999999999999645" width="98" height="93.666666666666671"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="98" id="8aR-0b-hS1"/>
-                                                    <constraint firstAttribute="height" constant="98" id="OSZ-Ja-YO9"/>
-                                                </constraints>
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Pa6-l2-jvF">
+                                                <rect key="frame" x="285" y="7.9999999999999574" width="98" height="98"/>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="SIE-uW-dXk" appends="YES" id="tXV-YW-pyd"/>
+                                                </connections>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="xdr-ov-xu2" secondAttribute="bottom" constant="7" id="83g-aa-HIv"/>
                                             <constraint firstItem="Pa6-l2-jvF" firstAttribute="leading" secondItem="ejb-9A-Y2a" secondAttribute="trailing" constant="30" id="EfT-qN-DKD"/>
                                             <constraint firstAttribute="trailing" secondItem="Pa6-l2-jvF" secondAttribute="trailing" constant="29" id="G6O-nI-yhS"/>
+                                            <constraint firstItem="ejb-9A-Y2a" firstAttribute="width" secondItem="asj-mY-oTr" secondAttribute="width" multiplier="0.237864" id="LmC-gg-or0"/>
+                                            <constraint firstAttribute="bottom" secondItem="ejb-9A-Y2a" secondAttribute="bottom" constant="8" id="M1r-53-5BQ"/>
                                             <constraint firstItem="Pa6-l2-jvF" firstAttribute="top" secondItem="asj-mY-oTr" secondAttribute="top" constant="5.6699999999999999" id="Ujm-En-QUa"/>
                                             <constraint firstItem="ejb-9A-Y2a" firstAttribute="leading" secondItem="xdr-ov-xu2" secondAttribute="trailing" constant="29" id="YEQ-vK-m92"/>
-                                            <constraint firstItem="xdr-ov-xu2" firstAttribute="top" secondItem="asj-mY-oTr" secondAttribute="top" constant="7.3300000000000001" id="i5B-3x-LaI"/>
+                                            <constraint firstAttribute="bottom" secondItem="Pa6-l2-jvF" secondAttribute="bottom" constant="6" id="aOZ-5j-MnH"/>
+                                            <constraint firstItem="xdr-ov-xu2" firstAttribute="top" secondItem="asj-mY-oTr" secondAttribute="top" constant="7" id="i5B-3x-LaI"/>
                                             <constraint firstItem="xdr-ov-xu2" firstAttribute="leading" secondItem="asj-mY-oTr" secondAttribute="leading" constant="30" id="rFz-EX-yMT"/>
                                             <constraint firstItem="ejb-9A-Y2a" firstAttribute="top" secondItem="asj-mY-oTr" secondAttribute="top" constant="8.3300000000000001" id="uW9-3Y-LvF"/>
+                                            <constraint firstItem="ejb-9A-Y2a" firstAttribute="centerX" secondItem="asj-mY-oTr" secondAttribute="centerX" id="zbE-z3-9gn"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -107,6 +108,7 @@
                     <tabBarItem key="tabBarItem" title="Item" image="square.and.arrow.up.fill" catalog="system" selectedImage="square.and.arrow.up" id="IVA-rh-6gS"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="imageTasks" destination="xdr-ov-xu2" id="P4R-j8-Wyi"/>
                         <outlet property="mapView" destination="YH8-Tt-ST1" id="ImZ-ig-AZD"/>
                         <outlet property="taskBottomConstraint" destination="C6A-VL-EdC" id="7H3-rg-dzU"/>
                         <outlet property="tasksTitle" destination="c6f-bk-PiS" id="Tly-yJ-lpw"/>
@@ -115,8 +117,38 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="18t-X5-ovE">
+                    <connections>
+                        <segue destination="PyY-jP-yhK" kind="show" identifier="toTasksScreen" id="pBg-id-kwX"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="SIE-uW-dXk">
+                    <connections>
+                        <segue destination="lZo-pZ-g8t" kind="show" id="n1V-Nn-G2O"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="26.635514018691588" y="82.937365010799141"/>
+        </scene>
+        <!--TasksScreen-->
+        <scene sceneID="Rdv-W0-WB9">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TasksScreen" id="PyY-jP-yhK" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="i5Q-za-jyh"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UqG-S4-mDF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-146" y="454"/>
+        </scene>
+        <!--CreationTaskScreen-->
+        <scene sceneID="K3E-XQ-gKn">
+            <objects>
+                <viewControllerPlaceholder storyboardName="CreationTaskScreen" id="lZo-pZ-g8t" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="yXa-Bv-uJV"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Td6-V5-nC5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="393" y="462"/>
         </scene>
     </scenes>
     <resources>

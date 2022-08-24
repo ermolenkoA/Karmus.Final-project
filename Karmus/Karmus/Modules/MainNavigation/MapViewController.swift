@@ -52,6 +52,7 @@ class MapViewController: UIViewController{
     @IBOutlet weak var tasksView: UIView!
     @IBOutlet weak var taskBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var titlePositionConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageTasks: UIImageView!
     
     var state: State = .closed
     var viewOffset: CGFloat = 130
@@ -78,9 +79,18 @@ class MapViewController: UIViewController{
             mapView.addAnnotation(user)
         }
         setupViews()
+        
 //        locationManager.requestAlwaysAuthorization()
      
     }
+
+    
+    @IBAction func didTapImageView(_ sender: UITapGestureRecognizer) {
+
+        performSegue(withIdentifier: References.fromMapToTasksScreen, sender: self)
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
