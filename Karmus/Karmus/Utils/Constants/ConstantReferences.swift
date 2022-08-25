@@ -10,5 +10,5 @@ import Foundation
 public struct References {
     static let fromMainToIdentificationScreen = "toIdentificationScreen"
     static let fromMainToRegistrationScreen = "toRegistrationScreen"
-    static let fromIdentificationToRegistrationScreen = "toRegistrationScreen2"
+    static let fromIdentificationScreenToAccountScreen = "toAccountScreen"
 }

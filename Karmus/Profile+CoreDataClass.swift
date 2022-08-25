@@ -18,6 +18,18 @@ public class ProfileItem{
     var photo: String?
     var secondName: String?
     
+    init(profile: Profile){
+        self.dateOfBirth = profile.dateOfBirth
+        self.firstName = profile.firstName
+        self.login = profile.login
+        self.password = profile.password
+        self.phoneNumber = profile.phoneNumber
+        self.photo = profile.photo
+        self.secondName = profile.secondName
+    }
+    
+    init(){}
+    
 }
 
 @objc(Profile)

@@ -97,8 +97,6 @@ final class SMSManager {
                     print("\n<SMSManager\\isBalanceEnough> DATA DECODE ERROR: check BalanceModel.swift\n")
                     return
                 }
-                print("-------------------------")
-                print(balanceInfo.about)
                 let balance = Double(balanceInfo.result.first?.balance ?? "0.0") ?? 0.0
                 let isBalanceEnough = balance >= 0.12
                 completion(nil, isBalanceEnough)

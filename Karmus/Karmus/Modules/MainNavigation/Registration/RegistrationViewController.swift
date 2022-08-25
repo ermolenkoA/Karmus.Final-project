@@ -47,6 +47,16 @@ final class RegistrationViewController: UIViewController {
     private let redColor = CGColor(red: 255, green: 0, blue: 0, alpha: 1)
     
     private var phoneNumberVerification: PhoneNumberVerification?
+    
+    private var isNetworkConected: Bool {
+
+        guard Reachability.isConnectedToNetwork() else {
+            showAlert("Отсутствует доступ к интернету", "Проверьте подключение и повторите попытку", where: self)
+            return false
+        }
+        return true
+    }
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -88,18 +98,15 @@ final class RegistrationViewController: UIViewController {
     // MARK: - Change Correct TextFields
     
     private func changeCorrectTextFields(registrationElement: RegistrationElements, formFillResult: Result){
-        
         if formFillResult == .correct {
             correctTextFields.insert(registrationElement)
         } else {
             correctTextFields.remove(registrationElement)
         }
-        registrationButton.isUserInteractionEnabled = correctTextFields.count == 6 && agreementSwitch.isOn
-        registrationButton.alpha = registrationButton.isUserInteractionEnabled ? 1 : 0.5
+        registrationButton.alpha = correctTextFields.count == 6 && agreementSwitch.isOn ? 1 : 0.5
+        registrationButton.isUserInteractionEnabled = registrationButton.alpha == 1
     }
-    
-    
-    
+
     // MARK: - IBAction
     
     
@@ -148,17 +155,26 @@ final class RegistrationViewController: UIViewController {
     }
     
     @IBAction private func changedAgreementSwitch(_ sender: UISwitch) {
-        registrationButton.isEnabled = correctTextFields.count == 6 && agreementSwitch.isOn
-        registrationButton.alpha = registrationButton.isEnabled ? 1 : 0.5
+        registrationButton.alpha = correctTextFields.count == 6 && agreementSwitch.isOn ? 1 : 0.5
+        registrationButton.isUserInteractionEnabled = registrationButton.alpha == 1
     }
     
     @IBAction private func didTapRegistrationButton(_ sender: UIButton) {
+        
+        guard isNetworkConected else {
+            showAlert("Отсутствует доступ к интернету", "Проверьте подключение и повторите попытку", where: self)
+            return
+        }
+        
+        if let timeLeft = AntiSpam.verificationBanTime {
+            showAlert("Превышено количество попыток", "Повторите попытку через \(timeLeft)", where: self)
+        }
         
         let profile = ProfileItem()
         profile.firstName = firstNameTextField.text
         profile.secondName = secondNameTextField.text
         profile.login = loginTextField.text
-        if let password = passwordTextField.text?.hashValue {
+        if let password = passwordTextField.text?.hash {
             profile.password = Int64(password)
         }
         profile.phoneNumber = phoneNumberTextField.text
@@ -166,8 +182,8 @@ final class RegistrationViewController: UIViewController {
         clearAllTextFields()
         correctTextFields.removeAll()
         
-        phoneNumberVerification = PhoneNumberVerification()
-        phoneNumberVerification?.startVerification(profile: profile, self)
+        phoneNumberVerification = PhoneNumberVerification(profile: profile, for: .registration, self)
+        phoneNumberVerification?.startVerification()
     
         registrationButton.isUserInteractionEnabled = false
         registrationButton.alpha =  0.5
@@ -272,7 +288,6 @@ extension RegistrationViewController: UITextFieldDelegate {
             return
         }
         
-        
         guard let text = textField.text, !text.isEmpty else {
             return
         }
@@ -297,7 +312,7 @@ extension RegistrationViewController: UITextFieldDelegate {
 
 // MARK: - Tests and usefull functions for textFields
 
-extension RegistrationViewController{
+extension RegistrationViewController {
     
     private func findTextFieldByTag(_ textField: UITextField) -> RegistrationElements? {
         
@@ -388,9 +403,9 @@ extension RegistrationViewController{
 
         switch textField {
         case firstNameTextField:
-            return text ~= "^[A-za-zА-Яа-я]{2,}$"
+            return text ~= "^[A-za-zА-Яа-яЁё]{2,}$"
         case secondNameTextField:
-            return text ~= "^[A-za-zА-Яа-я]{2,}$"
+            return text ~= "^[A-za-zА-Яа-яЁё]{2,}$"
         case loginTextField:
             return text ~= "^[A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}$" && text.count >= 3 && !CoreDataManager.isLoginExist(text)!
         case passwordTextField:
@@ -414,13 +429,13 @@ extension RegistrationViewController{
         case firstNameTextField:
             if text.count < 2 {
                 return "Имя должно содержать от 2 до 20 символов"
-            } else if !(text ~= "^[A-za-zА-Яа-я]{2,}$") {
+            } else if !(text ~= "^[A-za-zА-Яа-яЁё]{2,}$") {
                 return "Имя может содержать только буквы русского и латинского алфавитов"
             }
         case secondNameTextField:
             if text.count < 2 {
                 return "Фамилия должна содержать от 2 до 30 символов"
-            } else if !(text ~= "^[A-za-zА-Яа-я]{2,}$") {
+            } else if !(text ~= "^[A-za-zА-Яа-яЁё]{2,}$") {
                 return "Фамилия может содержать только буквы русского и латинского алфавитов"
             }
         case loginTextField:

@@ -10,5 +10,9 @@ import Foundation
 struct ConstantKeys {
     static let verificationAttemps = "verificationAttemps"
     static let verificationBlockingTime = "verificationBlockingTime"
-    static let verificationSendCodeAttemps = "verificationSendCodeAttemps"
+    static let codeComparisonAttemps = "codeComparisonAttemps"
+    static let verificationLastAttempDate = "verificationLastAttempDate"
+    static let logInAttemps = "logInAttemps"
+    static let logInLastAttempDate = "logInLastAttempDate"
+    static let logInBlockingTime = "logInBlockingTime"
 }

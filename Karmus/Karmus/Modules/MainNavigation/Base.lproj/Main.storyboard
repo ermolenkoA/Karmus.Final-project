@@ -32,11 +32,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Fbh-Pr-QBc">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="OPh-qF-qeC"/>
                         <barButtonItem key="leftBarButtonItem" title="Sign up" id="LOR-yy-m7D">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="o5K-a2-4p0">
-                                <rect key="frame" x="16" y="6" width="60" height="32"/>
+                                <rect key="frame" x="16" y="6" width="92" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="SIGN UP">
+                                <state key="normal" title="Регистрация">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -44,11 +45,11 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Log in" id="zGj-vt-94q">
+                        <barButtonItem key="rightBarButtonItem" title="log in" id="zGj-vt-94q">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ejo-Qi-9nS">
                                 <rect key="frame" x="255" y="6" width="49" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="LOG IN">
+                                <state key="normal" title="Вход">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -74,7 +75,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="alh-eZ-B50" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1626" y="83"/>
+            <point key="canvasLocation" x="1586" y="183"/>
         </scene>
         <!--AccountScreen-->
         <scene sceneID="Kp5-ZB-gKT">
@@ -84,7 +85,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I5Z-k2-wyH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1413" y="609"/>
+            <point key="canvasLocation" x="937" y="594"/>
         </scene>
         <!--IdentificationScreen-->
         <scene sceneID="IaW-I7-Jyl">
@@ -94,7 +95,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XVG-oU-hfl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="494" y="609"/>
+            <point key="canvasLocation" x="1580" y="-8"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kdf-VY-Pv6">

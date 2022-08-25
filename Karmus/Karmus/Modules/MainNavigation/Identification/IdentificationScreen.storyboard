@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Identification View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="Y6W-OH-hqX" customClass="IdentificationViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите логин или номер" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="liK-pt-wkK">
+                                <rect key="frame" x="48" y="201" width="224" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="username"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uax-8W-JfH">
+                                <rect key="frame" x="48" y="245" width="224" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вход" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTw-3C-xWa">
+                                <rect key="frame" x="140.5" y="110" width="39" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ke-2K-8kL">
+                                <rect key="frame" x="115" y="357" width="90" height="34"/>
+                                <color key="backgroundColor" red="0.55735138660000005" green="1" blue="0.87869217730000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Войти">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapSubmitButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="5xJ-gd-Bd8"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Забыли пароль?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnA-Dw-AV5">
+                                <rect key="frame" x="102" y="299" width="116" height="18"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="eWb-8I-8tF" appends="YES" id="C8a-63-iqT"/>
+                                </connections>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <color key="tintColor" name="AccentColor"/>
+                        <constraints>
+                            <constraint firstItem="liK-pt-wkK" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="-22" id="38W-xl-IiU"/>
+                            <constraint firstItem="3ke-2K-8kL" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="AGd-lh-8Va"/>
+                            <constraint firstItem="liK-pt-wkK" firstAttribute="top" secondItem="qTw-3C-xWa" secondAttribute="bottom" constant="70" id="Ohb-ee-V5P"/>
+                            <constraint firstItem="qTw-3C-xWa" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="PhP-9M-Ru6"/>
+                            <constraint firstItem="Uax-8W-JfH" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.7" id="PvA-zy-lfb"/>
+                            <constraint firstItem="3ke-2K-8kL" firstAttribute="top" secondItem="xnA-Dw-AV5" secondAttribute="bottom" constant="40" id="Rb6-6v-ytW"/>
+                            <constraint firstItem="qTw-3C-xWa" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="UxH-eM-XNc"/>
+                            <constraint firstItem="xnA-Dw-AV5" firstAttribute="top" secondItem="Uax-8W-JfH" secondAttribute="bottom" constant="20" id="ZD8-NK-IFZ"/>
+                            <constraint firstItem="xnA-Dw-AV5" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="gOy-Iq-cBJ"/>
+                            <constraint firstItem="Uax-8W-JfH" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="lS8-hj-aFJ"/>
+                            <constraint firstItem="3ke-2K-8kL" firstAttribute="width" secondItem="Uax-8W-JfH" secondAttribute="width" multiplier="0.4" id="mrf-WW-kd0"/>
+                            <constraint firstItem="liK-pt-wkK" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="oCc-Rt-HXu"/>
+                            <constraint firstItem="3ke-2K-8kL" firstAttribute="height" secondItem="Uax-8W-JfH" secondAttribute="height" id="pOU-ck-hm2"/>
+                            <constraint firstItem="liK-pt-wkK" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.7" id="w7G-PZ-A4c"/>
+                            <constraint firstItem="Uax-8W-JfH" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="22" id="xgq-MQ-AbQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="forgotPasswordLabel" destination="xnA-Dw-AV5" id="S9E-vp-bJP"/>
+                        <outlet property="loginTextField" destination="liK-pt-wkK" id="5I9-IA-Ivo"/>
+                        <outlet property="passwordTextField" destination="Uax-8W-JfH" id="arv-LS-r3f"/>
+                        <outlet property="submitButton" destination="3ke-2K-8kL" id="R73-GQ-2V2"/>
+                        <outlet property="titleLabel" destination="qTw-3C-xWa" id="oZ5-Gp-7hf"/>
+                        <segue destination="BOa-1R-7dh" kind="show" identifier="toAccountScreen" id="gWs-Kr-evT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="eWb-8I-8tF">
+                    <connections>
+                        <action selector="didTapForgotPasswordLabel:" destination="Y6W-OH-hqX" id="d5h-Oe-Lk5"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-28" y="97"/>
+        </scene>
+        <!--AccountScreen-->
+        <scene sceneID="gke-yn-Bjo">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AccountScreen" id="BOa-1R-7dh" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="6bb-7W-fkP"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Edh-5p-tM8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="646" y="96"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

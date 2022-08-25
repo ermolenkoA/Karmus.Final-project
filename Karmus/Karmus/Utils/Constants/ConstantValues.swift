@@ -9,6 +9,8 @@ import Foundation
 
 struct ConstantValues {
     static let maxVerificationAttemps = UInt(3)
-    static let maxVerificationSendCodeAttemps = UInt(5)
+    static let maxCodeComparisonAttemps = UInt(5)
+    static let maxLogInAttemps = UInt(15)
     static let defaultTimeBan = UInt(1)
+    static let defaultTimeBetweenCodeSending = UInt(1)
 }
