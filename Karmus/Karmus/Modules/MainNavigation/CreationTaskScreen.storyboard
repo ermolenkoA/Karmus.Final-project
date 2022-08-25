@@ -37,7 +37,7 @@
                                 </connections>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AFX-Lc-sdb">
-                                <rect key="frame" x="172" y="64" width="32" height="34"/>
+                                <rect key="frame" x="172" y="64" width="98" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -46,22 +46,64 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jky-4q-484">
+                                <rect key="frame" x="16" y="237" width="288" height="128"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xN8-4D-djP">
+                                <rect key="frame" x="16" y="387" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Gy-sy-Hds">
+                                <rect key="frame" x="16" y="425" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOl-oO-qxs">
+                                <rect key="frame" x="16" y="517" width="67" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <connections>
+                                    <action selector="action:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="GOY-1a-RD6"/>
+                                    <action selector="addTask:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="PHq-2N-ke4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Jky-4q-484" firstAttribute="top" secondItem="Hh6-Q8-vrW" secondAttribute="bottom" constant="56" id="006-fV-8ls"/>
                             <constraint firstItem="axo-mc-efK" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="3dE-jo-03h"/>
                             <constraint firstItem="Hh6-Q8-vrW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="6gn-Qs-2Nw"/>
+                            <constraint firstItem="6Gy-sy-Hds" firstAttribute="top" secondItem="xN8-4D-djP" secondAttribute="bottom" constant="17" id="Am4-6p-KRc"/>
                             <constraint firstItem="AFX-Lc-sdb" firstAttribute="top" secondItem="axo-mc-efK" secondAttribute="bottom" constant="10" id="C1d-WV-FQ0"/>
+                            <constraint firstItem="uOl-oO-qxs" firstAttribute="top" secondItem="6Gy-sy-Hds" secondAttribute="bottom" constant="71" id="CXn-cq-c8y"/>
+                            <constraint firstItem="uOl-oO-qxs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="E2Y-rF-Ctk"/>
+                            <constraint firstItem="6Gy-sy-Hds" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="JbP-x9-il3"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="axo-mc-efK" secondAttribute="trailing" constant="51" id="M6V-D7-0Ol"/>
+                            <constraint firstItem="xN8-4D-djP" firstAttribute="top" secondItem="Jky-4q-484" secondAttribute="bottom" constant="22" id="RDg-ib-oO4"/>
+                            <constraint firstItem="xN8-4D-djP" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="RKb-i3-TLU"/>
+                            <constraint firstItem="uOl-oO-qxs" firstAttribute="top" secondItem="6Gy-sy-Hds" secondAttribute="bottom" constant="71" id="RVc-7L-6K2"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Jky-4q-484" secondAttribute="bottom" constant="203" id="Sda-Jo-9Jw"/>
                             <constraint firstItem="Hh6-Q8-vrW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="33" id="Ub8-H4-pWd"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="AFX-Lc-sdb" secondAttribute="trailing" constant="50" id="WP5-qq-jAe"/>
                             <constraint firstItem="AFX-Lc-sdb" firstAttribute="leading" secondItem="Hh6-Q8-vrW" secondAttribute="trailing" constant="24" id="YJn-Ft-Pud"/>
                             <constraint firstItem="axo-mc-efK" firstAttribute="leading" secondItem="Hh6-Q8-vrW" secondAttribute="trailing" constant="24" id="gSY-kO-BVD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="uOl-oO-qxs" secondAttribute="bottom" constant="20" id="orw-ah-aQC"/>
+                            <constraint firstItem="6Gy-sy-Hds" firstAttribute="top" secondItem="xN8-4D-djP" secondAttribute="bottom" constant="17" id="qMb-Va-mHD"/>
                             <constraint firstItem="AFX-Lc-sdb" firstAttribute="top" secondItem="axo-mc-efK" secondAttribute="bottom" constant="10" id="t6g-9U-aPG"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Jky-4q-484" secondAttribute="trailing" constant="16" id="yj9-Zv-bKM"/>
+                            <constraint firstItem="Jky-4q-484" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="zFh-X2-U9h"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="dateField" destination="axo-mc-efK" id="l0X-e1-7As"/>
+                        <outlet property="label1" destination="xN8-4D-djP" id="y8i-xl-7XD"/>
+                        <outlet property="label2" destination="6Gy-sy-Hds" id="rr9-zX-OYt"/>
+                        <outlet property="picture" destination="Jky-4q-484" id="5QX-CA-fjq"/>
+                        <outlet property="taskDeclorationField" destination="AFX-Lc-sdb" id="LqL-gP-Fnu"/>
                         <outlet property="taskImage" destination="Hh6-Q8-vrW" id="ji7-g6-jjI"/>
                     </connections>
                 </viewController>

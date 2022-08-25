@@ -23,6 +23,9 @@
 		534700E028B6135300F23539 /* ModelTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DF28B6135300F23539 /* ModelTasks.swift */; };
 		534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700E128B621A700F23539 /* CreationTaskViewController.swift */; };
 		534700E428B621D900F23539 /* CreationTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 534700E328B621D900F23539 /* CreationTaskScreen.storyboard */; };
+		534700ED28B679CC00F23539 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700EC28B679CC00F23539 /* APIManager.swift */; };
+		534700EF28B67C3A00F23539 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700EE28B67C3A00F23539 /* Document.swift */; };
+		534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 534700F028B69D0F00F23539 /* GoogleService-Info.plist */; };
 		53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
 		53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */; };
 		53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */; };
@@ -67,6 +70,9 @@
 		534700DF28B6135300F23539 /* ModelTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTasks.swift; sourceTree = "<group>"; };
 		534700E128B621A700F23539 /* CreationTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTaskViewController.swift; sourceTree = "<group>"; };
 		534700E328B621D900F23539 /* CreationTaskScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreationTaskScreen.storyboard; sourceTree = "<group>"; };
+		534700EC28B679CC00F23539 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		534700EE28B67C3A00F23539 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		534700F028B69D0F00F23539 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountScreen.storyboard; sourceTree = "<group>"; };
 		53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksScreen.storyboard; sourceTree = "<group>"; };
 		53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 				CE70E85B28ACDC6E001F508B /* Resources */,
 				CE6EBC0A28ACEE080095F9BA /* Utils */,
 				5316D73628AC0FC2004C8A90 /* Info.plist */,
+				534700F028B69D0F00F23539 /* GoogleService-Info.plist */,
 			);
 			path = Karmus;
 			sourceTree = "<group>";
@@ -227,6 +234,8 @@
 			children = (
 				5316D72528AC0FBE004C8A90 /* AppDelegate.swift */,
 				5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */,
+				534700EC28B679CC00F23539 /* APIManager.swift */,
+				534700EE28B67C3A00F23539 /* Document.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -302,6 +311,8 @@
 				5316D71E28AC0FBE004C8A90 /* Sources */,
 				5316D71F28AC0FBE004C8A90 /* Frameworks */,
 				5316D72028AC0FBE004C8A90 /* Resources */,
+				92CF82810FD780F2192D4FE7 /* [CP] Embed Pods Frameworks */,
+				38BF16199E522A0D3FD57BBE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -357,6 +368,7 @@
 				5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */,
 				5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */,
 				534700E428B621D900F23539 /* CreationTaskScreen.storyboard in Resources */,
+				534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */,
 				53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */,
 				5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */,
 			);
@@ -365,6 +377,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		38BF16199E522A0D3FD57BBE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		92CF82810FD780F2192D4FE7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E7C4439A6B1703B30B2649AE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -406,6 +452,7 @@
 				CE29863328B3E12C00B4AE9D /* ResultModel.swift in Sources */,
 				53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */,
 				CE15417C28B266E0007731FA /* PopViewController.swift in Sources */,
+				534700ED28B679CC00F23539 /* APIManager.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */,
 				5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */,
@@ -415,8 +462,8 @@
 				CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
 				534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */,
-				5316D73028AC0FBE004C8A90 /* Karmus.xcdatamodeld in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
+				534700EF28B67C3A00F23539 /* Document.swift in Sources */,
 				534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */,
 				CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */,
 				CE29861A28B3B1DC00B4AE9D /* RegistrationScrollView.swift in Sources */,
@@ -424,7 +471,6 @@
 				CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */,
 				CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */,
 				CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */,
-				53BC394228AD3E9F00867BC9 /* TasksViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +630,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -618,7 +664,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
