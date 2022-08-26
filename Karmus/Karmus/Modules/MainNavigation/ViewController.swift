@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+  
     }
 
     @IBAction private func didTapToIdentification(_ sender: UIButton) {

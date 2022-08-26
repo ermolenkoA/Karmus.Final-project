@@ -95,6 +95,22 @@ final class RegistrationViewController: UIViewController {
         
     }
     
+    private func showPopOver(_ sender: UIButton, descriptionText: String){
+        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "popVC") else {
+            print("\n<didTapCheckButton> ERROR: ViewController withIdentifier \"popVC\" isn't exist\n")
+            return
+        }
+        
+        popVC.modalPresentationStyle = .popover
+        let popOverVC = popVC.popoverPresentationController
+        popOverVC?.delegate = self
+        popOverVC?.sourceView = sender
+        popOverVC?.sourceRect = CGRect(x: sender.bounds.minX, y: sender.bounds.midY, width: 0, height: 0)
+        popVC.preferredContentSize = CGSize(width: 270, height: 90)
+        (popVC as! GetDescriptionProtocol).getDescription(descriptionText)
+        self.present(popVC, animated: true)
+    }
+    
     // MARK: - Change Correct TextFields
     
     private func changeCorrectTextFields(registrationElement: RegistrationElements, formFillResult: Result){
@@ -135,22 +151,20 @@ final class RegistrationViewController: UIViewController {
             print("\n<didTapCheckButton> ERROR: textFieldByButton isn't exist\n")
             return
         }
-    
-        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "popVC") else {
-            print("\n<didTapCheckButton> ERROR: ViewController withIdentifier \"popVC\" isn't exist\n")
-            return
+        
+        let errorText = getErrorText(textField: textFieldByButton!)
+        
+        if textFieldByButton?.layer.borderColor == redColor && errorText == nil {
+            if sender == loginCheckButton {
+                showPopOver(sender, descriptionText: "Логин уже используется")
+            } else{
+                showPopOver(sender, descriptionText: "Номер уже используется")
+            }
+        } else {
+            showPopOver(sender, descriptionText: errorText ?? "Текст введен корректно")
         }
         
-        popVC.modalPresentationStyle = .popover
-        let popOverVC = popVC.popoverPresentationController
-        popOverVC?.delegate = self
-        popOverVC?.sourceView = sender
-        popOverVC?.sourceRect = CGRect(x: sender.bounds.minX, y: sender.bounds.midY, width: 0, height: 0)
-        popVC.preferredContentSize = CGSize(width: 270, height: 90)
         
-        (popVC as! GetDescriptionProtocol).getDescription(getErrorText(textField: textFieldByButton!) ?? "Текст введен корректно")
-    
-        self.present(popVC, animated: true)
         
     }
     
@@ -170,14 +184,15 @@ final class RegistrationViewController: UIViewController {
             showAlert("Превышено количество попыток", "Повторите попытку через \(timeLeft)", where: self)
         }
         
-        let profile = ProfileItem()
-        profile.firstName = firstNameTextField.text
-        profile.secondName = secondNameTextField.text
-        profile.login = loginTextField.text
-        if let password = passwordTextField.text?.hash {
-            profile.password = Int64(password)
-        }
-        profile.phoneNumber = phoneNumberTextField.text
+        let profile = ProfileModel.init(dateOfBirth: ProfileModelConstants.defaultDate,
+                                        firstName: firstNameTextField.text!,
+                                        login: loginTextField.text!,
+                                        password: Int64(passwordTextField.text!.hash ),
+                                        phoneNumber: phoneNumberTextField.text!,
+                                        photo: ProfileModelConstants.defaultPhoto,
+                                        secondName: secondNameTextField.text!
+        )
+
         
         clearAllTextFields()
         correctTextFields.removeAll()
@@ -186,7 +201,7 @@ final class RegistrationViewController: UIViewController {
         phoneNumberVerification?.startVerification()
     
         registrationButton.isUserInteractionEnabled = false
-        registrationButton.alpha =  0.5
+        registrationButton.alpha = 0.5
         
     }
     
@@ -234,6 +249,7 @@ extension RegistrationViewController: UITextFieldDelegate {
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
         guard let registrationElement = findTextFieldByTag(textField) else {
             print("\n<textFieldDidBeginEditing> ERROR: textField doesn't apple to registration elements\n")
             return
@@ -291,21 +307,55 @@ extension RegistrationViewController: UITextFieldDelegate {
         guard let text = textField.text, !text.isEmpty else {
             return
         }
+        
         guard text != "+375" || registrationElement != .phoneNumber else {
             textField.text = nil
             return
         }
         
         
-        textField.layer.borderColor = isTextInTextFieldCorrect(textField: textField) ? greenColor : redColor
         
-        let result: Result = textField.layer.borderColor == greenColor ? .correct : .incorrect
+        let result = isTextInTextFieldCorrect(textField: textField)
         
-        changeButtonIcon(for: textField, icon: result)
-        changeCorrectTextFields(registrationElement: registrationElement, formFillResult: result)
-        
-        textField.layer.borderWidth = 1
-        showOrHideButton(for: textField, action: .show)
+        if result && (registrationElement == .login || registrationElement == .phoneNumber) {
+            
+            guard isNetworkConected else { return }
+            
+            let mode = registrationElement == .login ? FireBaseRequestMode.findLogin : FireBaseRequestMode.findPhone
+            
+            FireBaseDataBaseManager.findLoginOrPhone(text, mode: mode) { [unowned self] result in
+                    
+                    guard result != .error else{
+                        showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
+                        return
+                    }
+                
+                    guard result != .error else{
+                        showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
+                        return
+                    }
+                
+                
+                    textField.layer.borderColor = result == .notFound ? greenColor : redColor
+                    changeButtonIcon(for: textField, icon: result == .notFound ? .correct : .incorrect)
+                    changeCorrectTextFields(registrationElement: registrationElement, formFillResult: result == .notFound ? .correct : .incorrect)
+
+                    textField.layer.borderWidth = 1
+                    showOrHideButton(for: textField, action: .show)
+                
+            }
+            
+        } else {
+            
+            textField.layer.borderColor = result ? greenColor : redColor
+            changeButtonIcon(for: textField, icon: result ? .correct : .incorrect)
+            changeCorrectTextFields(registrationElement: registrationElement, formFillResult: result ? .correct : .incorrect)
+            
+            textField.layer.borderWidth = 1
+            showOrHideButton(for: textField, action: .show)
+            
+        }
+      
     }
     
 }
@@ -407,14 +457,14 @@ extension RegistrationViewController {
         case secondNameTextField:
             return text ~= "^[A-za-zА-Яа-яЁё]{2,}$"
         case loginTextField:
-            return text ~= "^[A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}$" && text.count >= 3 && !CoreDataManager.isLoginExist(text)!
+            return text ~= "^[A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}$" && text.count >= 3
         case passwordTextField:
             return text ~= "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d!@#$%^&*]{8,}$"
         case repeatPasswordTextField:
             guard passwordTextField.layer.borderColor == greenColor else { return false }
             return text == passwordTextField.text
         case phoneNumberTextField:
-            return text ~= "^(\\+375)(29|25|33|44)([\\d]{7})$" && !CoreDataManager.isPhoneNumberExist(text)!
+            return text ~= "^(\\+375)(29|25|33|44)([\\d]{7})$"
         default:
             return 2 + 2 == 4
         }
@@ -449,8 +499,6 @@ extension RegistrationViewController {
                 return "Логин не может заканчиваться на (\"_\", \"-\", \".\")"
             } else if !(text ~= "^([-_\\.]?[A-Za-z0-9]+){0,2}$") {
                 return "Логин не может содержать более двух знаков (\"_\", \"-\", \".\") и не под ряд"
-            } else if CoreDataManager.isLoginExist(text)! {
-                return "Логин уже используется"
             }
         case passwordTextField:
             if text.count < 8 {
@@ -473,8 +521,6 @@ extension RegistrationViewController {
         case phoneNumberTextField:
             if !(text ~= "^(\\+375)(29|25|33|44)([\\d]{7})$") {
                 return "Номер телефона не существует (только номера РБ)"
-            } else if CoreDataManager.isPhoneNumberExist(text)! {
-                return "Пользователь с таким номером телефона уже зарегистрирован"
             }
         default:
             return nil

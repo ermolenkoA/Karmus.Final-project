@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 final class IdentificationViewController: UIViewController {
 
@@ -110,6 +111,7 @@ final class IdentificationViewController: UIViewController {
         }
         
         let okButton = UIAlertAction(title: "Потвердить", style: .default){ [unowned self] _ in
+            guard self.isNetworkConected else { return }
             guard let phone = alert.textFields?.first?.text, !phone.isEmpty else{
                 self.present(alert, animated: true)
                 return
@@ -130,35 +132,65 @@ final class IdentificationViewController: UIViewController {
                 return
             }
             
-            guard let result = CoreDataManager.isPhoneNumberExist(phone), result else{
-                let title = "Пользователь с такми номером не найден"
-                let newAlert = UIAlertController.init(title: title, message: nil, preferredStyle: .alert)
-                let closeButton = UIAlertAction(title: "Закрыть", style: .cancel)
-                let retryButton = UIAlertAction(title: "Ещё раз", style: .default) { [unowned self] _ in
-                    self.present(alert, animated: true)
+            Database.database().reference().child(FireBaseDefaultKeys.profiles).observeSingleEvent(of: .value) { [unowned self] snapshot in
+                
+                guard snapshot.exists() else{
+                    print("\n<IdentificationViewController\\didTapForgotPasswordLabel> ERROR: snapshot isn't exist\n")
+                    showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
+                    return
+                    
                 }
-                newAlert.addAction(retryButton)
-                newAlert.addAction(closeButton)
-                newAlert.view.tintColor = UIColor.black
-                self.present(newAlert, animated: true)
-                return
-            }
+                
+                guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
+                    print("\n<IdentificationViewController\\didTapForgotPasswordLabel> ERROR: profiles isn't exist\n")
+                    showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
+                    return
+                }
             
-            guard let profiles = try? CoreDataManager.context.fetch(Profile.fetchRequest()) as? [Profile] else{
-                print("\n \(self.description) ERROR: error while fetch request\n)")
-                showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
-                return
-            }
-            let profile = ProfileItem(profile: profiles.first(where: {$0.phoneNumber == phone})!)
+                for profile in profiles {
+                    
+                    guard let profileElements = profile.value as? [String : AnyObject] else {
+                        print("\n<IdentificationViewController\\didTapForgotPasswordLabel> ERROR: profiles contains unvalid profile\n")
+                        showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
+                        return
+                    }
+                    
+                    
+                    if profileElements[FireBaseProfileKeys.phoneNumber] as? String == phone {
+                        guard let profile = FireBaseDataBaseManager.parseDataToProfileModel(profile) else {
+                            showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
+                            return
+                        }
+                        
+                        self.phoneNumberVerification = PhoneNumberVerification(profile: profile,
+                                                                          for: .resetPassword, self)
+                        self.phoneNumberVerification?.startVerification()
+                        return
+                    }
+                
+                    let title = "Пользователь с такми номером не найден"
+                    let newAlert = UIAlertController.init(title: title, message: nil, preferredStyle: .alert)
+                    let closeButton = UIAlertAction(title: "Закрыть", style: .cancel)
+                    let retryButton = UIAlertAction(title: "Ещё раз", style: .default) { [unowned self] _ in
+                        self.present(alert, animated: true)
+                    }
+                    newAlert.addAction(retryButton)
+                    newAlert.addAction(closeButton)
+                    newAlert.view.tintColor = UIColor.black
+                    self.present(newAlert, animated: true)
+        
+                }
             
-            phoneNumberVerification = PhoneNumberVerification(profile: profile, for: .resetPassword, self)
-            phoneNumberVerification?.startVerification()
+            }
+        
         }
+        
         let closeButton = UIAlertAction(title: "Закрыть", style: .cancel)
         alert.addAction(closeButton)
         alert.addAction(okButton)
         alert.view.tintColor = UIColor.black
         self.present(alert, animated: true)
+        
     }
     
     @IBAction private func didTapSubmitButton(_ sender: UIButton) {
@@ -173,28 +205,40 @@ final class IdentificationViewController: UIViewController {
         AntiSpam.saveNewLoginAttemp()
         
         let login = loginTextField.text!
-        let password = passwordTextField.text!
         
         if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$"){
             if !(login ~= "^(\\+375)(29|25|33|44)([\\d]{7})$") {
-                passwordTextField.text = nil
                 showAlert("Неверно введен логин или пароль", nil, where: self)
                 return
             }
         }
-        
+        let password = passwordTextField.text!
+        passwordTextField.text = nil
         guard password ~= "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d!@#$%^&*]{8,}$" else {
-            passwordTextField.text = nil
             showAlert("Неверно введен логин или пароль", nil, where: self)
             return
         }
         
-        guard CoreDataManager.tryToOpenProfile(login: login, password: Int64(password.hash), self) else {
-            passwordTextField.text = nil
-            return
-        }
         
-        performSegue(withIdentifier: References.fromIdentificationScreenToAccountScreen, sender: self)
+        
+        FireBaseDataBaseManager.openProfile(login: login, password: Int64(password.hash)) { [unowned self] result in
+                
+            guard result != .error else{
+                showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
+                return
+            }
+            
+            if result == .failure {
+                showAlert("Неверно введен логин или пароль", nil, where: self)
+            } else {
+                self.loginTextField.text = nil
+                AntiSpam.resetUserLogInAttemps()
+                performSegue(withIdentifier: References.fromIdentificationScreenToAccountScreen, sender: self)
+            }
+                
+            
+        }
+
     }
     
 }
@@ -210,7 +254,6 @@ extension IdentificationViewController: UISearchTextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = CGColor(gray: 255, alpha: 1)
         textField.layer.borderWidth = 0
-        
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {

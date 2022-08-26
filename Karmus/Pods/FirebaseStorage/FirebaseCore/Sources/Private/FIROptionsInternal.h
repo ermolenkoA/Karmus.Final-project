@@ -38,12 +38,12 @@ extern NSString *const kServiceInfoFileName;
 extern NSString *const kServiceInfoFileType;
 
 /**
- * This header file exposes the initialization of FIROptions to internal use.
+ * This header file exposes the initialization of FirebaseOptions to internal use.
  */
 @interface FIROptions ()
 
 /**
- * resetDefaultOptions and initInternalWithOptionsDictionary: are exposed only for unit tests.
+ * `resetDefaultOptions` and `initInternalWithOptionsDictionary` are exposed only for unit tests.
  */
 + (void)resetDefaultOptions;
 
@@ -51,11 +51,12 @@ extern NSString *const kServiceInfoFileType;
  * Initializes the options with dictionary. The above strings are the keys of the dictionary.
  * This is the designated initializer.
  */
-- (instancetype)initInternalWithOptionsDictionary:(NSDictionary *)serviceInfoDictionary;
+- (instancetype)initInternalWithOptionsDictionary:(NSDictionary *)serviceInfoDictionary
+    NS_DESIGNATED_INITIALIZER;
 
 /**
- * defaultOptions and defaultOptionsDictionary are exposed in order to be used in FIRApp and
- * other first party services.
+ * `defaultOptions` and `defaultOptionsDictionary` are exposed in order to be used in FirebaseApp
+ * and other first party services.
  */
 + (FIROptions *)defaultOptions;
 
@@ -74,8 +75,8 @@ extern NSString *const kServiceInfoFileType;
 @property(nonatomic, readonly) BOOL isAnalyticsCollectionEnabled;
 
 /**
- * Whether or not Analytics Collection was completely disabled. If YES, then
- * isAnalyticsCollectionEnabled will be NO.
+ * Whether or not Analytics Collection was completely disabled. If true, then
+ * isAnalyticsCollectionEnabled will be false.
  */
 @property(nonatomic, readonly) BOOL isAnalyticsCollectionDeactivated;
 
@@ -107,7 +108,8 @@ extern NSString *const kServiceInfoFileType;
 @property(nonatomic, readonly) BOOL isSignInEnabled;
 
 /**
- * Whether or not editing is locked. This should occur after FIROptions has been set on a FIRApp.
+ * Whether or not editing is locked. This should occur after `FirebaseOptions` has been set on a
+ * `FirebaseApp`.
  */
 @property(nonatomic, getter=isEditingLocked) BOOL editingLocked;
 

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		33D98A39A2FEA1BA5339D85C /* Pods_Karmus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7EFF78F860544CE3B49A1F /* Pods_Karmus.framework */; };
+		3C28D9E4DE4ADE31600CC8EA /* Pods_Karmus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD27E8E3B174D51BF0DB1374 /* Pods_Karmus.framework */; };
 		5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72528AC0FBE004C8A90 /* AppDelegate.swift */; };
 		5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */; };
 		5316D72A28AC0FBE004C8A90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72928AC0FBE004C8A90 /* ViewController.swift */; };
@@ -33,13 +33,11 @@
 		53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394528AD43FE00867BC9 /* MapViewController.swift */; };
 		CE15417C28B266E0007731FA /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15417B28B266E0007731FA /* PopViewController.swift */; };
 		CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15418928B29A71007731FA /* RegistrationEnumeration.swift */; };
-		CE15419628B2AC16007731FA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15419528B2AC16007731FA /* CoreDataManager.swift */; };
 		CE26DC8228B414CD0022F401 /* PhoneNumberVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */; };
 		CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26DC8428B4393F0022F401 /* ConstantValues.swift */; };
 		CE26DC8928B4A4BA0022F401 /* SMSManagerResultEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26DC8828B4A4BA0022F401 /* SMSManagerResultEnum.swift */; };
 		CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE2985F128B3759700B4AE9D /* KarmusDataBase.xcdatamodeld */; };
 		CE29860F28B37C8B00B4AE9D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29860E28B37C8B00B4AE9D /* StringExtension.swift */; };
-		CE29861528B3977B00B4AE9D /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29861328B3977B00B4AE9D /* Profile+CoreDataClass.swift */; };
 		CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29861E28B3C55B00B4AE9D /* SMSManager.swift */; };
 		CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29862228B3C6A700B4AE9D /* SMSAPIConstants.swift */; };
 		CE29863028B3E0E200B4AE9D /* BalanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29862F28B3E0E200B4AE9D /* BalanceModel.swift */; };
@@ -47,16 +45,19 @@
 		CE29863A28B3F55300B4AE9D /* CodeGenerate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863928B3F55300B4AE9D /* CodeGenerate.swift */; };
 		CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863D28B400B800B4AE9D /* ConstantKeys.swift */; };
 		CE29864128B4054B00B4AE9D /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29864028B4054B00B4AE9D /* DateExtention.swift */; };
+		CE3A8A6728B8204600BCE54A /* FireBaseProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */; };
+		CE3A8A6A28B8226900BCE54A /* FireBaseKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A6928B8226900BCE54A /* FireBaseKeys.swift */; };
+		CE3A8A6F28B8389800BCE54A /* FireBaseEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A6E28B8389800BCE54A /* FireBaseEnumerations.swift */; };
+		CE3A8A7628B8473600BCE54A /* ProfileModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A7528B8473600BCE54A /* ProfileModelConstants.swift */; };
 		CE50DF0F28B78FD100D90D4A /* AntiSpam.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50DF0E28B78FD100D90D4A /* AntiSpam.swift */; };
 		CE50DF1228B7B20800D90D4A /* DefaultAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50DF1128B7B20800D90D4A /* DefaultAlert.swift */; };
-		CE50DF1528B7BF6D00D90D4A /* CoreDataEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50DF1428B7BF6D00D90D4A /* CoreDataEnumeration.swift */; };
+		CE50DF6E28B7FC3000D90D4A /* FireBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50DF6D28B7FC3000D90D4A /* FireBaseManager.swift */; };
 		CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE8C1C28ACFF1F00957E21 /* ConstantReferences.swift */; };
 		CEE6717528B61BB600CC8853 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE6717428B61BB600CC8853 /* Reachability.swift */; };
 		CEE6717F28B621C100CC8853 /* PhoneVerificationEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE6717E28B621C100CC8853 /* PhoneVerificationEnumerations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A7EFF78F860544CE3B49A1F /* Pods_Karmus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Karmus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5316D72228AC0FBE004C8A90 /* Karmus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Karmus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5316D72528AC0FBE004C8A90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,17 +83,16 @@
 		53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		53BC394328AD43E300867BC9 /* MapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapScreen.storyboard; sourceTree = "<group>"; };
 		53BC394528AD43FE00867BC9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		65689B1432EC0F43A94F86A6 /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
-		7A84BE45A66E17000DD2652D /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
+		6F7CA91BB1F5E012FE3B4C55 /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
+		A3C87F71F97D2C396C5D9EF8 /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
+		BD27E8E3B174D51BF0DB1374 /* Pods_Karmus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Karmus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE15417B28B266E0007731FA /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
 		CE15418928B29A71007731FA /* RegistrationEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEnumeration.swift; sourceTree = "<group>"; };
-		CE15419528B2AC16007731FA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberVerification.swift; sourceTree = "<group>"; };
 		CE26DC8428B4393F0022F401 /* ConstantValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantValues.swift; sourceTree = "<group>"; };
 		CE26DC8828B4A4BA0022F401 /* SMSManagerResultEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSManagerResultEnum.swift; sourceTree = "<group>"; };
 		CE2985F228B3759700B4AE9D /* Karmus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Karmus.xcdatamodel; sourceTree = "<group>"; };
 		CE29860E28B37C8B00B4AE9D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		CE29861328B3977B00B4AE9D /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		CE29861E28B3C55B00B4AE9D /* SMSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSManager.swift; sourceTree = "<group>"; };
 		CE29862228B3C6A700B4AE9D /* SMSAPIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSAPIConstants.swift; sourceTree = "<group>"; };
 		CE29862F28B3E0E200B4AE9D /* BalanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceModel.swift; sourceTree = "<group>"; };
@@ -100,9 +100,13 @@
 		CE29863928B3F55300B4AE9D /* CodeGenerate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeGenerate.swift; sourceTree = "<group>"; };
 		CE29863D28B400B800B4AE9D /* ConstantKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantKeys.swift; sourceTree = "<group>"; };
 		CE29864028B4054B00B4AE9D /* DateExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
+		CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseProfileModel.swift; sourceTree = "<group>"; };
+		CE3A8A6928B8226900BCE54A /* FireBaseKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseKeys.swift; sourceTree = "<group>"; };
+		CE3A8A6E28B8389800BCE54A /* FireBaseEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseEnumerations.swift; sourceTree = "<group>"; };
+		CE3A8A7528B8473600BCE54A /* ProfileModelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModelConstants.swift; sourceTree = "<group>"; };
 		CE50DF0E28B78FD100D90D4A /* AntiSpam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiSpam.swift; sourceTree = "<group>"; };
 		CE50DF1128B7B20800D90D4A /* DefaultAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAlert.swift; sourceTree = "<group>"; };
-		CE50DF1428B7BF6D00D90D4A /* CoreDataEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEnumeration.swift; sourceTree = "<group>"; };
+		CE50DF6D28B7FC3000D90D4A /* FireBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FireBaseManager.swift; path = "../New Group/FireBaseManager.swift"; sourceTree = "<group>"; };
 		CEDE8C1C28ACFF1F00957E21 /* ConstantReferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantReferences.swift; sourceTree = "<group>"; };
 		CEE6717428B61BB600CC8853 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		CEE6717E28B621C100CC8853 /* PhoneVerificationEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationEnumerations.swift; sourceTree = "<group>"; };
@@ -113,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33D98A39A2FEA1BA5339D85C /* Pods_Karmus.framework in Frameworks */,
+				3C28D9E4DE4ADE31600CC8EA /* Pods_Karmus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +130,7 @@
 				5316D72428AC0FBE004C8A90 /* Karmus */,
 				5316D72328AC0FBE004C8A90 /* Products */,
 				EFE8003D3A212837F1ABA9F0 /* Pods */,
-				775E36DE5D4C0BC92461D96D /* Frameworks */,
+				EC971EC7A2D10BB56F0B81B9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,22 +157,6 @@
 			path = Karmus;
 			sourceTree = "<group>";
 		};
-		775E36DE5D4C0BC92461D96D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1A7EFF78F860544CE3B49A1F /* Pods_Karmus.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CE15417328B24040007731FA /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				CE29861328B3977B00B4AE9D /* Profile+CoreDataClass.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		CE15417A28B26693007731FA /* Registration */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +179,9 @@
 		CE29861C28B3C52800B4AE9D /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				CE3A8A6328B81F6600BCE54A /* FireBase */,
+				534700EC28B679CC00F23539 /* APIManager.swift */,
+				534700EE28B67C3A00F23539 /* Document.swift */,
 				CE29861D28B3C53700B4AE9D /* SMS_API */,
 				CEE6717428B61BB600CC8853 /* Reachability.swift */,
 			);
@@ -217,6 +208,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		CE3A8A6328B81F6600BCE54A /* FireBase */ = {
+			isa = PBXGroup;
+			children = (
+				CE3A8A6528B8202B00BCE54A /* Models */,
+				CE50DF6D28B7FC3000D90D4A /* FireBaseManager.swift */,
+				CE3A8A6928B8226900BCE54A /* FireBaseKeys.swift */,
+			);
+			path = FireBase;
+			sourceTree = "<group>";
+		};
+		CE3A8A6528B8202B00BCE54A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CE6EBC0A28ACEE080095F9BA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,8 +243,6 @@
 		CE70E85528ACDBD6001F508B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				CE15417328B24040007731FA /* Models */,
-				CE15419528B2AC16007731FA /* CoreDataManager.swift */,
 				CE2985F128B3759700B4AE9D /* KarmusDataBase.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -246,8 +253,6 @@
 			children = (
 				5316D72528AC0FBE004C8A90 /* AppDelegate.swift */,
 				5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */,
-				534700EC28B679CC00F23539 /* APIManager.swift */,
-				534700EE28B67C3A00F23539 /* Document.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 				CEDE8C1C28ACFF1F00957E21 /* ConstantReferences.swift */,
 				CE29863D28B400B800B4AE9D /* ConstantKeys.swift */,
 				CE26DC8428B4393F0022F401 /* ConstantValues.swift */,
+				CE3A8A7528B8473600BCE54A /* ProfileModelConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -305,7 +311,7 @@
 			children = (
 				CE15418928B29A71007731FA /* RegistrationEnumeration.swift */,
 				CEE6717E28B621C100CC8853 /* PhoneVerificationEnumerations.swift */,
-				CE50DF1428B7BF6D00D90D4A /* CoreDataEnumeration.swift */,
+				CE3A8A6E28B8389800BCE54A /* FireBaseEnumerations.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -319,11 +325,19 @@
 			path = Identification;
 			sourceTree = "<group>";
 		};
+		EC971EC7A2D10BB56F0B81B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD27E8E3B174D51BF0DB1374 /* Pods_Karmus.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EFE8003D3A212837F1ABA9F0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				65689B1432EC0F43A94F86A6 /* Pods-Karmus.debug.xcconfig */,
-				7A84BE45A66E17000DD2652D /* Pods-Karmus.release.xcconfig */,
+				6F7CA91BB1F5E012FE3B4C55 /* Pods-Karmus.debug.xcconfig */,
+				A3C87F71F97D2C396C5D9EF8 /* Pods-Karmus.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -335,12 +349,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5316D73928AC0FC2004C8A90 /* Build configuration list for PBXNativeTarget "Karmus" */;
 			buildPhases = (
-				E7C4439A6B1703B30B2649AE /* [CP] Check Pods Manifest.lock */,
+				58288414D1F761FD0371AB61 /* [CP] Check Pods Manifest.lock */,
 				5316D71E28AC0FBE004C8A90 /* Sources */,
 				5316D71F28AC0FBE004C8A90 /* Frameworks */,
 				5316D72028AC0FBE004C8A90 /* Resources */,
-				92CF82810FD780F2192D4FE7 /* [CP] Embed Pods Frameworks */,
-				38BF16199E522A0D3FD57BBE /* [CP] Copy Pods Resources */,
+				878593C9C6C1066F0C1D4577 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -405,41 +418,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		38BF16199E522A0D3FD57BBE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		92CF82810FD780F2192D4FE7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E7C4439A6B1703B30B2649AE /* [CP] Check Pods Manifest.lock */ = {
+		58288414D1F761FD0371AB61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -461,6 +440,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		878593C9C6C1066F0C1D4577 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -472,7 +468,6 @@
 				CE29863A28B3F55300B4AE9D /* CodeGenerate.swift in Sources */,
 				CE26DC8928B4A4BA0022F401 /* SMSManagerResultEnum.swift in Sources */,
 				CE29864128B4054B00B4AE9D /* DateExtention.swift in Sources */,
-				CE29861528B3977B00B4AE9D /* Profile+CoreDataClass.swift in Sources */,
 				CE50DF1228B7B20800D90D4A /* DefaultAlert.swift in Sources */,
 				CEE6717528B61BB600CC8853 /* Reachability.swift in Sources */,
 				5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */,
@@ -481,11 +476,14 @@
 				CE29863028B3E0E200B4AE9D /* BalanceModel.swift in Sources */,
 				CE29863328B3E12C00B4AE9D /* ResultModel.swift in Sources */,
 				53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */,
+				CE3A8A6A28B8226900BCE54A /* FireBaseKeys.swift in Sources */,
 				CE15417C28B266E0007731FA /* PopViewController.swift in Sources */,
 				534700ED28B679CC00F23539 /* APIManager.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				CEE6717F28B621C100CC8853 /* PhoneVerificationEnumerations.swift in Sources */,
 				CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */,
+				CE3A8A6728B8204600BCE54A /* FireBaseProfileModel.swift in Sources */,
+				CE3A8A7628B8473600BCE54A /* ProfileModelConstants.swift in Sources */,
 				5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */,
 				CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */,
 				534700DC28B6099B00F23539 /* TasksTableViewController.swift in Sources */,
@@ -493,17 +491,16 @@
 				CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
 				534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */,
+				CE3A8A6F28B8389800BCE54A /* FireBaseEnumerations.swift in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
 				534700EF28B67C3A00F23539 /* Document.swift in Sources */,
 				534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */,
 				CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */,
 				CE50DF0F28B78FD100D90D4A /* AntiSpam.swift in Sources */,
-				CE15419628B2AC16007731FA /* CoreDataManager.swift in Sources */,
 				CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */,
+				CE50DF6E28B7FC3000D90D4A /* FireBaseManager.swift in Sources */,
 				CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */,
 				CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */,
-				CE50DF1528B7BF6D00D90D4A /* CoreDataEnumeration.swift in Sources */,
-				53BC394228AD3E9F00867BC9 /* TasksViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,7 +642,7 @@
 		};
 		5316D73A28AC0FC2004C8A90 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65689B1432EC0F43A94F86A6 /* Pods-Karmus.debug.xcconfig */;
+			baseConfigurationReference = 6F7CA91BB1F5E012FE3B4C55 /* Pods-Karmus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -679,7 +676,7 @@
 		};
 		5316D73B28AC0FC2004C8A90 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A84BE45A66E17000DD2652D /* Pods-Karmus.release.xcconfig */;
+			baseConfigurationReference = A3C87F71F97D2C396C5D9EF8 /* Pods-Karmus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
