@@ -166,7 +166,11 @@ static NSString *trackedQueryKeysKey(NSUInteger trackedQueryId, NSString *key) {
             // it'll go fine :P
             [writes enumerateKeysAndValuesAsData:^(NSString *key, NSData *data,
                                                    BOOL *stop) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+              // Update the deprecated API when minimum iOS version is 11+.
               id pendingPut = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+#pragma clang diagnostic pop
               if ([pendingPut isKindOfClass:[FPendingPut class]]) {
                   FPendingPut *put = pendingPut;
                   id<FNode> newNode =
@@ -263,11 +267,16 @@ static NSString *trackedQueryKeysKey(NSUInteger trackedQueryId, NSString *key) {
 }
 
 + (NSString *)firebaseDir {
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_WATCH
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
         NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDir = [dirPaths objectAtIndex:0];
     return [documentsDir stringByAppendingPathComponent:@"firebase"];
+#elif TARGET_OS_TV
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(
+        NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDir = [dirPaths objectAtIndex:0];
+    return [cachesDir stringByAppendingPathComponent:@"firebase"];
 #elif TARGET_OS_OSX
     return [NSHomeDirectory() stringByAppendingPathComponent:@".firebase"];
 #endif

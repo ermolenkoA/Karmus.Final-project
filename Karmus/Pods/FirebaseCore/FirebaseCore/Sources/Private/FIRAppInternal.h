@@ -16,20 +16,13 @@
 
 #import <FirebaseCore/FIRApp.h>
 
-// The has_include is a workaround so the old IID needed for the FIS tests can find FIRErrors.h
-#if __has_include("FirebaseCore/Sources/Private/FIRErrors.h")
-#import "FirebaseCore/Sources/Private/FIRErrors.h"
-#else
-#import <FirebaseCore/FIRErrors.h>
-#endif
-
 @class FIRComponentContainer;
 @protocol FIRLibrary;
 
 /**
- * The internal interface to FIRApp. This is meant for first-party integrators, who need to receive
- * FIRApp notifications, log info about the success or failure of their configuration, and access
- * other internal functionality of FIRApp.
+ * The internal interface to `FirebaseApp`. This is meant for first-party integrators, who need to
+ * receive `FirebaseApp` notifications, log info about the success or failure of their
+ * configuration, and access other internal functionality of `FirebaseApp`.
  *
  * TODO(b/28296561): Restructure this header.
  */
@@ -46,10 +39,14 @@ extern NSString *const kFIRAppDeleteNotification;
 extern NSString *const kFIRAppIsDefaultAppKey;
 extern NSString *const kFIRAppNameKey;
 extern NSString *const kFIRGoogleAppIDKey;
+extern NSString *const kFirebaseCoreErrorDomain;
+
+/** The `UserDefaults` suite name for `FirebaseCore`, for those storage locations that use it. */
+extern NSString *const kFirebaseCoreDefaultsSuiteName;
 
 /**
- * The format string for the User Defaults key used for storing the data collection enabled flag.
- * This includes formatting to append the Firebase App's name.
+ * The format string for the `UserDefaults` key used for storing the data collection enabled flag.
+ * This includes formatting to append the `FirebaseApp`'s name.
  */
 extern NSString *const kFIRGlobalAppDataCollectionEnabledDefaultsKeyFormat;
 
@@ -58,37 +55,32 @@ extern NSString *const kFIRGlobalAppDataCollectionEnabledDefaultsKeyFormat;
  */
 extern NSString *const kFIRGlobalAppDataCollectionEnabledPlistKey;
 
-/**
- * A notification fired containing diagnostic information when SDK errors occur.
- */
-extern NSString *const kFIRAppDiagnosticsNotification;
-
-/** @var FIRAuthStateDidChangeInternalNotification
- @brief The name of the @c NSNotificationCenter notification which is posted when the auth state
+/** @var FirebaseAuthStateDidChangeInternalNotification
+ @brief The name of the @c NotificationCenter notification which is posted when the auth state
  changes (e.g. a new token has been produced, a user logs in or out). The object parameter of
  the notification is a dictionary possibly containing the key:
- @c FIRAuthStateDidChangeInternalNotificationTokenKey (the new access token.) If it does not
+ @c FirebaseAuthStateDidChangeInternalNotificationTokenKey (the new access token.) If it does not
  contain this key it indicates a sign-out event took place.
  */
 extern NSString *const FIRAuthStateDidChangeInternalNotification;
 
-/** @var FIRAuthStateDidChangeInternalNotificationTokenKey
+/** @var FirebaseAuthStateDidChangeInternalNotificationTokenKey
  @brief A key present in the dictionary object parameter of the
- @c FIRAuthStateDidChangeInternalNotification notification. The value associated with this
+ @c FirebaseAuthStateDidChangeInternalNotification notification. The value associated with this
  key will contain the new access token.
  */
 extern NSString *const FIRAuthStateDidChangeInternalNotificationTokenKey;
 
-/** @var FIRAuthStateDidChangeInternalNotificationAppKey
+/** @var FirebaseAuthStateDidChangeInternalNotificationAppKey
  @brief A key present in the dictionary object parameter of the
- @c FIRAuthStateDidChangeInternalNotification notification. The value associated with this
- key will contain the FIRApp associated with the auth instance.
+ @c FirebaseAuthStateDidChangeInternalNotification notification. The value associated with this
+ key will contain the FirebaseApp associated with the auth instance.
  */
 extern NSString *const FIRAuthStateDidChangeInternalNotificationAppKey;
 
-/** @var FIRAuthStateDidChangeInternalNotificationUIDKey
+/** @var FirebaseAuthStateDidChangeInternalNotificationUIDKey
  @brief A key present in the dictionary object parameter of the
- @c FIRAuthStateDidChangeInternalNotification notification. The value associated with this
+ @c FirebaseAuthStateDidChangeInternalNotification notification. The value associated with this
  key will contain the new user's UID (or nil if there is no longer a user signed in).
  */
 extern NSString *const FIRAuthStateDidChangeInternalNotificationUIDKey;
@@ -106,14 +98,6 @@ extern NSString *const FIRAuthStateDidChangeInternalNotificationUIDKey;
 @property(nonatomic) FIRComponentContainer *container;
 
 /**
- * Creates an error for failing to configure a subspec service. This method is called by each
- * FIRApp notification listener.
- */
-+ (NSError *)errorForSubspecConfigurationFailureWithDomain:(NSString *)domain
-                                                 errorCode:(FIRErrorCode)code
-                                                   service:(NSString *)service
-                                                    reason:(NSString *)reason;
-/**
  * Checks if the default app is configured without trying to configure it.
  */
 + (BOOL)isDefaultAppConfigured;
@@ -128,8 +112,18 @@ extern NSString *const FIRAuthStateDidChangeInternalNotificationUIDKey;
 + (void)registerLibrary:(nonnull NSString *)name withVersion:(nonnull NSString *)version;
 
 /**
+ * Registers a given internal library to be reported for analytics.
+ *
+ * @param library Optional parameter for component registration.
+ * @param name Name of the library.
+ */
++ (void)registerInternalLibrary:(nonnull Class<FIRLibrary>)library
+                       withName:(nonnull NSString *)name;
+
+/**
  * Registers a given internal library with the given version number to be reported for
- * analytics.
+ * analytics. This should only be used for non-Firebase libraries that have their own versioning
+ * scheme.
  *
  * @param library Optional parameter for component registration.
  * @param name Name of the library.
@@ -145,16 +139,7 @@ extern NSString *const FIRAuthStateDidChangeInternalNotificationUIDKey;
 + (NSString *)firebaseUserAgent;
 
 /**
- * Used by each SDK to send logs about SDK configuration status to Clearcut.
- *
- * @note This API is a no-op, please remove calls to it.
- */
-- (void)sendLogsWithServiceName:(NSString *)serviceName
-                        version:(NSString *)version
-                          error:(NSError *)error;
-
-/**
- * Can be used by the unit tests in eack SDK to reset FIRApp. This method is thread unsafe.
+ * Can be used by the unit tests in each SDK to reset `FirebaseApp`. This method is thread unsafe.
  */
 + (void)resetApps;
 

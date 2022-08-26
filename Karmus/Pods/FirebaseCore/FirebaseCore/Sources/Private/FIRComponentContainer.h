@@ -15,15 +15,6 @@
  */
 #import <Foundation/Foundation.h>
 
-// The has_include is a workaround so the old IID needed for the FIS tests can find the headers.
-#if __has_include("FirebaseCore/Sources/Private/FIRComponentType.h")
-#import "FirebaseCore/Sources/Private/FIRComponentType.h"
-#import "FirebaseCore/Sources/Private/FIRLibrary.h"
-#else
-#import <FirebaseCore/FIRComponentType.h>
-#import <FirebaseCore/FIRLibrary.h>
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 /// A type-safe macro to retrieve a component from a container. This should be used to retrieve
@@ -34,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class FIRApp;
 
 /// A container that holds different components that are registered via the
-/// `registerAsComponentRegistrant:` call. These classes should conform to `FIRComponentRegistrant`
+/// `registerAsComponentRegistrant` call. These classes should conform to `ComponentRegistrant`
 /// in order to properly register components for Core.
 NS_SWIFT_NAME(FirebaseComponentContainer)
 @interface FIRComponentContainer : NSObject
@@ -42,7 +33,7 @@ NS_SWIFT_NAME(FirebaseComponentContainer)
 /// A weak reference to the app that an instance of the container belongs to.
 @property(nonatomic, weak, readonly) FIRApp *app;
 
-/// Unavailable. Use the `container` property on `FIRApp`.
+/// Unavailable. Use the `container` property on `FirebaseApp`.
 - (instancetype)init NS_UNAVAILABLE;
 
 @end

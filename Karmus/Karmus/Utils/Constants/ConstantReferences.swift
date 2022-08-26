@@ -12,4 +12,7 @@ public struct References {
     static let fromMainToRegistrationScreen = "toRegistrationScreen"
     static let fromIdentificationToRegistrationScreen = "toRegistrationScreen2"
     static let fromMapToTasksScreen = "toTasksScreen"
+    static let fromActiveTasksToDeclarationOfTasksScreen = "toDeclataionOfTasksScreen"
+    static let fromDeclarationToTasksScreen = "toTasksScreen"
+
 }

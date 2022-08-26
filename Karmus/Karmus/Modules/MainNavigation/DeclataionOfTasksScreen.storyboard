@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Declaration Of Tasks View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="DeclarationOfTasksViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vx4-z0-giJ">
+                                <rect key="frame" x="32" y="32" width="311" height="233"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpf-gk-zkQ">
+                                <rect key="frame" x="32" y="273" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWz-mx-BcT">
+                                <rect key="frame" x="137.5" y="533" width="100" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="bLo-VL-Hs2"/>
+                                    <constraint firstAttribute="width" constant="100" id="ks0-Ke-2VN"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                                <connections>
+                                    <action selector="tapToAddTaskUser:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="tDu-q0-93g"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTL-cb-MPd">
+                                <rect key="frame" x="32" y="302" width="311" height="203"/>
+                                <string key="text">Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Kpf-gk-zkQ" firstAttribute="top" secondItem="Vx4-z0-giJ" secondAttribute="bottom" constant="8" symbolic="YES" id="1jQ-jL-oWL"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Vx4-z0-giJ" secondAttribute="trailing" constant="32" id="3PW-TU-zKl"/>
+                            <constraint firstItem="EWz-mx-BcT" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="6oH-Sf-i2o"/>
+                            <constraint firstItem="Vx4-z0-giJ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="32" id="BMA-F2-3bJ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="EWz-mx-BcT" secondAttribute="bottom" constant="99" id="OFW-9q-2XC"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="KTL-cb-MPd" secondAttribute="trailing" constant="32" id="P7a-0V-G0W"/>
+                            <constraint firstItem="Kpf-gk-zkQ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="32" id="PyW-uu-5s5"/>
+                            <constraint firstItem="Vx4-z0-giJ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="32" id="QaB-7F-8dh"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="EWz-mx-BcT" secondAttribute="trailing" constant="137.5" id="Zh7-3H-9F7"/>
+                            <constraint firstItem="KTL-cb-MPd" firstAttribute="top" secondItem="Kpf-gk-zkQ" secondAttribute="bottom" constant="8" id="gKZ-1L-uIq"/>
+                            <constraint firstItem="KTL-cb-MPd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="32" id="mZA-kf-i7y"/>
+                            <constraint firstItem="EWz-mx-BcT" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="137.5" id="nyb-aL-24b"/>
+                            <constraint firstItem="EWz-mx-BcT" firstAttribute="top" secondItem="KTL-cb-MPd" secondAttribute="bottom" constant="28" id="qBL-Qf-njU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dateOfTask" destination="Kpf-gk-zkQ" id="D9q-r9-QcA"/>
+                        <outlet property="declarationOfTask" destination="KTL-cb-MPd" id="gTZ-K9-xAt"/>
+                        <outlet property="imageOfTask" destination="Vx4-z0-giJ" id="6Ty-lf-Lsb"/>
+                        <segue destination="heS-U5-Pi3" kind="show" identifier="toTasksScreen" id="g1e-bZ-wSI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="29.600000000000001" y="53.523238380809602"/>
+        </scene>
+        <!--TasksScreen-->
+        <scene sceneID="wt0-KZ-GbK">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TasksScreen" id="heS-U5-Pi3" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ahb-eG-55i"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6sC-a6-rpY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="30" y="466"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

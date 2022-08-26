@@ -7,38 +7,40 @@
 
 import UIKit
 
+
 class TasksTableViewController: UITableViewController {
     
-    var modelTasks = ModelTasks()
+    
+    var allTasks = ModelTasks()
+    var tasksFromDeclaration: ActiveTasks!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-
-    }
+            }
 
     // MARK: - Table view data source
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return modelTasks.tasks.count
+        return allTasks.tasks.count
     }
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return modelTasks.tasks.count
-//    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! TasksTableViewCell
         
-        let task = modelTasks.tasks[indexPath.row]
-//        let task = section[indexPath.row]
-//
+        let task = allTasks.tasks[indexPath.row]
+       
         cell.dataLabel.text = task.data
         cell.taskImageView.image = task.image
         cell.declarationLabel.text = task.declaration
         return cell
     }
+    
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
