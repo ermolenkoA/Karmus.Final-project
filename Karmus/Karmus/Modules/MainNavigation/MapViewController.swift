@@ -118,7 +118,7 @@ class MapViewController: UIViewController{
         basicAnimator.addAnimations {
             switch state{
             case .open:
-                self.titlePositionConstraint.constant = 170
+                self.titlePositionConstraint.constant = self.tasksView.layer.position.x - self.tasksTitle.frame.width/2
                 self.tasksTitle.transform = CGAffineTransform(scaleX: 1, y: 1)
             case .closed:
                 self.titlePositionConstraint.constant = 8
@@ -148,7 +148,7 @@ class MapViewController: UIViewController{
         basicAnimator.addAnimations {
             switch state.opposite{
             case .open:
-                self.titlePositionConstraint.constant = 130
+                self.titlePositionConstraint.constant = self.tasksView.layer.position.x - self.tasksTitle.frame.width/2
                 self.tasksTitle.transform = CGAffineTransform(scaleX: 1, y: 1)
             case .closed:
                 self.titlePositionConstraint.constant = 8
