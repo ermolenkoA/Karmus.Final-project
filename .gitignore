@@ -7,9 +7,6 @@ Karmus/.DS_Store~mapSettings
 # Xcode personal settings
 xcuserdata/
 
-# Cocoapods
-Pods/
- 
 # Build Artifacts
 build/
 .build/
