@@ -9,6 +9,7 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseDatabase
 import FirebaseStorage
+import Firebase
 import UIKit
 
 class CreationTaskViewController: UIViewController {
@@ -29,6 +30,9 @@ class CreationTaskViewController: UIViewController {
     @IBOutlet weak var picture: UIImageView!
     
     @IBOutlet weak var taskDeclorationField: UITextField!
+    
+    
+    var refTasks: DatabaseReference!
     private let database = Database.database().reference()
     ////
     
@@ -49,20 +53,22 @@ class CreationTaskViewController: UIViewController {
         dateField.inputAccessoryView = toolbar
 //        taskDeclorationField.delegate = self
 //        dateField.delegate = self
+        refTasks = Database.database().reference().child("ActiveTasks")
+      //  refTasks.observe(DataEventType.value, with: <#T##(DataSnapshot) -> Void#>)
     }
     
     //ТЕСТОВАЯ ЗАГРУЗКА firebase
     
-    @IBAction func action(_ sender: Any) {
-        APIManager.shared.getPost(collection: "tasks", docName: "descriptionTask", completion: { doc in
-            guard doc != nil else { return }
-            self.label1.text = doc?.field1
-            self.label2.text = doc?.field2
-        })
-        APIManager.shared.getImage(picName: "16d3ac4608a0534abe596e52fe1e6f68", completion: { pic in
-            self.picture.image = pic
-        })
-    }
+//    @IBAction func action(_ sender: Any) {
+//        APIManager.shared.getPost(collection: "tasks", docName: "descriptionTask", completion: { doc in
+//            guard doc != nil else { return }
+//            self.label1.text = doc?.field1
+//            self.label2.text = doc?.field2
+//        })
+//        APIManager.shared.getImage(picName: "16d3ac4608a0534abe596e52fe1e6f68", completion: { pic in
+//            self.picture.image = pic
+//        })
+//    }
     
     func upload(currentUserId: String, photo: UIImage, completion: @escaping (Document?) -> Void) {
         let reference = Storage.storage().reference().child("pictures")
@@ -91,29 +97,29 @@ class CreationTaskViewController: UIViewController {
     func uploadPhoto(_ image: UIImage, completion: @escaping () -> Void) {
     
         let reference = Storage.storage().reference().child("pictures").child(".jpeg")
-          
-//        let data = Data()
-//        let uploadTask = reference.putData(data, metadata: nil) { (metadata, error) in
-//          guard let metadata = metadata else {
-//            // Uh-oh, an error occurred!
-//            return
-//          }
-//          // Metadata contains file metadata such as size, content-type.
-//          let size = metadata.size
-//          // You can also access to download URL after upload.
-//            reference.downloadURL { (url, error) in
-//            guard let downloadURL = url else {
-//              // Uh-oh, an error occurred!
-//              return
-//            }
-//          }
-//        }
+
         let meta = StorageMetadata()
         meta.contentType = "image/jpg"
         reference.putData(image.jpegData(compressionQuality: 0.8)!, metadata: meta, completion: { (imageMeta, error) in
                if error != nil {
                    // handle the error
                    return
+                   //        let data = Data()
+                   //        let uploadTask = reference.putData(data, metadata: nil) { (metadata, error) in
+                   //          guard let metadata = metadata else {
+                   //            // Uh-oh, an error occurred!
+                   //            return
+                   //          }
+                   //          // Metadata contains file metadata such as size, content-type.
+                   //          let size = metadata.size
+                   //          // You can also access to download URL after upload.
+                   //            reference.downloadURL { (url, error) in
+                   //            guard let downloadURL = url else {
+                   //              // Uh-oh, an error occurred!
+                   //              return
+                   //            }
+                   //          }
+                   //        }
 }
 // https://overcoder.net/q/513237/загрузить-и-получить-фото-с-firebase
 //                let downloadURL = imageMeta?.downloadURL()
@@ -125,24 +131,37 @@ class CreationTaskViewController: UIViewController {
                 completion()
         })
 }
-
+    
     @IBAction func addTask(_ sender: Any) {
-       
+        let key = refTasks.childByAutoId().key
         let date = dateField.text!
         let decloration = taskDeclorationField.text!
-        let object: [String: String] = [
-            "Описание": taskDeclorationField.text!,
-            "Дата": dateField.text!
+        let task = ["id": key,
+                    "taskName": taskDeclorationField.text!,
+                    "taskDate": dateField.text!
         ]
-      
         if (!date.isEmpty && !decloration.isEmpty) {
-            database.child("Задание_\(Int.random(in: 0...100))").setValue(object)
-            print("хорошо")
-            uploadPhoto(imagePickerForUpload, completion: {print("збс фотка")})
-         
+        refTasks.child(key!).setValue(task)
         }else{
             showAlert()
         }
+//        let date = dateField.text!
+//        let decloration = taskDeclorationField.text!
+//        let object: [String: String] = [
+//            "Описание": taskDeclorationField.text!,
+//            "Дата": dateField.text!
+//        ]
+//
+//        if (!date.isEmpty && !decloration.isEmpty) {
+//            database.child("Задание_\(Int.random(in: 0...100))").setValue(object)
+//            print("хорошо")
+//            uploadPhoto(imagePickerForUpload, completion: {print("збс фотка")})
+//
+//        }else{
+//            showAlert()
+//        }
+        
+        
     }
     
     func showAlert() {
