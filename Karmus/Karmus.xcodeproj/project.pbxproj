@@ -36,7 +36,6 @@
 		53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */; };
 		53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC394328AD43E300867BC9 /* MapScreen.storyboard */; };
 		53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394528AD43FE00867BC9 /* MapViewController.swift */; };
-		A490BA47BB52381D0F21FAD9 /* Pods_Karmus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1584B338C3AC129E86BFFE3A /* Pods_Karmus.framework */; };
 		CE15417C28B266E0007731FA /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15417B28B266E0007731FA /* PopViewController.swift */; };
 		CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15418928B29A71007731FA /* RegistrationEnumeration.swift */; };
 		CE15419628B2AC16007731FA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15419528B2AC16007731FA /* CoreDataManager.swift */; };
@@ -58,8 +57,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1584B338C3AC129E86BFFE3A /* Pods_Karmus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Karmus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EF047CA529F45ADC38890C5 /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
 		5316D72228AC0FBE004C8A90 /* Karmus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Karmus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5316D72528AC0FBE004C8A90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,7 +88,6 @@
 		53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		53BC394328AD43E300867BC9 /* MapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapScreen.storyboard; sourceTree = "<group>"; };
 		53BC394528AD43FE00867BC9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		A6BDCF248DD6378C4B93DE0F /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
 		CE15417B28B266E0007731FA /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
 		CE15418928B29A71007731FA /* RegistrationEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEnumeration.swift; sourceTree = "<group>"; };
 		CE15419528B2AC16007731FA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -117,28 +113,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A490BA47BB52381D0F21FAD9 /* Pods_Karmus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2AE3A50CBECE85650FEFB32D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1584B338C3AC129E86BFFE3A /* Pods_Karmus.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		5316D71928AC0FBE004C8A90 = {
 			isa = PBXGroup;
 			children = (
 				5316D72428AC0FBE004C8A90 /* Karmus */,
 				5316D72328AC0FBE004C8A90 /* Products */,
 				EFE8003D3A212837F1ABA9F0 /* Pods */,
-				2AE3A50CBECE85650FEFB32D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -320,8 +306,6 @@
 		EFE8003D3A212837F1ABA9F0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A6BDCF248DD6378C4B93DE0F /* Pods-Karmus.debug.xcconfig */,
-				2EF047CA529F45ADC38890C5 /* Pods-Karmus.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -333,11 +317,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5316D73928AC0FC2004C8A90 /* Build configuration list for PBXNativeTarget "Karmus" */;
 			buildPhases = (
-				3F87C89BF773ECE1BFE35A8F /* [CP] Check Pods Manifest.lock */,
 				5316D71E28AC0FBE004C8A90 /* Sources */,
 				5316D71F28AC0FBE004C8A90 /* Frameworks */,
 				5316D72028AC0FBE004C8A90 /* Resources */,
-				30B3E5605B93E004A436BCBA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -402,48 +384,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		30B3E5605B93E004A436BCBA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3F87C89BF773ECE1BFE35A8F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Karmus-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5316D71E28AC0FBE004C8A90 /* Sources */ = {
@@ -626,7 +566,6 @@
 		};
 		5316D73A28AC0FC2004C8A90 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6BDCF248DD6378C4B93DE0F /* Pods-Karmus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -660,7 +599,6 @@
 		};
 		5316D73B28AC0FC2004C8A90 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EF047CA529F45ADC38890C5 /* Pods-Karmus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
