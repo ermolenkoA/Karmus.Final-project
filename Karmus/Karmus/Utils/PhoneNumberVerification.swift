@@ -18,12 +18,12 @@ final class PhoneNumberVerification {
     private var phone: String
     private var password: Int64?
     private var message: (messageBody: String, code: String)?
-    private var profile: ProfileModel
+    private var profile: ProfileVerificationModel
     private var isBalanceEnough: Bool?
     
     // MARK: - Initializers
     
-    init (profile: ProfileModel, for verificationModel: VerificationModel, _ controller: UIViewController) {
+    init (profile: ProfileVerificationModel, for verificationModel: VerificationModel, _ controller: UIViewController) {
         self.verificationModel = verificationModel
         self.controller = controller
         self.profile = profile
@@ -61,7 +61,7 @@ final class PhoneNumberVerification {
         
         if verificationModel == .resetPassword {
             self.password = profile.password
-            FireBaseDataBaseManager.openProfile(login: phone, password: password!) {  [weak self] result in
+            FireBaseDataBaseManager.openProfile(login: phone, password: password!) {  [weak self] result, _ in
                 
                 guard let self = self else{
                     print("\n<PhoneNumberVerification\\startVerification> ERROR: PhoneNumberVerification is deallocated\n")
@@ -180,6 +180,7 @@ final class PhoneNumberVerification {
     // MARK: - Show "Enter verification code" alert
     
     private func showEnterVerificationCodeAlert(validCode: String) {
+        
         DispatchQueue.main.async {
             AntiSpam.saveNewVerificationAttemp()
 
@@ -245,16 +246,14 @@ final class PhoneNumberVerification {
                     AntiSpam.resetUserVerificationAttemps()
                     
                     Database.database().reference()
-                        .child(FireBaseDefaultKeys.profiles)
+                        .child(FBDefaultKeys.profiles)
                         .childByAutoId().setValue([
-                            FireBaseProfileKeys.dateOfBirth : profile.dateOfBirth,
-                            FireBaseProfileKeys.firstName : profile.firstName,
-                            FireBaseProfileKeys.login : profile.login,
-                            FireBaseProfileKeys.password : profile.password,
-                            FireBaseProfileKeys.phoneNumber : profile.phoneNumber,
-                            FireBaseProfileKeys.photo : profile.photo,
-                            FireBaseProfileKeys.secondName : profile.secondName
+                            FBProfileKeys.firstName : profile.firstName,
+                            FBProfileKeys.login : profile.login,
+                            FBProfileKeys.password : profile.password,
+                            FBProfileKeys.phoneNumber : profile.phoneNumber
                         ])
+                    
                     showAlert("Вы были успешно зарегистрированы!", nil , where: self.controller)
         
                 case .resetPassword:
@@ -266,6 +265,7 @@ final class PhoneNumberVerification {
             alert.addAction(confirmButton)
             
             if AntiSpam.verificationBanTime == nil {
+ 
                 guard Reachability.isConnectedToNetwork() else {
                     self.showCustomAlert(alert)
                     return
@@ -332,11 +332,8 @@ final class PhoneNumberVerification {
                     closeButton.setValue("0\(timeLeft)", forKey: "title")
                     
                 }
-                
             }
-            
         }
-    
     }
     
     // MARK: - Functions for password reset
@@ -384,7 +381,7 @@ final class PhoneNumberVerification {
             }
             
             FireBaseDataBaseManager.openProfile(login: phone, password: self.password!,
-                                                newPassword: Int64(password.hash)) { [unowned self] result in
+                                                newPassword: Int64(password.hash)) { [unowned self] result, _ in
                 
                 guard result != .error && result != .failure else{
                     showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self.controller)

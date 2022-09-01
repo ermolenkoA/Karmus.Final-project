@@ -10,34 +10,27 @@ import FirebaseDatabase
 
 final class FireBaseDataBaseManager {
     
-    private static let profiles =  Database.database().reference().child(FireBaseDefaultKeys.profiles)
+    private static let profiles =  Database.database().reference().child(FBDefaultKeys.profiles)
+    private static let profliesInfo =  Database.database().reference().child(FBDefaultKeys.profilesInfo)
     
     static let description = "<FireBaseDataBaseManager>"
     
-    static func findLoginOrPhone(_ loginOrPhone: String, mode: FireBaseRequestMode, _ result: @escaping (FireBaseRequestResult) -> ()) {
+    static func findLoginOrPhone(_ loginOrPhone: String, _ result: @escaping (FireBaseRequestResult) -> ()) {
         
-        switch mode {
-        case .findLogin:
-            guard loginOrPhone ~= "^[A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}$" && loginOrPhone.count >= 3 else{
+            guard loginOrPhone ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$" ||
+                    loginOrPhone ~= "^(\\+375)(29|25|33|44)([\\d]{7})$" else{
+                
                 print("\n \(self.description) ERROR: login is incorrect\n)")
                 result(.error)
                 return
             }
-        case .findPhone:
-            guard loginOrPhone ~= "^(\\+375)(29|25|33|44)([\\d]{7})$"  else{
-                print("\n \(self.description) ERROR: login is incorrect\n)")
-                result(.error)
-                return
-            }
-        }
-        
+
         profiles.observe(.value) { snapshot in
             
             guard snapshot.exists() else{
                 print("\n\(self.description) ERROR: snapshot isn't exist\n")
                 result(.error)
                 return
-                
             }
             
             guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
@@ -54,33 +47,60 @@ final class FireBaseDataBaseManager {
                     return
                 }
                 
-                switch mode {
-                case .findLogin:
-                    if profileElements[FireBaseProfileKeys.login] as? String == loginOrPhone {
-                        result(.found)
-                        return
-                    }
-                case .findPhone:
-                    if profileElements[FireBaseProfileKeys.phoneNumber] as? String == loginOrPhone {
-                        result(.found)
-                        return
-                    }
+                if profileElements[FBProfileKeys.login] as? String == loginOrPhone ||
+                    profileElements[FBProfileKeys.phoneNumber] as? String == loginOrPhone{
+                    result(.found)
+                    return
                 }
     
             }
+            
             result(.notFound)
-            return
-        
         }
         
     }
     
+    static func getProfileUpdateDate(_ login: String, _ result: @escaping (Date?) -> ()){
+        
+        profliesInfo.child(login).observeSingleEvent(of: .value){ snapshot in
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            result(snapshot.value as? Date)
+        }
+        
+    }
     
-    static func openProfile(login: String, password: Int64, newPassword: Int64? = nil, _ result: @escaping (FireBaseOpenProfileResult) -> ()) {
+    static func getProfileInfo(_ login: String, _ result: @escaping (ProfileInfoModel?) -> ()){
+        
+        profliesInfo.child(login).observeSingleEvent(of: .value){ snapshot in
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            result(parseDataToProfileInfo(snapshot))
+        }
+        
+    }
+    
+    static func getProfileLogin(_ profileID: String, _ result: @escaping (String?) -> ()){
+        
+        profiles.child(profileID).child(FBProfileKeys.login).observeSingleEvent(of: .value){ snapshot in
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            result(snapshot.value as? String)
+        }
+        
+    }
+    
+    static func openProfile(login: String, password: Int64, newPassword: Int64? = nil, _ result: @escaping (FireBaseOpenProfileResult, String?) -> ()) {
 
         if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$"){
             if !(login ~= "^(\\+375)(29|25|33|44)([\\d]{7})$") {
-                result(.failure)
+                result(.failure, nil)
                 return
             }
         }
@@ -89,14 +109,14 @@ final class FireBaseDataBaseManager {
 
             guard snapshot.exists() else{
                 print("\n\(self.description) ERROR: snapshot isn't exist\n")
-                result(.error)
+                result(.error, nil)
                 return
                 
             }
             
             guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
                 print("\n\(self.description) ERROR: profiles isn't exist\n")
-                result(.error)
+                result(.error, nil)
                 return
             }
             
@@ -104,94 +124,75 @@ final class FireBaseDataBaseManager {
                 
                 guard let profileElements = profile.value as? [String : AnyObject] else {
                     print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-                    result(.error)
+                    result(.error, nil)
                     return
                 }
                 
-                guard let loginFromData = profileElements[FireBaseProfileKeys.login] as? String else {
+                guard let loginFromData = profileElements[FBProfileKeys.login] as? String,
+                      let passwordFromData = profileElements[FBProfileKeys.password] as? Int64,
+                      let phoneNumber = profileElements[FBProfileKeys.phoneNumber] as? String else {
+                    
                     print("\n\(self.description) ERROR: profiles contains unvalid profile\\login\n")
-                    result(.error)
+                    result(.error, nil)
                     return
                 }
                 
-                guard let passwordFromData = profileElements[FireBaseProfileKeys.password] as? Int64 else {
-                    print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-                    result(.error)
-                    return
-                }
-                
-                if loginFromData != login {
-                    guard let phoneNumber = profileElements[FireBaseProfileKeys.phoneNumber] as? String else {
-                        print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-                        continue
-                    }
-                    if phoneNumber != login {
-                        continue
-                    }
-                }
-                
-                if password != passwordFromData {
+                guard ( loginFromData != login || phoneNumber != login ) && password == passwordFromData else {
                     continue
                 }
                 
                 if let newPassword = newPassword {
-                    self.profiles.child(profile.key).child(FireBaseProfileKeys.password).setValue(newPassword)
+                    self.profiles.child(profile.key).child(FBProfileKeys.password).setValue(newPassword)
                 }
                 
-                result(.success)
+                result(.success, profile.key)
                 return
             }
-            result(.failure)
-            return
+            
+            result(.failure, nil)
         }
+        
     }
     
-    static func parseDataToProfileModel(_ data: DataSnapshot) -> ProfileModel? {
+    static func parseDataForVerification(_ data: DataSnapshot) -> ProfileVerificationModel? {
         
-        guard let profileElements = data.value as? [String : AnyObject] else {
-            print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-            return nil
-        }
-        
-        guard let firstName = profileElements[FireBaseProfileKeys.firstName] as? String else {
-            print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-            return nil
-        }
-        
-        guard let secondName = profileElements[FireBaseProfileKeys.secondName] as? String else {
-            print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-            return nil
-        }
-
-        guard let dateOfBirth = profileElements[FireBaseProfileKeys.dateOfBirth] as? String else {
-            print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-            return nil
-        }
-
-        guard let login = profileElements[FireBaseProfileKeys.login] as? String else {
-            print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-            return nil
-        }
-
-        guard let password = profileElements[FireBaseProfileKeys.password] as? Int64 else {
-            print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-            return nil
-        }
-
-        guard let phoneNumber = profileElements[FireBaseProfileKeys.phoneNumber] as? String else {
+        guard let profileElements = data.value as? [String : AnyObject],
+              let firstName = profileElements[FBProfileKeys.firstName] as? String,
+              let login = profileElements[FBProfileKeys.login] as? String,
+              let password = profileElements[FBProfileKeys.password] as? Int64,
+              let phoneNumber = profileElements[FBProfileKeys.phoneNumber] as? String else {
             print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
             return nil
         }
         
-        guard let photo = profileElements[FireBaseProfileKeys.photo] as? String else {
-            print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-            return nil
-        }
-        return ProfileModel.init(dateOfBirth: dateOfBirth, firstName: firstName,
+        return ProfileVerificationModel.init(firstName: firstName,
                                  login: login, password: password,
-                                 phoneNumber: phoneNumber, photo: photo,
-                                 secondName: secondName)
+                                 phoneNumber: phoneNumber,
+                                 secondName: "")
     }
+    
+    static func parseDataToProfileInfo(_ data: DataSnapshot) -> ProfileInfoModel? {
+        
+        guard let profileElements = data.value as? [String : AnyObject] else { return nil }
+        
+        let firstName = profileElements[FBProfileInfoKeys.firstName] as? String
+        let secondName = profileElements[FBProfileInfoKeys.secondName] as? String
+        let photo = profileElements[FBProfileInfoKeys.photo] as? String
+        let dateOfBirth = profileElements[FBProfileInfoKeys.dateOfBirth] as? String
+        let email = profileElements[FBProfileInfoKeys.email] as? String
+        let phone = profileElements[FBProfileInfoKeys.phone] as? String
+        let city = profileElements[FBProfileInfoKeys.city] as? String
+        let preferences = profileElements[FBProfileInfoKeys.preferences]?.allObjects as? [String]
+        let education = profileElements[FBProfileInfoKeys.education] as? String
+        let work = profileElements[FBProfileInfoKeys.work] as? String
+        let skills = profileElements[FBProfileInfoKeys.skills] as? String
+    
+        
+        return ProfileInfoModel.init(
+            firstName: firstName, secondName: secondName, photo: photo,
+            dateOfBirth: dateOfBirth, email: email, phone: phone,
+            city: city, preferences: preferences, education: education,
+            work: work, skills: skills)
+    }
+    
 }
-
-

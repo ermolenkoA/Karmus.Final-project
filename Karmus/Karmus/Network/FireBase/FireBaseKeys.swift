@@ -7,19 +7,35 @@
 
 import Foundation
 
-final class FireBaseDefaultKeys {
+struct FBDefaultKeys {
     static let profiles = "Profiles"
-    static let lastProfileId = "LastProfileId"
+    static let profilesInfo = "ProfilesInfo"
     static let tasks = "Tasks"
-    
 }
 
-final class FireBaseProfileKeys {
-    static let dateOfBirth = "dateOfBirth"
+struct FBProfileKeys {
     static let firstName = "firstName"
     static let login = "login"
     static let password = "password"
     static let phoneNumber = "phoneNumber"
-    static let photo = "photo"
     static let secondName = "secondName"
+    static let userTasks = "userTasks"
+    static let profileUpdateDate = "profileUpdateDate"
 }
+
+struct FBProfileInfoKeys {
+    static let firstName = "firstName"
+    static let secondName = "secondName"
+    static let photo = "photo"
+    static let dateOfBirth = "dateOfBirth"
+    static let email = "email"
+    static let phone = "phone"
+    static let city = "city"
+    static let preferences = "preferences"
+    static let education = "education"
+    static let work = "city"
+    static let skills = "skills"
+}
+
+
+

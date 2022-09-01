@@ -19,6 +19,15 @@
 		5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74028AC1313004C8A90 /* IdentificationViewController.swift */; };
 		5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74228AC1326004C8A90 /* RegistrationViewController.swift */; };
 		533630CE28B7DE8200F139E7 /* ModelActiveTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */; };
+		53378AC028BF7D37002749FE /* FillMainProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378ABF28BF7D37002749FE /* FillMainProfileInfoVC.swift */; };
+		53378AC328BF7D62002749FE /* FillMainProfileInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53378AC228BF7D62002749FE /* FillMainProfileInfo.storyboard */; };
+		53378AC828BF7E5A002749FE /* SetLoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378AC728BF7E5A002749FE /* SetLoginProtocol.swift */; };
+		53378ACD28BF8600002749FE /* BelarusianCities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378ACC28BF8600002749FE /* BelarusianCities.swift */; };
+		53378ADD28C00ACA002749FE /* FillProfileInfoProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378ADC28C00ACA002749FE /* FillProfileInfoProtocols.swift */; };
+		53378AE228C00B34002749FE /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378AE128C00B34002749FE /* SearchResultViewController.swift */; };
+		53378AE528C05EFD002749FE /* FBProfileInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378AE428C05EFD002749FE /* FBProfileInfoModel.swift */; };
+		53378AE828C067F8002749FE /* FillAdditionalProfileInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53378AE728C067F8002749FE /* FillAdditionalProfileInfo.storyboard */; };
+		53378AEB28C0681B002749FE /* FillAdditionalProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378AEA28C0681B002749FE /* FillAdditionalProfileInfoVC.swift */; };
 		534700DC28B6099B00F23539 /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DB28B6099A00F23539 /* TasksTableViewController.swift */; };
 		534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DD28B6105C00F23539 /* TasksTableViewCell.swift */; };
 		534700E028B6135300F23539 /* ModelTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DF28B6135300F23539 /* ModelTasks.swift */; };
@@ -32,6 +41,10 @@
 		5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */; };
 		5372EAD528B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */; };
 		5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */; };
+		5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5387573D28BE5E610007196E /* NewUserScreen.storyboard */; };
+		5387574128BE61E20007196E /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574028BE61E20007196E /* GreetingViewController.swift */; };
+		5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574428BE6E590007196E /* KeychainSwiftExtension.swift */; };
+		5387574E28BE76F20007196E /* ProfileTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574D28BE76F20007196E /* ProfileTabBarController.swift */; };
 		53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
 		53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */; };
 		53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */; };
@@ -50,7 +63,7 @@
 		CE29863328B3E12C00B4AE9D /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863228B3E12C00B4AE9D /* ResultModel.swift */; };
 		CE29863A28B3F55300B4AE9D /* CodeGenerate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863928B3F55300B4AE9D /* CodeGenerate.swift */; };
 		CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863D28B400B800B4AE9D /* ConstantKeys.swift */; };
-		CE29864128B4054B00B4AE9D /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29864028B4054B00B4AE9D /* DateExtention.swift */; };
+		CE29864128B4054B00B4AE9D /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29864028B4054B00B4AE9D /* DateExtension.swift */; };
 		CE3A8A6728B8204600BCE54A /* FireBaseProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */; };
 		CE3A8A6A28B8226900BCE54A /* FireBaseKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A6928B8226900BCE54A /* FireBaseKeys.swift */; };
 		CE3A8A6F28B8389800BCE54A /* FireBaseEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A6E28B8389800BCE54A /* FireBaseEnumerations.swift */; };
@@ -77,6 +90,15 @@
 		5316D74028AC1313004C8A90 /* IdentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationViewController.swift; sourceTree = "<group>"; };
 		5316D74228AC1326004C8A90 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelActiveTasks.swift; sourceTree = "<group>"; };
+		53378ABF28BF7D37002749FE /* FillMainProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillMainProfileInfoVC.swift; sourceTree = "<group>"; };
+		53378AC228BF7D62002749FE /* FillMainProfileInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FillMainProfileInfo.storyboard; sourceTree = "<group>"; };
+		53378AC728BF7E5A002749FE /* SetLoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLoginProtocol.swift; sourceTree = "<group>"; };
+		53378ACC28BF8600002749FE /* BelarusianCities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BelarusianCities.swift; sourceTree = "<group>"; };
+		53378ADC28C00ACA002749FE /* FillProfileInfoProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillProfileInfoProtocols.swift; sourceTree = "<group>"; };
+		53378AE128C00B34002749FE /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		53378AE428C05EFD002749FE /* FBProfileInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProfileInfoModel.swift; sourceTree = "<group>"; };
+		53378AE728C067F8002749FE /* FillAdditionalProfileInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FillAdditionalProfileInfo.storyboard; sourceTree = "<group>"; };
+		53378AEA28C0681B002749FE /* FillAdditionalProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillAdditionalProfileInfoVC.swift; sourceTree = "<group>"; };
 		534700DB28B6099A00F23539 /* TasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		534700DD28B6105C00F23539 /* TasksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCell.swift; sourceTree = "<group>"; };
 		534700DF28B6135300F23539 /* ModelTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTasks.swift; sourceTree = "<group>"; };
@@ -90,6 +112,10 @@
 		5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewCell.swift; sourceTree = "<group>"; };
 		5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeclataionOfTasksScreen.storyboard; sourceTree = "<group>"; };
 		5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarationOfTasksViewController.swift; sourceTree = "<group>"; };
+		5387573D28BE5E610007196E /* NewUserScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewUserScreen.storyboard; sourceTree = "<group>"; };
+		5387574028BE61E20007196E /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
+		5387574428BE6E590007196E /* KeychainSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftExtension.swift; sourceTree = "<group>"; };
+		5387574D28BE76F20007196E /* ProfileTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabBarController.swift; sourceTree = "<group>"; };
 		53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountScreen.storyboard; sourceTree = "<group>"; };
 		53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksScreen.storyboard; sourceTree = "<group>"; };
 		53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -111,7 +137,7 @@
 		CE29863228B3E12C00B4AE9D /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 		CE29863928B3F55300B4AE9D /* CodeGenerate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeGenerate.swift; sourceTree = "<group>"; };
 		CE29863D28B400B800B4AE9D /* ConstantKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantKeys.swift; sourceTree = "<group>"; };
-		CE29864028B4054B00B4AE9D /* DateExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
+		CE29864028B4054B00B4AE9D /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseProfileModel.swift; sourceTree = "<group>"; };
 		CE3A8A6928B8226900BCE54A /* FireBaseKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseKeys.swift; sourceTree = "<group>"; };
 		CE3A8A6E28B8389800BCE54A /* FireBaseEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseEnumerations.swift; sourceTree = "<group>"; };
@@ -169,6 +195,32 @@
 			path = Karmus;
 			sourceTree = "<group>";
 		};
+		53378ABD28BF646E002749FE /* ChangeProfileInfo */ = {
+			isa = PBXGroup;
+			children = (
+				53378AE728C067F8002749FE /* FillAdditionalProfileInfo.storyboard */,
+				53378AEA28C0681B002749FE /* FillAdditionalProfileInfoVC.swift */,
+			);
+			path = ChangeProfileInfo;
+			sourceTree = "<group>";
+		};
+		53378AC628BF7E37002749FE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				53378AC728BF7E5A002749FE /* SetLoginProtocol.swift */,
+				53378ADC28C00ACA002749FE /* FillProfileInfoProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		53378ACB28BF85B1002749FE /* BelarusianCities */ = {
+			isa = PBXGroup;
+			children = (
+				53378ACC28BF8600002749FE /* BelarusianCities.swift */,
+			);
+			path = BelarusianCities;
+			sourceTree = "<group>";
+		};
 		5372EAD828B7DDB100F3FFA8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +228,18 @@
 				533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		5387573828BE5DEB0007196E /* NewUser */ = {
+			isa = PBXGroup;
+			children = (
+				5387573D28BE5E610007196E /* NewUserScreen.storyboard */,
+				5387574028BE61E20007196E /* GreetingViewController.swift */,
+				53378ABF28BF7D37002749FE /* FillMainProfileInfoVC.swift */,
+				53378AC228BF7D62002749FE /* FillMainProfileInfo.storyboard */,
+				53378AE128C00B34002749FE /* SearchResultViewController.swift */,
+			);
+			path = NewUser;
 			sourceTree = "<group>";
 		};
 		B22E1449D658C4A0628B1A61 /* Frameworks */ = {
@@ -200,7 +264,8 @@
 			isa = PBXGroup;
 			children = (
 				CE29860E28B37C8B00B4AE9D /* StringExtension.swift */,
-				CE29864028B4054B00B4AE9D /* DateExtention.swift */,
+				CE29864028B4054B00B4AE9D /* DateExtension.swift */,
+				5387574428BE6E590007196E /* KeychainSwiftExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -251,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */,
+				53378AE428C05EFD002749FE /* FBProfileInfoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -258,6 +324,8 @@
 		CE6EBC0A28ACEE080095F9BA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				53378ACB28BF85B1002749FE /* BelarusianCities */,
+				53378AC628BF7E37002749FE /* Protocols */,
 				CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */,
 				CEE6717C28B61EB800CC8853 /* Enumerations */,
 				CE29863928B3F55300B4AE9D /* CodeGenerate.swift */,
@@ -289,8 +357,10 @@
 		CE70E85A28ACDC57001F508B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				53378ABD28BF646E002749FE /* ChangeProfileInfo */,
 				CE70E86128ACDE01001F508B /* MainNavigation */,
 				5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */,
+				5387574D28BE76F20007196E /* ProfileTabBarController.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -306,6 +376,7 @@
 		CE70E86128ACDE01001F508B /* MainNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				5387573828BE5DEB0007196E /* NewUser */,
 				CEE6718528B6563400CC8853 /* Identification */,
 				5372EAD828B7DDB100F3FFA8 /* Models */,
 				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
@@ -431,10 +502,13 @@
 				53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */,
 				53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */,
 				5316D73528AC0FC2004C8A90 /* LaunchScreen.storyboard in Resources */,
+				53378AE828C067F8002749FE /* FillAdditionalProfileInfo.storyboard in Resources */,
+				5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */,
 				5316D73228AC0FC2004C8A90 /* Assets.xcassets in Resources */,
 				5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */,
 				5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */,
 				534700E428B621D900F23539 /* CreationTaskScreen.storyboard in Resources */,
+				53378AC328BF7D62002749FE /* FillMainProfileInfo.storyboard in Resources */,
 				534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */,
 				53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */,
 				5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */,
@@ -496,7 +570,7 @@
 				CE29863A28B3F55300B4AE9D /* CodeGenerate.swift in Sources */,
 				5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */,
 				CE26DC8928B4A4BA0022F401 /* SMSManagerResultEnum.swift in Sources */,
-				CE29864128B4054B00B4AE9D /* DateExtention.swift in Sources */,
+				CE29864128B4054B00B4AE9D /* DateExtension.swift in Sources */,
 				CE50DF1228B7B20800D90D4A /* DefaultAlert.swift in Sources */,
 				CEE6717528B61BB600CC8853 /* Reachability.swift in Sources */,
 				5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */,
@@ -507,6 +581,7 @@
 				53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */,
 				CE3A8A6A28B8226900BCE54A /* FireBaseKeys.swift in Sources */,
 				CE15417C28B266E0007731FA /* PopViewController.swift in Sources */,
+				53378AE228C00B34002749FE /* SearchResultViewController.swift in Sources */,
 				534700ED28B679CC00F23539 /* APIManager.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				CEE6717F28B621C100CC8853 /* PhoneVerificationEnumerations.swift in Sources */,
@@ -518,21 +593,30 @@
 				CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */,
 				534700DC28B6099B00F23539 /* TasksTableViewController.swift in Sources */,
 				CE26DC8228B414CD0022F401 /* PhoneNumberVerification.swift in Sources */,
+				5387574128BE61E20007196E /* GreetingViewController.swift in Sources */,
+				53378ACD28BF8600002749FE /* BelarusianCities.swift in Sources */,
 				CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
+				5387574E28BE76F20007196E /* ProfileTabBarController.swift in Sources */,
 				534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */,
 				CE3A8A6F28B8389800BCE54A /* FireBaseEnumerations.swift in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
 				534700EF28B67C3A00F23539 /* Document.swift in Sources */,
+				53378AC028BF7D37002749FE /* FillMainProfileInfoVC.swift in Sources */,
 				5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */,
 				534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */,
+				53378ADD28C00ACA002749FE /* FillProfileInfoProtocols.swift in Sources */,
 				CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */,
 				CE50DF0F28B78FD100D90D4A /* AntiSpam.swift in Sources */,
 				5372EAD128B7ADD000F3FFA8 /* ActiveTasksViewController.swift in Sources */,
 				CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */,
 				CE50DF6E28B7FC3000D90D4A /* FireBaseManager.swift in Sources */,
+				53378AE528C05EFD002749FE /* FBProfileInfoModel.swift in Sources */,
+				53378AC828BF7E5A002749FE /* SetLoginProtocol.swift in Sources */,
+				5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */,
 				CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */,
 				CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */,
+				53378AEB28C0681B002749FE /* FillAdditionalProfileInfoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,7 +764,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X9JXK35MFD;
+				DEVELOPMENT_TEAM = 7KWY9SWUN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Karmus/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Для выбора фото";
@@ -712,9 +796,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X9JXK35MFD;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Karmus/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Для выбора фото";
@@ -734,6 +819,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vironit.Nesterovich.Ermolenko;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

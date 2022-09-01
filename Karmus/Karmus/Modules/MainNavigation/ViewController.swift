@@ -12,7 +12,6 @@ final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-  
     }
 
     @IBAction private func didTapToIdentification(_ sender: UIButton) {

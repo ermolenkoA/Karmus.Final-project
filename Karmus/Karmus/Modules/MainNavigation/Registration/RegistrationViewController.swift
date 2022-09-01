@@ -184,12 +184,10 @@ final class RegistrationViewController: UIViewController {
             showAlert("Превышено количество попыток", "Повторите попытку через \(timeLeft)", where: self)
         }
         
-        let profile = ProfileModel.init(dateOfBirth: ProfileModelConstants.defaultDate,
-                                        firstName: firstNameTextField.text!,
+        let profile = ProfileVerificationModel.init(firstName: firstNameTextField.text!,
                                         login: loginTextField.text!,
                                         password: Int64(passwordTextField.text!.hash ),
                                         phoneNumber: phoneNumberTextField.text!,
-                                        photo: ProfileModelConstants.defaultPhoto,
                                         secondName: secondNameTextField.text!
         )
 
@@ -280,9 +278,9 @@ extension RegistrationViewController: UITextFieldDelegate {
         
         switch textField {
         case firstNameTextField:
-            return newText.count < 20
+            return newText.count < 15
         case secondNameTextField:
-            return newText.count < 30
+            return newText.count < 20
         case loginTextField:
             return newText.count < 24
         case passwordTextField:
@@ -294,7 +292,6 @@ extension RegistrationViewController: UITextFieldDelegate {
         default:
             return true
         }
-        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -321,9 +318,7 @@ extension RegistrationViewController: UITextFieldDelegate {
             
             guard isNetworkConected else { return }
             
-            let mode = registrationElement == .login ? FireBaseRequestMode.findLogin : FireBaseRequestMode.findPhone
-            
-            FireBaseDataBaseManager.findLoginOrPhone(text, mode: mode) { [unowned self] result in
+            FireBaseDataBaseManager.findLoginOrPhone(text) { [unowned self] result in
                     
                     guard result != .error else{
                         showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
@@ -478,13 +473,13 @@ extension RegistrationViewController {
         switch textField {
         case firstNameTextField:
             if text.count < 2 {
-                return "Имя должно содержать от 2 до 20 символов"
+                return "Имя должно содержать от 2 до 15 символов"
             } else if !(text ~= "^[A-za-zА-Яа-яЁё]{2,}$") {
                 return "Имя может содержать только буквы русского и латинского алфавитов"
             }
         case secondNameTextField:
             if text.count < 2 {
-                return "Фамилия должна содержать от 2 до 30 символов"
+                return "Фамилия должна содержать от 2 до 20 символов"
             } else if !(text ~= "^[A-za-zА-Яа-яЁё]{2,}$") {
                 return "Фамилия может содержать только буквы русского и латинского алфавитов"
             }
