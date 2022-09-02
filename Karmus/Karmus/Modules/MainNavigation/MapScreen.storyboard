@@ -118,6 +118,7 @@
                         <outlet property="tasksTitle" destination="c6f-bk-PiS" id="Tly-yJ-lpw"/>
                         <outlet property="tasksView" destination="p0V-OM-Czt" id="fMJ-B8-EXa"/>
                         <outlet property="titlePositionConstraint" destination="M9H-ff-82q" id="wes-pz-Yri"/>
+                        <segue destination="NDK-ua-USu" kind="show" identifier="toDeclarationScreen" id="neZ-jZ-cDz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -133,11 +134,21 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="fpy-3Y-EYB">
                     <connections>
-                        <segue destination="iBx-5v-x5i" kind="show" id="vQn-lj-PIs"/>
+                        <segue destination="iBx-5v-x5i" kind="show" identifier="toActiveTasksScreen" id="vQn-lj-PIs"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="26.635514018691588" y="82.937365010799141"/>
+            <point key="canvasLocation" x="56" y="75"/>
+        </scene>
+        <!--DeclataionOfTasksScreen-->
+        <scene sceneID="dze-dh-afV">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DeclataionOfTasksScreen" id="NDK-ua-USu" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="NXN-w1-1E1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1F3-Z6-fyO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="641" y="-69"/>
         </scene>
         <!--TasksScreen-->
         <scene sceneID="Rdv-W0-WB9">

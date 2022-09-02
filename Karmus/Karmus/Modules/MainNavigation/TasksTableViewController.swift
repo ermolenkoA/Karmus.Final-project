@@ -11,7 +11,7 @@ import UIKit
 class TasksTableViewController: UITableViewController {
     
     
-    var allTasks = [ActiveTasks]()
+    var allTasks = [ModelTasks]()
 //    var tasksFromDeclaration: ActiveTasks!
     var tasksFromDeclaration = DeclarationOfTasksViewController()
     var refTasks: DatabaseReference!
@@ -25,14 +25,17 @@ class TasksTableViewController: UITableViewController {
         refTasks.observe(DataEventType.value, with:{(snapshot) in
             if snapshot.childrenCount > 0 {
                 self.allTasks.removeAll()
-                
                 for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                     let taskObject = tasks.value as? [String: AnyObject]
-                    let taskName = taskObject?["taskName"]
-                    let taskId = taskObject?["id"]
-                    let taskDate = taskObject?["taskDate"]
                     
-                    let task = ActiveTasks(data: taskDate as! String, declaration: taskName as! String, id: taskId as! String)
+                    let taskName = taskObject?["taskName"]
+                    let taskId = tasks.key
+                    let taskDate = taskObject?["taskDate"]
+                    let taskImage = taskObject?["imageURL"]
+                    let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
+                    let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
+                    
+                    let task = ModelTasks(imageURL: taskImage as! String, id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String)
                     
                     self.allTasks.append(task)
                 }
@@ -51,12 +54,7 @@ class TasksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! TasksTableViewCell
-        
-        let task = allTasks[indexPath.row]
-       
-        cell.dataLabel.text = task.data
- //       cell.taskImageView.image = task.image
-        cell.declarationLabel.text = task.declaration
+        cell.activeModelTask = allTasks[indexPath.row]
         return cell
     }
     

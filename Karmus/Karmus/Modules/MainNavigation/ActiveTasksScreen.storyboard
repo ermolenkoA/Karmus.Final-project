@@ -11,7 +11,7 @@
         <!--Active Tasks View Controller-->
         <scene sceneID="m93-O1-kFk">
             <objects>
-                <tableViewController id="SSD-3W-VPi" customClass="ActiveTasksViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ActiveTasksViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SSD-3W-VPi" customClass="ActiveTasksViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="3uY-o7-Wdg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

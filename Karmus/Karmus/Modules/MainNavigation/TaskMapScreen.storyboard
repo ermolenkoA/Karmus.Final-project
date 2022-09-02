@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Поиск места-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="TaskMapViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="oHu-k5-gWo">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYr-GJ-jsI">
+                                <rect key="frame" x="345" y="831" width="49" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="add"/>
+                                <connections>
+                                    <action selector="addTaskButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="J4i-Qz-xa3"/>
+                                    <segue destination="5f2-JD-m6Y" kind="show" id="JCN-hV-F1O"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oHu-k5-gWo" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="1Gj-jT-gRI"/>
+                            <constraint firstItem="oHu-k5-gWo" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9Ll-Aq-BWs"/>
+                            <constraint firstItem="kYr-GJ-jsI" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="JpQ-S9-olI"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="oHu-k5-gWo" secondAttribute="bottom" constant="-34" id="pbO-iR-QCD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="oHu-k5-gWo" secondAttribute="trailing" id="wME-im-IV9"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="kYr-GJ-jsI" secondAttribute="trailing" constant="20" id="xcG-rn-MNU"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Поиск места" id="gP1-MU-oO1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="q74-11-k02">
+                            <connections>
+                                <action selector="searchWithAddress:" destination="Y6W-OH-hqX" id="9T0-AY-vqx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapContainer" destination="5EZ-qb-Rvc" id="ddZ-uy-mwB"/>
+                        <outlet property="mapView" destination="oHu-k5-gWo" id="eGe-QJ-S7G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="892.75362318840587" y="56.919642857142854"/>
+        </scene>
+        <!--TasksScreen-->
+        <scene sceneID="aVr-7B-HNE">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TasksScreen" id="5f2-JD-m6Y" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Muz-4V-71j"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q68-Os-2v0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1070" y="408"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="W23-fi-HFO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HxF-K0-Hy5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="q4G-wE-GRp">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="rJL-UZ-RxP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xz2-bq-3OA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-17.39130434782609" y="56.919642857142854"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

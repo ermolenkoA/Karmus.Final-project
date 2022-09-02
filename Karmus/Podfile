@@ -11,6 +11,8 @@ pod 'Firebase', '8.15.0'
 pod 'Firebase/Database', '8.15.0'
 pod 'Firebase/Storage', '8.15.0'
 pod 'FirebaseFirestore', '8.15.0'
+pod 'Kingfisher', '~> 4.0'
+pod 'GooglePlaces', '7.1.0'
   # Pods for Karmus
 
 post_install do |installer|

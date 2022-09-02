@@ -15,5 +15,7 @@ public struct References {
     static let fromMapToTasksScreen = "toTasksScreen"
     static let fromActiveTasksToDeclarationOfTasksScreen = "toDeclataionOfTasksScreen"
     static let fromDeclarationToTasksScreen = "toTasksScreen"
-
+    static let fromCreationToTaskMapScreen = "toTaskMapScreen"
+    static let fromMapActiveTaskToDeclarationTaskScreen = "toDeclarationScreen"
+    
 }

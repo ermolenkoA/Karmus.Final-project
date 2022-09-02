@@ -10,7 +10,7 @@ class ActiveTasksViewController: UITableViewController {
 //    var tasksFromDeclaration: ActiveTasks!
     
     var refTasks: DatabaseReference!
-    var activeTasks = [ActiveTasks]()
+    var activeTasks = [ModelTasks]()
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -24,16 +24,24 @@ class ActiveTasksViewController: UITableViewController {
                 for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                     let taskObject = tasks.value as? [String: AnyObject]
                     let taskName = taskObject?["taskName"]
-                    let taskId = taskObject?["id"]
+                    let taskId = tasks.key
                     let taskDate = taskObject?["taskDate"]
-                    
-                    let task = ActiveTasks(data: taskDate as! String, declaration: taskName as! String, id: taskId as! String)
+                    let taskImage = taskObject?["imageURL"]
+                    let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
+                    let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
+
+//                    let task = ActiveTasks(date: taskDate as! String, declaration: taskName as! String, id: taskId, imageURL: taskImage as! String)
+                    let task = ModelTasks(imageURL: taskImage as! String, id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String)
                     
                     self.activeTasks.append(task)
                 }
                 self.tableView.reloadData()
             }
         })
+    }
+    
+    func getAllFIRData() {
+        refTasks.queryOrderedByKey()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,10 +51,8 @@ class ActiveTasksViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! ActiveTasksViewCell
-        let task = activeTasks[indexPath.row]
-//        cell.taskImageView.image =
-        cell.dateLabel.text = task.data
-        cell.declarationLabel.text = task.declaration
+        cell.activeModelTask = activeTasks[indexPath.row]
+        
         celldataLabel = cell.dateLabel.text
         celldeclarationLabel = cell.declarationLabel.text
 //        celltaskImageView = cell.taskImageView.image
@@ -55,8 +61,8 @@ class ActiveTasksViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let task = activeTasks.tasks[indexPath.row]
         performSegue(withIdentifier: References.fromActiveTasksToDeclarationOfTasksScreen, sender: indexPath)
+        
     }
 
     
@@ -65,7 +71,8 @@ class ActiveTasksViewController: UITableViewController {
             let controller = segue.destination as! DeclarationOfTasksViewController
             let indexPath = sender as! IndexPath
             let task = activeTasks[indexPath.row]
-            controller.declarationOfTasks = task
+            controller.declarationFromActiveTasks = task
+            controller.uniqueKeyFromActiveTasks = task.id
         }
     }
 }

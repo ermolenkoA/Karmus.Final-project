@@ -69,17 +69,32 @@
                                     <action selector="addTask:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="PHq-2N-ke4"/>
                                 </connections>
                             </button>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="mfw-XD-4fh">
+                                <rect key="frame" x="0.0" y="181" width="320" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uR2-Uk-XvB">
+                                <rect key="frame" x="237" y="517" width="67" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <connections>
+                                    <segue destination="uzt-zQ-EZ2" kind="show" identifier="toTaskMapScreen" id="uXm-aE-l2g"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Jky-4q-484" firstAttribute="top" secondItem="Hh6-Q8-vrW" secondAttribute="bottom" constant="56" id="006-fV-8ls"/>
+                            <constraint firstItem="mfw-XD-4fh" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="3LM-2z-BCh"/>
                             <constraint firstItem="axo-mc-efK" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="3dE-jo-03h"/>
                             <constraint firstItem="Hh6-Q8-vrW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="6gn-Qs-2Nw"/>
                             <constraint firstItem="6Gy-sy-Hds" firstAttribute="top" secondItem="xN8-4D-djP" secondAttribute="bottom" constant="17" id="Am4-6p-KRc"/>
                             <constraint firstItem="AFX-Lc-sdb" firstAttribute="top" secondItem="axo-mc-efK" secondAttribute="bottom" constant="10" id="C1d-WV-FQ0"/>
                             <constraint firstItem="uOl-oO-qxs" firstAttribute="top" secondItem="6Gy-sy-Hds" secondAttribute="bottom" constant="71" id="CXn-cq-c8y"/>
                             <constraint firstItem="uOl-oO-qxs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="E2Y-rF-Ctk"/>
+                            <constraint firstItem="mfw-XD-4fh" firstAttribute="top" secondItem="Hh6-Q8-vrW" secondAttribute="bottom" id="HxR-z3-Toc"/>
                             <constraint firstItem="6Gy-sy-Hds" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="JbP-x9-il3"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="axo-mc-efK" secondAttribute="trailing" constant="51" id="M6V-D7-0Ol"/>
                             <constraint firstItem="xN8-4D-djP" firstAttribute="top" secondItem="Jky-4q-484" secondAttribute="bottom" constant="22" id="RDg-ib-oO4"/>
@@ -89,6 +104,7 @@
                             <constraint firstItem="Hh6-Q8-vrW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="33" id="Ub8-H4-pWd"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="AFX-Lc-sdb" secondAttribute="trailing" constant="50" id="WP5-qq-jAe"/>
                             <constraint firstItem="AFX-Lc-sdb" firstAttribute="leading" secondItem="Hh6-Q8-vrW" secondAttribute="trailing" constant="24" id="YJn-Ft-Pud"/>
+                            <constraint firstItem="mfw-XD-4fh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="fk7-1L-8Ua"/>
                             <constraint firstItem="axo-mc-efK" firstAttribute="leading" secondItem="Hh6-Q8-vrW" secondAttribute="trailing" constant="24" id="gSY-kO-BVD"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="uOl-oO-qxs" secondAttribute="bottom" constant="20" id="orw-ah-aQC"/>
                             <constraint firstItem="6Gy-sy-Hds" firstAttribute="top" secondItem="xN8-4D-djP" secondAttribute="bottom" constant="17" id="qMb-Va-mHD"/>
@@ -114,6 +130,16 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-16.875" y="17.95774647887324"/>
+        </scene>
+        <!--TaskMapScreen-->
+        <scene sceneID="0Tg-ai-xPM">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TaskMapScreen" id="uzt-zQ-EZ2" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="vbc-L8-iTh"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bqf-gQ-hM7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="26" y="415"/>
         </scene>
     </scenes>
     <resources>

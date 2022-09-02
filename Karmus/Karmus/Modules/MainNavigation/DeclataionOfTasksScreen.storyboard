@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -12,22 +12,25 @@
         <!--Declaration Of Tasks View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="DeclarationOfTasksViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DeclarationOfTasksViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="DeclarationOfTasksViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vx4-z0-giJ">
-                                <rect key="frame" x="32" y="32" width="311" height="233"/>
+                                <rect key="frame" x="32" y="76" width="311" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="zxh-8f-cUM"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpf-gk-zkQ">
-                                <rect key="frame" x="32" y="273" width="42" height="21"/>
+                                <rect key="frame" x="32" y="498" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWz-mx-BcT">
-                                <rect key="frame" x="137.5" y="533" width="100" height="35"/>
+                                <rect key="frame" x="137.66666666666666" y="758" width="100" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="bLo-VL-Hs2"/>
                                     <constraint firstAttribute="width" constant="100" id="ks0-Ke-2VN"/>
@@ -39,7 +42,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTL-cb-MPd">
-                                <rect key="frame" x="32" y="302" width="311" height="203"/>
+                                <rect key="frame" x="32" y="527" width="311" height="203"/>
                                 <string key="text">Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать Надоело много писать </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -49,7 +52,6 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Kpf-gk-zkQ" firstAttribute="top" secondItem="Vx4-z0-giJ" secondAttribute="bottom" constant="8" symbolic="YES" id="1jQ-jL-oWL"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Vx4-z0-giJ" secondAttribute="trailing" constant="32" id="3PW-TU-zKl"/>
                             <constraint firstItem="EWz-mx-BcT" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="6oH-Sf-i2o"/>
                             <constraint firstItem="Vx4-z0-giJ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="32" id="BMA-F2-3bJ"/>

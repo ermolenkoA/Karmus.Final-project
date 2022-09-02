@@ -7,19 +7,43 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
-class ActiveTasks: NSObject{
-//    var image: UIImage
+//class ActiveTasks: NSObject{
+//    var imageURL: String
+//    var id: String
+//    var date: String
+//    var declaration: String
+//
+////    var coordinate: String
+//    init(date: String, declaration: String, id: String, imageURL: String){
+//        self.date = date
+//        self.declaration = declaration
+//        self.id = id
+//        self.imageURL = imageURL
+//    }
+//}
+
+class ModelTasks: NSObject {
+    var imageURL: String
     var id: String
-    var data: String
+    var latitudeCoordinate: Double
+    var longitudeCoordinate: Double
+    var date: String
     var declaration: String
-    init(data: String, declaration: String, id: String){
-        self.data = data
-//        self.image = image
-        self.declaration = declaration
+//    var coordinate: String
+    init(imageURL: String, id: String, latitudeCoordinate: Double, longitudeCoordinate: Double, date: String, declaration: String){
+        self.imageURL = imageURL
         self.id = id
+        self.longitudeCoordinate = longitudeCoordinate
+        self.latitudeCoordinate = latitudeCoordinate
+        self.date = date
+        self.declaration = declaration
     }
+    
 }
+
+
 
 //class ModelActiveTasks {
 //    var tasks = [ActiveTasks]()

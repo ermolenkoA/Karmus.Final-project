@@ -24,13 +24,13 @@ class APIManager {
         return datebase
     }
     
-    func getPost(collection: String, docName: String, completion: @escaping (Document?) -> Void) {
-        let datebase = configureFB()
-        datebase.collection(collection).document(docName).getDocument(completion: { (document, error) in
-            guard error == nil else { completion(nil); return }
-            let doc = Document(field1: document?.get("field1") as! String, field2: document?.get("field2") as! String)
-            completion(doc)
-        })
+//    func getPost(collection: String, docName: String, completion: @escaping (Document?) -> Void) {
+//        let datebase = configureFB()
+//        datebase.collection(collection).document(docName).getDocument(completion: { (document, error) in
+//            guard error == nil else { completion(nil); return }
+//            let doc = Document(field1: document?.get("field1") as! String, field2: document?.get("field2") as! String)
+//            completion(doc)
+//        })
     }
     func getImage(picName: String, completion: @escaping (UIImage) -> Void) {
         let storage = Storage.storage()
@@ -46,5 +46,4 @@ class APIManager {
             completion(image)
             })
         }
-    }
-
+    
