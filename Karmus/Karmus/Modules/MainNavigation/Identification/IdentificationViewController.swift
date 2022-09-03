@@ -35,6 +35,7 @@ final class IdentificationViewController: UIViewController {
     private var isNetworkConected: Bool {
 
         guard Reachability.isConnectedToNetwork() else {
+            
             showAlert("Отсутствует доступ к интернету", "Проверьте подключение и повторите попытку", where: self)
             return false
         }
@@ -68,16 +69,18 @@ final class IdentificationViewController: UIViewController {
         guard let login = login else {
             return
         }
-        
+
         if let profileTabBar = segue.destination as? ProfileTabBarController {
             (profileTabBar as SetLoginProtocol).setLogin(login: login)
+            UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
+            
         } else if let greetingVC = segue.destination as? GreetingViewController {
             (greetingVC as SetLoginProtocol).setLogin(login: login)
         }
         
     }
     
-    @objc func keyboardNotification(notification: Notification){
+    @objc func keyboardNotification(notification: Notification) {
         
         guard let userInfo = notification.userInfo else { return }
         
@@ -148,7 +151,11 @@ final class IdentificationViewController: UIViewController {
                 return
             }
             
-            Database.database().reference().child(FBDefaultKeys.profiles).observeSingleEvent(of: .value) { [unowned self] snapshot in
+            Database.database().reference().child(FBDefaultKeys.profiles).observeSingleEvent(of: .value) { [weak self] snapshot in
+                
+                guard let self = self else{
+                    return
+                }
                 
                 guard snapshot.exists() else{
                     print("\n<IdentificationViewController\\didTapForgotPasswordLabel> ERROR: snapshot isn't exist\n")
@@ -235,8 +242,12 @@ final class IdentificationViewController: UIViewController {
             return
         }
         
-        FireBaseDataBaseManager.openProfile(login: login, password: Int64(password.hash)) { [unowned self] result, profileID in
+        FireBaseDataBaseManager.openProfile(login: login, password: Int64(password.hash)) { [weak self] result, profileID in
                 
+            guard let self = self else {
+                return
+            }
+            
             guard result != .error else{
                 showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
                 return
@@ -249,6 +260,7 @@ final class IdentificationViewController: UIViewController {
                 self.loginTextField.text = nil
                 AntiSpam.resetUserLogInAttemps()
                 KeychainSwift.shared.set(profileID!, forKey: ConstantKeys.currentProfile)
+
                 FireBaseDataBaseManager.getProfileUpdateDate(profileID!){ [weak self] date in
                     if date == nil {
                         self?.performSegue(withIdentifier: References.fromIdentificationScreenToNewUserScreen, sender: self)

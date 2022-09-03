@@ -43,7 +43,7 @@ extension Date {
     }
     
     static func year1950() -> Date {
-        let dateComponents = NSDateComponents();
+        let dateComponents = NSDateComponents()
         dateComponents.year = 1950
         let calendar = NSCalendar.current
         return calendar.date(from: dateComponents as DateComponents)!

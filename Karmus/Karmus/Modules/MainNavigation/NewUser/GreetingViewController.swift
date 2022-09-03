@@ -21,14 +21,14 @@ final class GreetingViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private var tapCounter = 7
+    private var tapCounter = 1
     private var login: String?
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        showFirstSlide()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

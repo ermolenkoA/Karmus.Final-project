@@ -158,20 +158,20 @@ final class PhoneNumberVerification {
         
         print("\nCODE: \(message.code)\n")
         
-//        SMSManager.sendSMS(phone: phone, message: message.messageBody + message.code){ [weak self] (result) in
-//            guard let self = self else {
-//                print("\n<PhoneNumberVerification\\sendCode> ERROR: PhoneNumberVerification class isn't exist\n")
-//                return
-//            }
-//
-//            if result == .error  {
-//                DispatchQueue.main.async {
-//                    self.showAlert("Произошла ошибка", "Обратитесь к разработчику приложения")
-//                }
-//            }
-//
-//            self.showEnterVerificationCode(validCode: message.code)
-//        }
+        //        SMSManager.sendSMS(phone: phone, message: message.messageBody + message.code){ [weak self] (result) in
+        //            guard let self = self else {
+        //                print("\n<PhoneNumberVerification\\sendCode> ERROR: PhoneNumberVerification class isn't exist\n")
+        //                return
+        //            }
+        //
+        //            if result == .error  {
+        //                DispatchQueue.main.async {
+        //                    showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self.controller)
+        //                }
+        //            }
+        //
+        //            self.showEnterVerificationCodeAlert(validCode: message.code)
+        //        }
         
         self.showEnterVerificationCodeAlert(validCode: message.code)
         
@@ -253,9 +253,10 @@ final class PhoneNumberVerification {
                             FBProfileKeys.password : profile.password,
                             FBProfileKeys.phoneNumber : profile.phoneNumber
                         ])
-                    
                     showAlert("Вы были успешно зарегистрированы!", nil , where: self.controller)
-        
+                    DispatchQueue.main.async {
+                        (controller as? RegistrationViewController)?.clearAllTextFields()
+                    }
                 case .resetPassword:
                     resetPassword()
                 }

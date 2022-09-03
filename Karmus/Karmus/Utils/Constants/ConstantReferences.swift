@@ -18,5 +18,6 @@ public struct References {
     static let fromIdentificationScreenToNewUserScreen = "toNewUserScreen"
     static let fromNewUserScreentoFillMainInfo = "toFillMainProfileInfo"
     static let fromFillMainInfotoFillAdditionalInfo = "toFillAdditionalInfo"
+    static let fromFillAdditionalInfotoAccountScreen = "toAccountScreenSecond"
 
 }

@@ -12,6 +12,7 @@ final class FireBaseDataBaseManager {
     
     private static let profiles =  Database.database().reference().child(FBDefaultKeys.profiles)
     private static let profliesInfo =  Database.database().reference().child(FBDefaultKeys.profilesInfo)
+    private static let topics =  Database.database().reference().child(FBDefaultKeys.topics)
     
     static let description = "<FireBaseDataBaseManager>"
     
@@ -24,12 +25,12 @@ final class FireBaseDataBaseManager {
                 result(.error)
                 return
             }
-
-        profiles.observe(.value) { snapshot in
+        
+        profiles.observeSingleEvent(of: .value) { snapshot in
             
             guard snapshot.exists() else{
-                print("\n\(self.description) ERROR: snapshot isn't exist\n")
-                result(.error)
+                print("\n\(self.description) Failure: snapshot isn't exist\n")
+                result(.notFound)
                 return
             }
             
@@ -52,7 +53,7 @@ final class FireBaseDataBaseManager {
                     result(.found)
                     return
                 }
-    
+                
             }
             
             result(.notFound)
@@ -60,14 +61,14 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func getProfileUpdateDate(_ login: String, _ result: @escaping (Date?) -> ()){
+    static func getProfileUpdateDate(_ profileID: String, _ result: @escaping (String?) -> ()){
         
-        profliesInfo.child(login).observeSingleEvent(of: .value){ snapshot in
+        profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).observeSingleEvent(of: .value){ snapshot in
             guard snapshot.exists() else {
                 result(nil)
                 return
             }
-            result(snapshot.value as? Date)
+            result(snapshot.value as? String)
         }
         
     }
@@ -96,6 +97,18 @@ final class FireBaseDataBaseManager {
         
     }
     
+    static func getTopics(_ result: @escaping ([String]?) -> ()){
+        
+        topics.observeSingleEvent(of: .value){ snapshot in
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            result(snapshot.value as? [String])
+        }
+        
+    }
+    
     static func openProfile(login: String, password: Int64, newPassword: Int64? = nil, _ result: @escaping (FireBaseOpenProfileResult, String?) -> ()) {
 
         if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$"){
@@ -105,11 +118,11 @@ final class FireBaseDataBaseManager {
             }
         }
         
-        profiles.observe(.value) { snapshot in
+        profiles.observeSingleEvent(of: .value) { snapshot in
 
             guard snapshot.exists() else{
-                print("\n\(self.description) ERROR: snapshot isn't exist\n")
-                result(.error, nil)
+                print("\n\(self.description) Failure: snapshot isn't exist\n")
+                result(.failure, nil)
                 return
                 
             }
@@ -137,14 +150,14 @@ final class FireBaseDataBaseManager {
                     return
                 }
                 
-                guard ( loginFromData != login || phoneNumber != login ) && password == passwordFromData else {
+                guard ( loginFromData == login || phoneNumber == login ) && (password == passwordFromData) else {
                     continue
                 }
                 
                 if let newPassword = newPassword {
                     self.profiles.child(profile.key).child(FBProfileKeys.password).setValue(newPassword)
                 }
-                
+
                 result(.success, profile.key)
                 return
             }

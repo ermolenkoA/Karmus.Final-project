@@ -20,5 +20,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A15F744D-76B9-46A5-A323-AF2D08E45F60"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Karmus/Modules/MainNavigation/Registration/RegistrationViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
+            landmarkName = "textFieldDidEndEditing(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A15F744D-76B9-46A5-A323-AF2D08E45F60 - a81214921391cf49"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.RegistrationViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/Registration/RegistrationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "1020">
+               </Location>
+               <Location
+                  uuid = "A15F744D-76B9-46A5-A323-AF2D08E45F60 - bd1230ea0f2988ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Karmus.FireBaseRequestResult) -&gt; () in Karmus.RegistrationViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/Registration/RegistrationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "193">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

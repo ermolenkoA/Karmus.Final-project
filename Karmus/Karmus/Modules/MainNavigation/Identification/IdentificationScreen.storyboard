@@ -81,7 +81,7 @@
                         <outlet property="passwordTextField" destination="Uax-8W-JfH" id="arv-LS-r3f"/>
                         <outlet property="submitButton" destination="3ke-2K-8kL" id="R73-GQ-2V2"/>
                         <outlet property="titleLabel" destination="qTw-3C-xWa" id="oZ5-Gp-7hf"/>
-                        <segue destination="BOa-1R-7dh" kind="show" identifier="toAccountScreen" id="gWs-Kr-evT"/>
+                        <segue destination="BOa-1R-7dh" kind="presentation" identifier="toAccountScreen" modalPresentationStyle="overCurrentContext" id="gWs-Kr-evT"/>
                         <segue destination="ry9-2m-h8s" kind="show" identifier="toNewUserScreen" id="uJi-2O-tGC"/>
                     </connections>
                 </viewController>

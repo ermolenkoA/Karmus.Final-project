@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mW-zc-q8N">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mW-zc-q8N">
                                 <rect key="frame" x="104.5" y="386.5" width="111" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Подтвердить">
@@ -72,7 +72,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Не указана" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="be5-it-7qL">
+                                    <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Не указана" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="be5-it-7qL">
                                         <rect key="frame" x="102.5" y="184.5" width="80.5" height="19.5"/>
                                         <color key="textColor" systemColor="systemBlueColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -142,7 +142,6 @@
                                     <constraint firstItem="be5-it-7qL" firstAttribute="leading" secondItem="XWI-U5-IP2" secondAttribute="trailing" constant="10" id="lIy-Sw-UcP"/>
                                     <constraint firstItem="uze-ra-XMo" firstAttribute="centerX" secondItem="VTd-Q9-2op" secondAttribute="centerX" id="mLS-ua-WUx"/>
                                     <constraint firstItem="jt2-Vg-dDM" firstAttribute="leading" secondItem="X9z-x8-jFO" secondAttribute="trailing" constant="10" id="nGy-xE-Dpr"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="be5-it-7qL" secondAttribute="trailing" constant="10" id="oNO-6k-Ajt"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jt2-Vg-dDM" secondAttribute="trailing" constant="20" id="oVJ-nl-RX9"/>
                                     <constraint firstItem="VnR-K6-hI4" firstAttribute="top" secondItem="7G6-uj-RyG" secondAttribute="bottom" constant="20" id="oov-1V-eTp"/>
                                     <constraint firstItem="kXn-Zf-5ZI" firstAttribute="leading" secondItem="ihb-fF-UIk" secondAttribute="trailing" constant="10" id="q6P-VV-xCQ"/>

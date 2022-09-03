@@ -85,6 +85,17 @@ final class FillMainProfileInfoVC: UIViewController {
         view.endEditing(true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       guard let fillInfoVC = segue.destination as? FillAdditionalProfileInfoVC else{
+            return
+        }
+        guard let login = login else {
+            return
+        }
+        (fillInfoVC as SetLoginProtocol).setLogin(login: login)
+        (fillInfoVC as NewUserProtocol).calledByNewUser()
+    }
+    
     private func standartSettings() {
         
         guard let login = login else {
@@ -97,10 +108,12 @@ final class FillMainProfileInfoVC: UIViewController {
         phoneNumberTextField.attributedPlaceholder = NSAttributedString(string: "Не указан", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemBlue])
         emailTextField.attributedPlaceholder = NSAttributedString(string: "Не указана", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemBlue])
         
-        DispatchQueue.main.async {
             FireBaseDataBaseManager.getProfileInfo(login) { [weak self] info in
                 
-                guard let info = info else { return }
+                guard let info = info else {
+                    let _ = self?.defaultSettings
+                    return
+                }
                
                 if let dateOfBirth = info.dateOfBirth {
                     self?.dateOfBirthTextField.text = dateOfBirth
@@ -124,7 +137,6 @@ final class FillMainProfileInfoVC: UIViewController {
                 
                 let _ = self?.defaultSettings
             }
-        }
         
     }
     
@@ -221,9 +233,6 @@ final class FillMainProfileInfoVC: UIViewController {
             cityDeleteButton.transform.ty = mainView.transform.ty
             return
         }
-        guard phoneNumberTextField.isEditing || emailTextField.isEditing else {
-            return
-        }
         
         guard let userInfo = notification.userInfo else { return }
         
@@ -256,6 +265,7 @@ final class FillMainProfileInfoVC: UIViewController {
             dateOfBirthTextField.text = nil
         case cityDeleteButton:
             cityLabel.text = "Выбрать"
+            titleCityLabel.textColor = .label
         case phoneDeleteButton:
             phoneNumberTextField.text = nil
             titlePhoneLabel.textColor = .label
@@ -264,6 +274,10 @@ final class FillMainProfileInfoVC: UIViewController {
             titleEmailLabel.textColor = .label
         default:
             break
+        }
+        if titleEmailLabel.textColor != .red && titlePhoneLabel.textColor != .red {
+            self.sumbitButton.alpha = 1
+            self.sumbitButton.isUserInteractionEnabled = true
         }
         sender.isHidden = true
     }
@@ -324,7 +338,6 @@ final class FillMainProfileInfoVC: UIViewController {
                      sender: self)
                     
                  }
-
             alert.addAction(okButton)
             alert.view.tintColor = UIColor.black
             present(alert, animated: true)
@@ -386,7 +399,8 @@ extension FillMainProfileInfoVC: UITextFieldDelegate {
         default:
             break
         }
-
+        self.sumbitButton.alpha = 0.5
+        self.sumbitButton.isUserInteractionEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -409,27 +423,35 @@ extension FillMainProfileInfoVC: UITextFieldDelegate {
                 break
             }
             
-            guard phone ~= "^(\\+375)(29|25|33|44)([\\d]{7})$" else {
+            if phone ~= "^(\\+375)(29|25|33|44)([\\d]{7})$"{
+                titlePhoneLabel.textColor = .label
+            } else {
                 titlePhoneLabel.textColor = .red
                 phoneDeleteButton.isHidden = false
-                break
             }
+            
             phoneDeleteButton.isHidden = false
         case emailTextField:
             guard let email = emailTextField.text, !email.isEmpty else {
                 break
             }
-            guard email ~= "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}$" else {
+            
+            if email ~= "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}$"{
+                titleEmailLabel.textColor = .label
+            } else {
                 titleEmailLabel.textColor = .red
                 emailDeleteButton.isHidden = false
-                break
             }
+            
             emailDeleteButton.isHidden = false
         default:
             break
         }
+        if titleEmailLabel.textColor != .red && titlePhoneLabel.textColor != .red {
+            self.sumbitButton.alpha = 1
+            self.sumbitButton.isUserInteractionEnabled = true
+        }
         
-        self.sumbitButton.isUserInteractionEnabled = true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -437,8 +459,10 @@ extension FillMainProfileInfoVC: UITextFieldDelegate {
         switch textField {
         case phoneNumberTextField:
             switch newText.count {
+            case 4:
+                return newText == "+375"
             case 5:
-                return newText ~= "^(\\+375)(2|3|4)$" || newText == "+375"
+                return newText ~= "^(\\+375)(2|3|4)$"
             case 6:
                 return newText ~= "^(\\+375)(29|25|33|44)$"
             case 7...13:
@@ -482,7 +506,7 @@ extension FillMainProfileInfoVC: SetCityProtocol{
         cityLabel.text = city
         searchController.isActive = false
         cityDeleteButton.isHidden = false
-        cityLabel.textColor = .label
+        titleCityLabel.textColor = .label
     }
 }
 

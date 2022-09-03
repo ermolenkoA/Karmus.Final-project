@@ -75,7 +75,8 @@ final class RegistrationViewController: UIViewController {
         passwordTextField.textContentType = .none
         repeatPasswordTextField.textContentType = .none
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     deinit {
@@ -192,14 +193,8 @@ final class RegistrationViewController: UIViewController {
         )
 
         
-        clearAllTextFields()
-        correctTextFields.removeAll()
-        
         phoneNumberVerification = PhoneNumberVerification(profile: profile, for: .registration, self)
         phoneNumberVerification?.startVerification()
-    
-        registrationButton.isUserInteractionEnabled = false
-        registrationButton.alpha = 0.5
         
     }
     
@@ -310,35 +305,37 @@ extension RegistrationViewController: UITextFieldDelegate {
             return
         }
         
-        
-        
         let result = isTextInTextFieldCorrect(textField: textField)
         
         if result && (registrationElement == .login || registrationElement == .phoneNumber) {
             
             guard isNetworkConected else { return }
-            
-            FireBaseDataBaseManager.findLoginOrPhone(text) { [unowned self] result in
+                
+                FireBaseDataBaseManager.findLoginOrPhone(text) { [weak self] result in
+                    
+                    guard let self = self else{
+                        return
+                    }
                     
                     guard result != .error else{
                         showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
                         return
                     }
-                
+                    
                     guard result != .error else{
                         showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
                         return
                     }
-                
-                
-                    textField.layer.borderColor = result == .notFound ? greenColor : redColor
-                    changeButtonIcon(for: textField, icon: result == .notFound ? .correct : .incorrect)
-                    changeCorrectTextFields(registrationElement: registrationElement, formFillResult: result == .notFound ? .correct : .incorrect)
-
+                    
+                    
+                    textField.layer.borderColor = result == .notFound ? self.greenColor : self.redColor
+                    self.changeButtonIcon(for: textField, icon: result == .notFound ? .correct : .incorrect)
+                    self.changeCorrectTextFields(registrationElement: registrationElement, formFillResult: result == .notFound ? .correct : .incorrect)
+                    
                     textField.layer.borderWidth = 1
-                    showOrHideButton(for: textField, action: .show)
+                    self.showOrHideButton(for: textField, action: .show)
+                }
                 
-            }
             
         } else {
             
@@ -380,19 +377,19 @@ extension RegistrationViewController {
         
     }
     
-    private func clearAllTextFields(){
+    func clearAllTextFields(){
         
         let textFields: [UITextField] = [firstNameTextField, secondNameTextField, loginTextField, passwordTextField, repeatPasswordTextField, phoneNumberTextField]
         for textField in textFields {
-
             textField.text = nil
             textField.layer.borderColor = CGColor(gray: 255, alpha: 1)
             textField.layer.borderWidth = 0
-            
             showOrHideButton(for: textField, action: .hide)
         }
         agreementSwitch.isOn = false
-        
+        correctTextFields.removeAll()
+        registrationButton.isUserInteractionEnabled = false
+        registrationButton.alpha = 0.5
     }
     
     private func changeButtonIcon(for textField: UITextField, icon: Result){
@@ -422,6 +419,7 @@ extension RegistrationViewController {
     }
     
     private func showOrHideButton(for textField: UITextField, action: ShowOrHide){
+        
         switch textField {
         
         case firstNameTextField:
@@ -438,6 +436,7 @@ extension RegistrationViewController {
             phoneNumberCheckButton.isHidden = action == .hide
         default:
             break
+            
         }
         
     }

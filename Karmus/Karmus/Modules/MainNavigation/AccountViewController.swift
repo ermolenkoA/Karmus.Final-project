@@ -13,15 +13,15 @@ class AccountViewController: UIViewController {
     @IBOutlet private weak var mainScrollView: UIScrollView!
     
     @IBOutlet private weak var loginLabel: UILabel!
+    @IBOutlet weak var numberOfRespectsLabel: UILabel!
     
-    @IBOutlet private weak var numberOfAwards: UILabel!
     @IBOutlet private weak var profilePhotoImageView: UIImageView!
     @IBOutlet private weak var numberOfFriendsLabel: UILabel!
     
     @IBOutlet private weak var firstAndSecondNamesLabel: UILabel!
     
     @IBOutlet private weak var karmaBalanceLabel: UILabel!
-    
+
     @IBOutlet private weak var mainInfoView: UIView!
     @IBOutlet private weak var dateOfBirthLabel: UILabel!
     @IBOutlet private weak var cityLabel: UILabel!
@@ -42,7 +42,6 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mainScrollView.frame.size = mainScrollView.contentSize
-        navigationController?.isNavigationBarHidden = true
         mainInfoView.backgroundColor =
             mainInfoView.backgroundColor?.withAlphaComponent(0.4)
         additionalInfoView.backgroundColor =
@@ -65,4 +64,14 @@ class AccountViewController: UIViewController {
         present(alert, animated: true)
     }
     
+}
+
+extension UIView {
+   //This will eventually get to the UITransitionView and clear the background.
+   func clearHierarchyBackground() {
+    self.backgroundColor = .clear
+    if let superView = self.superview {
+        superView.clearHierarchyBackground()
+    }
+  }
 }

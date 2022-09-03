@@ -17,5 +17,6 @@ struct ConstantKeys {
     static let logInBlockingTime = "logInBlockingTime"
     
     static let currentProfile = "currentProfile"
+    static let currentProfileLogin = "currentProfileLogin"
     static let lastLogInDate = "lastLogInDate"
 }
