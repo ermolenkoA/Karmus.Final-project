@@ -22,24 +22,18 @@ final class GreetingViewController: UIViewController {
     // MARK: - Private Properties
     
     private var tapCounter = 1
-    private var login: String?
+    private var login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = "Вернуться"
+        navigationItem.backBarButtonItem = backItem
+
         showFirstSlide()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       guard let fillInfoVC = segue.destination as? FillMainProfileInfoVC else{
-            return
-        }
-        guard let login = login else {
-            return
-        }
-        (fillInfoVC as SetLoginProtocol).setLogin(login: login)
-        (fillInfoVC as NewUserProtocol).calledByNewUser()
     }
     
     private func showFirstSlide() {
@@ -153,18 +147,15 @@ final class GreetingViewController: UIViewController {
             }
             
         } else {
-            performSegue(withIdentifier: References.fromNewUserScreentoFillMainInfo, sender: self)
+            let storyboard = UIStoryboard(name: StoryboardNames.fillMainProfileInfo, bundle: nil)
+            guard let fillInfoVC = storyboard.instantiateInitialViewController() else {
+                showAlert("Невозможно перейти", "Повторите попытку позже", where: self)
+                return
+            }
+            (fillInfoVC as? NewUserProtocol)?.calledByNewUser()
+            navigationController?.pushViewController(fillInfoVC, animated: true)
         }
     }
     
 }
-
-// MARK: - SetLoginProtocol
-
-extension GreetingViewController: SetLoginProtocol {
-    func setLogin(login: String) {
-        self.login = login
-    }
-}
-
 

@@ -85,22 +85,11 @@
                         <outlet property="photoImageView" destination="x0a-fb-I2T" id="uQA-Tb-okN"/>
                         <outlet property="textLabel" destination="J59-VV-yAZ" id="x8R-os-EoG"/>
                         <outlet property="titleLabel" destination="oc5-3r-chr" id="ySj-0F-KU6"/>
-                        <segue destination="iA8-O4-1dG" kind="show" identifier="toFillMainProfileInfo" id="vvx-DV-aSJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tCe-PJ-ZYX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="13.125" y="712.5"/>
-        </scene>
-        <!--FillMainProfileInfo-->
-        <scene sceneID="ehZ-t8-VZQ">
-            <objects>
-                <viewControllerPlaceholder storyboardName="FillMainProfileInfo" id="iA8-O4-1dG" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="1WN-Vo-Tm1"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="23n-TY-0lZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="742" y="713"/>
         </scene>
     </scenes>
     <resources>

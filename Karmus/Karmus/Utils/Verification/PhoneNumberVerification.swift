@@ -12,7 +12,7 @@ final class PhoneNumberVerification {
     
     // MARK: - Private Properties
     
-    private var controller: UIViewController
+    private weak var controller: UIViewController!
     private var verificationModel: VerificationModel
     private var name: String
     private var phone: String
@@ -20,6 +20,8 @@ final class PhoneNumberVerification {
     private var message: (messageBody: String, code: String)?
     private var profile: ProfileVerificationModel
     private var isBalanceEnough: Bool?
+    private var alert: UIAlertController!
+    private var newAlert: UIAlertController!
     
     // MARK: - Initializers
     
@@ -32,19 +34,6 @@ final class PhoneNumberVerification {
     }
     
     // MARK: - Start verification
-    private func showCustomAlert(_ alertToReturn: UIAlertController) {
-        
-        let title = "Отсутствует доступ к интернету"
-        let message = "Проверьте подключение и повторите попытку"
-        let newAlert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
-        let backButton = UIAlertAction(title: "Вернуться", style: .default) { [unowned self] _ in
-            self.controller.present(alertToReturn, animated: true)
-        }
-        newAlert.addAction(backButton)
-        backButton.setValue(UIColor.black, forKey: "titleTextColor")
-        controller.present(newAlert, animated: true)
-        
-    }
     
     func startVerification() {
 
@@ -109,26 +98,21 @@ final class PhoneNumberVerification {
         
         guard let message = self.message else {
             print("\n<PhoneNumberVerification\\checkBalanceAndSendCode> ERROR: message wasn't created\n")
-            showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self.controller)
+            showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: controller)
             return
         }
         
         guard Reachability.isConnectedToNetwork() else {
             showAlert("Отсутствует доступ к интернету"
-                      , "Проверьте подключение и повторите попытку", where: self.controller)
+                      , "Проверьте подключение и повторите попытку", where: controller)
             return
         }
             
         SMSManager.isBalanceEnough{ [weak self] (error, isBalanceEnough) in
             
-            guard let self = self else{
-                print("\n<PhoneNumberVerification\\checkBalanceAndSendCode> ERROR: PhoneNumberVerification class isn't exist\n")
-                return
-            }
-            
             guard let isBalanceEnough = isBalanceEnough else {
                 DispatchQueue.main.async {
-                    showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self.controller)
+                    showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self?.controller)
                 }
                 return
             }
@@ -136,14 +120,14 @@ final class PhoneNumberVerification {
             guard isBalanceEnough else {
                 print("\n<PhoneNumberVerification\\checkBalanceAndSendCode> ERROR: low balance\n")
                 DispatchQueue.main.async {
-                    showAlert("Невозможно отправить код", "Повторите попытку позже", where: self.controller)
+                    showAlert("Невозможно отправить код", "Повторите попытку позже", where: self?.controller)
                 }
                 return
             }
             
         }
         
-        self.sendCode(message)
+        sendCode(message)
     }
     
     // MARK: - Send code
@@ -152,28 +136,19 @@ final class PhoneNumberVerification {
         
         guard Reachability.isConnectedToNetwork() else {
             showAlert("Отсутствует доступ к интернету"
-                      , "Проверьте подключение и повторите попытку", where: self.controller)
+                      , "Проверьте подключение и повторите попытку", where: controller)
             return
         }
         
-        print("\nCODE: \(message.code)\n")
-        
-        //        SMSManager.sendSMS(phone: phone, message: message.messageBody + message.code){ [weak self] (result) in
-        //            guard let self = self else {
-        //                print("\n<PhoneNumberVerification\\sendCode> ERROR: PhoneNumberVerification class isn't exist\n")
-        //                return
-        //            }
-        //
-        //            if result == .error  {
-        //                DispatchQueue.main.async {
-        //                    showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self.controller)
-        //                }
-        //            }
-        //
-        //            self.showEnterVerificationCodeAlert(validCode: message.code)
-        //        }
-        
-        self.showEnterVerificationCodeAlert(validCode: message.code)
+        SMSManager.sendSMS(phone: phone, message: message.messageBody + message.code){ [weak self] (result) in
+            DispatchQueue.main.async {
+                if result == .error  {
+                       showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self?.controller)
+                }
+
+                self?.showEnterVerificationCodeAlert(validCode: message.code)
+            }
+        }
         
     }
     
@@ -181,37 +156,37 @@ final class PhoneNumberVerification {
     
     private func showEnterVerificationCodeAlert(validCode: String) {
         
-        DispatchQueue.main.async {
             AntiSpam.saveNewVerificationAttemp()
 
-            let phoneNumber = self.phone.dropLast(7) + "*****" + self.phone.dropFirst(11)
+            let phoneNumber = phone.dropLast(7) + "*****" + phone.dropFirst(11)
             
-            let alert = UIAlertController.init(title: "Введите код из SMS:" , message: "отправлен на \(phoneNumber) ", preferredStyle: .alert)
+            alert = .init(title: "Введите код из SMS:" , message: "отправлен на \(phoneNumber) ", preferredStyle: .alert)
             alert.addTextField() {
                 $0.placeholder = "Код"
             }
         
             let closeButton = self.createCloseButton(alert)
         
-            let confirmButton = UIAlertAction(title: "Подтвердить", style: .default) { [unowned self] _ in
+            let confirmButton = UIAlertAction(title: "Подтвердить", style: .default) { [weak self] _ in
                 
+                guard let self = self else { return }
                 guard Reachability.isConnectedToNetwork() else {
-                    showCustomAlert(alert)
+                    self.showCustomAlert("Отсутствует доступ к интернету", "Проверьте подключение и повторите попытку", self.alert)
                     return
                 }
                 
-                guard var code = alert.textFields?.first?.text else{
-                    self.controller.present(alert, animated: true)
+                guard var code = self.alert.textFields?.first?.text else{
+                    self.controller.present(self.alert, animated: true)
                     return
                 }
                 
-                alert.textFields?.first?.text = nil
+                self.alert.textFields?.first?.text = nil
         
                 code.removeExtraSpaces()
                 code = code.uppercased()
                 
                 guard !code.isEmpty else{
-                    self.controller.present(alert, animated: true)
+                    self.controller.present(self.alert, animated: true)
                     return
                 }
                 
@@ -219,27 +194,32 @@ final class PhoneNumberVerification {
                     
                     if let timeLeft = AntiSpam.verificationBanTime {
                         showAlert("Превышено количество попыток", "Повторите попытку через \(timeLeft)", where: self.controller)
+                        self.alert = nil
                         return
                     } else {
                         AntiSpam.saveNewCodeComparisonAttemp()
                     }
                     
-                    let newAlert = UIAlertController.init(title: "Код не совпадает!", message: "Повторите попытку", preferredStyle: .alert)
+                    self.newAlert = .init(title: "Код не совпадает!", message: "Повторите попытку", preferredStyle: .alert)
                     
-                    let closeButton = createCloseButton(newAlert)
-                    let okButton = UIAlertAction(title: "Ещё раз", style: .default){ _ in
-                        self.controller.present(alert, animated: true)
+                    let closeButton = self.createCloseButton(self.newAlert)
+                    let okButton = UIAlertAction(title: "Ещё раз", style: .default){ [unowned self] _ in
+                        self.controller.present(self.alert, animated: true)
+                        self.newAlert = nil
                     }
                     
-                    newAlert.addAction(closeButton)
-                    newAlert.addAction(okButton)
-                    newAlert.view.tintColor = UIColor.black
-                    self.controller.present(newAlert, animated: true)
+                    self.newAlert.addAction(closeButton)
+                    self.newAlert.addAction(okButton)
+                    self.newAlert.view.tintColor = UIColor.black
+                    self.controller.present(self.newAlert, animated: true)
                 
                     return
                 }
                 
-                switch verificationModel {
+                self.newAlert = nil
+                self.alert = nil
+                
+                switch self.verificationModel {
                 
                 case .registration:
                     
@@ -248,19 +228,34 @@ final class PhoneNumberVerification {
                     Database.database().reference()
                         .child(FBDefaultKeys.profiles)
                         .childByAutoId().setValue([
-                            FBProfileKeys.firstName : profile.firstName,
-                            FBProfileKeys.login : profile.login,
-                            FBProfileKeys.password : profile.password,
-                            FBProfileKeys.phoneNumber : profile.phoneNumber
+                            FBProfileKeys.firstName : self.profile.firstName,
+                            FBProfileKeys.secondName : self.profile.secondName,
+                            FBProfileKeys.login : self.profile.login,
+                            FBProfileKeys.password : self.profile.password,
+                            FBProfileKeys.phoneNumber : self.profile.phoneNumber,
+                            FBProfileKeys.balance : 0
                         ])
+                    
+                    Database.database().reference()
+                        .child(FBDefaultKeys.profilesInfo)
+                        .child(self.profile.login).setValue([
+                            FBProfileInfoKeys.onlineStatus : FBOnlineStatuses.offline,
+                            FBProfileInfoKeys.firstName : self.profile.firstName,
+                            FBProfileInfoKeys.secondName : self.profile.secondName
+                        ])
+                    
                     showAlert("Вы были успешно зарегистрированы!", nil , where: self.controller)
+                    
                     DispatchQueue.main.async {
-                        (controller as? RegistrationViewController)?.clearAllTextFields()
+                        (self.controller as? RegistrationViewController)?.clearAllTextFields()
                     }
+                    
                 case .resetPassword:
-                    resetPassword()
+                    self.resetPassword()
                 }
-              
+                
+                
+                
             }
             
             alert.addAction(confirmButton)
@@ -268,27 +263,20 @@ final class PhoneNumberVerification {
             if AntiSpam.verificationBanTime == nil {
  
                 guard Reachability.isConnectedToNetwork() else {
-                    self.showCustomAlert(alert)
+                    showCustomAlert("Отсутствует доступ к интернету", "Проверьте подключение и повторите попытку", alert)
                     return
                 }
                 
                 let sendNewCodeButton = UIAlertAction(title: "Отправить новый код", style: .default) { [unowned self] _ in
+                    
                     if let timeLeft = AntiSpam.sendingCodeBanTime {
-                        let title = "Повторная отправка кода разрешена через \(timeLeft)"
-                        let newAlert = UIAlertController.init(title: title, message: nil, preferredStyle: .alert)
-                        
-                        let closeButton = UIAlertAction(title: "Вернуться", style: .cancel){ [unowned self] _ in
-                            self.controller.present(alert, animated: true)
-                        }
-                        
-                        newAlert.addAction(closeButton)
-                        newAlert.view.tintColor = UIColor.black
-                        self.controller.present(newAlert, animated: true)
+                        showCustomAlert("Повторная отправка кода разрешена через \(timeLeft)", nil, alert)
                         return
                     }
                     
                     self.startVerification()
                 }
+                
                 alert.addAction(sendNewCodeButton)
                 
             }
@@ -296,23 +284,31 @@ final class PhoneNumberVerification {
             alert.addAction(closeButton)
             alert.view.tintColor = UIColor.black
             self.controller.present(alert, animated: true)
-        }
         
     }
     
     // MARK: - Creation close button
     
-    private func createCloseButton(_ alertToReturn: UIAlertController) -> UIAlertAction {
+    private func createCloseButton( _ alertToReturn: UIAlertController!) -> UIAlertAction {
      
         UIAlertAction(title: "Закрыть", style: .destructive) { [unowned self] _ in
         
             let message = "Вы уверены, что хотите покинуть эту страницу?"
-            let newAlert = UIAlertController.init(title: "Внимание", message: message, preferredStyle: .alert)
-            let closeButton = UIAlertAction(title: "05", style: .default)
+            var newAlert: UIAlertController! = .init(title: "Внимание", message: message, preferredStyle: .alert)
+            
+            let closeButton = UIAlertAction(title: "05", style: .default) { [unowned self] _ in
+                self.alert = nil
+                self.newAlert = nil
+                newAlert = nil
+                controller = nil
+            }
             closeButton.isEnabled = false
+            
             let backButton = UIAlertAction(title: "Вернуться", style: .default) { [unowned self] _ in
                 self.controller.present(alertToReturn, animated: true)
+                newAlert = nil
             }
+            
             newAlert.addAction(closeButton)
             newAlert.addAction(backButton)
             backButton.setValue(UIColor.black, forKey: "titleTextColor")
@@ -333,21 +329,38 @@ final class PhoneNumberVerification {
                     closeButton.setValue("0\(timeLeft)", forKey: "title")
                     
                 }
+                
             }
         }
+    }
+    
+    // MARK: - Show custom alert
+    
+    private func showCustomAlert(_ title: String, _ message: String?, _ alertToReturn: UIAlertController) {
+    
+        var newAlert: UIAlertController! = .init(title: title, message: message, preferredStyle: .alert)
+        let backButton = UIAlertAction(title: "Вернуться", style: .default) { [weak self] _ in
+            self?.controller.present(alertToReturn, animated: true)
+            newAlert = nil
+        }
+        newAlert.addAction(backButton)
+        backButton.setValue(UIColor.black, forKey: "titleTextColor")
+        controller.present(newAlert, animated: true)
+        
     }
     
     // MARK: - Functions for password reset
 
     private func resetPassword() {
         
-        let alert = UIAlertController(title: "Сброс пароля", message: "Введите новый пароль:", preferredStyle: .alert)
+        alert = .init(title: "Сброс пароля", message: "Введите новый пароль:", preferredStyle: .alert)
         
-        alert.addTextField{
+        alert.addTextField {
             $0.placeholder = "Пароль"
             $0.isSecureTextEntry = true
         }
-        alert.addTextField{
+        
+        alert.addTextField {
             $0.placeholder = "Повторите пароль"
             $0.isSecureTextEntry = true
         }
@@ -355,13 +368,15 @@ final class PhoneNumberVerification {
         let submitButton = UIAlertAction(title: "Потвердить", style: .default) { [unowned self] _ in
             
             guard Reachability.isConnectedToNetwork() else {
-                showCustomAlert(alert)
+                showCustomAlert("Отсутствует доступ к интернету", "Проверьте подключение и повторите попытку", alert)
                 return
             }
             
             guard let password = alert.textFields?.first?.text, let repeatPassword = alert.textFields?.dropFirst().first?.text else {
                 print("\n<PhoneNumberVerification\\resetPassword> ERROR: textFields aren't exist\n")
                 showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self.controller)
+                controller = nil
+                alert = nil
                 return
             }
             
@@ -371,26 +386,36 @@ final class PhoneNumberVerification {
             }
             
             if let errorText = getErrorIfTheTestsFail(password, repeatPassword) {
-                let newAlert = UIAlertController.init(title: "Ошибка", message: errorText, preferredStyle: .alert)
-                let okButton = UIAlertAction(title: "OK", style: .default){ [unowned self] _ in
-                    self.controller.present(alert, animated: true)
-                }
-                newAlert.addAction(okButton)
-                newAlert.view.tintColor = UIColor.black
-                controller.present(newAlert, animated: true)
+                showCustomAlert("Ошибка", errorText, alert)
                 return
             }
             
+            
+            
             FireBaseDataBaseManager.openProfile(login: phone, password: self.password!,
-                                                newPassword: Int64(password.hash)) { [unowned self] result, _ in
+                                                newPassword: Int64(password.hash)) { [unowned self] result, profileID in
                 
                 guard result != .error && result != .failure else{
                     showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self.controller)
+                    alert = nil
+                    controller = nil
                     return
+                }
+                
+                if controller is AccountViewController {
+                    
+                    guard let profileID = profileID else { return }
+    
+                    FireBaseDataBaseManager.removeObserversFromProfile(profileID, self.profile.login)
+                    FireBaseDataBaseManager.setProfileUpdateDate(profileID)
+                    UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
+                    FireBaseDataBaseManager.createProfileObserver(profileID, self.profile.login)
                 }
                 
                 showAlert("Пароль был успешно изменен!", nil , where: self.controller)
                 AntiSpam.resetUserVerificationAttemps()
+                controller = nil
+                alert = nil
                     
             }
             

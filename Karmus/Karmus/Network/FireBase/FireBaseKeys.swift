@@ -22,6 +22,7 @@ struct FBProfileKeys {
     static let secondName = "secondName"
     static let userTasks = "userTasks"
     static let profileUpdateDate = "profileUpdateDate"
+    static let balance = "balance"
 }
 
 struct FBProfileInfoKeys {
@@ -36,7 +37,26 @@ struct FBProfileInfoKeys {
     static let education = "education"
     static let work = "work"
     static let skills = "skills"
+    static let numberOfRespects = "numberOfRespects"
+    static let numberOfFriends = "numberOfFriends"
+    
+    static let profileType = "profileType"
+    static let sponsorName = "sponsorName"
+    
+    static let onlineStatus = "onlineStatus"
 }
 
+struct FBOnlineStatuses {
+    static let online = "online"
+    static let offline = "offline"
+    static let blocked = "blocked"
+}
+
+struct FBProfileTypes {
+    static let user = "user"
+    static let admin = "admin"
+    static let sponsor = "sponsor"
+
+}
 
 

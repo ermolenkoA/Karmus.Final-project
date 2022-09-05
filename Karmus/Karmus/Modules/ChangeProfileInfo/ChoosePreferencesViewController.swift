@@ -7,18 +7,20 @@
 
 import UIKit
 
-protocol GetPreferencesProtocol {
-    func getPreferences(_ preferences: [String])
-}
-
 final class ChoosePreferencesViewController: UIViewController {
+    
+    // MARK: - IBOutlet
     
     @IBOutlet private weak var mainView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
     
+    // MARK: - Private Properties
+    
     private var sender: UIViewController?
     private var activePreferences = [String]()
     private var allPreferences = [String]()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,8 @@ final class ChoosePreferencesViewController: UIViewController {
         view.backgroundColor = UIColor.lightGray.withAlphaComponent(0.4)
         getAllpreferences()
     }
+    
+    // MARK: - Private functions
     
     private func getAllpreferences(){
         
@@ -72,6 +76,8 @@ final class ChoosePreferencesViewController: UIViewController {
         }
     }
     
+    // MARK: - Objc functions
+    
     @objc private func didTapButton(sender: UIButton){
         
         if sender.backgroundColor == .green {
@@ -90,11 +96,15 @@ final class ChoosePreferencesViewController: UIViewController {
 
 }
 
+// MARK: - SetSenderProtocol
+
 extension ChoosePreferencesViewController: SetSenderProtocol {
     func setSender(_ sender: UIViewController) {
         self.sender = sender
     }
 }
+
+// MARK: - GetPreferencesProtocol
 
 extension ChoosePreferencesViewController: GetPreferencesProtocol {
     func getPreferences(_ preferences: [String]) {

@@ -81,8 +81,6 @@
                         <outlet property="passwordTextField" destination="Uax-8W-JfH" id="arv-LS-r3f"/>
                         <outlet property="submitButton" destination="3ke-2K-8kL" id="R73-GQ-2V2"/>
                         <outlet property="titleLabel" destination="qTw-3C-xWa" id="oZ5-Gp-7hf"/>
-                        <segue destination="BOa-1R-7dh" kind="presentation" identifier="toAccountScreen" modalPresentationStyle="overCurrentContext" id="gWs-Kr-evT"/>
-                        <segue destination="ry9-2m-h8s" kind="show" identifier="toNewUserScreen" id="uJi-2O-tGC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -93,26 +91,6 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-28" y="97"/>
-        </scene>
-        <!--NewUserScreen-->
-        <scene sceneID="5Yr-IO-XGE">
-            <objects>
-                <viewControllerPlaceholder storyboardName="NewUserScreen" id="ry9-2m-h8s" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="h22-vK-dvj"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ksj-6k-eA4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-24" y="594"/>
-        </scene>
-        <!--AccountScreen-->
-        <scene sceneID="gke-yn-Bjo">
-            <objects>
-                <viewControllerPlaceholder storyboardName="AccountScreen" id="BOa-1R-7dh" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="6bb-7W-fkP"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Edh-5p-tM8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="646" y="96"/>
         </scene>
     </scenes>
     <resources>

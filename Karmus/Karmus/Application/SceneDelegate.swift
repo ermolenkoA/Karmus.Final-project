@@ -12,16 +12,21 @@ import FirebaseDatabase
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
+    static var keyWindow: UIWindow?
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let mainScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: mainScene)
-        
+        SceneDelegate.keyWindow = window
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
         window?.rootViewController = storyboard.instantiateInitialViewController()
         window?.rootViewController?.view.isUserInteractionEnabled = false
+        let navigationController = window?.rootViewController as? UINavigationController
+        (navigationController?.topViewController as? ChangeActivityIndicatorStatusProtocol)?.startActivityIndicator()
         window?.makeKeyAndVisible()
         
         if let profileID = KeychainSwift.shared.get(ConstantKeys.currentProfile),
@@ -50,7 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     KeychainSwift.shared.delete(ConstantKeys.currentProfile)
                     UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
                     self?.window?.rootViewController?.view.isUserInteractionEnabled = true
-                    
+                    (navigationController?.topViewController as? ChangeActivityIndicatorStatusProtocol)?.stopActivityIndicator()
                 }
             }
             
@@ -58,6 +63,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             KeychainSwift.shared.delete(ConstantKeys.currentProfile)
             UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
             window?.rootViewController?.view.isUserInteractionEnabled = true
+            (navigationController?.topViewController as? ChangeActivityIndicatorStatusProtocol)?.stopActivityIndicator()
         }
     }
     

@@ -193,22 +193,11 @@
                         <outlet property="titleCityLabel" destination="7G6-uj-RyG" id="Hir-cI-sdH"/>
                         <outlet property="titleEmailLabel" destination="XWI-U5-IP2" id="J97-cO-m9I"/>
                         <outlet property="titlePhoneLabel" destination="VnR-K6-hI4" id="lzP-Rp-KFH"/>
-                        <segue destination="3vD-oc-Ig5" kind="show" identifier="toFillAdditionalInfo" id="w3O-ol-qcB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQ5-WO-bz8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-84.375" y="15"/>
-        </scene>
-        <!--FillAdditionalProfileInfo-->
-        <scene sceneID="w7T-WU-Chj">
-            <objects>
-                <viewControllerPlaceholder storyboardName="FillAdditionalProfileInfo" id="3vD-oc-Ig5" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="tO0-R4-zWk"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3sF-oV-5iX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-83" y="513"/>
         </scene>
     </scenes>
     <resources>

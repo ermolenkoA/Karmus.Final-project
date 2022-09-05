@@ -38,20 +38,16 @@ final class FillAdditionalProfileInfoVC: UIViewController {
     
     private var preferencesTitles = [String]()
     
-    private lazy var defaultSettings: [String] = { [
-        preferencesTextView.fixedText ?? "",
-        educationTextView.fixedText ?? "",
-        workTextView.fixedText ?? "",
-        skillsTextView.fixedText ?? ""
-        ] }()
-    
+    private var defaultSettings: [String]?
      
-    private var login: String?
+    private var login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
     private var isNewUser = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.isNavigationBarHidden = false
         standartSettings()
         preferencesTextView.delegate = self
         educationTextView.delegate = self
@@ -95,26 +91,27 @@ final class FillAdditionalProfileInfoVC: UIViewController {
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func showAccountScreenForNewUser() {
         
-        guard let login = login else {
+        let storyboard = UIStoryboard(name: StoryboardNames.accountScreen, bundle: nil)
+        
+        guard let profileTabBarC = storyboard.instantiateInitialViewController() else {
+            showAlert("Невозможно перейти", "Повторите попытку позже", where: self)
             return
         }
         
-        if let profileTabBar = segue.destination as? ProfileTabBarController {
-            (profileTabBar as SetLoginProtocol).setLogin(login: login)
-            if let profileID = KeychainSwift.shared.get(ConstantKeys.currentProfile) {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-                Database.database().reference()
-                    .child(FBDefaultKeys.profiles)
-                    .child(profileID)
-                    .child(FBProfileKeys.profileUpdateDate)
-                    .setValue(formatter.string(from: Date()))
-                UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
+        if let profileID = KeychainSwift.shared.get(ConstantKeys.currentProfile) {
+            FireBaseDataBaseManager.setProfileUpdateDate(profileID)
+            UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
 
-            }
         }
+        
+        setNewInfo(0, for: FBProfileInfoKeys.numberOfFriends)
+        setNewInfo(0, for: FBProfileInfoKeys.numberOfRespects)
+        
+        view.window?.rootViewController = profileTabBarC
+        view.window?.makeKeyAndVisible()
+        
         
     }
     
@@ -170,7 +167,10 @@ final class FillAdditionalProfileInfoVC: UIViewController {
         FireBaseDataBaseManager.getProfileInfo(login) { [weak self] info in
             
             guard let info = info else {
-                let _ = self?.defaultSettings
+                self?.defaultSettings = [self!.preferencesTextView.fixedText ?? "",
+                                         self!.educationTextView.fixedText ?? "",
+                                         self!.workTextView.fixedText ?? "",
+                                         self!.skillsTextView.fixedText ?? ""]
                 return
             }
             
@@ -201,7 +201,10 @@ final class FillAdditionalProfileInfoVC: UIViewController {
                 self?.skillsCleanUpButton.isHidden = false
             }
             
-            let _ = self?.defaultSettings
+            self?.defaultSettings = [self!.preferencesTextView.fixedText ?? "",
+                                     self!.educationTextView.fixedText ?? "",
+                                     self!.workTextView.fixedText ?? "",
+                                     self!.skillsTextView.fixedText ?? ""]
         }
         
     }
@@ -252,6 +255,7 @@ final class FillAdditionalProfileInfoVC: UIViewController {
             break
         }
         sender.isHidden = true
+        view.endEditing(true)
     }
     
     @IBAction func didTapSubmitButton(_ sender: UIButton) {
@@ -262,10 +266,13 @@ final class FillAdditionalProfileInfoVC: UIViewController {
             workTextView.fixedText ?? "",
             skillsTextView.fixedText ?? ""
         ]
-
-        print("\nMYLOG: currentSettings = \(currentSettings)\n\n \(defaultSettings)\n")
-
-        if currentSettings != defaultSettings{
+        
+        guard let defaultSettings = self.defaultSettings else {
+            print("\n<FillMainProfileInfoVC\\didTapSubmitButton> ERROR: defaultSettings isn't exist\n")
+            return
+        }
+        
+        if currentSettings != defaultSettings {
             
             if currentSettings[0] != defaultSettings[0] {
                 if currentSettings[0] == "" {
@@ -300,13 +307,14 @@ final class FillAdditionalProfileInfoVC: UIViewController {
                     setNewInfo(currentSettings[3], for: FBProfileInfoKeys.skills)
                 }
             }
-
+            
+            self.defaultSettings = currentSettings
+            
             let title = "Новые данные были сохранены"
             let alert = UIAlertController.init(title: title, message: nil, preferredStyle: .alert)
             let okButton = !isNewUser ? UIAlertAction(title: "Продолжить", style: .default)
                  : UIAlertAction(title: "Продолжить", style: .default) { [weak self] _ in
-                    self?.performSegue(withIdentifier: References.fromFillAdditionalInfotoAccountScreen,
-                     sender: self)
+                    self?.showAccountScreenForNewUser()
                     
                  }
 
@@ -314,8 +322,7 @@ final class FillAdditionalProfileInfoVC: UIViewController {
             alert.view.tintColor = UIColor.black
             present(alert, animated: true)
         } else if isNewUser {
-            performSegue(withIdentifier: References.fromFillAdditionalInfotoAccountScreen,
-             sender: self)
+            showAccountScreenForNewUser()
         }
     }
 
@@ -339,6 +346,8 @@ extension FillAdditionalProfileInfoVC: UITextViewDelegate {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let numberOfChars = newText.count
         return numberOfChars < 200
+            && !newText.starts(with: "\n")
+            && !(newText ~= "^(.){0,10}\n(.){0,}$")
             && !(newText ~= "\n(.){0,10}\n")
         
     }
@@ -397,13 +406,6 @@ extension FillAdditionalProfileInfoVC: GetPreferencesProtocol {
         }
     }
 }
-
-extension FillAdditionalProfileInfoVC: SetLoginProtocol {
-    func setLogin(login: String) {
-        self.login = login
-    }
-}
-
 
 extension FillAdditionalProfileInfoVC: NewUserProtocol {
     func calledByNewUser() {

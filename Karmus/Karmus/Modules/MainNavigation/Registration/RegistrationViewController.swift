@@ -83,6 +83,10 @@ final class RegistrationViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        phoneNumberVerification = nil
+    }
+    
     @objc func keyboardNotification(notification: Notification){
         
         guard let userInfo = notification.userInfo else { return }
@@ -321,12 +325,6 @@ extension RegistrationViewController: UITextFieldDelegate {
                         showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
                         return
                     }
-                    
-                    guard result != .error else{
-                        showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
-                        return
-                    }
-                    
                     
                     textField.layer.borderColor = result == .notFound ? self.greenColor : self.redColor
                     self.changeButtonIcon(for: textField, icon: result == .notFound ? .correct : .incorrect)

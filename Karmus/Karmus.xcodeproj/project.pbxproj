@@ -36,6 +36,8 @@
 		534700ED28B679CC00F23539 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700EC28B679CC00F23539 /* APIManager.swift */; };
 		534700EF28B67C3A00F23539 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700EE28B67C3A00F23539 /* Document.swift */; };
 		534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 534700F028B69D0F00F23539 /* GoogleService-Info.plist */; };
+		5348CBCD28C5C8BF00955D70 /* ForceQuitFromProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBCC28C5C8BF00955D70 /* ForceQuitFromProfile.swift */; };
+		5348CBD128C61E6C00955D70 /* ProfileSettingsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */; };
 		535FC1AB28C1F8D200A0BDE0 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */; };
 		535FC1AE28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */; };
 		5372EACF28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */; };
@@ -46,12 +48,14 @@
 		5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5387573D28BE5E610007196E /* NewUserScreen.storyboard */; };
 		5387574128BE61E20007196E /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574028BE61E20007196E /* GreetingViewController.swift */; };
 		5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574428BE6E590007196E /* KeychainSwiftExtension.swift */; };
-		5387574E28BE76F20007196E /* ProfileTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574D28BE76F20007196E /* ProfileTabBarController.swift */; };
 		53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
 		53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */; };
 		53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */; };
 		53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC394328AD43E300867BC9 /* MapScreen.storyboard */; };
 		53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394528AD43FE00867BC9 /* MapViewController.swift */; };
+		53C9BA1928C4D9C700B1EFB7 /* StoryboardNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */; };
+		53C9BA1C28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */; };
+		53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */; };
 		CE15417C28B266E0007731FA /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15417B28B266E0007731FA /* PopViewController.swift */; };
 		CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15418928B29A71007731FA /* RegistrationEnumeration.swift */; };
 		CE26DC8228B414CD0022F401 /* PhoneNumberVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */; };
@@ -109,6 +113,8 @@
 		534700EC28B679CC00F23539 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		534700EE28B67C3A00F23539 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		534700F028B69D0F00F23539 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5348CBCC28C5C8BF00955D70 /* ForceQuitFromProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceQuitFromProfile.swift; sourceTree = "<group>"; };
+		5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocols.swift; sourceTree = "<group>"; };
 		535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewExtension.swift; sourceTree = "<group>"; };
 		535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePreferencesViewController.swift; sourceTree = "<group>"; };
 		5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActiveTasksScreen.storyboard; sourceTree = "<group>"; };
@@ -119,12 +125,14 @@
 		5387573D28BE5E610007196E /* NewUserScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewUserScreen.storyboard; sourceTree = "<group>"; };
 		5387574028BE61E20007196E /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
 		5387574428BE6E590007196E /* KeychainSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftExtension.swift; sourceTree = "<group>"; };
-		5387574D28BE76F20007196E /* ProfileTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabBarController.swift; sourceTree = "<group>"; };
 		53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountScreen.storyboard; sourceTree = "<group>"; };
 		53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksScreen.storyboard; sourceTree = "<group>"; };
 		53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		53BC394328AD43E300867BC9 /* MapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapScreen.storyboard; sourceTree = "<group>"; };
 		53BC394528AD43FE00867BC9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardNames.swift; sourceTree = "<group>"; };
+		53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeActivityIndicatorStatusProtocol.swift; sourceTree = "<group>"; };
+		53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		59BABBC8549E512DF96278DA /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
 		6982DCEAC19D342C87CB2079 /* Pods_Karmus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Karmus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A8A9A8FE33EDFFB1F086985 /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
@@ -202,9 +210,12 @@
 		53378ABD28BF646E002749FE /* ChangeProfileInfo */ = {
 			isa = PBXGroup;
 			children = (
+				53378ABF28BF7D37002749FE /* FillMainProfileInfoVC.swift */,
+				53378AC228BF7D62002749FE /* FillMainProfileInfo.storyboard */,
 				53378AE728C067F8002749FE /* FillAdditionalProfileInfo.storyboard */,
 				53378AEA28C0681B002749FE /* FillAdditionalProfileInfoVC.swift */,
 				535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */,
+				53378AE128C00B34002749FE /* SearchResultViewController.swift */,
 			);
 			path = ChangeProfileInfo;
 			sourceTree = "<group>";
@@ -214,6 +225,8 @@
 			children = (
 				53378AC728BF7E5A002749FE /* SetLoginProtocol.swift */,
 				53378ADC28C00ACA002749FE /* FillProfileInfoProtocols.swift */,
+				53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */,
+				5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -224,6 +237,43 @@
 				53378ACC28BF8600002749FE /* BelarusianCities.swift */,
 			);
 			path = BelarusianCities;
+			sourceTree = "<group>";
+		};
+		5348CBD428C63E9A00955D70 /* ProfileTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				5348CBD528C63F6700955D70 /* Account */,
+			);
+			path = ProfileTabBar;
+			sourceTree = "<group>";
+		};
+		5348CBD528C63F6700955D70 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */,
+				53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */,
+				53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		5348CBD628C63FAD00955D70 /* Usefull functions */ = {
+			isa = PBXGroup;
+			children = (
+				5348CBCC28C5C8BF00955D70 /* ForceQuitFromProfile.swift */,
+				CE50DF1128B7B20800D90D4A /* DefaultAlert.swift */,
+			);
+			path = "Usefull functions";
+			sourceTree = "<group>";
+		};
+		5348CBD728C63FDC00955D70 /* Verification */ = {
+			isa = PBXGroup;
+			children = (
+				CE50DF0E28B78FD100D90D4A /* AntiSpam.swift */,
+				CE29863928B3F55300B4AE9D /* CodeGenerate.swift */,
+				CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */,
+			);
+			path = Verification;
 			sourceTree = "<group>";
 		};
 		5372EAD828B7DDB100F3FFA8 /* Models */ = {
@@ -240,9 +290,6 @@
 			children = (
 				5387573D28BE5E610007196E /* NewUserScreen.storyboard */,
 				5387574028BE61E20007196E /* GreetingViewController.swift */,
-				53378ABF28BF7D37002749FE /* FillMainProfileInfoVC.swift */,
-				53378AC228BF7D62002749FE /* FillMainProfileInfo.storyboard */,
-				53378AE128C00B34002749FE /* SearchResultViewController.swift */,
 			);
 			path = NewUser;
 			sourceTree = "<group>";
@@ -332,13 +379,11 @@
 			children = (
 				53378ACB28BF85B1002749FE /* BelarusianCities */,
 				53378AC628BF7E37002749FE /* Protocols */,
-				CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */,
 				CEE6717C28B61EB800CC8853 /* Enumerations */,
-				CE29863928B3F55300B4AE9D /* CodeGenerate.swift */,
+				5348CBD728C63FDC00955D70 /* Verification */,
+				5348CBD628C63FAD00955D70 /* Usefull functions */,
 				CE29860A28B37C5B00B4AE9D /* Extensions */,
 				CEDE8C1A28ACFEEE00957E21 /* Constants */,
-				CE50DF0E28B78FD100D90D4A /* AntiSpam.swift */,
-				CE50DF1128B7B20800D90D4A /* DefaultAlert.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -363,10 +408,11 @@
 		CE70E85A28ACDC57001F508B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				53378ABD28BF646E002749FE /* ChangeProfileInfo */,
-				CE70E86128ACDE01001F508B /* MainNavigation */,
 				5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */,
-				5387574D28BE76F20007196E /* ProfileTabBarController.swift */,
+				53378ABD28BF646E002749FE /* ChangeProfileInfo */,
+				5387573828BE5DEB0007196E /* NewUser */,
+				CE70E86128ACDE01001F508B /* MainNavigation */,
+				5348CBD428C63E9A00955D70 /* ProfileTabBar */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -382,15 +428,12 @@
 		CE70E86128ACDE01001F508B /* MainNavigation */ = {
 			isa = PBXGroup;
 			children = (
-				5387573828BE5DEB0007196E /* NewUser */,
 				CEE6718528B6563400CC8853 /* Identification */,
 				5372EAD828B7DDB100F3FFA8 /* Models */,
 				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
 				CE15417A28B26693007731FA /* Registration */,
 				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
-				53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */,
 				53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */,
-				53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */,
 				534700DB28B6099A00F23539 /* TasksTableViewController.swift */,
 				534700DD28B6105C00F23539 /* TasksTableViewCell.swift */,
 				534700E128B621A700F23539 /* CreationTaskViewController.swift */,
@@ -413,6 +456,7 @@
 				CE29863D28B400B800B4AE9D /* ConstantKeys.swift */,
 				CE26DC8428B4393F0022F401 /* ConstantValues.swift */,
 				CE3A8A7528B8473600BCE54A /* ProfileModelConstants.swift */,
+				53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -586,6 +630,7 @@
 				CE29863328B3E12C00B4AE9D /* ResultModel.swift in Sources */,
 				53BC394028AD3E8E00867BC9 /* AccountViewController.swift in Sources */,
 				CE3A8A6A28B8226900BCE54A /* FireBaseKeys.swift in Sources */,
+				5348CBD128C61E6C00955D70 /* ProfileSettingsProtocols.swift in Sources */,
 				CE15417C28B266E0007731FA /* PopViewController.swift in Sources */,
 				53378AE228C00B34002749FE /* SearchResultViewController.swift in Sources */,
 				534700ED28B679CC00F23539 /* APIManager.swift in Sources */,
@@ -596,6 +641,7 @@
 				CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */,
 				CE3A8A6728B8204600BCE54A /* FireBaseProfileModel.swift in Sources */,
 				CE3A8A7628B8473600BCE54A /* ProfileModelConstants.swift in Sources */,
+				53C9BA1928C4D9C700B1EFB7 /* StoryboardNames.swift in Sources */,
 				5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */,
 				CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */,
 				535FC1AE28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift in Sources */,
@@ -605,9 +651,9 @@
 				53378ACD28BF8600002749FE /* BelarusianCities.swift in Sources */,
 				CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
-				5387574E28BE76F20007196E /* ProfileTabBarController.swift in Sources */,
 				534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */,
 				CE3A8A6F28B8389800BCE54A /* FireBaseEnumerations.swift in Sources */,
+				53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
 				534700EF28B67C3A00F23539 /* Document.swift in Sources */,
 				53378AC028BF7D37002749FE /* FillMainProfileInfoVC.swift in Sources */,
@@ -615,6 +661,7 @@
 				534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */,
 				53378ADD28C00ACA002749FE /* FillProfileInfoProtocols.swift in Sources */,
 				CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */,
+				53C9BA1C28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift in Sources */,
 				CE50DF0F28B78FD100D90D4A /* AntiSpam.swift in Sources */,
 				5372EAD128B7ADD000F3FFA8 /* ActiveTasksViewController.swift in Sources */,
 				CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */,
@@ -622,6 +669,7 @@
 				53378AE528C05EFD002749FE /* FBProfileInfoModel.swift in Sources */,
 				53378AC828BF7E5A002749FE /* SetLoginProtocol.swift in Sources */,
 				5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */,
+				5348CBCD28C5C8BF00955D70 /* ForceQuitFromProfile.swift in Sources */,
 				CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */,
 				CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */,
 				53378AEB28C0681B002749FE /* FillAdditionalProfileInfoVC.swift in Sources */,

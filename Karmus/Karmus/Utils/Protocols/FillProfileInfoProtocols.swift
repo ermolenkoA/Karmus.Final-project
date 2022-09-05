@@ -22,3 +22,7 @@ protocol SetSenderProtocol {
 protocol SetCityProtocol {
     func setCity(_ city: String)
 }
+
+protocol GetPreferencesProtocol {
+    func getPreferences(_ preferences: [String])
+}

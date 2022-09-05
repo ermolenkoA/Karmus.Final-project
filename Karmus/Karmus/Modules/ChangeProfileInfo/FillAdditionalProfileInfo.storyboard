@@ -250,7 +250,6 @@
                         <outlet property="workCleanUpButton" destination="SJQ-5W-icd" id="hAa-j5-CFM"/>
                         <outlet property="workLabel" destination="zlW-tl-O45" id="PwK-Pa-Aqh"/>
                         <outlet property="workTextView" destination="HAC-Ch-yhY" id="ByS-QL-oNZ"/>
-                        <segue destination="APy-fx-tSr" kind="presentation" identifier="toAccountScreenSecond" modalPresentationStyle="overCurrentContext" id="KTq-Bw-Cy1"/>
                         <segue destination="VF4-SN-vq0" kind="popoverPresentation" popoverAnchorView="Dxn-es-7ps" id="1ST-Py-DIa">
                             <popoverArrowDirection key="popoverArrowDirection"/>
                         </segue>
@@ -264,16 +263,6 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="5.5999999999999996" y="159.67016491754123"/>
-        </scene>
-        <!--AccountScreen-->
-        <scene sceneID="bGR-lW-Jyp">
-            <objects>
-                <viewControllerPlaceholder storyboardName="AccountScreen" id="APy-fx-tSr" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="fch-ny-8ZS"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SG9-k3-O1y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="606" y="159"/>
         </scene>
         <!--Choose Preferences View Controller-->
         <scene sceneID="12b-II-Jbm">

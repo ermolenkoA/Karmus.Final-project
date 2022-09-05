@@ -16,19 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9te-dC-jAj">
-                                <rect key="frame" x="137" y="329" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="wvv-FW-Vm2" kind="show" id="sY8-oh-xZd"/>
-                                </connections>
-                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="qHu-yM-yHo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="color" systemColor="systemBlueColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemCyanColor"/>
                         <constraints>
-                            <constraint firstItem="9te-dC-jAj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CcN-Sm-70W"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9te-dC-jAj" secondAttribute="bottom" constant="121" id="tUD-My-HC6"/>
+                            <constraint firstAttribute="trailing" secondItem="qHu-yM-yHo" secondAttribute="trailing" id="9ao-il-lP2"/>
+                            <constraint firstItem="qHu-yM-yHo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ckK-b5-SBW"/>
+                            <constraint firstAttribute="bottom" secondItem="qHu-yM-yHo" secondAttribute="bottom" id="gOt-Nm-AFT"/>
+                            <constraint firstItem="qHu-yM-yHo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="h0s-aS-Yko"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Fbh-Pr-QBc">
@@ -59,43 +59,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="DOq-K3-dgz" kind="show" identifier="toIdentificationScreen" id="tQQ-3b-swW"/>
-                        <segue destination="OQ4-gB-JDT" kind="show" identifier="toRegistrationScreen" id="6ie-wm-Zka"/>
+                        <outlet property="mainActivityIndicatorView" destination="qHu-yM-yHo" id="g0b-Xw-eiW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="936" y="83"/>
-        </scene>
-        <!--RegistrationScreen-->
-        <scene sceneID="kTE-Xb-9ZY">
-            <objects>
-                <viewControllerPlaceholder storyboardName="RegistrationScreen" id="OQ4-gB-JDT" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="bvc-hx-K0r"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="alh-eZ-B50" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1586" y="183"/>
-        </scene>
-        <!--AccountScreen-->
-        <scene sceneID="Kp5-ZB-gKT">
-            <objects>
-                <viewControllerPlaceholder storyboardName="AccountScreen" id="wvv-FW-Vm2" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="GoQ-t3-BqD"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I5Z-k2-wyH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="937" y="594"/>
-        </scene>
-        <!--IdentificationScreen-->
-        <scene sceneID="IaW-I7-Jyl">
-            <objects>
-                <viewControllerPlaceholder storyboardName="IdentificationScreen" id="DOq-K3-dgz" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="UkA-bd-dte"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XVG-oU-hfl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1580" y="-8"/>
+            <point key="canvasLocation" x="935.625" y="82.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kdf-VY-Pv6">
@@ -117,6 +86,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemCyanColor">
             <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

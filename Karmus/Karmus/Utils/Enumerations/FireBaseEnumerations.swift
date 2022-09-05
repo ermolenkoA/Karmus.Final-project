@@ -24,4 +24,3 @@ enum FireBaseRequestMode {
     case findLogin
     case findPhone
 }
-

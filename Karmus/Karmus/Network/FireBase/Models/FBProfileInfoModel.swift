@@ -20,12 +20,18 @@ final class ProfileInfoModel {
     let education: String?
     let work: String?
     let skills: String?
-    
-    
-    init( firstName: String?, secondName: String?, photo: String?,
+    let numberOfRespects: Int?
+    let numberOfFriends: Int?
+    let profileType: String?
+    let sponsorName: String?
+    let onlineStatus: String?
+
+    init(firstName: String?, secondName: String?, photo: String?,
           dateOfBirth: String?, email: String?, phone: String?,
           city: String?, preferences: [String]?, education: String?,
-          work: String?, skills: String?) {
+          work: String?, skills: String?, numberOfRespects: Int?,
+          numberOfFriends: Int?, profileType: String?, sponsorName: String?,
+          onlineStatus: String?) {
         
         self.firstName = firstName
         self.secondName = secondName
@@ -38,7 +44,11 @@ final class ProfileInfoModel {
         self.education = education
         self.work = work
         self.skills = skills
-        
+        self.numberOfRespects = numberOfRespects
+        self.numberOfFriends = numberOfFriends
+        self.profileType = profileType
+        self.sponsorName = sponsorName
+        self.onlineStatus = onlineStatus
     }
     
     var about: String { """
@@ -55,7 +65,11 @@ ProfileInfoModel:
     "preferences" = \(preferences ?? [""])
     "education" = \(education ?? "")
     "work" = \(work ?? "")
-    "skills" = \(skills ?? "")
+    "numberOfRespects" = \(numberOfRespects ?? 0)
+    "numberOfFriends" = \(numberOfFriends ?? 0)
+    "profileType" = \(profileType ?? "")
+    "sponsorName" = \(sponsorName ?? "")
+    "onlineStatus" = \(onlineStatus ?? "")
 
 """ }
     

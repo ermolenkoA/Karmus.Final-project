@@ -23,7 +23,6 @@ final class IdentificationViewController: UIViewController {
     @IBOutlet private weak var submitButton: UIButton!
     
     // MARK: - Private Properties
-    private var login: String?
     
     private var correctTextFields = Set<RegistrationElements>()
     private var phoneNumberVerification: PhoneNumberVerification?
@@ -65,19 +64,8 @@ final class IdentificationViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let login = login else {
-            return
-        }
-
-        if let profileTabBar = segue.destination as? ProfileTabBarController {
-            (profileTabBar as SetLoginProtocol).setLogin(login: login)
-            UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
-            
-        } else if let greetingVC = segue.destination as? GreetingViewController {
-            (greetingVC as SetLoginProtocol).setLogin(login: login)
-        }
-        
+    override func viewWillDisappear(_ animated: Bool) {
+        phoneNumberVerification = nil
     }
     
     @objc func keyboardNotification(notification: Notification) {
@@ -124,7 +112,7 @@ final class IdentificationViewController: UIViewController {
         
         let title = "Восстановление пароля"
         let message = "Введите номер телефона на который зарегестрирован аккаунт"
-        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        var alert: UIAlertController! = .init(title: title, message: message, preferredStyle: .alert)
         alert.addTextField() {
             $0.placeholder = "Номер телефона"
         }
@@ -139,8 +127,11 @@ final class IdentificationViewController: UIViewController {
             guard phone ~= "^(\\+375)(29|25|33|44)([\\d]{7})$" else {
                 let title = "Некорректно введён номер"
                 let message = "Повторите попытку"
-                let newAlert = UIAlertController.init(title: title, message: message , preferredStyle: .alert)
-                let closeButton = UIAlertAction(title: "Закрыть", style: .cancel)
+                var newAlert: UIAlertController! = .init(title: title, message: message , preferredStyle: .alert)
+                let closeButton  = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+                    alert = nil
+                    newAlert = nil
+                }
                 let retryButton = UIAlertAction(title: "Ещё раз", style: .default) { [unowned self] _ in
                     self.present(alert, animated: true)
                 }
@@ -187,16 +178,21 @@ final class IdentificationViewController: UIViewController {
                         self.phoneNumberVerification = PhoneNumberVerification(profile: profile,
                                                                         for: .resetPassword, self)
                         self.phoneNumberVerification?.startVerification()
+                        alert = nil
                         return
                     }
-
+                    
                 }
                 
                 let title = "Пользователь с такми номером не найден"
-                let newAlert = UIAlertController.init(title: title, message: nil, preferredStyle: .alert)
-                let closeButton = UIAlertAction(title: "Закрыть", style: .cancel)
+                var newAlert: UIAlertController! = .init(title: title, message: nil, preferredStyle: .alert)
+                let closeButton = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+                    newAlert = nil
+                    alert = nil
+                }
                 let retryButton = UIAlertAction(title: "Ещё раз", style: .default) { [unowned self] _ in
                     self.present(alert, animated: true)
+                    newAlert = nil
                 }
                 newAlert.addAction(retryButton)
                 newAlert.addAction(closeButton)
@@ -206,7 +202,9 @@ final class IdentificationViewController: UIViewController {
         
         }
         
-        let closeButton = UIAlertAction(title: "Закрыть", style: .cancel)
+        let closeButton = UIAlertAction(title: "Закрыть", style: .cancel){ _ in
+            alert = nil
+        }
         alert.addAction(closeButton)
         alert.addAction(okButton)
         alert.view.tintColor = UIColor.black
@@ -256,16 +254,33 @@ final class IdentificationViewController: UIViewController {
             if result == .failure {
                 showAlert("Неверно введен логин или пароль", nil, where: self)
             } else {
-                self.login = login
                 self.loginTextField.text = nil
                 AntiSpam.resetUserLogInAttemps()
                 KeychainSwift.shared.set(profileID!, forKey: ConstantKeys.currentProfile)
-
+                KeychainSwift.shared.set(login, forKey: ConstantKeys.currentProfileLogin)
                 FireBaseDataBaseManager.getProfileUpdateDate(profileID!){ [weak self] date in
                     if date == nil {
-                        self?.performSegue(withIdentifier: References.fromIdentificationScreenToNewUserScreen, sender: self)
+                        
+                        let storyboard = UIStoryboard(name: StoryboardNames.newUserScreen, bundle: nil)
+                        guard let greetingVC = storyboard.instantiateInitialViewController() else {
+                            showAlert("Невозможно перейти", "Повторите попытку позже", where: self)
+                            return
+                        }
+                        self?.navigationController?.pushViewController(greetingVC, animated: true)
+
                     } else {
-                        self?.performSegue(withIdentifier: References.fromIdentificationScreenToAccountScreen, sender: self)
+                        
+                        UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
+                        
+                        let storyboard = UIStoryboard(name: StoryboardNames.accountScreen, bundle: nil)
+                        guard let profileTabBarC = storyboard.instantiateInitialViewController() else {
+                            showAlert("Невозможно перейти", "Повторите попытку позже", where: self)
+                            return
+                        }
+                        
+                        self?.view.window?.rootViewController = profileTabBarC
+                        self?.view.window?.makeKeyAndVisible()
+                        
                     }
                 }
                 

@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import KeychainSwift
 
 final class FillMainProfileInfoVC: UIViewController {
     
@@ -35,25 +36,29 @@ final class FillMainProfileInfoVC: UIViewController {
     // MARK: - Private Properties
     
     private let datePicker = UIDatePicker()
-    private let searchController = UISearchController(searchResultsController: SearchResultVC())
+    private var searchController: UISearchController! = UISearchController(searchResultsController: SearchResultVC())
     
     private var lastDate: String?
 
-    private lazy var defaultSettings: [String] = {
-        [dateOfBirthTextField.text ?? "",
-         cityLabel.text ?? "",
-         phoneNumberTextField.text ?? "",
-         emailTextField.text ?? ""]
-    }()
+    private var defaultSettings: [String]?
     private var isDatePickerActive = false
-    private var login: String?
+    private var login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
     private var isNewUser = false
         
     // MARK: - Life Cycle
     
+    override func viewDidDisappear(_ animated: Bool) {
+        searchController = nil
+    }
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = "Вернуться"
+        navigationItem.backBarButtonItem = backItem
+
+        navigationController?.isNavigationBarHidden = false
         
         standartSettings()
         
@@ -77,7 +82,6 @@ final class FillMainProfileInfoVC: UIViewController {
     }
     
     
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if dateOfBirthTextField.isEditing {
             getDateFromPicker()
@@ -85,15 +89,16 @@ final class FillMainProfileInfoVC: UIViewController {
         view.endEditing(true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       guard let fillInfoVC = segue.destination as? FillAdditionalProfileInfoVC else{
+    func showNextScreenForNewUser() {
+        
+        let storyboard = UIStoryboard(name: StoryboardNames.fillAdditionalProfileInfo, bundle: nil)
+        guard let fillInfoVC = storyboard.instantiateInitialViewController() else {
+            showAlert("Невозможно перейти", "Повторите попытку позже", where: self)
             return
         }
-        guard let login = login else {
-            return
-        }
-        (fillInfoVC as SetLoginProtocol).setLogin(login: login)
-        (fillInfoVC as NewUserProtocol).calledByNewUser()
+        (fillInfoVC as? NewUserProtocol)?.calledByNewUser()
+        navigationController?.pushViewController(fillInfoVC, animated: true)
+        
     }
     
     private func standartSettings() {
@@ -111,7 +116,10 @@ final class FillMainProfileInfoVC: UIViewController {
             FireBaseDataBaseManager.getProfileInfo(login) { [weak self] info in
                 
                 guard let info = info else {
-                    let _ = self?.defaultSettings
+                    self?.defaultSettings = [self!.dateOfBirthTextField.text ?? "",
+                                             self!.cityLabel.text ?? "",
+                                             self!.phoneNumberTextField.text ?? "",
+                                             self!.emailTextField.text ?? ""]
                     return
                 }
                
@@ -135,7 +143,10 @@ final class FillMainProfileInfoVC: UIViewController {
                     self?.emailDeleteButton.isHidden = false
                 }
                 
-                let _ = self?.defaultSettings
+                self?.defaultSettings = [self!.dateOfBirthTextField.text ?? "",
+                                         self!.cityLabel.text ?? "",
+                                         self!.phoneNumberTextField.text ?? "",
+                                         self!.emailTextField.text ?? ""]
             }
         
     }
@@ -227,7 +238,7 @@ final class FillMainProfileInfoVC: UIViewController {
         present(searchController, animated: true)
     }
     
-    @objc func keyboardNotification(notification: Notification){
+    @objc private func keyboardNotification(notification: Notification){
         guard !isDatePickerActive else {
             mainView.transform.ty = 0
             cityDeleteButton.transform.ty = mainView.transform.ty
@@ -282,10 +293,15 @@ final class FillMainProfileInfoVC: UIViewController {
         sender.isHidden = true
     }
     
-    @IBAction func didTapSubmitButton(_ sender: UIButton) {
+    @IBAction private func didTapSubmitButton(_ sender: UIButton) {
         
         guard cityLabel.text != "Выбрать" else {
             titleCityLabel.textColor = .red
+            return
+        }
+        
+        guard let defaultSettings = self.defaultSettings else {
+            print("\n<FillMainProfileInfoVC\\didTapSubmitButton> ERROR: defaultSettings isn't exist\n")
             return
         }
         
@@ -329,13 +345,14 @@ final class FillMainProfileInfoVC: UIViewController {
                     setNewInfo(currentSettings[3], for: FBProfileInfoKeys.email)
                 }
             }
-        
+            
+            self.defaultSettings = currentSettings
+            
             let title = "Новые данные были сохранены"
             let alert = UIAlertController.init(title: title, message: nil, preferredStyle: .alert)
             let okButton = !isNewUser ? UIAlertAction(title: "Продолжить", style: .default)
                  : UIAlertAction(title: "Продолжить", style: .default) { [weak self] _ in
-                    self?.performSegue(withIdentifier: References.fromFillMainInfotoFillAdditionalInfo,
-                     sender: self)
+                    self?.showNextScreenForNewUser()
                     
                  }
             alert.addAction(okButton)
@@ -343,8 +360,7 @@ final class FillMainProfileInfoVC: UIViewController {
             present(alert, animated: true)
             
         } else if isNewUser {
-            performSegue(withIdentifier: References.fromFillMainInfotoFillAdditionalInfo,
-             sender: self)
+            showNextScreenForNewUser()
         }
     }
     
@@ -478,16 +494,6 @@ extension FillMainProfileInfoVC: UITextFieldDelegate {
     }
 }
 
-// MARK: - SetLoginProtocol
-
-extension FillMainProfileInfoVC: SetLoginProtocol {
-    
-    func setLogin(login: String) {
-        self.login = login
-    }
-    
-}
-
 // MARK: - NewUserProtocol
 
 extension FillMainProfileInfoVC: NewUserProtocol {
@@ -495,7 +501,7 @@ extension FillMainProfileInfoVC: NewUserProtocol {
     func calledByNewUser() {
         isNewUser = true
     }
-    
+     
 }
 
 // MARK: - SetCityProtocol

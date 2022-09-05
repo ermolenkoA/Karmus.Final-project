@@ -7,11 +7,12 @@
 
 import Foundation
 import FirebaseDatabase
+import KeychainSwift
 
 final class FireBaseDataBaseManager {
     
     private static let profiles =  Database.database().reference().child(FBDefaultKeys.profiles)
-    private static let profliesInfo =  Database.database().reference().child(FBDefaultKeys.profilesInfo)
+    private static let profilesInfo =  Database.database().reference().child(FBDefaultKeys.profilesInfo)
     private static let topics =  Database.database().reference().child(FBDefaultKeys.topics)
     
     static let description = "<FireBaseDataBaseManager>"
@@ -61,7 +62,178 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func getProfileUpdateDate(_ profileID: String, _ result: @escaping (String?) -> ()){
+    static func createProfileObserver(_ profileID: String, _ login: String) {
+        
+        profiles.child(profileID).observe(.value) { snapshot in
+            guard snapshot.exists() else {
+                removeObserversFromProfile(profileID, login)
+                removeAccountObservers(profileID, login)
+                forceQuitFromProfile()
+                return
+            }
+            
+           
+            profiles.child(profileID).child(FBProfileKeys.login).observe(.value) { snapshot in
+                guard snapshot.exists() else {
+                    removeObserversFromProfile(profileID, login)
+                    removeAccountObservers(profileID, login)
+                    forceQuitFromProfile()
+                    return
+                }
+                
+                guard let newLogin = snapshot.value as? String, newLogin == login else {
+                    removeObserversFromProfile(profileID, login)
+                    removeAccountObservers(profileID, login)
+                    forceQuitFromProfile()
+                    return
+                }
+                
+            }
+            
+        }
+        
+        profilesInfo.child(login).observe(.value) { snapshot in
+            
+            guard snapshot.exists() else {
+                removeObserversFromProfile(profileID, login)
+                removeAccountObservers(profileID, login)
+                forceQuitFromProfile()
+                return
+            }
+        
+            if snapshot.key != login {
+                removeObserversFromProfile(profileID, login)
+                removeAccountObservers(profileID, login)
+                forceQuitFromProfile()
+                return
+            }
+            
+        }
+        
+        profiles.child(profileID).child(FBProfileKeys.profileUpdateDate)
+            .observe(.value){ snapshot in
+                
+                guard snapshot.exists() else {
+                    removeObserversFromProfile(profileID, login)
+                    removeAccountObservers(profileID, login)
+                    forceQuitFromProfile()
+                    return
+                }
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
+                
+                if let dateString = snapshot.value as? String, let date = formatter.date(from: dateString)  {
+                    
+                    guard let lastLogInDate = UserDefaults.standard.value(forKey: ConstantKeys.lastLogInDate) as? Date,
+                          lastLogInDate.isGreaterThanDate(dateToCompare: date) || lastLogInDate.equalToDate(dateToCompare: date) else {
+                        removeObserversFromProfile(profileID, login)
+                        removeAccountObservers(profileID, login)
+                        forceQuitFromProfile()
+                        return
+                        
+                    }
+
+                }
+                
+            }
+    
+        profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).observe(.value) { snapshot in
+            guard let status = snapshot.value as? String, status != FBOnlineStatuses.blocked else {
+                removeObserversFromProfile(profileID, login)
+                removeAccountObservers(profileID, login)
+                KeychainSwift.shared.delete(ConstantKeys.currentProfile)
+                KeychainSwift.shared.delete(ConstantKeys.currentProfileLogin)
+                UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
+                
+                let storyboard = UIStoryboard(name: StoryboardNames.main, bundle: nil)
+                let mainVC = storyboard.instantiateInitialViewController()!
+                SceneDelegate.keyWindow?.rootViewController = mainVC
+                SceneDelegate.keyWindow?.makeKeyAndVisible()
+                showAlert("Ваш аккаунт был заблокирован", "Свяжитесь с администрацией", where: mainVC)
+                return
+            }
+        }
+        
+    }
+    
+    static func removeAccountObservers(_ profileID: String, _ login: String) {
+        
+        profiles.child(profileID).child(FBProfileKeys.balance).removeAllObservers()
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfRespects).removeAllObservers()
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfFriends).removeAllObservers()
+    }
+    
+    static func removeObserversFromProfile(_ profileID: String, _ login: String) {
+        profiles.child(profileID).removeAllObservers()
+        profiles.child(profileID).child(FBProfileKeys.login).removeAllObservers()
+        profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).removeAllObservers()
+        profilesInfo.child(login).removeAllObservers()
+        profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).removeAllObservers()
+    }
+    
+    static func setProfileUpdateDate(_ profileID: String) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
+        let date = formatter.string(from: Date())
+        profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).setValue(date)
+        
+    }
+    
+    
+    static func setObserverToNumberOfFriends(_ login: String, _ result: @escaping (Int?) -> ()) {
+        
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfFriends).observe(.value){ snapshot in
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            
+            result(snapshot.value as? Int)
+        }
+        
+    }
+    
+    static func setObserverToNumberOfRespects(_ login: String, _ result: @escaping (Int?) -> ()) {
+        
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfRespects).observe(.value){ snapshot in
+            guard snapshot.exists() else {
+  
+                result(nil)
+                return
+            }
+
+            result(snapshot.value as? Int)
+        }
+        
+    }
+    
+    static func setObserverToBalance(_ profileID: String, _ result: @escaping (Int?) -> ()) {
+        
+        profiles.child(profileID).child(FBProfileKeys.balance).observe(.value){ snapshot in
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            
+            result(snapshot.value as? Int)
+        }
+        
+    }
+    
+    static func getProfileInfo(_ login: String, _ result: @escaping (ProfileInfoModel?) -> ()) {
+        
+        profilesInfo.child(login).observeSingleEvent(of: .value){ snapshot in
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            result(parseDataToProfileInfo(snapshot))
+        }
+        
+    }
+    
+    static func getProfileUpdateDate(_ profileID: String, _ result: @escaping (String?) -> ()) {
         
         profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).observeSingleEvent(of: .value){ snapshot in
             guard snapshot.exists() else {
@@ -72,20 +244,8 @@ final class FireBaseDataBaseManager {
         }
         
     }
-    
-    static func getProfileInfo(_ login: String, _ result: @escaping (ProfileInfoModel?) -> ()){
-        
-        profliesInfo.child(login).observeSingleEvent(of: .value){ snapshot in
-            guard snapshot.exists() else {
-                result(nil)
-                return
-            }
-            result(parseDataToProfileInfo(snapshot))
-        }
-        
-    }
-    
-    static func getProfileLogin(_ profileID: String, _ result: @escaping (String?) -> ()){
+      
+    static func getProfileLogin(_ profileID: String, _ result: @escaping (String?) -> ()) {
         
         profiles.child(profileID).child(FBProfileKeys.login).observeSingleEvent(of: .value){ snapshot in
             guard snapshot.exists() else {
@@ -154,7 +314,7 @@ final class FireBaseDataBaseManager {
                     continue
                 }
                 
-                if let newPassword = newPassword {
+                if let newPassword = newPassword { 
                     self.profiles.child(profile.key).child(FBProfileKeys.password).setValue(newPassword)
                 }
 
@@ -199,13 +359,19 @@ final class FireBaseDataBaseManager {
         let education = profileElements[FBProfileInfoKeys.education] as? String
         let work = profileElements[FBProfileInfoKeys.work] as? String
         let skills = profileElements[FBProfileInfoKeys.skills] as? String
-    
+        let numberOfRespects = profileElements[FBProfileInfoKeys.numberOfRespects] as? Int
+        let numberOfFriends = profileElements[FBProfileInfoKeys.numberOfFriends] as? Int
+        let profileType = profileElements[FBProfileInfoKeys.profileType] as? String
+        let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String
+        let onlineStatus = profileElements[FBProfileInfoKeys.onlineStatus] as? String
         
         return ProfileInfoModel.init(
             firstName: firstName, secondName: secondName, photo: photo,
             dateOfBirth: dateOfBirth, email: email, phone: phone,
             city: city, preferences: preferences, education: education,
-            work: work, skills: skills)
+            work: work, skills: skills, numberOfRespects: numberOfRespects,
+            numberOfFriends: numberOfFriends, profileType: profileType,
+            sponsorName: sponsorName, onlineStatus: onlineStatus)
     }
     
 }
