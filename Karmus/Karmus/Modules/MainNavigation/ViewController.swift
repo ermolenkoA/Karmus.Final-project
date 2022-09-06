@@ -14,6 +14,11 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
   
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.dismiss(animated: true)
+    }
+    
 
     @IBAction private func didTapToIdentification(_ sender: UIButton) {
         performSegue(withIdentifier: References.fromMainToIdentificationScreen, sender: self)
@@ -22,6 +27,13 @@ final class ViewController: UIViewController {
     @IBAction func didTapSingUpButton(_ sender: UIButton) {
         performSegue(withIdentifier: References.fromMainToRegistrationScreen, sender: self)
     }
+    
+//    @IBAction func didTapToAccountScreen(_ sender: UIButton) {
+//        let storyboar = UIStoryboard(name: "AccountScreen", bundle: nil)
+//        let toNext = storyboar.instantiateViewController(identifier: "AccountViewController")
+//        self.present(toNext, animated: true)
+//
+//    }
 
 }
 

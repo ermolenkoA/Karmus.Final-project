@@ -10,6 +10,11 @@
 		2EAEC71D86E014C6AE8D6CEC /* Pods_Karmus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6982DCEAC19D342C87CB2079 /* Pods_Karmus.framework */; };
 		530A412A28C2390E00CA7F84 /* ConditionTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530A412928C2390E00CA7F84 /* ConditionTaskScreen.storyboard */; };
 		530A412C28C2393100CA7F84 /* ConditionTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A412B28C2393100CA7F84 /* ConditionTaskViewController.swift */; };
+		530A415A28C499A300CA7F84 /* ProcessingTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530A415928C499A300CA7F84 /* ProcessingTaskScreen.storyboard */; };
+		530A415C28C49A0400CA7F84 /* ComplitedTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A415B28C49A0400CA7F84 /* ComplitedTasksTableViewController.swift */; };
+		530A415E28C49A3C00CA7F84 /* ComplitedTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530A415D28C49A3C00CA7F84 /* ComplitedTasksScreen.storyboard */; };
+		530A416028C49A6A00CA7F84 /* ProcessingTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A415F28C49A6A00CA7F84 /* ProcessingTaskViewController.swift */; };
+		530A416228C4B29200CA7F84 /* ComplitedTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A416128C4B29200CA7F84 /* ComplitedTasksTableViewCell.swift */; };
 		5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72528AC0FBE004C8A90 /* AppDelegate.swift */; };
 		5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */; };
 		5316D72A28AC0FBE004C8A90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72928AC0FBE004C8A90 /* ViewController.swift */; };
@@ -72,6 +77,11 @@
 /* Begin PBXFileReference section */
 		530A412928C2390E00CA7F84 /* ConditionTaskScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConditionTaskScreen.storyboard; sourceTree = "<group>"; };
 		530A412B28C2393100CA7F84 /* ConditionTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionTaskViewController.swift; sourceTree = "<group>"; };
+		530A415928C499A300CA7F84 /* ProcessingTaskScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProcessingTaskScreen.storyboard; sourceTree = "<group>"; };
+		530A415B28C49A0400CA7F84 /* ComplitedTasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplitedTasksTableViewController.swift; sourceTree = "<group>"; };
+		530A415D28C49A3C00CA7F84 /* ComplitedTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ComplitedTasksScreen.storyboard; sourceTree = "<group>"; };
+		530A415F28C49A6A00CA7F84 /* ProcessingTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingTaskViewController.swift; sourceTree = "<group>"; };
+		530A416128C4B29200CA7F84 /* ComplitedTasksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplitedTasksTableViewCell.swift; sourceTree = "<group>"; };
 		5316D72228AC0FBE004C8A90 /* Karmus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Karmus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5316D72528AC0FBE004C8A90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -327,6 +337,11 @@
 				53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */,
 				53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */,
 				53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */,
+				530A415928C499A300CA7F84 /* ProcessingTaskScreen.storyboard */,
+				530A415F28C49A6A00CA7F84 /* ProcessingTaskViewController.swift */,
+				530A415B28C49A0400CA7F84 /* ComplitedTasksTableViewController.swift */,
+				530A416128C4B29200CA7F84 /* ComplitedTasksTableViewCell.swift */,
+				530A415D28C49A3C00CA7F84 /* ComplitedTasksScreen.storyboard */,
 				534700DB28B6099A00F23539 /* TasksTableViewController.swift */,
 				534700DD28B6105C00F23539 /* TasksTableViewCell.swift */,
 				534700E128B621A700F23539 /* CreationTaskViewController.swift */,
@@ -454,11 +469,13 @@
 				5316D73228AC0FC2004C8A90 /* Assets.xcassets in Resources */,
 				5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */,
 				53B0C84D28BF72A3008B518B /* TaskMapScreen.storyboard in Resources */,
+				530A415A28C499A300CA7F84 /* ProcessingTaskScreen.storyboard in Resources */,
 				5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */,
 				534700E428B621D900F23539 /* CreationTaskScreen.storyboard in Resources */,
 				534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */,
 				53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */,
 				5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */,
+				530A415E28C49A3C00CA7F84 /* ComplitedTasksScreen.storyboard in Resources */,
 				5372EAD528B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard in Resources */,
 				5372EACF28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard in Resources */,
 			);
@@ -548,6 +565,7 @@
 				53B0C84F28BF791B008B518B /* ResultsMapViewController.swift in Sources */,
 				CE3A8A6A28B8226900BCE54A /* FireBaseKeys.swift in Sources */,
 				CE15417C28B266E0007731FA /* PopViewController.swift in Sources */,
+				530A416228C4B29200CA7F84 /* ComplitedTasksTableViewCell.swift in Sources */,
 				534700ED28B679CC00F23539 /* APIManager.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				CEE6717F28B621C100CC8853 /* PhoneVerificationEnumerations.swift in Sources */,
@@ -563,9 +581,11 @@
 				CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
 				534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */,
+				530A416028C49A6A00CA7F84 /* ProcessingTaskViewController.swift in Sources */,
 				CE3A8A6F28B8389800BCE54A /* FireBaseEnumerations.swift in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
 				534700EF28B67C3A00F23539 /* Document.swift in Sources */,
+				530A415C28C49A0400CA7F84 /* ComplitedTasksTableViewController.swift in Sources */,
 				5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */,
 				534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */,
 				CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */,

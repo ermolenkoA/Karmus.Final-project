@@ -8,18 +8,30 @@ import Firebase
 import MapKit
 import UIKit
 
-class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate, MKMapViewDelegate {
-    
+protocol ShowButtonProtocol{
+    func showButton()
+}
+
+
+class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate, MKMapViewDelegate{
+
     @IBOutlet var mapContainer: UIView!
+    @IBOutlet weak var searchItem: UIImageView!
     
+    var typeFromCreation: String?
     var dateFromCreation: String?
     var declorationFromCreation: String?
     var imageFromCreation = UIImage()
     var imageViewFromCreation = UIImageView()
     var longitudeCoordinate: Double?
     var latitudeCoordinate: Double?
+    var resultAddress: String?
+    var resultDeleagte: GetAddress?
+    var switchFromCreation: Bool?
     
-    var refTasks: DatabaseReference!
+    var refActiveTasks: DatabaseReference!
+    var refGroupActiveTasks: DatabaseReference!
+    
     var refTasksCoordinates: DatabaseReference!
     var taskCoordinate: CLLocationCoordinate2D!
     var uniqueKey: String?
@@ -30,26 +42,49 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
       }
+    override func viewWillDisappear(_ animated: Bool) {
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         mapView.delegate = self
-        refTasks = Database.database().reference().child("ActiveTasks")
+        refGroupActiveTasks = Database.database().reference().child("GroupTasks")
+        refActiveTasks = Database.database().reference().child("ActiveTasks")
   //      refTasksCoordinates = refTasks.child("Coordinates")
     }
     
     @IBAction func addTaskButton(_ sender: Any) {
-        self.saveFIRData()
-//        self.saveCoordinate()
+        if longitudeCoordinate != nil && latitudeCoordinate != nil{
+            if switchFromCreation == true {
+                self.saveFIRData(reference: refGroupActiveTasks)
+                performSegue(withIdentifier: References.ftomTaskMapToMapScreen, sender: self)
+            }else {
+                self.saveFIRData(reference: refActiveTasks)
+                performSegue(withIdentifier: References.ftomTaskMapToMapScreen, sender: self)
+            }
+        }else {
+            showAlert()
+        }
     }
     
+    func showAlert(){
+        let alert = UIAlertController(title: "Ошибка", message: "Вы не указали адрес", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+        present(alert, animated: true)
+    }
     @IBAction func searchWithAddress(_ sender: Any) {
+        
         searchController.searchBar.backgroundColor = .secondarySystemBackground
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        (searchController.searchResultsController as? SetDelegate)?.setDelegate(sender: self)
         self.present(searchController, animated: true)
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            self?.searchItem.alpha = 0
+            
+        }
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -60,6 +95,7 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
         }
         
         resultVC.delegate = self
+        resultVC.addressDelegate = self
         
         GooglePlacesManager.shared.findPlaces(query: query) { result in
             switch result {
@@ -72,6 +108,7 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
             }
         }
     }
+    
     func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())) {
    //     let key = refTasks.childByAutoId().key
         let storageRef = Storage.storage().reference().child("imageTasks").child("my photo")
@@ -91,20 +128,20 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
     }
    
 
-    func saveTask(imageURL: URL, completion: @escaping ((_ url: URL?) -> ())) {
-            let key = refTasks.childByAutoId().key
+    func saveTask(imageURL: URL, referenceTask: DatabaseReference, completion: @escaping ((_ url: URL?) -> ())) {
+            let key = referenceTask.childByAutoId().key
         uniqueKey = key
-        print("creation" + (uniqueKey ?? "nil")!)
-//            let date = dateField.text!
-//            let decloration = taskDeclorationField.text!
-        let task = ["longitudeCoordinate": longitudeCoordinate!,
+        let task = ["address": resultAddress!,
+                    "longitudeCoordinate": longitudeCoordinate!,
                     "latitudeCoordinate": latitudeCoordinate!,
-                        "taskName": declorationFromCreation!,
-                        "taskDate": dateFromCreation!,
-                        "imageURL": imageURL.absoluteString
+                    "taskName": declorationFromCreation!,
+                    "taskDate": dateFromCreation!,
+                    "imageURL": imageURL.absoluteString,
+                    "taskType": typeFromCreation!
+                    
             ] as! [String: AnyObject]
-        self.refTasks.child(key!).setValue(task)
-
+        referenceTask.child(key!).setValue(task)
+        
         }
     
     func saveCoordinate(){
@@ -116,14 +153,14 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
         
     
         
-    func saveFIRData(){
+    func saveFIRData(reference: DatabaseReference){
         self.uploadPhoto(imageFromCreation){ url in
             if url == nil {
                 print("error1")
                 return
             }else{
             
-            self.saveTask(imageURL: url!){ success in
+                self.saveTask(imageURL: url!, referenceTask: reference){ success in
                 if success != nil {
                     print("Eeee")
                 }else {
@@ -153,10 +190,10 @@ extension TaskMapViewController: ResultsMapViewControllerDelegate {
     func didTapPlace(with coordinates: CLLocationCoordinate2D) {
         searchController.dismiss(animated: true)
         searchController.searchBar.resignFirstResponder()
-       
+
         let annotations = mapView.annotations
         mapView.removeAnnotations(annotations)
-        
+
         let pin = MKPointAnnotation()
         pin.coordinate = coordinates
         taskCoordinate = coordinates
@@ -171,3 +208,19 @@ extension TaskMapViewController: ResultsMapViewControllerDelegate {
                           animated: true)
     }
 }
+
+
+extension TaskMapViewController: ShowButtonProtocol {
+    func showButton() {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            self?.searchItem.alpha = 1
+        }
+    }
+}
+extension TaskMapViewController: GetAddress {
+    func resultAddress(address: String) {
+        self.resultAddress = address
+    }
+}
+
+    

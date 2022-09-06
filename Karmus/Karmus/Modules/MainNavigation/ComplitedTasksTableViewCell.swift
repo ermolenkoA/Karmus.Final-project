@@ -1,24 +1,23 @@
 //
-//  ActiveTasksViewCell.swift
+//  ComplitedTasksTableViewCell.swift
 //  Karmus
 //
-//  Created by VironIT on 25.08.22.
+//  Created by VironIT on 4.09.22.
 //
 import Kingfisher
 import UIKit
 
-class ActiveTasksViewCell: UITableViewCell {
+class ComplitedTasksTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var taskImageView: UIImageView!
     @IBOutlet weak var declarationLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-//    @IBOutlet weak var groupLabel: UILabel!
+    @IBOutlet weak var dataLabel: UILabel!
+    @IBOutlet weak var taskImageView: UIImageView!
     
-    var activeModelTask: ModelTasks? {
+    var compliteModelTasks: ModelTasks? {
         didSet{
-            declarationLabel.text = activeModelTask?.type
-            dateLabel.text = "Активно до " + activeModelTask!.date
-            let url = URL(string: activeModelTask!.imageURL)
+            declarationLabel.text = compliteModelTasks?.type
+            dataLabel.text = compliteModelTasks?.date
+            let url = URL(string: compliteModelTasks!.imageURL)
             if let url = url as? URL {
                 KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
                 self.taskImageView.image = image

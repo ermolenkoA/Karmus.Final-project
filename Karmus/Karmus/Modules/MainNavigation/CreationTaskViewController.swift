@@ -21,14 +21,16 @@ class CreationTaskViewController: UIViewController {
     
     private let imagePicker = UIImagePickerController()
     
+    @IBOutlet weak var switchTask: UISwitch!
     private var imagePickerForUpload = UIImage()
     
     // ТЕСТОВАЯ ЗАГРУЗКА
     
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var label2: UILabel!
-    @IBOutlet weak var picture: UIImageView!
     
+    
+    @IBOutlet weak var typeOfTask: UILabel!
     @IBOutlet weak var taskDeclorationField: UITextField!
     
     
@@ -58,6 +60,24 @@ class CreationTaskViewController: UIViewController {
         refTasks = Database.database().reference().child("ActiveTasks")
         refActiveTasks = Database.database().reference().child("Tasks")
     }
+    
+    
+    @IBAction func didTapToMapScreen(_ sender: Any) {
+        if (!dateField.text!.isEmpty && !taskDeclorationField.text!.isEmpty) {
+            performSegue(withIdentifier: References.fromCreationToTaskMapScreen, sender: self)
+        }else {
+            showAlert()
+        }
+    }
+    
+    @IBAction func taskForGroup(_ sender: UISwitch) {
+        if sender.isOn {
+            view.backgroundColor = .blue
+        }else {
+            view.backgroundColor = .red
+        }
+    }
+    
     
     //ТЕСТОВАЯ ЗАГРУЗКА firebase
     
@@ -150,13 +170,12 @@ class CreationTaskViewController: UIViewController {
     func saveTask(imageURL: URL, completion: @escaping ((_ url: URL?) -> ())) {
             let key = refTasks.childByAutoId().key
             uniqueKey = key
-        print("creation" + (uniqueKey ?? "nil")!)
 //            let date = dateField.text!
 //            let decloration = taskDeclorationField.text!
-            let task = [
-                        "taskName": taskDeclorationField.text!,
-                        "taskDate": dateField.text!,
-                        "imageURL": imageURL.absoluteString
+        let task = ["taskType": typeOfTask.text!,
+                    "taskName": taskDeclorationField.text!,
+                    "taskDate": dateField.text,
+                    "imageURL": imageURL.absoluteString
             ] as! [String: Any]
         self.refTasks.child(key!).setValue(task)
         }
@@ -241,7 +260,8 @@ class CreationTaskViewController: UIViewController {
 
     
     @IBAction func addTask(_ sender: Any) {
-        self.saveFIRData()
+       
+        
 
 //        let date = dateField.text!
 //        let decloration = taskDeclorationField.text!
@@ -302,14 +322,18 @@ class CreationTaskViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == References.fromCreationToTaskMapScreen {
             let controller = segue.destination as! TaskMapViewController
-            
-            controller.dateFromCreation = dateField.text
-            controller.declorationFromCreation = taskDeclorationField.text
-            controller.imageFromCreation = imagePickerForUpload
-            controller.imageViewFromCreation = taskImage
+                    controller.dateFromCreation = dateField.text
+                    controller.declorationFromCreation = taskDeclorationField.text
+                    controller.typeFromCreation = typeOfTask.text
+                    controller.imageFromCreation = imagePickerForUpload
+                    controller.imageViewFromCreation = taskImage
+            if switchTask.isOn{
+                controller.switchFromCreation = true
+            }else{
+                controller.switchFromCreation = false
+            }
         }
     }
-
 }
     
 extension CreationTaskViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{

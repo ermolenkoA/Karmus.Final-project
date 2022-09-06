@@ -16,7 +16,7 @@ class TasksTableViewCell: UITableViewCell {
     
     var activeModelTask: ModelTasks? {
         didSet{
-            declarationLabel.text = activeModelTask?.declaration
+            declarationLabel.text = activeModelTask?.type
             dataLabel.text = activeModelTask?.date
             let url = URL(string: activeModelTask!.imageURL)
             if let url = url as? URL {

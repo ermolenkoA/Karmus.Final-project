@@ -11,9 +11,20 @@ protocol ResultsMapViewControllerDelegate: AnyObject {
     func didTapPlace(with coordinates: CLLocationCoordinate2D)
 }
 
+protocol SetDelegate {
+    func setDelegate(sender: UIViewController)
+}
+
+protocol GetAddress: AnyObject {
+    func resultAddress(address: String)
+}
+
 final class ResultsMapViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     weak var delegate: ResultsMapViewControllerDelegate?
+    weak var addressDelegate: GetAddress?
+    var sender: UIViewController?
+    var resultAddress: String?
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -29,6 +40,13 @@ final class ResultsMapViewController: UIViewController, UITableViewDelegate, UIT
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        (sender as? ShowButtonProtocol)?.showButton()
+        
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -58,15 +76,34 @@ final class ResultsMapViewController: UIViewController, UITableViewDelegate, UIT
         tableView.isHidden = true
         
         let place = places[indexPath.row]
+
         GooglePlacesManager.shared.resolveLocation(for: place) { [weak self] result in
             switch result {
             case .success(let coordinate):
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [self] in
                     self?.delegate?.didTapPlace(with: coordinate)
+                    self?.addressDelegate?
+                        .resultAddress(address: self!.places[indexPath.row].name)
+//                    print(self!.resultAddress!)
                 }
             case .failure(let error):
                 print(error)
             }
         }
+//        let storyboard = UIStoryboard(name: "TaskMapScreen", bundle: nil)
+//        guard let controller = storyboard.instantiateViewController(identifier: "TaskMapViewController") as? TaskMapViewController else {
+//            return
+//        }
+        
+//        controller.resultAddress = places[indexPath.row].name
+//        print(controller.resultAddress)
+//        present(controller, animated: true)
+        
     }
 }
+extension ResultsMapViewController: SetDelegate{
+    func setDelegate(sender: UIViewController) {
+        self.sender = sender
+    }
+}
+

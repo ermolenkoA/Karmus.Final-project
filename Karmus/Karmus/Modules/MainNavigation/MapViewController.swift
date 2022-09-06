@@ -22,57 +22,65 @@ class ModelTasksMap: NSObject, MKAnnotation{
     var name: String?
     var coordinate: CLLocationCoordinate2D
     var id: String?
+    var address: String?
+    var type: String?
     var title: String?{
-        return name
+        return type
+    }
+    var subtitle: String?{
+        return address
     }
 
-    init(coordinate: CLLocationCoordinate2D, name: String, id: String){
+    init(coordinate: CLLocationCoordinate2D, name: String, id: String, address: String, type: String){
         self.coordinate = coordinate
         self.name = name
         self.id = id
+        self.address = address
+        self.type = type
     }
 }
 class ModelActiveTasksMap: NSObject, MKAnnotation{
     var name: String?
     var coordinate: CLLocationCoordinate2D
     var id: String?
+    var address: String?
+    var type: String?
     var title: String?{
-        return name
+        return type
+    }
+    var subtitle: String?{
+        return address
     }
 
-    init(coordinate: CLLocationCoordinate2D, name: String, id: String){
+    init(coordinate: CLLocationCoordinate2D, name: String, id: String, address: String, type: String){
         self.coordinate = coordinate
         self.name = name
         self.id = id
+        self.address = address
+        self.type = type
     }
 }
+class ModelGroupTasksMap: NSObject, MKAnnotation{
+    var name: String?
+    var coordinate: CLLocationCoordinate2D
+    var id: String?
+    var address: String?
+    var type: String?
+    var title: String?{
+        return type
+    }
+    var subtitle: String?{
+        return address
+    }
 
-//class User: NSObject, MKAnnotation{
-//    var name: String?
-//    var coordinate: CLLocationCoordinate2D
-//    var title: String?{
-//        return "Задание"
-//    }
-//
-//    init(coordinate: CLLocationCoordinate2D, name: String){
-//        self.coordinate = coordinate
-//        self.name = name
-//    }
-//}
-
-//    class ModelUser{
-//        var users = [User]()
-//        init() {
-//            setup()
-//        }
-//        func setup(){
-//            let us1 = User(coordinate: CLLocationCoordinate2D(latitude: 53.939902, longitude: 27.566229),name: "Покормить котиков",)
-//            let us2 = User(coordinate: CLLocationCoordinate2D(latitude: 53.959902, longitude: 27.546229), name: "Очистить территорию")
-//            users.append(us1)
-//            users.append(us2)
-//        }
-//    }
-    
+    init(coordinate: CLLocationCoordinate2D, name: String, id: String, address: String, type: String){
+        self.coordinate = coordinate
+        self.name = name
+        self.id = id
+        self.address = address
+        self.type = type
+    }
+}
 
 class MapViewController: UIViewController{
    
@@ -82,136 +90,151 @@ class MapViewController: UIViewController{
     @IBOutlet weak var taskBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var titlePositionConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageTasks: UIImageView!
+    @IBOutlet private weak var mapView: MKMapView!
+    @IBOutlet weak var itemTabBarMap: UITabBarItem!
     
     var state: State = .closed
     var viewOffset: CGFloat = 130
     var newViewOffset: CGFloat = 0
     var runningAnimators: [UIViewPropertyAnimator] = []
     
-    
-//    let modelUser = ModelUser()
     var tasksMap = [ModelTasksMap]()
     var activeTasksMap = [ModelActiveTasksMap]()
+    var groupTasksMap = [ModelGroupTasksMap]()
+    
     var refActiveTasksMap: DatabaseReference!
     var refTasksMap: DatabaseReference!
+    var refGroupActiveTasks: DatabaseReference!
     var uniqueKey: String?
     
-    
-    @IBOutlet private weak var mapView: MKMapView!
-    
     private var authorizationStatus: CLAuthorizationStatus?
-
     private var locationManager = CLLocationManager()
-
     private var currentLocation: CLLocationCoordinate2D!
+    
+    var taskLocation: CLLocationCoordinate2D!
+    var activeTaskLocation: CLLocationCoordinate2D!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         checkLocationEnabled()
-//        for user in modelUser.users{
-        
         setupViews()
         refActiveTasksMap = Database.database().reference().child("ActiveTasks")
         refTasksMap = Database.database().reference().child("Tasks")
+        refGroupActiveTasks = Database.database().reference().child("GroupTasks")
+        
         uploadActiveTasksInMap()
+        uploadGroupTasksInMap()
         uploadTasksInMap()
     }
-    func uploadActiveTasksInMap(){
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    func uploadTasksInMap(){
         refTasksMap.observe(DataEventType.value, with:{(snapshot) in
         if snapshot.childrenCount > 0 {
             self.tasksMap.removeAll()
             for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
-                
+                let taskAddress = taskObject?["address"]
                 let taskName = taskObject?["taskName"]
+                let taskType = taskObject?["taskType"]
                 let taskId = tasks.key
                 let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
                 let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
                 
-                let task = ModelTasksMap(coordinate: CLLocationCoordinate2D(latitude: taskLatitudeCoordinate as! Double, longitude: taskLongitudeCoordinate as! Double), name: taskName as! String, id: taskId)
+                let task = ModelTasksMap(coordinate: CLLocationCoordinate2D(latitude: taskLatitudeCoordinate as! Double, longitude: taskLongitudeCoordinate as! Double), name: taskName as! String, id: taskId, address: taskAddress as! String, type: taskType as! String)
                 self.tasksMap.append(task)
             }
             self.mapView.didMoveToWindow()
             for user in self.tasksMap{
                 self.mapView.addAnnotation(user)
+                }
             }
-        }
-    })
-        
+        })
     }
-    func uploadTasksInMap(){
+    
+    func uploadActiveTasksInMap(){
         refActiveTasksMap.observe(DataEventType.value, with:{(snapshot) in
         if snapshot.childrenCount > 0 {
             self.activeTasksMap.removeAll()
             for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
-                
+                let taskAddress = taskObject?["address"]
                 let taskName = taskObject?["taskName"]
+                let taskType = taskObject?["taskType"]
                 let taskId = tasks.key
                 let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
                 let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
                 
-                let task = ModelActiveTasksMap(coordinate: CLLocationCoordinate2D(latitude: taskLatitudeCoordinate as! Double, longitude: taskLongitudeCoordinate as! Double), name: taskName as! String, id: taskId)
+                let task = ModelActiveTasksMap(coordinate: CLLocationCoordinate2D(latitude: taskLatitudeCoordinate as! Double, longitude: taskLongitudeCoordinate as! Double), name: taskName as! String, id: taskId, address: taskAddress as! String, type: taskType as! String)
                 self.activeTasksMap.append(task)
             }
             self.mapView.didMoveToWindow()
             for user in self.activeTasksMap{
                 self.mapView.addAnnotation(user)
+                }
             }
-        }
-    })
-        
+        })
     }
     
-    
+    func uploadGroupTasksInMap(){
+        refGroupActiveTasks.observe(DataEventType.value, with:{(snapshot) in
+        if snapshot.childrenCount > 0 {
+            self.groupTasksMap.removeAll()
+            for tasks in snapshot.children.allObjects as! [DataSnapshot] {
+                let taskObject = tasks.value as? [String: AnyObject]
+                let taskAddress = taskObject?["address"]
+                let taskName = taskObject?["taskName"]
+                let taskType = taskObject?["taskType"]
+                let taskId = tasks.key
+                let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
+                let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
+                
+                let task = ModelGroupTasksMap(coordinate: CLLocationCoordinate2D(latitude: taskLatitudeCoordinate as! Double, longitude: taskLongitudeCoordinate as! Double), name: taskName as! String, id: taskId, address: taskAddress as! String, type: taskType as! String)
+                self.groupTasksMap.append(task)
+            }
+            self.mapView.didMoveToWindow()
+            for user in self.groupTasksMap{
+                self.mapView.addAnnotation(user)
+                }
+            }
+        })
+    }
     
     @IBAction func didTapImageView(_ sender: UITapGestureRecognizer) {
-
-        performSegue(withIdentifier: References.fromMapToTasksScreen, sender: self)
+       // performSegue(withIdentifier: References.fromMapToTasksScreen, sender: self)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        
-    }
-    ///
     
     func animateView(to state: State, duration: TimeInterval) {
-        
-//        guard runningAnimators.isEmpty else {return}
-        
         let basicAnimator = UIViewPropertyAnimator(duration: duration, curve: .easeIn, animations: nil)
-        
-        basicAnimator.addAnimations {
-            switch state {
-            case .open:
-                self.taskBottomConstraint.constant = self.viewOffset
-                self.tasksView.layer.cornerRadius = 20
-            case .closed:
-                self.taskBottomConstraint.constant = 0
-                self.tasksView.layer.cornerRadius = 0
-            }
+            basicAnimator.addAnimations {
+                switch state {
+                    case .open:
+                        self.taskBottomConstraint.constant = self.viewOffset
+                        self.tasksView.layer.cornerRadius = 20
+                    case .closed:
+                        self.taskBottomConstraint.constant = 0
+                        self.tasksView.layer.cornerRadius = 0
+                }
             self.view.layoutIfNeeded()
         }
         basicAnimator.addAnimations {
-            switch state{
-            case .open:
-                self.titlePositionConstraint.constant = self.tasksView.layer.position.x - self.tasksTitle.frame.width/2
-                self.tasksTitle.transform = CGAffineTransform(scaleX: 1, y: 1)
-            case .closed:
-                self.titlePositionConstraint.constant = 8
-               // self.tasksTitle.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            switch state {
+                case .open:
+                    self.titlePositionConstraint.constant = self.tasksView.layer.position.x - self.tasksTitle.frame.width/2
+                    self.tasksTitle.transform = CGAffineTransform(scaleX: 1, y: 1)
+                case .closed:
+                    self.titlePositionConstraint.constant = 8
             }
             self.view.layoutIfNeeded()
-    }
+        }
         runningAnimators.append(basicAnimator)
-}
+    }
+    
     func animateIfNeeded(to state: State, duration: TimeInterval) {
-        
-//        guard runningAnimators.isEmpty else {return}
-        
         let basicAnimator = UIViewPropertyAnimator(duration: duration, curve: .easeIn, animations: nil)
         
         basicAnimator.addAnimations {
@@ -342,9 +365,12 @@ class MapViewController: UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          if segue.identifier == References.fromMapActiveTaskToDeclarationTaskScreen {
             let controller = segue.destination as! DeclarationOfTasksViewController
-             print(uniqueKey)
-             controller.uniqueKeyFromMap = uniqueKey
-             
+            controller.uniqueKeyFromMap = uniqueKey
+         }
+        
+        if segue.identifier == References.fromMapTaskToConditionTaskScreen {
+            let controller = segue.destination as! ConditionTaskViewController
+            controller.uniqueKeyFromMapAndTasks = uniqueKey
         }
     }
 }
@@ -375,14 +401,22 @@ extension MapViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        guard let location = locations.last?.coordinate else {return}
         guard let latestLocation = locations.first else {return}
+        
         if currentLocation == nil {
+            if taskLocation != nil {
+                let region = MKCoordinateRegion.init(center: taskLocation, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                mapView.setRegion(region, animated: true)
+                taskLocation = latestLocation.coordinate
+                print("mapviewc task coordinate")
+            } else {
             let region = MKCoordinateRegion.init(center: latestLocation.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
             mapView.setRegion(region, animated: true)
             print("mapview")
+            }
         }
         currentLocation = latestLocation.coordinate
     }
-    
+
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkAutorization()
@@ -396,22 +430,34 @@ extension MapViewController: MKMapViewDelegate{
 //        guard let annotation = annotation as? ModelTasksMap else {return nil}
         var viewMarker: MKMarkerAnnotationView
         let idView = "marker"
+        let sameAnnotation = annotation as? ModelGroupTasksMap
         if let annotation = annotation as? ModelTasksMap {
+            
             viewMarker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
             viewMarker.canShowCallout = true
             viewMarker.calloutOffset = CGPoint(x: 0, y: 9)
-        viewMarker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            viewMarker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             viewMarker.markerTintColor = .green
+            viewMarker.superview?.bringSubviewToFront(viewMarker)
             
         } else if let annotation = annotation as? ModelActiveTasksMap{
             
             viewMarker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
             viewMarker.canShowCallout = true
             viewMarker.calloutOffset = CGPoint(x: 0, y: 9)
-        viewMarker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            viewMarker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             viewMarker.markerTintColor = .red
             
-        } else {
+        } else if let annotation = annotation as? ModelGroupTasksMap {
+            
+            viewMarker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
+            viewMarker.canShowCallout = true
+            viewMarker.calloutOffset = CGPoint(x: 0, y: 9)
+            viewMarker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            viewMarker.markerTintColor = .systemBlue
+            
+           // return nil
+        }else{
             return nil
         }
  //       if let view = mapView.dequeueReusableAnnotationView(withIdentifier: idView) as? MKMarkerAnnotationView{
@@ -433,13 +479,13 @@ extension MapViewController: MKMapViewDelegate{
         for route in mapView.overlays {
             self.mapView.removeOverlay(route.self)
         }
-        
         if let userTask = view.annotation as? ModelTasksMap {
-            
+            uniqueKey = userTask.id
+        
             let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
         let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
         { [unowned self] _ in
-            performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
+            performSegue(withIdentifier: References.fromMapTaskToConditionTaskScreen, sender: self)
         }
             let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default){  _ in
                 let startPointUser = MKPlacemark(coordinate: coordinate)
@@ -448,7 +494,7 @@ extension MapViewController: MKMapViewDelegate{
                 let endPointTask = MKPlacemark(coordinate: userTask.coordinate)
                 request.destination = MKMapItem(placemark: endPointTask)
                 request.transportType = .any
-
+        
                 let direction = MKDirections(request: request)
                 direction.calculate{ (response, error) in
                     guard let response = response else { return }
@@ -462,10 +508,9 @@ extension MapViewController: MKMapViewDelegate{
                alertController.addAction(actionDirection)
                alertController.addAction(actionCancel)
                self.present(alertController, animated: true)
-//
-
-        }else
-            if let userTask = view.annotation as? ModelActiveTasksMap{
+        //
+        
+        }else if let userTask = view.annotation as? ModelActiveTasksMap{
             uniqueKey = userTask.id
             print("Уникальный ключ " + uniqueKey!)
             let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
@@ -495,8 +540,37 @@ extension MapViewController: MKMapViewDelegate{
                alertController.addAction(actionCancel)
                self.present(alertController, animated: true)
         }else{
+            let userTask = view.annotation as? ModelGroupTasksMap
+            uniqueKey = userTask!.id
+            print("Уникальный ключ " + uniqueKey!)
+            let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
+        let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
+        { [unowned self] _ in
+            performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
+        }
+            let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default){ _ in
+                let startPointUser = MKPlacemark(coordinate: coordinate)
+                let request = MKDirections.Request()
+                request.source = MKMapItem(placemark: startPointUser)
+                let endPointActiveTask = MKPlacemark(coordinate: userTask!.coordinate)
+                request.destination = MKMapItem(placemark: endPointActiveTask)
+                request.transportType = .any
+                let direction = MKDirections(request: request)
+                direction.calculate{ (response, error) in
+                    guard let response = response else { return }
+                    for route in response.routes {
+                        mapView.addOverlay(route.polyline)
+            }
+                }
+            }
+        
+               let actionCancel = UIAlertAction(title: "Отмена", style: .cancel)
+               alertController.addAction(actionTask)
+               alertController.addAction(actionDirection)
+               alertController.addAction(actionCancel)
+               self.present(alertController, animated: true)
             print("eee[[[[[")
-//            request.destination = MKMapItem(placemark: startPointUser)
+        //            request.destination = MKMapItem(placemark: startPointUser)
         }
 
 //        let userTask = view.annotation as! ModelTasksMap
@@ -515,3 +589,98 @@ extension MapViewController: MKMapViewDelegate{
         return renderer
     }
 }
+
+
+//if let userTask = view.annotation as? ModelTasksMap {
+//    uniqueKey = userTask.id
+//
+//    let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
+//let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
+//{ [unowned self] _ in
+//    performSegue(withIdentifier: References.fromMapTaskToConditionTaskScreen, sender: self)
+//}
+//    let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default){  _ in
+//        let startPointUser = MKPlacemark(coordinate: coordinate)
+//        let request = MKDirections.Request()
+//        request.source = MKMapItem(placemark: startPointUser)
+//        let endPointTask = MKPlacemark(coordinate: userTask.coordinate)
+//        request.destination = MKMapItem(placemark: endPointTask)
+//        request.transportType = .any
+//
+//        let direction = MKDirections(request: request)
+//        direction.calculate{ (response, error) in
+//            guard let response = response else { return }
+//            for route in response.routes {
+//                mapView.addOverlay(route.polyline)
+//    }
+//        }
+//    }
+//       let actionCancel = UIAlertAction(title: "Отмена", style: .cancel)
+//       alertController.addAction(actionTask)
+//       alertController.addAction(actionDirection)
+//       alertController.addAction(actionCancel)
+//       self.present(alertController, animated: true)
+////
+//
+//}else if let userTask = view.annotation as? ModelActiveTasksMap{
+//    uniqueKey = userTask.id
+//    print("Уникальный ключ " + uniqueKey!)
+//    let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
+//let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
+//{ [unowned self] _ in
+//    performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
+//}
+//    let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default){ _ in
+//        let startPointUser = MKPlacemark(coordinate: coordinate)
+//        let request = MKDirections.Request()
+//        request.source = MKMapItem(placemark: startPointUser)
+//        let endPointActiveTask = MKPlacemark(coordinate: userTask.coordinate)
+//        request.destination = MKMapItem(placemark: endPointActiveTask)
+//        request.transportType = .any
+//        let direction = MKDirections(request: request)
+//        direction.calculate{ (response, error) in
+//            guard let response = response else { return }
+//            for route in response.routes {
+//                mapView.addOverlay(route.polyline)
+//    }
+//        }
+//    }
+//
+//       let actionCancel = UIAlertAction(title: "Отмена", style: .cancel)
+//       alertController.addAction(actionTask)
+//       alertController.addAction(actionDirection)
+//       alertController.addAction(actionCancel)
+//       self.present(alertController, animated: true)
+//}else{
+//    let userTask = view.annotation as? ModelGroupTasksMap
+//    uniqueKey = userTask!.id
+//    print("Уникальный ключ " + uniqueKey!)
+//    let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
+//let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
+//{ [unowned self] _ in
+//    performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
+//}
+//    let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default){ _ in
+//        let startPointUser = MKPlacemark(coordinate: coordinate)
+//        let request = MKDirections.Request()
+//        request.source = MKMapItem(placemark: startPointUser)
+//        let endPointActiveTask = MKPlacemark(coordinate: userTask!.coordinate)
+//        request.destination = MKMapItem(placemark: endPointActiveTask)
+//        request.transportType = .any
+//        let direction = MKDirections(request: request)
+//        direction.calculate{ (response, error) in
+//            guard let response = response else { return }
+//            for route in response.routes {
+//                mapView.addOverlay(route.polyline)
+//    }
+//        }
+//    }
+//
+//       let actionCancel = UIAlertAction(title: "Отмена", style: .cancel)
+//       alertController.addAction(actionTask)
+//       alertController.addAction(actionDirection)
+//       alertController.addAction(actionCancel)
+//       self.present(alertController, animated: true)
+//    print("eee[[[[[")
+////            request.destination = MKMapItem(placemark: startPointUser)
+//}

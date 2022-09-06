@@ -13,12 +13,26 @@
         <!--Account View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="AccountViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountViewController" modalPresentationStyle="fullScreen" id="Y6W-OH-hqX" customClass="AccountViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JW4-Il-0zy">
+                                <rect key="frame" x="162" y="312" width="92" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="ЗАДАНИЯ"/>
+                                <connections>
+                                    <segue destination="C4d-3P-lqj" kind="show" id="g27-vK-mmq"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemCyanColor"/>
+                        <constraints>
+                            <constraint firstItem="JW4-Il-0zy" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="268" id="kLQ-AQ-Khf"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="JW4-Il-0zy" secondAttribute="trailing" constant="160" id="qjL-my-DbK"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" image="list.bullet.rectangle.portrait.fill" catalog="system" id="p8H-it-SnY">
                         <color key="badgeColor" systemColor="systemYellowColor"/>
@@ -29,15 +43,15 @@
             </objects>
             <point key="canvasLocation" x="1849.2753623188407" y="83.705357142857139"/>
         </scene>
-        <!--TasksScreen-->
-        <scene sceneID="9XF-SS-CkH">
+        <!--ComplitedTasksScreen-->
+        <scene sceneID="g4a-rD-OFc">
             <objects>
-                <viewControllerPlaceholder storyboardName="TasksScreen" id="kdK-DI-Q1r" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Qh0-Z3-gf9"/>
+                <viewControllerPlaceholder storyboardName="ComplitedTasksScreen" id="C4d-3P-lqj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="K2A-tI-Lyr"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Af2-yY-zWY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cNr-yH-xfA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="69" y="541"/>
+            <point key="canvasLocation" x="2371" y="-19"/>
         </scene>
         <!--MapScreen-->
         <scene sceneID="o0T-NR-SjR">
@@ -52,7 +66,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="0Jy-fZ-6ex">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="L0P-KX-AMB" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="L0P-KX-AMB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9p5-3R-Vv9">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

@@ -31,14 +31,42 @@ class ModelTasks: NSObject {
     var longitudeCoordinate: Double
     var date: String
     var declaration: String
+    var address: String
+    var type: String
 //    var coordinate: String
-    init(imageURL: String, id: String, latitudeCoordinate: Double, longitudeCoordinate: Double, date: String, declaration: String){
+    init(imageURL: String, id: String, latitudeCoordinate: Double, longitudeCoordinate: Double, date: String, declaration: String, address: String, type: String){
+        self.address = address
         self.imageURL = imageURL
         self.id = id
         self.longitudeCoordinate = longitudeCoordinate
         self.latitudeCoordinate = latitudeCoordinate
         self.date = date
         self.declaration = declaration
+        self.type = type
+    }
+    
+}
+class ModelGroupTasks: NSObject {
+    var imageURL: String
+    var id: String
+    var latitudeCoordinate: Double
+    var longitudeCoordinate: Double
+    var date: String
+    var declaration: String
+    var address: String
+    var type: String
+    var group: String
+//    var coordinate: String
+    init(imageURL: String, id: String, latitudeCoordinate: Double, longitudeCoordinate: Double, date: String, declaration: String, address: String, type: String, group: String){
+        self.address = address
+        self.imageURL = imageURL
+        self.id = id
+        self.longitudeCoordinate = longitudeCoordinate
+        self.latitudeCoordinate = latitudeCoordinate
+        self.date = date
+        self.declaration = declaration
+        self.type = type
+        self.group = group
     }
     
 }
