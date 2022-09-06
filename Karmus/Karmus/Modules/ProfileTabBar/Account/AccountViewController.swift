@@ -75,7 +75,7 @@ final class AccountViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        mainActivityIndicatorView.backgroundColor = #colorLiteral(red: 0.2932096912, green: 0, blue: 1, alpha: 1).withAlphaComponent(0.9)
+        mainActivityIndicatorView.backgroundColor = .clear
         mainActivityIndicatorView.startAnimating()
         view.isUserInteractionEnabled = false
         standartSettings()
@@ -272,7 +272,7 @@ final class AccountViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: StoryboardNames.fillMainProfileInfo, bundle: nil)
         guard let fillMainProfileInfoVC = storyboard.instantiateInitialViewController() else {
-            showAlert("Не возможно изменить информацию", "Повторите попытку позже", where: self)
+            showAlert("Невозможно изменить информацию", "Повторите попытку позже", where: self)
             return
         }
         
@@ -282,7 +282,7 @@ final class AccountViewController: UIViewController {
     @IBAction func didTabChangeAdditionalInfoButton(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: StoryboardNames.fillAdditionalProfileInfo, bundle: nil)
         guard let fillAdditionalProfileInfoVC = storyboard.instantiateInitialViewController() else {
-            showAlert("Не возможно изменить информацию", "Повторите попытку позже", where: self)
+            showAlert("Невозможно изменить информацию", "Повторите попытку позже", where: self)
             return
         }
         self.navigationController?.pushViewController(fillAdditionalProfileInfoVC, animated: true)
@@ -362,7 +362,19 @@ final class AccountViewController: UIViewController {
     }
     
     
+    @IBAction func goToFriendsView(_ sender: UITapGestureRecognizer) {
+        let storyboard = UIStoryboard(name: StoryboardNames.friendsScreen, bundle: nil)
+        guard let friendsVC = storyboard.instantiateInitialViewController() else {
+            showAlert("Невозможно перейти на экран друзей", "Повторите попытку позже", where: self)
+            return
+        }
+        
+        self.navigationController?.pushViewController(friendsVC, animated: true)
+    }
+    
 }
+
+// MARK: - UIPopoverPresentationControllerDelegate
 
 extension AccountViewController: UIPopoverPresentationControllerDelegate {
     

@@ -22,6 +22,9 @@ struct FBProfileKeys {
     static let secondName = "secondName"
     static let userTasks = "userTasks"
     static let profileUpdateDate = "profileUpdateDate"
+    static let friends = "friends"
+    static let requests = "requests"
+    static let followers = "followers"
     static let balance = "balance"
 }
 

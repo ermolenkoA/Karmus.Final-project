@@ -30,7 +30,6 @@ final class FireBaseDataBaseManager {
         profiles.observeSingleEvent(of: .value) { snapshot in
             
             guard snapshot.exists() else{
-                print("\n\(self.description) Failure: snapshot isn't exist\n")
                 result(.notFound)
                 return
             }
@@ -58,6 +57,114 @@ final class FireBaseDataBaseManager {
             }
             
             result(.notFound)
+        }
+        
+    }
+    
+    static func openProfile(login: String, password: Int64, newPassword: Int64? = nil, _ result: @escaping (FireBaseOpenProfileResult, String?) -> ()) {
+
+        if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$"){
+            if !(login ~= "^(\\+375)(29|25|33|44)([\\d]{7})$") {
+                result(.failure, nil)
+                return
+            }
+        }
+        
+        profiles.observeSingleEvent(of: .value) { snapshot in
+
+            guard snapshot.exists() else{
+                result(.failure, nil)
+                return
+                
+            }
+            
+            guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
+                print("\n\(self.description) ERROR: profiles isn't exist\n")
+                result(.error, nil)
+                return
+            }
+            
+            for profile in profiles {
+                
+                guard let profileElements = profile.value as? [String : AnyObject] else {
+                    print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
+                    result(.error, nil)
+                    return
+                }
+                
+                guard let loginFromData = profileElements[FBProfileKeys.login] as? String,
+                      let passwordFromData = profileElements[FBProfileKeys.password] as? Int64,
+                      let phoneNumber = profileElements[FBProfileKeys.phoneNumber] as? String else {
+                    
+                    print("\n\(self.description) ERROR: profiles contains unvalid profile\\login\n")
+                    result(.error, nil)
+                    return
+                }
+                
+                guard ( loginFromData == login || phoneNumber == login ) && (password == passwordFromData) else {
+                    continue
+                }
+                
+                if let newPassword = newPassword {
+                    self.profiles.child(profile.key).child(FBProfileKeys.password).setValue(newPassword)
+                }
+
+                result(.success, profile.key)
+                return
+            }
+            
+            result(.failure, nil)
+        }
+        
+    }
+    
+    static func getFriends(_ profileID: String, where friendsType: FriendsTypes, result: @escaping ([Friend]?) -> ()) {
+        
+        let key = friendsType != .friends ? friendsType != .followers ? FBProfileKeys.requests : FBProfileKeys.followers : FBProfileKeys.friends
+        
+        profiles.child(profileID).child(key).observeSingleEvent(of: .value) { snapshot in
+    
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            
+            guard var friendsLogins = snapshot.value as? [String] else {
+                result(nil)
+                return
+            }
+            
+            profilesInfo.observeSingleEvent(of: .value) { snapshot in
+                guard snapshot.exists() else{
+                    result(nil)
+                    return
+                }
+                
+                guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
+                    result(nil)
+                    return
+                }
+                
+                var friends = [Friend]()
+                
+                for profile in profiles {
+                    
+                    guard let index = friendsLogins.firstIndex(of: profile.key) else {
+                        continue
+                    }
+                    
+                    guard let friend = parseDataToFriend(profile) else {
+                        continue
+                    }
+                    
+                    friends.append(friend)
+                    friendsLogins.remove(at: index)
+                }
+                
+                result(friends.isEmpty ? nil : friends)
+                
+            }
+            
         }
         
     }
@@ -269,64 +376,6 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func openProfile(login: String, password: Int64, newPassword: Int64? = nil, _ result: @escaping (FireBaseOpenProfileResult, String?) -> ()) {
-
-        if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$"){
-            if !(login ~= "^(\\+375)(29|25|33|44)([\\d]{7})$") {
-                result(.failure, nil)
-                return
-            }
-        }
-        
-        profiles.observeSingleEvent(of: .value) { snapshot in
-
-            guard snapshot.exists() else{
-                print("\n\(self.description) Failure: snapshot isn't exist\n")
-                result(.failure, nil)
-                return
-                
-            }
-            
-            guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
-                print("\n\(self.description) ERROR: profiles isn't exist\n")
-                result(.error, nil)
-                return
-            }
-            
-            for profile in profiles {
-                
-                guard let profileElements = profile.value as? [String : AnyObject] else {
-                    print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-                    result(.error, nil)
-                    return
-                }
-                
-                guard let loginFromData = profileElements[FBProfileKeys.login] as? String,
-                      let passwordFromData = profileElements[FBProfileKeys.password] as? Int64,
-                      let phoneNumber = profileElements[FBProfileKeys.phoneNumber] as? String else {
-                    
-                    print("\n\(self.description) ERROR: profiles contains unvalid profile\\login\n")
-                    result(.error, nil)
-                    return
-                }
-                
-                guard ( loginFromData == login || phoneNumber == login ) && (password == passwordFromData) else {
-                    continue
-                }
-                
-                if let newPassword = newPassword { 
-                    self.profiles.child(profile.key).child(FBProfileKeys.password).setValue(newPassword)
-                }
-
-                result(.success, profile.key)
-                return
-            }
-            
-            result(.failure, nil)
-        }
-        
-    }
-    
     static func parseDataForVerification(_ data: DataSnapshot) -> ProfileVerificationModel? {
         
         guard let profileElements = data.value as? [String : AnyObject],
@@ -372,6 +421,27 @@ final class FireBaseDataBaseManager {
             work: work, skills: skills, numberOfRespects: numberOfRespects,
             numberOfFriends: numberOfFriends, profileType: profileType,
             sponsorName: sponsorName, onlineStatus: onlineStatus)
+    }
+    
+   private static func parseDataToFriend(_ data: DataSnapshot) -> Friend? {
+        
+        guard let profileElements = data.value as? [String : AnyObject] else { return nil }
+        
+        guard let firstName = profileElements[FBProfileInfoKeys.firstName] as? String,
+        let secondName = profileElements[FBProfileInfoKeys.secondName] as? String,
+        let photo = profileElements[FBProfileInfoKeys.photo] as? String,
+        let dateOfBirth = profileElements[FBProfileInfoKeys.dateOfBirth] as? String,
+        let city = profileElements[FBProfileInfoKeys.city] as? String,
+        let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
+        let onlineStatus = profileElements[FBProfileInfoKeys.onlineStatus] as? String,
+        profileType != FBProfileTypes.sponsor else {
+    
+            return nil
+        }
+
+        return Friend.init(login: data.key, firstName: firstName, secondName: secondName,
+                           photo: photo, city: city, dateOfBirth: dateOfBirth,
+                           onlineStatus: onlineStatus)
     }
     
 }

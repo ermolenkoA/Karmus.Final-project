@@ -8,6 +8,7 @@
 import Foundation
 
 public struct References {
+    
     static let fromMainToIdentificationScreen = "toIdentificationScreen"
     static let fromMainToRegistrationScreen = "toRegistrationScreen"
     static let fromIdentificationScreenToAccountScreen = "toAccountScreen"

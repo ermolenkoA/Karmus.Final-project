@@ -38,6 +38,9 @@
 		534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 534700F028B69D0F00F23539 /* GoogleService-Info.plist */; };
 		5348CBCD28C5C8BF00955D70 /* ForceQuitFromProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBCC28C5C8BF00955D70 /* ForceQuitFromProfile.swift */; };
 		5348CBD128C61E6C00955D70 /* ProfileSettingsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */; };
+		5348CBF228C6436200955D70 /* FriendsScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5348CBF128C6436200955D70 /* FriendsScreen.storyboard */; };
+		5348CBF628C6460F00955D70 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBF528C6460F00955D70 /* FriendsViewController.swift */; };
+		5348CBFA28C64B9700955D70 /* FriendsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBF928C64B9700955D70 /* FriendsTVCell.swift */; };
 		535FC1AB28C1F8D200A0BDE0 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */; };
 		535FC1AE28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */; };
 		5372EACF28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */; };
@@ -56,6 +59,8 @@
 		53C9BA1928C4D9C700B1EFB7 /* StoryboardNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */; };
 		53C9BA1C28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */; };
 		53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */; };
+		53FFF25128C76EE60054AA5D /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFF25028C76EE60054AA5D /* FriendModel.swift */; };
+		53FFF25428C774400054AA5D /* FriendsTypesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFF25328C774400054AA5D /* FriendsTypesEnum.swift */; };
 		CE15417C28B266E0007731FA /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15417B28B266E0007731FA /* PopViewController.swift */; };
 		CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15418928B29A71007731FA /* RegistrationEnumeration.swift */; };
 		CE26DC8228B414CD0022F401 /* PhoneNumberVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */; };
@@ -115,6 +120,9 @@
 		534700F028B69D0F00F23539 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5348CBCC28C5C8BF00955D70 /* ForceQuitFromProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceQuitFromProfile.swift; sourceTree = "<group>"; };
 		5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocols.swift; sourceTree = "<group>"; };
+		5348CBF128C6436200955D70 /* FriendsScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FriendsScreen.storyboard; sourceTree = "<group>"; };
+		5348CBF528C6460F00955D70 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		5348CBF928C64B9700955D70 /* FriendsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTVCell.swift; sourceTree = "<group>"; };
 		535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewExtension.swift; sourceTree = "<group>"; };
 		535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePreferencesViewController.swift; sourceTree = "<group>"; };
 		5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActiveTasksScreen.storyboard; sourceTree = "<group>"; };
@@ -133,6 +141,8 @@
 		53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardNames.swift; sourceTree = "<group>"; };
 		53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeActivityIndicatorStatusProtocol.swift; sourceTree = "<group>"; };
 		53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		53FFF25028C76EE60054AA5D /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
+		53FFF25328C774400054AA5D /* FriendsTypesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTypesEnum.swift; sourceTree = "<group>"; };
 		59BABBC8549E512DF96278DA /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
 		6982DCEAC19D342C87CB2079 /* Pods_Karmus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Karmus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A8A9A8FE33EDFFB1F086985 /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
@@ -243,6 +253,10 @@
 			isa = PBXGroup;
 			children = (
 				5348CBD528C63F6700955D70 /* Account */,
+				5348CBF128C6436200955D70 /* FriendsScreen.storyboard */,
+				5348CBF528C6460F00955D70 /* FriendsViewController.swift */,
+				5348CBF928C64B9700955D70 /* FriendsTVCell.swift */,
+				53FFF25028C76EE60054AA5D /* FriendModel.swift */,
 			);
 			path = ProfileTabBar;
 			sourceTree = "<group>";
@@ -370,6 +384,7 @@
 			children = (
 				CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */,
 				53378AE428C05EFD002749FE /* FBProfileInfoModel.swift */,
+				53FFF25328C774400054AA5D /* FriendsTypesEnum.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -559,6 +574,7 @@
 				5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */,
 				534700E428B621D900F23539 /* CreationTaskScreen.storyboard in Resources */,
 				53378AC328BF7D62002749FE /* FillMainProfileInfo.storyboard in Resources */,
+				5348CBF228C6436200955D70 /* FriendsScreen.storyboard in Resources */,
 				534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */,
 				53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */,
 				5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */,
@@ -641,8 +657,10 @@
 				CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */,
 				CE3A8A6728B8204600BCE54A /* FireBaseProfileModel.swift in Sources */,
 				CE3A8A7628B8473600BCE54A /* ProfileModelConstants.swift in Sources */,
+				53FFF25128C76EE60054AA5D /* FriendModel.swift in Sources */,
 				53C9BA1928C4D9C700B1EFB7 /* StoryboardNames.swift in Sources */,
 				5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */,
+				53FFF25428C774400054AA5D /* FriendsTypesEnum.swift in Sources */,
 				CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */,
 				535FC1AE28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift in Sources */,
 				534700DC28B6099B00F23539 /* TasksTableViewController.swift in Sources */,
@@ -662,6 +680,7 @@
 				53378ADD28C00ACA002749FE /* FillProfileInfoProtocols.swift in Sources */,
 				CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */,
 				53C9BA1C28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift in Sources */,
+				5348CBF628C6460F00955D70 /* FriendsViewController.swift in Sources */,
 				CE50DF0F28B78FD100D90D4A /* AntiSpam.swift in Sources */,
 				5372EAD128B7ADD000F3FFA8 /* ActiveTasksViewController.swift in Sources */,
 				CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */,
@@ -672,6 +691,7 @@
 				5348CBCD28C5C8BF00955D70 /* ForceQuitFromProfile.swift in Sources */,
 				CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */,
 				CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */,
+				5348CBFA28C64B9700955D70 /* FriendsTVCell.swift in Sources */,
 				53378AEB28C0681B002749FE /* FillAdditionalProfileInfoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
