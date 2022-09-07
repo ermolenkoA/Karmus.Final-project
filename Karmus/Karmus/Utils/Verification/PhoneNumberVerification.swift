@@ -94,7 +94,7 @@ final class PhoneNumberVerification {
     
     private func checkBalanceAndSendCode() {
         
-        guard isMessageCreated() else{ return }
+        guard isMessageCreated() else { return }
         
         guard let message = self.message else {
             print("\n<PhoneNumberVerification\\checkBalanceAndSendCode> ERROR: message wasn't created\n")
@@ -140,15 +140,21 @@ final class PhoneNumberVerification {
             return
         }
         
-        SMSManager.sendSMS(phone: phone, message: message.messageBody + message.code){ [weak self] (result) in
-            DispatchQueue.main.async {
-                if result == .error  {
-                       showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self?.controller)
-                }
-
-                self?.showEnterVerificationCodeAlert(validCode: message.code)
-            }
+        print("\nCODE: \(message.code)\n")
+        
+        DispatchQueue.main.async {
+            self.showEnterVerificationCodeAlert(validCode: message.code)
         }
+        
+//        SMSManager.sendSMS(phone: phone, message: message.messageBody + message.code){ [weak self] (result) in
+//            DispatchQueue.main.async {
+//                if result == .error  {
+//                       showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self?.controller)
+//                }
+//
+//                self?.showEnterVerificationCodeAlert(validCode: message.code)
+//            }
+//        }
         
     }
     
@@ -241,7 +247,9 @@ final class PhoneNumberVerification {
                         .child(self.profile.login).setValue([
                             FBProfileInfoKeys.onlineStatus : FBOnlineStatuses.offline,
                             FBProfileInfoKeys.firstName : self.profile.firstName,
-                            FBProfileInfoKeys.secondName : self.profile.secondName
+                            FBProfileInfoKeys.secondName : self.profile.secondName,
+                            FBProfileInfoKeys.photo : "jpgDefault",
+                            FBProfileTypes.user: FBProfileTypes.user
                         ])
                     
                     showAlert("Вы были успешно зарегистрированы!", nil , where: self.controller)

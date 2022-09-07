@@ -362,7 +362,7 @@ final class AccountViewController: UIViewController {
     }
     
     
-    @IBAction func goToFriendsView(_ sender: UITapGestureRecognizer) {
+    @IBAction func goToFriends(_ sender: UITapGestureRecognizer) {
         let storyboard = UIStoryboard(name: StoryboardNames.friendsScreen, bundle: nil)
         guard let friendsVC = storyboard.instantiateInitialViewController() else {
             showAlert("Невозможно перейти на экран друзей", "Повторите попытку позже", where: self)

@@ -32,11 +32,11 @@ final class SearchResultVC: UIViewController {
 
 extension SearchResultVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.isHidden = true
         if let sender = sender {
             (sender as? SetCityProtocol)?.setCity(cities[indexPath.row])
-            
         }
         
     }

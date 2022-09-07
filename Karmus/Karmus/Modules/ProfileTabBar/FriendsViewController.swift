@@ -36,6 +36,7 @@ final class FriendsViewController: UIViewController {
         
         friendsTabelView.delegate = self
         friendsTabelView.dataSource = self
+        
         activeButton = allFriendsButton
         buttons.forEach {
             $0.isUserInteractionEnabled = false
@@ -101,7 +102,13 @@ final class FriendsViewController: UIViewController {
     }
     
     @IBAction func didTapAddFriendButton(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: StoryboardNames.addFriends, bundle: nil)
+        guard let addFriendsVC = storyboard.instantiateInitialViewController() else {
+            showAlert("Невозможно перейти на добавление друзей", "Повторите попытку позже", where: self)
+            return
+        }
         
+        self.navigationController?.pushViewController(addFriendsVC, animated: true)
     }
     
 }
@@ -124,15 +131,19 @@ extension FriendsViewController: UITableViewDataSource {
         let photo = UIImage(named: "jpgDefault")!
         let name = friend.firstName + " " + friend.secondName
         let index = friend.city.firstIndex(of: ",")
-        let city = index == nil ? friend.city : String(friend.city[friend.city.startIndex...index!])
+        let city = index == nil ? friend.city
+            : String(friend.city[friend.city.startIndex..<index!])
         
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         
         let date = friend.dateOfBirth != nil ? formatter.date(from: friend.dateOfBirth!) : nil
         
-        (cell as? SetFriendsCellInfo)?.setFriendsInfo(photo: photo, name: name,
-                                                      city: city, onlineStatus: friend.onlineStatus,
+        (cell as? SetFriendsCellInfo)?.setFriendsInfo(photo: photo,
+                                                      name: name,
+                                                      city: city,
+                                                      onlineStatus: friend.onlineStatus,
+                                                      login: friend.login,
                                                       dateOfBirth: date)
         
         return cell
