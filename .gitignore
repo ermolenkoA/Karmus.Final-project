@@ -13,7 +13,7 @@ xcuserdata/
 Karmus/Karmus.xcodeproj/xcuserdata/vironit.xcuserdatad/xcschemes/xcschememanagement.plist
 
 # Cocoapods
-Pods/
+Karmus/Pods/
 
 # Build Artifacts
 build/
