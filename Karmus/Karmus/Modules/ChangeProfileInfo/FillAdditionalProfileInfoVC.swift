@@ -117,12 +117,13 @@ final class FillAdditionalProfileInfoVC: UIViewController {
     
     
     
-    private func showPreferences(_ sender: UITextView){
+    private func showPreferences(_ sender: UITextView) {
+        
         guard let popVC = storyboard?.instantiateViewController(withIdentifier: "ChoosePreferencesVC") else {
             print("\n<showPopOver> ERROR: UIViewController withIdentifier \"ChoosePreferencesVC\" isn't exist\n")
             return
         }
-        
+
         popVC.modalPresentationStyle = .popover
         let popOverVC = popVC.popoverPresentationController
         popOverVC?.delegate = self

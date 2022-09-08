@@ -17,6 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="O41-Tu-5xD">
+                                <rect key="frame" x="0.0" y="88" width="320" height="663"/>
+                                <color key="color" systemColor="labelColor"/>
+                            </activityIndicatorView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tMO-RR-vj6">
                                 <rect key="frame" x="0.0" y="88" width="320" height="663"/>
                                 <subviews>
@@ -39,6 +43,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="H2f-T9-02N" firstAttribute="leading" secondItem="9FN-4t-DyL" secondAttribute="leading" id="4Ls-Fw-blv"/>
                                                     <constraint firstItem="H2f-T9-02N" firstAttribute="top" secondItem="Zlf-ig-Fen" secondAttribute="bottom" id="Jhx-Ne-okY"/>
@@ -64,6 +69,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="XbW-pL-KgR" firstAttribute="leading" secondItem="8f0-bo-EiP" secondAttribute="leading" id="57e-gZ-iqg"/>
                                                     <constraint firstItem="WRI-Fo-7dZ" firstAttribute="leading" secondItem="8f0-bo-EiP" secondAttribute="leading" id="WRf-Pr-RAg"/>
@@ -72,6 +78,9 @@
                                                     <constraint firstItem="XbW-pL-KgR" firstAttribute="centerY" secondItem="8f0-bo-EiP" secondAttribute="centerY" id="fgg-cu-gGU"/>
                                                     <constraint firstItem="WRI-Fo-7dZ" firstAttribute="top" secondItem="XbW-pL-KgR" secondAttribute="bottom" id="nsE-3Y-fmC"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="zRI-HW-4d1" appends="YES" id="DWy-me-0tV"/>
+                                                </connections>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jpgDefaultProfile" translatesAutoresizingMaskIntoConstraints="NO" id="AtY-2D-nhj">
                                                 <rect key="frame" x="112" y="20" width="96" height="96"/>
@@ -361,10 +370,6 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="9H3-82-Ubx"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="kEV-bH-YDD"/>
                             </scrollView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="O41-Tu-5xD">
-                                <rect key="frame" x="0.0" y="88" width="320" height="663"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -446,8 +451,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="zRI-HW-4d1">
+                    <connections>
+                        <action selector="goToFriends:" destination="Y6W-OH-hqX" id="x4C-Fy-Ezg"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2646.7289719626165" y="919.4384449244061"/>
+            <point key="canvasLocation" x="2766" y="921"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="hjo-fn-6ZR">
@@ -476,7 +486,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HcV-Jz-S1S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3523" y="920"/>
+            <point key="canvasLocation" x="3618" y="921"/>
         </scene>
         <!--Item-->
         <scene sceneID="QMP-xA-Rq1">

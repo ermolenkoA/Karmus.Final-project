@@ -30,7 +30,6 @@ final class FireBaseDataBaseManager {
         profiles.observeSingleEvent(of: .value) { snapshot in
             
             guard snapshot.exists() else{
-                print("\n\(self.description) Failure: snapshot isn't exist\n")
                 result(.notFound)
                 return
             }
@@ -61,6 +60,373 @@ final class FireBaseDataBaseManager {
         }
         
     }
+    
+    static func openProfile(login: String, password: Int64, newPassword: Int64? = nil, _ result: @escaping (FireBaseOpenProfileResult, String?) -> ()) {
+
+        if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$"){
+            if !(login ~= "^(\\+375)(29|25|33|44)([\\d]{7})$") {
+                result(.failure, nil)
+                return
+            }
+        }
+        
+        profiles.observeSingleEvent(of: .value) { snapshot in
+
+            guard snapshot.exists() else{
+                result(.failure, nil)
+                return
+                
+            }
+            
+            guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
+                print("\n\(self.description) ERROR: profiles isn't exist\n")
+                result(.error, nil)
+                return
+            }
+            
+            for profile in profiles {
+                
+                guard let profileElements = profile.value as? [String : AnyObject] else {
+                    print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
+                    result(.error, nil)
+                    return
+                }
+                
+                guard let loginFromData = profileElements[FBProfileKeys.login] as? String,
+                      let passwordFromData = profileElements[FBProfileKeys.password] as? Int64,
+                      let phoneNumber = profileElements[FBProfileKeys.phoneNumber] as? String else {
+                    
+                    print("\n\(self.description) ERROR: profiles contains unvalid profile\\login\n")
+                    result(.error, nil)
+                    return
+                }
+                
+                guard ( loginFromData == login || phoneNumber == login ) && (password == passwordFromData) else {
+                    continue
+                }
+                
+                if let newPassword = newPassword {
+                    self.profiles.child(profile.key).child(FBProfileKeys.password).setValue(newPassword)
+                }
+
+                result(.success, profile.key)
+                return
+            }
+            
+            result(.failure, nil)
+        }
+        
+    }
+    
+    
+    static func changeLoginInFriendAccounts(_ profileID: String, oldLogin: String, newLogin: String? = nil, _ conclusion: @escaping () -> ()) {
+        profiles.child(profileID).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists(), let myFriendsLists = parseDataToFriendsLists(snapshot) else {
+                conclusion()
+                return
+            }
+            
+            let friends = myFriendsLists[FBProfileKeys.friends]!
+            let followers = myFriendsLists[FBProfileKeys.followers]!
+            let requests = myFriendsLists[FBProfileKeys.requests]!
+            
+            profiles.observeSingleEvent(of: .value) { snapshot in
+                
+                guard snapshot.exists() else{
+                    conclusion()
+                    return
+                }
+                
+                guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
+                    conclusion()
+                    return
+                }
+                
+                for profile in profiles {
+                    
+                    guard let profileElements = profile.value as? [String : AnyObject],
+                          let login = profileElements[FBProfileKeys.login] as? String else { continue }
+                    
+                    guard let key = friends.contains(login) ? FBProfileKeys.friends
+                    : followers.contains(login) ? FBProfileKeys.requests
+                            : requests.contains(login) ? FBProfileKeys.followers : nil else  {
+                        
+                        continue
+                    }
+                    
+                    guard let friendFriendsList = parseDataToFriendsLists(snapshot) else {
+                        continue
+                    }
+                    
+                    var newFriendsList = friendFriendsList[key]!.filter{ $0 != oldLogin }
+                    
+                    if let newLogin = newLogin {
+                        newFriendsList.append(newLogin)
+                    }
+                    
+                    self.profiles.child(profile.key).child(key).setValue(newFriendsList)
+                    
+                }
+                
+                conclusion()
+                
+            }
+        }
+    }
+    
+    static func getFriends(_ profileID: String, where friendsType: FriendsTypes, _ result: @escaping ([Friend]?) -> ()) {
+        
+        let key = friendsType != .friends ? friendsType != .followers ? FBProfileKeys.requests : FBProfileKeys.followers : FBProfileKeys.friends
+        
+        profiles.child(profileID).child(key).observe(.value) { snapshot in
+            
+            print("\nMYLOG: Ну и шо\n")
+            
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            
+            guard var friendsLogins = snapshot.value as? [String] else {
+                result(nil)
+                return
+            }
+            
+            profilesInfo.observeSingleEvent(of: .value) { snapshot in
+                guard snapshot.exists() else{
+                    result(nil)
+                    return
+                }
+                
+                guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
+                    result(nil)
+                    return
+                }
+                
+                var friends = [Friend]()
+                
+                for profile in profiles {
+                    
+                    guard let index = friendsLogins.firstIndex(of: profile.key) else {
+                        continue
+                    }
+                    
+                    guard let friend = parseDataToFriend(profile) else {
+                        continue
+                    }
+                    
+                    friends.append(friend)
+                    friendsLogins.remove(at: index)
+                }
+                
+                result(friends.isEmpty ? nil : friends)
+                
+            }
+            
+        }
+        
+    }
+    
+    static func getFriendStatus(_ profileID: String, friendLogin: String, conclusion: @escaping (FriendsTypes?) -> ()) {
+        
+        profiles.child(profileID).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists() else {
+                print("\n\(self.description)\\getFriendStatus ERROR: profiles isn't exist\n")
+                return
+            }
+            
+            guard let myFriendsLists = parseDataToFriendsLists(snapshot) else {
+                print("\n\(self.description)\\getFriendStatus ERROR: profiles contains unvalid profile\n")
+                return
+            }
+            
+            if myFriendsLists[FBProfileKeys.friends]!.contains(friendLogin) {
+                conclusion(.friends)
+            } else if myFriendsLists[FBProfileKeys.followers]!.contains(friendLogin) {
+                conclusion(.followers)
+            } else if myFriendsLists[FBProfileKeys.requests]!.contains(friendLogin) {
+                conclusion(.requests)
+            } else {
+                conclusion(nil)
+            }
+    
+        }
+        
+    }
+    
+    static func searchProfiles(_ string: String = "", _ result: @escaping ([Friend]?) -> ()) {
+        
+        profilesInfo.observe(.value) { snapshot in
+            
+            
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+           
+            guard var profiles = snapshot.children.allObjects as? [DataSnapshot] else {
+                result(nil)
+                return
+            }
+            if let me = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) {
+                profiles.removeAll(where: { $0.key == me })
+            }
+            
+            if string != "" {
+                profiles = profiles.filter {
+                    $0.key.lowercased().contains(string.lowercased())
+                }
+            }
+            
+            var resultProfiles = [Friend]()
+            
+            for profile in profiles {
+                
+                guard let friend = parseDataToFriend(profile) else {
+                    continue
+                }
+
+                resultProfiles.append(friend)
+            }
+
+            result(resultProfiles.isEmpty ? nil : resultProfiles)
+        }
+        
+    }
+    
+    static func stopProfilesSearching() {
+        profilesInfo.removeAllObservers()
+    }
+    
+    static func removeObserverFromFriendsList(_ profileID: String, where friendsType: FriendsTypes) {
+        
+        let key = friendsType != .friends ? friendsType != .followers ? FBProfileKeys.requests : FBProfileKeys.followers : FBProfileKeys.friends
+        
+        profiles.child(profileID).child(key).removeAllObservers()
+        
+    }
+    
+    static func changeFriendsLists(profileID: String, myLogin: String,
+                                   friendLogin: String, currentFriendType: FriendsTypes?,
+                                   _ resultFriendType: @escaping (FriendsTypes?) -> ()) {
+        
+        profiles.child(profileID).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists(), let myFriendsLists = parseDataToFriendsLists(snapshot) else { return }
+            
+            profiles.observeSingleEvent(of: .value) { snapshot in
+                
+                guard snapshot.exists(), let profiles = snapshot.children.allObjects as? [DataSnapshot] else { return }
+                
+                for profile in profiles {
+                    
+                    guard let profileElements = profile.value as? [String : AnyObject],
+                          profileElements[FBProfileKeys.login] as? String == friendLogin,
+                          let anotherFriendsList = parseDataToFriendsLists(profile) else { continue }
+                    
+                    switch currentFriendType {
+                    
+                    case .friends:
+                        fallthrough
+                        
+                    case .requests:
+                        removeFromFriends(profileID, myLogin, myFriendsLists,
+                                     profile.key, friendLogin, anotherFriendsList,
+                                     resultFriendType)
+                        
+                    case .followers:
+                        fallthrough
+                        
+                    default:
+                        acceptRequest(profileID, myLogin, myFriendsLists,
+                                     profile.key, friendLogin, anotherFriendsList,
+                                     resultFriendType)
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+    }
+    
+    
+    private static func removeFromFriends(_ myProfileID: String, _ myLogin: String,
+                             _ myFriendsLists: [String : [String]], _ friendProfileID: String,
+                             _ friendLogin: String, _ friendFriendsLists: [String : [String]],
+                             _ resultFriendType: @escaping (FriendsTypes?) -> ()) {
+        
+        guard myFriendsLists[FBProfileKeys.friends]!.contains(friendLogin) else {
+            
+            profiles.child(myProfileID).child(FBProfileKeys.requests)
+                .setValue(myFriendsLists[FBProfileKeys.requests]!.filter { $0 != friendLogin })
+            profiles.child(friendProfileID).child(FBProfileKeys.followers)
+                .setValue(friendFriendsLists[FBProfileKeys.followers]!.filter { $0 != myLogin })
+            resultFriendType(nil)
+            return
+            
+        }
+        
+        profiles.child(myProfileID).child(FBProfileKeys.friends)
+            .setValue(myFriendsLists[FBProfileKeys.friends]!.filter { $0 != friendLogin })
+        profiles.child(friendProfileID).child(FBProfileKeys.friends)
+            .setValue(friendFriendsLists[FBProfileKeys.friends]!.filter { $0 != myLogin })
+        
+        var myFollowers = myFriendsLists[FBProfileKeys.followers]!
+        myFollowers.append(friendLogin)
+        var friendRequests = friendFriendsLists[FBProfileKeys.requests]!
+        friendRequests.append(myLogin)
+        
+        profiles.child(myProfileID).child(FBProfileKeys.followers)
+            .setValue(myFollowers)
+        profiles.child(friendProfileID).child(FBProfileKeys.requests)
+            .setValue(friendRequests)
+        resultFriendType(.followers)
+        
+    }
+    
+    private static func acceptRequest(_ myProfileID: String, _ myLogin: String,
+                             _ myFriendsLists: [String : [String]], _ friendProfileID: String,
+                             _ friendLogin: String, _ friendFriendsLists: [String : [String]],
+                             _ resultFriendType: @escaping (FriendsTypes?) -> ()) {
+        
+        guard myFriendsLists[FBProfileKeys.followers]!.contains(friendLogin) else {
+            
+            var myRequests = myFriendsLists[FBProfileKeys.requests]!
+            myRequests.append(friendLogin)
+            var friendFollowers = friendFriendsLists[FBProfileKeys.followers]!
+            friendFollowers.append(myLogin)
+            
+            profiles.child(myProfileID).child(FBProfileKeys.requests)
+                .setValue(myRequests)
+            profiles.child(friendProfileID).child(FBProfileKeys.followers)
+                .setValue(friendFollowers)
+            resultFriendType(.requests)
+            return
+            
+        }
+        
+        profiles.child(myProfileID).child(FBProfileKeys.followers)
+            .setValue(myFriendsLists[FBProfileKeys.followers]!.filter { $0 != friendLogin })
+        profiles.child(friendProfileID).child(FBProfileKeys.requests)
+            .setValue(friendFriendsLists[FBProfileKeys.requests]!.filter { $0 != myLogin })
+        
+        var myFriends = myFriendsLists[FBProfileKeys.friends]!
+        myFriends.append(friendLogin)
+        var friendFriends = friendFriendsLists[FBProfileKeys.friends]!
+        friendFriends.append(myLogin)
+        
+        profiles.child(myProfileID).child(FBProfileKeys.friends)
+            .setValue(myFriends)
+        profiles.child(friendProfileID).child(FBProfileKeys.friends)
+            .setValue(friendFriends)
+        resultFriendType(.friends)
+        
+    }
+    
     
     static func createProfileObserver(_ profileID: String, _ login: String) {
         
@@ -269,64 +635,6 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func openProfile(login: String, password: Int64, newPassword: Int64? = nil, _ result: @escaping (FireBaseOpenProfileResult, String?) -> ()) {
-
-        if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$"){
-            if !(login ~= "^(\\+375)(29|25|33|44)([\\d]{7})$") {
-                result(.failure, nil)
-                return
-            }
-        }
-        
-        profiles.observeSingleEvent(of: .value) { snapshot in
-
-            guard snapshot.exists() else{
-                print("\n\(self.description) Failure: snapshot isn't exist\n")
-                result(.failure, nil)
-                return
-                
-            }
-            
-            guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
-                print("\n\(self.description) ERROR: profiles isn't exist\n")
-                result(.error, nil)
-                return
-            }
-            
-            for profile in profiles {
-                
-                guard let profileElements = profile.value as? [String : AnyObject] else {
-                    print("\n\(self.description) ERROR: profiles contains unvalid profile\n")
-                    result(.error, nil)
-                    return
-                }
-                
-                guard let loginFromData = profileElements[FBProfileKeys.login] as? String,
-                      let passwordFromData = profileElements[FBProfileKeys.password] as? Int64,
-                      let phoneNumber = profileElements[FBProfileKeys.phoneNumber] as? String else {
-                    
-                    print("\n\(self.description) ERROR: profiles contains unvalid profile\\login\n")
-                    result(.error, nil)
-                    return
-                }
-                
-                guard ( loginFromData == login || phoneNumber == login ) && (password == passwordFromData) else {
-                    continue
-                }
-                
-                if let newPassword = newPassword { 
-                    self.profiles.child(profile.key).child(FBProfileKeys.password).setValue(newPassword)
-                }
-
-                result(.success, profile.key)
-                return
-            }
-            
-            result(.failure, nil)
-        }
-        
-    }
-    
     static func parseDataForVerification(_ data: DataSnapshot) -> ProfileVerificationModel? {
         
         guard let profileElements = data.value as? [String : AnyObject],
@@ -373,5 +681,43 @@ final class FireBaseDataBaseManager {
             numberOfFriends: numberOfFriends, profileType: profileType,
             sponsorName: sponsorName, onlineStatus: onlineStatus)
     }
+    
+   private static func parseDataToFriend(_ data: DataSnapshot) -> Friend? {
+        
+        guard let profileElements = data.value as? [String : AnyObject] else { return nil }
+        
+        guard let firstName = profileElements[FBProfileInfoKeys.firstName] as? String,
+        let secondName = profileElements[FBProfileInfoKeys.secondName] as? String,
+        let photo = profileElements[FBProfileInfoKeys.photo] as? String,
+        let city = profileElements[FBProfileInfoKeys.city] as? String,
+        let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
+        let onlineStatus = profileElements[FBProfileInfoKeys.onlineStatus] as? String,
+        let numberOfRespects = profileElements[FBProfileInfoKeys.numberOfRespects] as? Int,
+        let numberOfFriends = profileElements[FBProfileInfoKeys.numberOfFriends] as? Int,
+        profileType != FBProfileTypes.sponsor else {
+            return nil
+        }
+    
+        let dateOfBirth = profileElements[FBProfileInfoKeys.dateOfBirth] as? String
+    
+        return Friend.init(login: data.key, firstName: firstName, secondName: secondName,
+                           photo: photo, city: city, dateOfBirth: dateOfBirth,
+                           onlineStatus: onlineStatus, numberOfFriends: numberOfFriends,
+                           numberOfRespects: numberOfRespects, profileType: profileType)
+    }
+    
+    private static func parseDataToFriendsLists(_ data: DataSnapshot) -> [String : [String]]? {
+         
+        guard let profileElements = data.value as? [String : AnyObject] else { return nil }
+        let friends = profileElements[FBProfileKeys.friends] as? [String] ?? []
+        let followers = profileElements[FBProfileKeys.followers] as? [String] ?? []
+        let requests = profileElements[FBProfileKeys.requests] as? [String] ?? []
+        
+        return [
+            FBProfileKeys.friends: friends,
+            FBProfileKeys.followers: followers,
+            FBProfileKeys.requests: requests
+        ]
+     }
     
 }

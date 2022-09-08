@@ -75,7 +75,7 @@ final class AccountViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        mainActivityIndicatorView.backgroundColor = #colorLiteral(red: 0.2932096912, green: 0, blue: 1, alpha: 1).withAlphaComponent(0.9)
+        mainActivityIndicatorView.backgroundColor = .clear
         mainActivityIndicatorView.startAnimating()
         view.isUserInteractionEnabled = false
         standartSettings()
@@ -272,7 +272,7 @@ final class AccountViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: StoryboardNames.fillMainProfileInfo, bundle: nil)
         guard let fillMainProfileInfoVC = storyboard.instantiateInitialViewController() else {
-            showAlert("Не возможно изменить информацию", "Повторите попытку позже", where: self)
+            showAlert("Невозможно изменить информацию", "Повторите попытку позже", where: self)
             return
         }
         
@@ -282,7 +282,7 @@ final class AccountViewController: UIViewController {
     @IBAction func didTabChangeAdditionalInfoButton(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: StoryboardNames.fillAdditionalProfileInfo, bundle: nil)
         guard let fillAdditionalProfileInfoVC = storyboard.instantiateInitialViewController() else {
-            showAlert("Не возможно изменить информацию", "Повторите попытку позже", where: self)
+            showAlert("Невозможно изменить информацию", "Повторите попытку позже", where: self)
             return
         }
         self.navigationController?.pushViewController(fillAdditionalProfileInfoVC, animated: true)
@@ -362,7 +362,19 @@ final class AccountViewController: UIViewController {
     }
     
     
+    @IBAction func goToFriends(_ sender: UITapGestureRecognizer) {
+        let storyboard = UIStoryboard(name: StoryboardNames.friendsScreen, bundle: nil)
+        guard let friendsVC = storyboard.instantiateInitialViewController() else {
+            showAlert("Невозможно перейти на экран друзей", "Повторите попытку позже", where: self)
+            return
+        }
+        
+        self.navigationController?.pushViewController(friendsVC, animated: true)
+    }
+    
 }
+
+// MARK: - UIPopoverPresentationControllerDelegate
 
 extension AccountViewController: UIPopoverPresentationControllerDelegate {
     
@@ -679,14 +691,19 @@ extension AccountViewController {
                             .child(FBProfileInfoKeys.onlineStatus)
                             .setValue(info.onlineStatus)
                         
-                        self?.login = newLogin
-                        self?.title = "@" + newLogin
-                        showAlert("Логин был успешно изменен", nil, where: self)
+                        FireBaseDataBaseManager.changeLoginInFriendAccounts(profileID, oldLogin: login, newLogin: newLogin) { [weak self] in
+                            
+                            self?.login = newLogin
+                            self?.title = "@" + newLogin
+                            showAlert("Логин был успешно изменен", nil, where: self)
+                            FireBaseDataBaseManager.setProfileUpdateDate(profileID)
+                            UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
+                            KeychainSwift.shared.set(newLogin, forKey: ConstantKeys.currentProfileLogin)
+                            self?.standartSettingsWithObserver()
+                            alert = nil
+                            
+                        }
                         
-                        FireBaseDataBaseManager.setProfileUpdateDate(profileID)
-                        UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
-                        self?.standartSettingsWithObserver()
-                        alert = nil
                         
                     }
                     
@@ -728,6 +745,7 @@ extension AccountViewController {
             guard let profileID = self.profileID else { return }
             
             Database.database().reference().child(FBDefaultKeys.profiles).child(profileID).observeSingleEvent(of: .value) { snapshot in
+                
                 guard snapshot.exists() else{
                     return
                 }
@@ -738,9 +756,11 @@ extension AccountViewController {
                 
                 self.phoneNumberVerification = .init(profile: profile, for: .resetPassword, self)
                 self.phoneNumberVerification?.startVerification()
+                
             }
             
         }
+        
         let backButton = UIAlertAction(title: "Вернуться", style: .default)
         alert.addAction(yesButton)
         alert.addAction(backButton)
@@ -820,12 +840,18 @@ extension AccountViewController {
                         }
                         
                         if let loginFromData = profileElements[FBProfileKeys.login] as? String, loginFromData == login {
-                            Database.database().reference().child(FBDefaultKeys.profiles)
-                                .child(profile.key).removeValue()
-                            Database.database().reference().child(FBDefaultKeys.profilesInfo)
-                                .child(login).removeValue()
-                            showAlert("Успех!", "Аккаунт был удалён", where: self)
-                            alert = nil
+                            
+                            FireBaseDataBaseManager.changeLoginInFriendAccounts(profile.key, oldLogin: login) { [weak self] in
+                                
+                                Database.database().reference().child(FBDefaultKeys.profiles)
+                                    .child(profile.key).removeValue()
+                                Database.database().reference().child(FBDefaultKeys.profilesInfo)
+                                    .child(login).removeValue()
+                                showAlert("Успех!", "Аккаунт был удалён", where: self)
+                                alert = nil
+                                
+                            }
+                            
                             return
                         }
                         

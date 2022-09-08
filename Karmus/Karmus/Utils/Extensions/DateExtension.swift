@@ -49,6 +49,10 @@ extension Date {
         return calendar.date(from: dateComponents as DateComponents)!
     }
     
+    func age() -> Int {
+        return Calendar.current.dateComponents([.year], from: self, to: Date()).year!
+    }
+    
     func addHours(hoursToAdd: UInt) -> Date {
         let secondsInHours: TimeInterval = Double(hoursToAdd) * 60 * 60
         let dateWithHoursAdded: Date = self.addingTimeInterval(secondsInHours)
