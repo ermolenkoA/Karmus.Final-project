@@ -37,38 +37,51 @@ final class FriendsViewController: UIViewController {
         friendsTabelView.delegate = self
         friendsTabelView.dataSource = self
         
-        activeButton = allFriendsButton
-        buttons.forEach {
-            $0.isUserInteractionEnabled = false
-        }
+        didTapFriendButton(allFriendsButton)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
         
         guard let profileID = profileID else {
             forceQuitFromProfile()
             return
         }
         
+        FireBaseDataBaseManager.removeObserverFromFriendsList(profileID, where: getCurrentFriendType())
+    }
+    
+    private func getCurrentFriendType() -> FriendsTypes {
+        activeButton != allFriendsButton ? activeButton != followersButton ? .requests : .followers : .friends
+    }
+    
+    private func startSearching(_ profileID: String){
+        
+        friends = []
+        friendsTabelView.reloadData()
+        
+        buttons.forEach {
+            $0.isUserInteractionEnabled = false
+        }
+        
         mainActivityIndicator.startAnimating()
         
-        FireBaseDataBaseManager.getFriends(profileID, where: .friends)
+        FireBaseDataBaseManager.getFriends(profileID, where: getCurrentFriendType())
         { [weak self] friends in
+            
+            self?.friends = friends ?? []
+            self?.friendsTabelView.reloadData()
             
             self?.buttons.forEach {
                 $0.isUserInteractionEnabled = true
             }
             
             self?.mainActivityIndicator.stopAnimating()
-            
-            guard let friends = friends else {
-                showAlert("Ваш список друзей пуст", "Добавьте друзей и выполняйте задания вместе!", where: self)
                 
-                return
+            if self?.getCurrentFriendType() == .friends && self!.friends.isEmpty {
+                showAlert("Ваш список друзей пуст", "Добавьте друзей и выполняйте задания вместе!", where: self)
             }
             
-            self?.friends = friends
-            self?.friendsTabelView.reloadData()
-            
         }
-        
     }
     
     func setActiveButton(_ button: UIButton?) {
@@ -77,29 +90,21 @@ final class FriendsViewController: UIViewController {
         activeButton?.backgroundColor = #colorLiteral(red: 0.03359736346, green: 0.4016051504, blue: 1, alpha: 1)
     }
     
-    @IBAction func didTapRequestButton(_ sender: UIButton) {
+    @IBAction func didTapFriendButton(_ sender: UIButton) {
         
         guard activeButton != sender else { return }
         
+        guard let profileID = profileID else {
+            forceQuitFromProfile()
+            return
+        }
+        
+        FireBaseDataBaseManager.removeObserverFromFriendsList(profileID, where: getCurrentFriendType())
         setActiveButton(sender)
+        startSearching(profileID)
         
     }
     
-    @IBAction func didTapAllFriendsButton(_ sender: UIButton) {
-        
-        guard activeButton != sender else { return }
-        
-        setActiveButton(sender)
-        
-    }
-    
-    @IBAction func didTapFollowersButton(_ sender: UIButton) {
-        
-        guard activeButton != sender else { return }
-        
-        setActiveButton(sender)
-        
-    }
     
     @IBAction func didTapAddFriendButton(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: StoryboardNames.addFriends, bundle: nil)
@@ -115,6 +120,56 @@ final class FriendsViewController: UIViewController {
 
 extension FriendsViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let profile = friends[indexPath.row]
+        
+        guard let myProfileID = KeychainSwift.shared.get(ConstantKeys.currentProfile) else { return }
+        
+        let profileInfo = ShortProfileInfoModel.init(login: profile.login,
+                                                     firstName: profile.firstName,
+                                                     secondName: profile.secondName,
+                                                     numberOfRespects: String.makeStringFromNumber(profile.numberOfRespects),
+                                                     numberOfFriends: String.makeStringFromNumber(profile.numberOfFriends),
+                                                     photo: UIImage(named: "jpgDefaultProfile")!,
+                                                     profileType: profile.profileType)
+        
+        FireBaseDataBaseManager.getFriendStatus(myProfileID, friendLogin: profile.login) { [weak self] friendStatus in
+            self?.showShortProfileInfo(profile: profileInfo, friendStatus: friendStatus)
+        }
+        
+
+    }
+    
+    private func showShortProfileInfo(profile: ShortProfileInfoModel, friendStatus: FriendsTypes?){
+        
+        let storyboard = UIStoryboard(name: StoryboardNames.cutProfileScreen, bundle: nil)
+        
+        guard let shortProfileInfoVC = storyboard.instantiateInitialViewController() else {
+            return
+        }
+        
+        shortProfileInfoVC.modalPresentationStyle = .popover
+        let popOverVC = shortProfileInfoVC.popoverPresentationController
+        popOverVC?.delegate = self
+        popOverVC?.sourceView = view
+        popOverVC?.sourceRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+        shortProfileInfoVC.preferredContentSize = CGSize(width: view.frame.width, height: 240 + view.frame.width*0.3)
+        popOverVC?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        (shortProfileInfoVC as? GetShortProfileInfoProtocol)?.getShortProfileInfo(profile: profile, friendStatus)
+        
+        self.present(shortProfileInfoVC, animated: true)
+    }
+    
+}
+
+extension FriendsViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
 }
 
 extension FriendsViewController: UITableViewDataSource {
@@ -124,11 +179,11 @@ extension FriendsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "friendsTVCell", for: indexPath as IndexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "friendsCell", for: indexPath as IndexPath)
         
         let friend = friends[indexPath.row]
         
-        let photo = UIImage(named: "jpgDefault")!
+        let photo = UIImage(named: "jpgDefaultProfile")!
         let name = friend.firstName + " " + friend.secondName
         let index = friend.city.firstIndex(of: ",")
         let city = index == nil ? friend.city

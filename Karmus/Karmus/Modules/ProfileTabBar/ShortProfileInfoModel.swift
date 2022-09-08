@@ -11,7 +11,8 @@ struct ShortProfileInfoModel {
     let login: String
     let firstName: String
     let secondName: String
-    let numberOfRespects: Int
-    let numberOfFriends: Int
+    let numberOfRespects: String
+    let numberOfFriends: String
     let photo: UIImage
+    let profileType: String
 }

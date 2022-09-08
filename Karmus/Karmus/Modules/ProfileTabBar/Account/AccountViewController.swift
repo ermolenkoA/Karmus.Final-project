@@ -691,14 +691,19 @@ extension AccountViewController {
                             .child(FBProfileInfoKeys.onlineStatus)
                             .setValue(info.onlineStatus)
                         
-                        self?.login = newLogin
-                        self?.title = "@" + newLogin
-                        showAlert("Логин был успешно изменен", nil, where: self)
+                        FireBaseDataBaseManager.changeLoginInFriendAccounts(profileID, oldLogin: login, newLogin: newLogin) { [weak self] in
+                            
+                            self?.login = newLogin
+                            self?.title = "@" + newLogin
+                            showAlert("Логин был успешно изменен", nil, where: self)
+                            FireBaseDataBaseManager.setProfileUpdateDate(profileID)
+                            UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
+                            KeychainSwift.shared.set(newLogin, forKey: ConstantKeys.currentProfileLogin)
+                            self?.standartSettingsWithObserver()
+                            alert = nil
+                            
+                        }
                         
-                        FireBaseDataBaseManager.setProfileUpdateDate(profileID)
-                        UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
-                        self?.standartSettingsWithObserver()
-                        alert = nil
                         
                     }
                     
@@ -740,6 +745,7 @@ extension AccountViewController {
             guard let profileID = self.profileID else { return }
             
             Database.database().reference().child(FBDefaultKeys.profiles).child(profileID).observeSingleEvent(of: .value) { snapshot in
+                
                 guard snapshot.exists() else{
                     return
                 }
@@ -750,9 +756,11 @@ extension AccountViewController {
                 
                 self.phoneNumberVerification = .init(profile: profile, for: .resetPassword, self)
                 self.phoneNumberVerification?.startVerification()
+                
             }
             
         }
+        
         let backButton = UIAlertAction(title: "Вернуться", style: .default)
         alert.addAction(yesButton)
         alert.addAction(backButton)
@@ -832,12 +840,18 @@ extension AccountViewController {
                         }
                         
                         if let loginFromData = profileElements[FBProfileKeys.login] as? String, loginFromData == login {
-                            Database.database().reference().child(FBDefaultKeys.profiles)
-                                .child(profile.key).removeValue()
-                            Database.database().reference().child(FBDefaultKeys.profilesInfo)
-                                .child(login).removeValue()
-                            showAlert("Успех!", "Аккаунт был удалён", where: self)
-                            alert = nil
+                            
+                            FireBaseDataBaseManager.changeLoginInFriendAccounts(profile.key, oldLogin: login) { [weak self] in
+                                
+                                Database.database().reference().child(FBDefaultKeys.profiles)
+                                    .child(profile.key).removeValue()
+                                Database.database().reference().child(FBDefaultKeys.profilesInfo)
+                                    .child(login).removeValue()
+                                showAlert("Успех!", "Аккаунт был удалён", where: self)
+                                alert = nil
+                                
+                            }
+                            
                             return
                         }
                         

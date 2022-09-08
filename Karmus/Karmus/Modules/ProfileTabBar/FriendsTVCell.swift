@@ -24,13 +24,10 @@ final class FriendsTVCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
@@ -53,14 +50,16 @@ extension FriendsTVCell: SetFriendsCellInfo {
         onlineStatusLabel.text = onlineStatus
         
         switch onlineStatus {
+        
         case FBOnlineStatuses.offline:
             onlineStatusLabel.textColor = .lightGray
         case FBOnlineStatuses.online:
             onlineStatusLabel.textColor = .green
         case FBOnlineStatuses.blocked:
-            onlineStatusLabel.textColor = .gray
+            onlineStatusLabel.textColor = .red
         default:
             onlineStatusLabel.textColor = .clear
+            
         }
         
     }

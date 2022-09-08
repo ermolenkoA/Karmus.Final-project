@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,10 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Y95-TF-XKx">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fMA-Td-XMW">
                                 <rect key="frame" x="0.0" y="104" width="414" height="758"/>
                                 <color key="backgroundColor" red="0.61385954402824605" green="0.78185161289019767" blue="0.9299018979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -81,6 +78,8 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" systemColor="labelColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="Dqr-w5-EWq" secondAttribute="bottom" constant="5" id="FZw-LM-Bbh"/>
                                                         <constraint firstItem="Dqr-w5-EWq" firstAttribute="top" secondItem="gsV-aY-oZU" secondAttribute="top" constant="5" id="It2-M8-JCB"/>
@@ -93,6 +92,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="gsV-aY-oZU" firstAttribute="leading" secondItem="9bC-82-JAv" secondAttribute="leading" constant="5" id="0qe-Oy-Agw"/>
                                                 <constraint firstAttribute="bottom" secondItem="gsV-aY-oZU" secondAttribute="bottom" constant="5" id="Fty-1L-W6L"/>
@@ -100,6 +100,7 @@
                                                 <constraint firstItem="gsV-aY-oZU" firstAttribute="top" secondItem="9bC-82-JAv" secondAttribute="top" constant="5" id="rpj-Hg-8az"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="cityAndAgeLabel" destination="dT5-nF-1Nu" id="XQs-tK-PZD"/>
                                             <outlet property="friendView" destination="gsV-aY-oZU" id="WhT-Gb-mR7"/>
@@ -123,7 +124,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="didTapRequestButton:" destination="7tt-WF-5aM" eventType="touchUpInside" id="G3t-Vp-JZr"/>
+                                                    <action selector="didTapFriendButton:" destination="7tt-WF-5aM" eventType="touchUpInside" id="29a-kc-ZWW"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ElA-mT-wKk">
@@ -133,7 +134,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="didTapAllFriendsButton:" destination="7tt-WF-5aM" eventType="touchUpInside" id="BCK-Cs-7E7"/>
+                                                    <action selector="didTapFriendButton:" destination="7tt-WF-5aM" eventType="touchUpInside" id="mPN-hM-Yd0"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fM6-mC-lv7">
@@ -142,7 +143,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="didTapFollowersButton:" destination="7tt-WF-5aM" eventType="touchUpInside" id="lfq-9a-I3z"/>
+                                                    <action selector="didTapFriendButton:" destination="7tt-WF-5aM" eventType="touchUpInside" id="3Vp-58-Ou1"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -166,6 +167,10 @@
                                     <constraint firstAttribute="height" constant="60" id="BP8-wP-Iby"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Y95-TF-XKx">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1qh-0W-3S7"/>
                         <color key="backgroundColor" red="0.61385954402824605" green="0.78185161289019767" blue="0.9299018979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -199,5 +204,8 @@
     </scenes>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

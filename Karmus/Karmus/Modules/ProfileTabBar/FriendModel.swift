@@ -15,4 +15,7 @@ struct Friend {
     let city: String
     let dateOfBirth: String?
     let onlineStatus: String
+    let numberOfFriends: Int
+    let numberOfRespects: Int
+    let profileType: String
 }

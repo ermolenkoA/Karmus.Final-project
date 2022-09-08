@@ -457,7 +457,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2643.9252336448599" y="919.4384449244061"/>
+            <point key="canvasLocation" x="2766" y="921"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="hjo-fn-6ZR">
@@ -486,7 +486,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HcV-Jz-S1S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3523" y="920"/>
+            <point key="canvasLocation" x="3618" y="921"/>
         </scene>
         <!--Item-->
         <scene sceneID="QMP-xA-Rq1">

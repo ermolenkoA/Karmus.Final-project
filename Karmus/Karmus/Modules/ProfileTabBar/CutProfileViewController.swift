@@ -16,49 +16,70 @@ protocol GetShortProfileInfoProtocol {
 final class CutProfileViewController: UIViewController {
     
     @IBOutlet private weak var loginLabel: UILabel!
-    @IBOutlet private weak var friendActionButton: UIButton!
+    
+    @IBOutlet private weak var buttonActivityIndicator: UIActivityIndicatorView!
     
     @IBOutlet private weak var numberOfRestectsLabel: UILabel!
+    
+    @IBOutlet private weak var profileTypeImageView: UIImageView!
     @IBOutlet private weak var profilePhotoImageView: UIImageView!
+    
     @IBOutlet private weak var numberOfFriendsLabel: UILabel!
     
     @IBOutlet private weak var firstAndSecondNameLabel: UILabel!
     
-    private var profile: ShortProfileInfoModel?
-    private var friendStatus: FriendsTypes?
     
-    private let addToFriendAction = UIAction.init { [weak self] _ in
-        guard let profileID = KeychainSwift.shared
-                .get(ConstantKeys.currentProfile) else { return }
-        
-    }
+    @IBOutlet private weak var fullInfoButton: UIButton!
+    @IBOutlet private weak var friendActionButton: UIButton!
+    
+    private var friendProfile: ShortProfileInfoModel?
+    private var friendStatus: FriendsTypes?
+    private let myProfileID = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+    private let myLogin = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        profilePhotoImageView.layer.cornerRadius =
+            (view.frame.width - 40) * 0.15
         setStartSettings()
     }
     
     private func setStartSettings() {
-        guard let profile = profile else {
+        guard let profile = friendProfile else {
             return
         }
         
         loginLabel.text = "@" + profile.login
-        numberOfRestectsLabel.text =
-            String.makeStringFromNumber(profile.numberOfRespects)
-        numberOfFriendsLabel.text = String.makeStringFromNumber(profile.numberOfFriends)
+        numberOfRestectsLabel.text = profile.numberOfRespects
+        numberOfFriendsLabel.text = profile.numberOfFriends
         profilePhotoImageView.image = profile.photo
         firstAndSecondNameLabel.text = profile.firstName + " " + profile.secondName
+        
+        switch profile.profileType {
+        case FBProfileTypes.sponsor:
+            profileTypeImageView.image = UIImage(named: "iconSponsor")
+            fullInfoButton.isUserInteractionEnabled = false
+            fullInfoButton.alpha = 0.6
+            profileTypeImageView.isHidden = false
+            
+        case FBProfileTypes.admin:
+            profileTypeImageView.image = UIImage(named: "iconAdmin")
+            profileTypeImageView.isHidden = false
+        default:
+            break
+        }
+        
+        settingsForFriendActionButton()
     }
     
     private func settingsForFriendActionButton() {
+        
         switch friendStatus {
         
         case .followers:
             friendActionButton.setTitle("Принять запрос", for: .normal)
             friendActionButton.backgroundColor = #colorLiteral(red: 0, green: 0.1107608194, blue: 1, alpha: 1)
-            friendActionButton.addAction(<#T##action: UIAction##UIAction#>, for: .touchUpInside)
         case .friends:
             friendActionButton.setTitle("Удалить из друзей", for: .normal)
             friendActionButton.backgroundColor = #colorLiteral(red: 1, green: 0.589956837, blue: 0.5594668988, alpha: 1)
@@ -69,13 +90,39 @@ final class CutProfileViewController: UIViewController {
             friendActionButton.setTitle("Добавить в друзья", for: .normal)
             friendActionButton.backgroundColor = .systemBlue
         }
+        
     }
+    
+    
+    @IBAction func didTapFriendActionButton(_ sender: UIButton) {
+        
+        guard let myProfileID = myProfileID,
+              let myLogin = myLogin,
+              let friendProfile = friendProfile else { return }
+        
+        friendActionButton.isUserInteractionEnabled = false
+        buttonActivityIndicator.startAnimating()
 
+        FireBaseDataBaseManager.changeFriendsLists(profileID: myProfileID, myLogin: myLogin,
+                                                   friendLogin: friendProfile.login,
+                                                   currentFriendType: friendStatus) { [weak self] resultStatus in
+            self?.friendStatus = resultStatus
+            self?.settingsForFriendActionButton()
+            self?.buttonActivityIndicator.stopAnimating()
+            self?.friendActionButton.isUserInteractionEnabled = true
+        }
+    }
+    
+    
+    @IBAction func didTapFullInfoButton(_ sender: UIButton) {
+  
+    }
+    
 }
 
 extension CutProfileViewController: GetShortProfileInfoProtocol {
     func getShortProfileInfo(profile: ShortProfileInfoModel, _ friendStatus: FriendsTypes? = nil) {
-        self.profile = profile
+        self.friendProfile = profile
         self.friendStatus = friendStatus
     }
 }

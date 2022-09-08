@@ -250,7 +250,7 @@
                         <outlet property="workCleanUpButton" destination="SJQ-5W-icd" id="hAa-j5-CFM"/>
                         <outlet property="workLabel" destination="zlW-tl-O45" id="PwK-Pa-Aqh"/>
                         <outlet property="workTextView" destination="HAC-Ch-yhY" id="ByS-QL-oNZ"/>
-                        <segue destination="VF4-SN-vq0" kind="popoverPresentation" popoverAnchorView="Dxn-es-7ps" id="1ST-Py-DIa">
+                        <segue destination="VF4-SN-vq0" kind="popoverPresentation" identifier="someID" popoverAnchorView="Dxn-es-7ps" id="1ST-Py-DIa">
                             <popoverArrowDirection key="popoverArrowDirection"/>
                         </segue>
                     </connections>

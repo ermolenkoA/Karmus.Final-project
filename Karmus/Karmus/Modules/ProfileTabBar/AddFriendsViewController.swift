@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 final class AddFriendsViewController: UIViewController {
 
@@ -32,6 +33,7 @@ final class AddFriendsViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         searchController = nil
+        FireBaseDataBaseManager.stopProfilesSearching()
     }
     
     private func searchingStarted(){
@@ -43,21 +45,48 @@ final class AddFriendsViewController: UIViewController {
         mainTableView.isHidden = false
         mainActivityIndicator.stopAnimating()
     }
+    
+    private func showShortProfileInfo(profile: ShortProfileInfoModel, friendStatus: FriendsTypes?){
+        
+        let storyboard = UIStoryboard(name: StoryboardNames.cutProfileScreen, bundle: nil)
+        
+        guard let shortProfileInfoVC = storyboard.instantiateInitialViewController() else {
+            return
+        }
+        
+        shortProfileInfoVC.modalPresentationStyle = .popover
+        let popOverVC = shortProfileInfoVC.popoverPresentationController
+        popOverVC?.delegate = self
+        popOverVC?.sourceView = view
+        popOverVC?.sourceRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+        shortProfileInfoVC.preferredContentSize = CGSize(width: view.frame.width, height: 240 + view.frame.width*0.3)
+        popOverVC?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        (shortProfileInfoVC as? GetShortProfileInfoProtocol)?.getShortProfileInfo(profile: profile, friendStatus)
+        
+        self.present(shortProfileInfoVC, animated: true)
+    }
 
+}
+
+extension AddFriendsViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
 }
 
 extension AddFriendsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
         let text = searchController.searchBar.text ?? ""
-        FireBaseDataBaseManager.stopSearching()
+        FireBaseDataBaseManager.stopProfilesSearching()
         searchingStarted()
         FireBaseDataBaseManager.searchProfiles(text) { [weak self] profiles in
             
             self?.searchResult = profiles ?? []
             self?.mainTableView.reloadData()
             self?.searchingEnded()
-            FireBaseDataBaseManager.stopSearching()
             
         }
         
@@ -67,16 +96,25 @@ extension AddFriendsViewController: UISearchResultsUpdating {
 extension AddFriendsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        tableView.isHidden = true
+        
         let profile = searchResult[indexPath.row]
         
-
-    }
-    
-    private func addToFriend() {
+        guard let myProfileID = KeychainSwift.shared.get(ConstantKeys.currentProfile) else { return }
         
+        let profileInfo = ShortProfileInfoModel.init(login: profile.login,
+                                                     firstName: profile.firstName,
+                                                     secondName: profile.secondName,
+                                                     numberOfRespects: String.makeStringFromNumber(profile.numberOfRespects),
+                                                     numberOfFriends: String.makeStringFromNumber(profile.numberOfFriends),
+                                                     photo: UIImage(named: "jpgDefaultProfile")!,
+                                                     profileType: profile.profileType)
+        
+        FireBaseDataBaseManager.getFriendStatus(myProfileID, friendLogin: profile.login) { [weak self] friendStatus in
+            self?.showShortProfileInfo(profile: profileInfo, friendStatus: friendStatus)
+        }
+        
+
     }
     
 }
@@ -88,7 +126,7 @@ extension AddFriendsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("\nMYLOG: 123321`\n")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendsCell", for: indexPath)
         
         let friend = searchResult[indexPath.row]

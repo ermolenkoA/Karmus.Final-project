@@ -17,4 +17,5 @@ struct StoryboardNames {
     static let fillMainProfileInfo = "FillMainProfileInfo"
     static let friendsScreen = "FriendsScreen"
     static let addFriends = "AddFriends"
+    static let cutProfileScreen = "CutProfileScreen"
 }
