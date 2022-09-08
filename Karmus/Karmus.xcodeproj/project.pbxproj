@@ -45,7 +45,6 @@
 		5348CBFA28C64B9700955D70 /* FriendsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBF928C64B9700955D70 /* FriendsTVCell.swift */; };
 		535FC1AB28C1F8D200A0BDE0 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */; };
 		535FC1AE28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */; };
-		5372EACF28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */; };
 		5372EAD128B7ADD000F3FFA8 /* ActiveTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */; };
 		5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */; };
 		5372EAD528B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */; };
@@ -132,7 +131,6 @@
 		5348CBF928C64B9700955D70 /* FriendsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTVCell.swift; sourceTree = "<group>"; };
 		535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewExtension.swift; sourceTree = "<group>"; };
 		535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePreferencesViewController.swift; sourceTree = "<group>"; };
-		5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActiveTasksScreen.storyboard; sourceTree = "<group>"; };
 		5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewController.swift; sourceTree = "<group>"; };
 		5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewCell.swift; sourceTree = "<group>"; };
 		5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeclataionOfTasksScreen.storyboard; sourceTree = "<group>"; };
@@ -152,9 +150,6 @@
 		53FFF25328C774400054AA5D /* FriendsTypesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTypesEnum.swift; sourceTree = "<group>"; };
 		53FFF25928C79A830054AA5D /* AddFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddFriends.storyboard; sourceTree = "<group>"; };
 		53FFF25C28C79E3D0054AA5D /* AddFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsViewController.swift; sourceTree = "<group>"; };
-		59BABBC8549E512DF96278DA /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
-		6982DCEAC19D342C87CB2079 /* Pods_Karmus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Karmus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A8A9A8FE33EDFFB1F086985 /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
 		CE15417B28B266E0007731FA /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
 		CE15418928B29A71007731FA /* RegistrationEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEnumeration.swift; sourceTree = "<group>"; };
 		CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberVerification.swift; sourceTree = "<group>"; };
@@ -459,7 +454,6 @@
 				53BC394328AD43E300867BC9 /* MapScreen.storyboard */,
 				53BC394528AD43FE00867BC9 /* MapViewController.swift */,
 				534700E328B621D900F23539 /* CreationTaskScreen.storyboard */,
-				5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */,
 				5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */,
 				5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */,
 				5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */,
@@ -581,7 +575,6 @@
 				53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */,
 				5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */,
 				5372EAD528B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard in Resources */,
-				5372EACF28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

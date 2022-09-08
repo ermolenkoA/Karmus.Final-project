@@ -151,7 +151,7 @@ final class FireBaseDataBaseManager {
                     guard let key = friends.contains(login) ? FBProfileKeys.friends
                     : followers.contains(login) ? FBProfileKeys.requests
                             : requests.contains(login) ? FBProfileKeys.followers : nil else  {
-                        print("\nMYLOG: 123123\n")
+                        
                         continue
                     }
                     
