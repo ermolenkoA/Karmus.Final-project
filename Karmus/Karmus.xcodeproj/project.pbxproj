@@ -70,6 +70,7 @@
 		53DD85FD28CA21B600FDD84D /* CreationTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53DD85FC28CA21B600FDD84D /* CreationTaskScreen.storyboard */; };
 		53DD85FF28CA21E200FDD84D /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DD85FE28CA21E200FDD84D /* AccountViewController.swift */; };
 		53DD860128CA220100FDD84D /* ActiveTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53DD860028CA220100FDD84D /* ActiveTasksScreen.storyboard */; };
+		53DD860228CA28C300FDD84D /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
 		53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */; };
 		53FFF25128C76EE60054AA5D /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFF25028C76EE60054AA5D /* FriendModel.swift */; };
 		53FFF25428C774400054AA5D /* FriendsTypesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFF25328C774400054AA5D /* FriendsTypesEnum.swift */; };
@@ -618,6 +619,7 @@
 				530A412A28C2390E00CA7F84 /* ConditionTaskScreen.storyboard in Resources */,
 				53378AE828C067F8002749FE /* FillAdditionalProfileInfo.storyboard in Resources */,
 				5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */,
+				53DD860228CA28C300FDD84D /* AccountScreen.storyboard in Resources */,
 				5316D73228AC0FC2004C8A90 /* Assets.xcassets in Resources */,
 				5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */,
 				53B0C84D28BF72A3008B518B /* TaskMapScreen.storyboard in Resources */,

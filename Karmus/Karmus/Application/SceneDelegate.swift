@@ -68,7 +68,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func showAccountVC() {
-        let storyboard = UIStoryboard(name: "AccountScreen", bundle: nil)
+        let storyboard = UIStoryboard(name: StoryboardNames.accountScreen, bundle: nil)
         window?.rootViewController = storyboard.instantiateInitialViewController()
         window?.makeKeyAndVisible()
     }

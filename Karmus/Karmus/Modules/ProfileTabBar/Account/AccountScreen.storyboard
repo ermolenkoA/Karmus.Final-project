@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="L0P-KX-AMB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="L0P-KX-AMB">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -469,7 +470,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" id="8k7-OG-28D">
-                                <rect key="frame" x="0.0" y="28" width="428" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="428" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8k7-OG-28D" id="qty-0k-fdw">
                                     <rect key="frame" x="0.0" y="0.0" width="428" height="43.666667938232422"/>
@@ -505,20 +506,10 @@
             </objects>
             <point key="canvasLocation" x="1560" y="921"/>
         </scene>
-        <!--MapScreen-->
-        <scene sceneID="o0T-NR-SjR">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MapScreen" id="MS7-xC-Qqv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="pEN-It-vzv"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pM8-rl-wWJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="388" y="601"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="0Jy-fZ-6ex">
             <objects>
-                <tabBarController storyboardIdentifier="AccountTabBarControllerID" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L0P-KX-AMB" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="AccountTabBarControllerID" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="L0P-KX-AMB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="q9K-XS-n59"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9p5-3R-Vv9">
@@ -530,12 +521,23 @@
                     </tabBar>
                     <connections>
                         <segue destination="bFg-Po-yJJ" kind="relationship" relationship="viewControllers" id="TU5-dp-6Tl"/>
-                        <segue destination="MS7-xC-Qqv" kind="relationship" relationship="viewControllers" id="nrd-r4-jKc"/>
+                        <segue destination="Lgz-BN-gcN" kind="relationship" relationship="viewControllers" id="PbS-gW-VVb"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c3j-vO-yT4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="939.13043478260875" y="83.705357142857139"/>
+            <point key="canvasLocation" x="897" y="202"/>
+        </scene>
+        <!--MapScreen-->
+        <scene sceneID="Lfs-t7-XER">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MapScreen" id="Lgz-BN-gcN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="BhV-zJ-Vwv"/>
+                    <navigationItem key="navigationItem" id="yBo-cl-t2P"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ibZ-ef-ZPd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="412" y="642"/>
         </scene>
     </scenes>
     <resources>
@@ -551,7 +553,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

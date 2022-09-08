@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Map View Controller-->
+        <!--Item-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="Y6W-OH-hqX" customClass="MapViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
@@ -109,6 +109,7 @@
                             <constraint firstItem="YH8-Tt-ST1" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="xeu-Ag-xZD"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" image="square.and.arrow.up.fill" catalog="system" selectedImage="square.and.arrow.up" id="vmp-0J-E82"/>
                     <navigationItem key="navigationItem" id="zlC-W3-KRU"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -124,20 +125,20 @@
                         <segue destination="lZo-pZ-g8t" kind="show" identifier="toCreationTaskScreen" id="hZB-eF-H1M"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="vTo-pr-XRc">
-                    <connections>
-                        <action selector="tapToTasksScreen:" destination="Y6W-OH-hqX" id="dkf-YJ-Kg8"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <tapGestureRecognizer id="Iih-jJ-af9">
                     <connections>
                         <action selector="tapToActiveTasksScreen:" destination="Y6W-OH-hqX" id="H0a-tF-M0q"/>
                     </connections>
                 </tapGestureRecognizer>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="rFG-60-43N">
                     <connections>
                         <action selector="tapToCreationScreen:" destination="Y6W-OH-hqX" id="VvB-AQ-fzx"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="vTo-pr-XRc">
+                    <connections>
+                        <action selector="tapToTasksScreen:" destination="Y6W-OH-hqX" id="dkf-YJ-Kg8"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -193,12 +194,13 @@
             </objects>
             <point key="canvasLocation" x="3961" y="457"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="jn9-Ro-vPw">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3OR-dp-3bG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="square.and.arrow.up.fill" catalog="system" selectedImage="square.and.arrow.up" id="IVA-rh-6gS"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Upf-7q-hyb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="3OR-dp-3bG" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vTD-m1-9O1">
                         <rect key="frame" x="0.0" y="44" width="428" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -208,9 +210,8 @@
                         <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="BNW-6N-GKs"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Upf-7q-hyb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2778.5046728971961" y="7.7753779697624195"/>
+            <point key="canvasLocation" x="2637" y="8"/>
         </scene>
     </scenes>
     <resources>

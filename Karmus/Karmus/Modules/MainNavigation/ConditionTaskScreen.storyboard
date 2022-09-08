@@ -101,7 +101,6 @@
                         <outlet property="typeCondition" destination="b2h-Ch-1oC" id="nlG-lQ-ezJ"/>
                         <segue destination="PiJ-fQ-Ilu" kind="show" identifier="toMapScreen" id="Dbx-FR-RSW"/>
                         <segue destination="Ids-cU-PC8" kind="show" identifier="toTasksScreen" id="gHj-mM-ZgC"/>
-                        <segue destination="rvl-Bm-P9T" kind="show" identifier="toAccountScreen" id="Bah-F7-1S4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -117,16 +116,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XEt-3H-3N4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-589" y="482"/>
-        </scene>
-        <!--AccountScreen-->
-        <scene sceneID="uhu-r8-CWa">
-            <objects>
-                <viewControllerPlaceholder storyboardName="AccountScreen" id="rvl-Bm-P9T" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="jVO-Oi-22H"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VOI-Ft-QgN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-358" y="551"/>
         </scene>
         <!--MapScreen-->
         <scene sceneID="P58-93-7BS">

@@ -115,10 +115,12 @@ class MapViewController: UIViewController{
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        tabBarController?.tabBar.isHidden = false
         uploadActiveTasksInMap()
         uploadGroupTasksInMap()
         uploadTasksInMap()
         mapView.delegate = self
+        setupViews()
        
         NotificationCenter.default.addObserver(self, selector: #selector(reloadRegion), name: NSNotification.Name("lol"), object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(reloadMap), name: NSNotification.Name("MapView"), object: nil)

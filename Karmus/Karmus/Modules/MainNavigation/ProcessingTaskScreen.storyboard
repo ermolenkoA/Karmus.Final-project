@@ -57,7 +57,6 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Выполнено!"/>
                                 <connections>
                                     <action selector="didTapToCompliteTask:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Mvz-1y-IkH"/>
-                                    <segue destination="Qhc-Wc-jQO" kind="show" id="88Q-2z-sg8"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Тип" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3f-aK-xnl">
@@ -96,16 +95,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-16" y="54"/>
-        </scene>
-        <!--AccountScreen-->
-        <scene sceneID="DFk-iE-yxa">
-            <objects>
-                <viewControllerPlaceholder storyboardName="AccountScreen" id="Qhc-Wc-jQO" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="80D-Bb-ogj"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dF8-Ir-mpE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-17" y="444"/>
         </scene>
     </scenes>
     <resources>
