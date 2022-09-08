@@ -69,21 +69,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZjQ-QZ-Us0">
-                                <rect key="frame" x="0.0" y="0.0" width="75" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="К карте"/>
-                                <connections>
-                                    <segue destination="o11-0n-LZx" kind="show" id="C8d-51-gXq"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="20E-yG-apI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="20E-yG-apI" firstAttribute="bottom" secondItem="CH7-Cj-Nvp" secondAttribute="bottom" id="0HX-EJ-t36"/>
-                            <constraint firstItem="ZjQ-QZ-Us0" firstAttribute="leading" secondItem="20E-yG-apI" secondAttribute="leading" id="U2v-vB-hoU"/>
-                            <constraint firstItem="ZjQ-QZ-Us0" firstAttribute="top" secondItem="20E-yG-apI" secondAttribute="top" id="ZH8-fV-CsI"/>
                             <constraint firstItem="CH7-Cj-Nvp" firstAttribute="top" secondItem="20E-yG-apI" secondAttribute="top" constant="50" id="dvJ-lM-wac"/>
                             <constraint firstItem="20E-yG-apI" firstAttribute="trailing" secondItem="CH7-Cj-Nvp" secondAttribute="trailing" id="nm3-Vr-xK6"/>
                             <constraint firstItem="CH7-Cj-Nvp" firstAttribute="leading" secondItem="20E-yG-apI" secondAttribute="leading" id="q6g-yO-b94"/>
@@ -96,16 +86,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mqC-xh-PCC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-671.20000000000005" y="67.016491754122939"/>
-        </scene>
-        <!--MapScreen-->
-        <scene sceneID="SPW-Df-tlt">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MapScreen" id="o11-0n-LZx" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="cCx-Oa-pHV"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sGr-ZT-nak" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-894" y="465"/>
         </scene>
         <!--DeclataionOfTasksScreen-->
         <scene sceneID="Vwr-Xa-iTu">

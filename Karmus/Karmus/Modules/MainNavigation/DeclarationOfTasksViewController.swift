@@ -56,7 +56,20 @@ class DeclarationOfTasksViewController: UIViewController {
                 present(alert, animated: true)
             print("задание уже есть")
         }else{
-            showAlert(title: "Задание успешно добавлено!", message: "", reference: References.fromDeclarationToMapScreen)
+            let alert = UIAlertController(title: "Задание успешно добавлено!", message: "", preferredStyle: .alert)
+            let alertOk = UIAlertAction(title: "Отлично!", style: .default){[unowned self] _ in
+                if let controller = self.navigationController?.viewControllers.first as? MapViewController {
+                    
+                    controller.taskLocation = CLLocationCoordinate2D(latitude: self.latitudeCoordinateToMap!, longitude: self.longitudeCoordinateToMap!)
+                    print("КООРДИНАТЫ \(controller.taskLocation)")
+                    NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
+                    self.navigationController?.popToViewController(controller, animated: true)
+                }
+                
+            }
+                alert.addAction(alertOk)
+                present(alert, animated: true)
+            
                 self.uploadData()
             print("задания нет")
         }
@@ -72,10 +85,13 @@ class DeclarationOfTasksViewController: UIViewController {
     }
     
     @IBAction func tapToMapScreen(_ sender: Any) {
-    //    performSegue(withIdentifier: References.fromDeclarationToMapScreen, sender: self)
-        self.dismiss(animated: true)
-//        navigationController?.tabBarController?.selectedIndex = 0
-//            navigationController?.tabBarController?.tabBar.isHidden = false
+        if let controller = navigationController?.viewControllers.first as? MapViewController {
+            
+            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
+            print("КООРДИНАТЫ \(controller.taskLocation)")
+            NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
+            navigationController?.popToViewController(controller, animated: true)
+        }
     }
     
     func testGroup(){
@@ -215,11 +231,15 @@ class DeclarationOfTasksViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == References.fromDeclarationToMapScreen {
-            let controller = segue.destination as! MapViewController
-            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let controller = navigationController?.topViewController as? MapViewController {
+//
+//            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
+//        }
+//        if segue.identifier == References.fromDeclarationToMapScreen {
+//            let controller = segue.destination as! MapViewController
+//            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
+//        }
+ //   }
 }
                         

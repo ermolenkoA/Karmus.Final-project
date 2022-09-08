@@ -53,14 +53,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YyH-ez-KTC">
-                                <rect key="frame" x="20" y="44" width="66" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Назад"/>
-                                <connections>
-                                    <segue destination="ruo-ro-tyb" kind="show" identifier="ToActiveTasksScreen" id="3is-2B-aNc"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzU-HE-7vp">
                                 <rect key="frame" x="248" y="386" width="148" height="31"/>
                                 <state key="normal" title="Button"/>
@@ -90,13 +82,11 @@
                             <constraint firstItem="wIr-Nv-5ss" firstAttribute="top" secondItem="hzU-HE-7vp" secondAttribute="bottom" constant="8" symbolic="YES" id="8Gn-Mx-DeJ"/>
                             <constraint firstItem="Vx4-z0-giJ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="32" id="BMA-F2-3bJ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="wIr-Nv-5ss" secondAttribute="trailing" constant="32" id="BMb-Gz-K0I"/>
-                            <constraint firstItem="YyH-ez-KTC" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="Dnd-a7-lGi"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="EWz-mx-BcT" secondAttribute="bottom" constant="99" id="OFW-9q-2XC"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="KTL-cb-MPd" secondAttribute="trailing" constant="32" id="P7a-0V-G0W"/>
                             <constraint firstItem="Kpf-gk-zkQ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="32" id="PyW-uu-5s5"/>
                             <constraint firstItem="Vx4-z0-giJ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="32" id="QaB-7F-8dh"/>
                             <constraint firstItem="pPQ-og-ACJ" firstAttribute="top" secondItem="Vx4-z0-giJ" secondAttribute="bottom" constant="20" id="WcZ-mk-xmq"/>
-                            <constraint firstItem="YyH-ez-KTC" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Wyp-9K-6RC"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="EWz-mx-BcT" secondAttribute="trailing" constant="137.5" id="Zh7-3H-9F7"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="hzU-HE-7vp" secondAttribute="trailing" constant="32" id="ecW-gw-Eh0"/>
                             <constraint firstItem="Vx4-z0-giJ" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.323974" id="er0-cn-x4H"/>

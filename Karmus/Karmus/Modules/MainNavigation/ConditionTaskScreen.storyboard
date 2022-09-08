@@ -37,7 +37,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Удалить"/>
                                 <connections>
-                                    <action selector="tapToDeleteTask:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="kri-Ut-HEO"/>
+                                    <action selector="tapToDeleteTask:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="qaz-TP-hZy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mu8-tZ-zY1">
@@ -54,14 +54,6 @@
                                 <buttonConfiguration key="configuration" style="gray" title="Карта"/>
                                 <connections>
                                     <action selector="tapToMapScreen:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="HPy-T6-YhG"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiD-Tr-0ry">
-                                <rect key="frame" x="0.0" y="0.0" width="66" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Назад"/>
-                                <connections>
-                                    <action selector="backToTasksScreen:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="QkV-ak-b2m"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXb-4c-8pf">
@@ -86,8 +78,6 @@
                             <constraint firstItem="8ql-LO-Ury" firstAttribute="top" secondItem="Fn4-RQ-drt" secondAttribute="bottom" constant="45" id="9NU-vh-LuH"/>
                             <constraint firstItem="Fn4-RQ-drt" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="9NZ-qo-BJ9"/>
                             <constraint firstItem="yXb-4c-8pf" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.166667" constant="20" id="DIY-XA-Fsb"/>
-                            <constraint firstItem="IiD-Tr-0ry" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="GCS-rr-bcz"/>
-                            <constraint firstItem="IiD-Tr-0ry" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="I5s-kl-BJO"/>
                             <constraint firstItem="Fn4-RQ-drt" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="60" id="PhP-dU-D0o"/>
                             <constraint firstItem="Y4I-Nc-BPf" firstAttribute="top" secondItem="sPG-ad-2VK" secondAttribute="bottom" constant="50" id="Sco-KA-pl2"/>
                             <constraint firstItem="Fn4-RQ-drt" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.254873" id="Srq-Cf-1yr"/>

@@ -60,14 +60,6 @@
                                     <segue destination="Qhc-Wc-jQO" kind="show" id="88Q-2z-sg8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APd-Ga-6WS">
-                                <rect key="frame" x="20" y="44" width="66" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Назад"/>
-                                <connections>
-                                    <segue destination="zow-xi-YlA" kind="show" id="7Jf-v6-jUV"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Тип" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3f-aK-xnl">
                                 <rect key="frame" x="294" y="343" width="29" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -81,12 +73,10 @@
                             <constraint firstItem="MBq-tk-65Q" firstAttribute="top" secondItem="jIF-Q1-Kbu" secondAttribute="bottom" constant="74" id="48h-B9-8D8"/>
                             <constraint firstItem="MBq-tk-65Q" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="80" id="CEL-Ut-4gM"/>
                             <constraint firstItem="jIF-Q1-Kbu" firstAttribute="top" secondItem="k2k-kG-JDE" secondAttribute="bottom" constant="91" id="D9V-0b-5Mg"/>
-                            <constraint firstItem="APd-Ga-6WS" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Eeb-S0-s7G"/>
                             <constraint firstItem="QMj-0W-m1C" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="80" id="Imd-s5-Jii"/>
                             <constraint firstItem="QMj-0W-m1C" firstAttribute="top" secondItem="XnC-eG-anl" secondAttribute="bottom" constant="100" id="Lqa-Nd-HnH"/>
                             <constraint firstItem="XnC-eG-anl" firstAttribute="top" secondItem="MBq-tk-65Q" secondAttribute="bottom" constant="76" id="OGJ-SI-rXr"/>
                             <constraint firstItem="jIF-Q1-Kbu" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="80" id="OUp-Sz-TO5"/>
-                            <constraint firstItem="APd-Ga-6WS" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="Pph-e7-36f"/>
                             <constraint firstItem="k2k-kG-JDE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="80" id="SwE-nQ-bo6"/>
                             <constraint firstItem="D3f-aK-xnl" firstAttribute="top" secondItem="k2k-kG-JDE" secondAttribute="bottom" constant="91" id="c9a-ma-gRu"/>
                             <constraint firstItem="XnC-eG-anl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="80" id="ds8-Yo-9Ls"/>

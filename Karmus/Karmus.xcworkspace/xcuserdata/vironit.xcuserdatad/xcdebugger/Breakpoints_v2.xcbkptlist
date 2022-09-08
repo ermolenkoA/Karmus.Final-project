@@ -14,10 +14,10 @@
             filePath = "Karmus/Modules/MainNavigation/MapViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "421"
-            endingLineNumber = "421"
-            landmarkName = "locationManagerDidChangeAuthorization(_:)"
-            landmarkType = "7">
+            startingLineNumber = "415"
+            endingLineNumber = "415"
+            landmarkName = "MapViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -46,8 +46,8 @@
             filePath = "Karmus/Modules/MainNavigation/TasksTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,10 +62,226 @@
             filePath = "Karmus/Modules/MainNavigation/DeclarationOfTasksViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "choiceData(reference:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "55803D90-BFCC-4FF8-AB41-0CE849CAB65C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Karmus/Modules/MainNavigation/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "MapViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "55803D90-BFCC-4FF8-AB41-0CE849CAB65C - bde4dc20c47dfd18"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.newViewOffset.getter : CoreGraphics.CGFloat"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "89">
+               </Location>
+               <Location
+                  uuid = "55803D90-BFCC-4FF8-AB41-0CE849CAB65C - 16af1f8406ac4c4c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.newViewOffset.setter : CoreGraphics.CGFloat"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "102">
+               </Location>
+               <Location
+                  uuid = "55803D90-BFCC-4FF8-AB41-0CE849CAB65C - 6bb3fcf97652794b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.newViewOffset.modify : CoreGraphics.CGFloat"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "55803D90-BFCC-4FF8-AB41-0CE849CAB65C - 6da054fea96ab5a2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.newViewOffset.modify : CoreGraphics.CGFloat with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  uuid = "55803D90-BFCC-4FF8-AB41-0CE849CAB65C - d80d01ec39644745"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Karmus.MapViewController"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "591">
+               </Location>
+               <Location
+                  uuid = "55803D90-BFCC-4FF8-AB41-0CE849CAB65C - 872e92f0888a8a09"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Karmus.MapViewController&gt;"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "542">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9CEB96BF-C901-4C7B-BA20-D2A07EA5853C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Karmus/Modules/MainNavigation/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "MapViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "9CEB96BF-C901-4C7B-BA20-D2A07EA5853C - ed755f1d5da0b3c6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.locationManager.getter : __C.CLLocationManager"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "94">
+               </Location>
+               <Location
+                  uuid = "9CEB96BF-C901-4C7B-BA20-D2A07EA5853C - b5c71b1be681dd2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.locationManager.setter : __C.CLLocationManager"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "9CEB96BF-C901-4C7B-BA20-D2A07EA5853C - 9ef042bfac2dcb43"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.locationManager.modify : __C.CLLocationManager"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "9CEB96BF-C901-4C7B-BA20-D2A07EA5853C - 1eef1e00457442b3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.locationManager.modify : __C.CLLocationManager with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  uuid = "9CEB96BF-C901-4C7B-BA20-D2A07EA5853C - d80d01ec39645930"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Karmus.MapViewController"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "950">
+               </Location>
+               <Location
+                  uuid = "9CEB96BF-C901-4C7B-BA20-D2A07EA5853C - 872e92f0888a947c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Karmus.MapViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Karmus.MapViewController&gt;"
+                  moduleName = "Karmus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vironit/Desktop/Karmus.Final-project/Karmus/Karmus/Modules/MainNavigation/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "901">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

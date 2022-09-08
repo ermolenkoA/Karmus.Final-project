@@ -78,21 +78,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PEh-8y-HSG">
-                                <rect key="frame" x="20" y="44" width="66" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Назад"/>
-                                <connections>
-                                    <segue destination="JPk-bz-vZn" kind="show" id="PYP-2N-yj2"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Z8Z-dV-zee" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="50" id="2hy-Jf-S2S"/>
-                            <constraint firstItem="PEh-8y-HSG" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="5WE-en-KCP"/>
-                            <constraint firstItem="PEh-8y-HSG" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="5wn-Yh-uI3"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Z8Z-dV-zee" secondAttribute="trailing" id="6u8-24-wn1"/>
                             <constraint firstAttribute="bottom" secondItem="Z8Z-dV-zee" secondAttribute="bottom" id="DO8-yZ-kBn"/>
                             <constraint firstItem="Z8Z-dV-zee" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Pze-yH-c9y"/>

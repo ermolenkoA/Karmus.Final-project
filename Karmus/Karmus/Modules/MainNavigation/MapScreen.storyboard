@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3OR-dp-3bG">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Map View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="Y6W-OH-hqX" customClass="MapViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,21 +30,21 @@
                                                 <rect key="frame" x="30" y="8" width="98" height="98.666666666666671"/>
                                                 <gestureRecognizers/>
                                                 <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="18t-X5-ovE" appends="YES" id="mo2-P1-qAK"/>
+                                                    <outletCollection property="gestureRecognizers" destination="vTo-pr-XRc" appends="YES" id="yyT-xU-JbE"/>
                                                 </connections>
                                             </imageView>
                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="books.vertical.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ejb-9A-Y2a">
                                                 <rect key="frame" x="157" y="8.0000000000000355" width="98" height="98"/>
                                                 <gestureRecognizers/>
                                                 <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="fpy-3Y-EYB" appends="YES" id="YR5-p5-YRf"/>
+                                                    <outletCollection property="gestureRecognizers" destination="Iih-jJ-af9" appends="YES" id="8Um-pv-WwN"/>
                                                 </connections>
                                             </imageView>
                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Pa6-l2-jvF">
                                                 <rect key="frame" x="285" y="7.9999999999999574" width="98" height="98"/>
                                                 <gestureRecognizers/>
                                                 <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="yIY-bT-Y8a" appends="YES" id="66t-oB-cnz"/>
+                                                    <outletCollection property="gestureRecognizers" destination="rFG-60-43N" appends="YES" id="B2I-dM-Rk6"/>
                                                 </connections>
                                             </imageView>
                                         </subviews>
@@ -109,11 +109,9 @@
                             <constraint firstItem="YH8-Tt-ST1" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="xeu-Ag-xZD"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" image="square.and.arrow.up.fill" catalog="system" selectedImage="square.and.arrow.up" id="IVA-rh-6gS"/>
+                    <navigationItem key="navigationItem" id="zlC-W3-KRU"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="imageTasks" destination="xdr-ov-xu2" id="P4R-j8-Wyi"/>
-                        <outlet property="itemTabBarMap" destination="IVA-rh-6gS" id="dbP-yV-HTl"/>
                         <outlet property="mapView" destination="YH8-Tt-ST1" id="ImZ-ig-AZD"/>
                         <outlet property="taskBottomConstraint" destination="C6A-VL-EdC" id="7H3-rg-dzU"/>
                         <outlet property="tasksTitle" destination="c6f-bk-PiS" id="Tly-yJ-lpw"/>
@@ -121,26 +119,29 @@
                         <outlet property="titlePositionConstraint" destination="M9H-ff-82q" id="wes-pz-Yri"/>
                         <segue destination="NDK-ua-USu" kind="show" identifier="toDeclarationScreen" id="neZ-jZ-cDz"/>
                         <segue destination="deh-xG-H5U" kind="show" identifier="toConditionTaskScreen" id="lAX-V6-aS0"/>
+                        <segue destination="PyY-jP-yhK" kind="show" identifier="toTasksScreen" id="4Wh-SF-y4J"/>
+                        <segue destination="iBx-5v-x5i" kind="show" identifier="toActiveTasksScreen" id="0eU-t0-QGA"/>
+                        <segue destination="lZo-pZ-g8t" kind="show" identifier="toCreationTaskScreen" id="hZB-eF-H1M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="18t-X5-ovE">
+                <tapGestureRecognizer id="vTo-pr-XRc">
                     <connections>
-                        <segue destination="PyY-jP-yhK" kind="show" identifier="toTasksScreen" id="pBg-id-kwX"/>
+                        <action selector="tapToTasksScreen:" destination="Y6W-OH-hqX" id="dkf-YJ-Kg8"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="fpy-3Y-EYB">
+                <tapGestureRecognizer id="Iih-jJ-af9">
                     <connections>
-                        <segue destination="iBx-5v-x5i" kind="show" identifier="toActiveTasksScreen" id="vQn-lj-PIs"/>
+                        <action selector="tapToActiveTasksScreen:" destination="Y6W-OH-hqX" id="H0a-tF-M0q"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="yIY-bT-Y8a">
+                <tapGestureRecognizer id="rFG-60-43N">
                     <connections>
-                        <segue destination="lZo-pZ-g8t" kind="show" id="eWH-Na-a6U"/>
+                        <action selector="tapToCreationScreen:" destination="Y6W-OH-hqX" id="VvB-AQ-fzx"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2778.5046728971961" y="7.7753779697624195"/>
+            <point key="canvasLocation" x="3678.5046728971961" y="7.7753779697624195"/>
         </scene>
         <!--DeclataionOfTasksScreen-->
         <scene sceneID="dze-dh-afV">
@@ -150,7 +151,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1F3-Z6-fyO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3420.5607476635514" y="-76.45788336933046"/>
+            <point key="canvasLocation" x="4320.5607476635514" y="-76.45788336933046"/>
         </scene>
         <!--ConditionTaskScreen-->
         <scene sceneID="iuV-o7-7CO">
@@ -160,17 +161,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kd1-x7-j78" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3400.934579439252" y="98.488120950323975"/>
+            <point key="canvasLocation" x="4300.934579439252" y="98.488120950323975"/>
         </scene>
         <!--TasksScreen-->
         <scene sceneID="Rdv-W0-WB9">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UqG-S4-mDF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewControllerPlaceholder storyboardName="TasksScreen" id="PyY-jP-yhK" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="i5Q-za-jyh"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UqG-S4-mDF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1532" y="472"/>
+            <point key="canvasLocation" x="3381" y="457"/>
         </scene>
         <!--ActiveTasksScreen-->
         <scene sceneID="HPB-0s-L0f">
@@ -180,17 +181,36 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X1g-Md-3Jd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1879" y="472"/>
+            <point key="canvasLocation" x="3679" y="457"/>
         </scene>
         <!--CreationTaskScreen-->
         <scene sceneID="K3E-XQ-gKn">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Td6-V5-nC5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewControllerPlaceholder storyboardName="CreationTaskScreen" id="lZo-pZ-g8t" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="yXa-Bv-uJV"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Td6-V5-nC5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2304" y="472"/>
+            <point key="canvasLocation" x="3961" y="457"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="jn9-Ro-vPw">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3OR-dp-3bG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="square.and.arrow.up.fill" catalog="system" selectedImage="square.and.arrow.up" id="IVA-rh-6gS"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vTD-m1-9O1">
+                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="BNW-6N-GKs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Upf-7q-hyb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2778.5046728971961" y="7.7753779697624195"/>
         </scene>
     </scenes>
     <resources>

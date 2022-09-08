@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JW4-Il-0zy">
-                                <rect key="frame" x="162" y="312" width="92" height="31"/>
+                                <rect key="frame" x="162" y="356" width="92" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="ЗАДАНИЯ"/>
                                 <connections>
@@ -34,14 +34,11 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="JW4-Il-0zy" secondAttribute="trailing" constant="160" id="qjL-my-DbK"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" image="list.bullet.rectangle.portrait.fill" catalog="system" id="p8H-it-SnY">
-                        <color key="badgeColor" systemColor="systemYellowColor"/>
-                        <imageReference key="selectedImage" image="list.bullet.rectangle.portrait" catalog="system" symbolScale="large"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="YQR-Ey-xZv"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1849.2753623188407" y="83.705357142857139"/>
+            <point key="canvasLocation" x="2759.4202898550725" y="83.705357142857139"/>
         </scene>
         <!--ComplitedTasksScreen-->
         <scene sceneID="g4a-rD-OFc">
@@ -51,7 +48,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNr-yH-xfA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2371" y="-19"/>
+            <point key="canvasLocation" x="3280.434782608696" y="-19.419642857142858"/>
         </scene>
         <!--MapScreen-->
         <scene sceneID="o0T-NR-SjR">
@@ -76,13 +73,35 @@
                         <color key="selectedImageTintColor" red="0.45737490089999999" green="0.45737490089999999" blue="0.45737490089999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="z1O-5n-001"/>
+                        <segue destination="ExP-lJ-I8s" kind="relationship" relationship="viewControllers" id="z1O-5n-001"/>
                         <segue destination="MS7-xC-Qqv" kind="relationship" relationship="viewControllers" id="hkI-FD-nF3"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c3j-vO-yT4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="939.13043478260875" y="83.705357142857139"/>
+            <point key="canvasLocation" x="875" y="84"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UZd-Z5-Rij">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ExP-lJ-I8s" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" image="list.bullet.rectangle.portrait.fill" catalog="system" id="p8H-it-SnY">
+                        <color key="badgeColor" systemColor="systemYellowColor"/>
+                        <imageReference key="selectedImage" image="list.bullet.rectangle.portrait" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4AF-aW-vmT">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="hcf-Mu-4S5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jkd-nP-rIE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1849.2753623188407" y="83.705357142857139"/>
         </scene>
     </scenes>
     <resources>

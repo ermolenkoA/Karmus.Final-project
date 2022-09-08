@@ -6,16 +6,14 @@ class ActiveTasksViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-   // let activeTasks = ModelActiveTasks()
     var celldataLabel: String?
     var celldeclarationLabel: String?
     var celltaskImageView: UIImage?
-//    var tasksFromDeclaration: ActiveTasks!
     
     var refActiveTasks: DatabaseReference!
     var refGroupActiveTasks: DatabaseReference!
     var activeTasks = [ModelTasks]()
-//    var activeGrouptasks = [ModelGroupTasks]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +29,6 @@ class ActiveTasksViewController: UIViewController {
         reference.observe(DataEventType.value, with:{(snapshot) in
         
         if snapshot.childrenCount > 0 {
-            //self.activeTasks.removeAll()
             
             for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
@@ -52,11 +49,6 @@ class ActiveTasksViewController: UIViewController {
         }
     })
     }
-//    func getAllFIRData() {
-//        refTasks.queryOrderedByKey()
-//    }
-
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == References.fromActiveTasksToDeclarationOfTasksScreen {

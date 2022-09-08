@@ -33,6 +33,7 @@ class ProcessingTaskViewController: UIViewController {
     }
 
     @IBAction func didTapToCompliteTask(_ sender: Any) {
+        showAkert()
         referenceTasks = Database.database().reference().child("ProcessingTasks")
         referenceComplitedTasks = Database.database().reference().child("ComplitedTasks")
         let key = referenceComplitedTasks.childByAutoId().key
@@ -59,6 +60,15 @@ class ProcessingTaskViewController: UIViewController {
             }
         }
         
+    }
+    
+    func showAkert(){
+        let alertController = UIAlertController(title: "Успех!", message: "", preferredStyle: .alert)
+        let actionOk = UIAlertAction(title: "Oк", style: .default){[weak self] _ in
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+        alertController.addAction(actionOk)
+        present(alertController, animated: true)
     }
     
 }

@@ -28,53 +28,34 @@
                                     <action selector="addTaskButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="J4i-Qz-xa3"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3PS-Gi-UJc">
-                                <rect key="frame" x="344" y="44.5" width="50" height="48.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <gestureRecognizers/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="oXb-bh-sQP" appends="YES" id="e2W-Sj-NcR"/>
-                                </connections>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="oHu-k5-gWo" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="1Gj-jT-gRI"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="3PS-Gi-UJc" secondAttribute="trailing" constant="20" id="4GD-xK-cTB"/>
                             <constraint firstItem="oHu-k5-gWo" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9Ll-Aq-BWs"/>
                             <constraint firstItem="kYr-GJ-jsI" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="JpQ-S9-olI"/>
-                            <constraint firstItem="3PS-Gi-UJc" firstAttribute="height" secondItem="oHu-k5-gWo" secondAttribute="height" multiplier="0.0558036" id="KFk-gF-Cd2"/>
-                            <constraint firstItem="3PS-Gi-UJc" firstAttribute="width" secondItem="oHu-k5-gWo" secondAttribute="width" multiplier="0.120773" id="KST-Ic-31v"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="oHu-k5-gWo" secondAttribute="bottom" constant="-34" id="pbO-iR-QCD"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="oHu-k5-gWo" secondAttribute="trailing" id="wME-im-IV9"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="kYr-GJ-jsI" secondAttribute="trailing" constant="20" id="xcG-rn-MNU"/>
-                            <constraint firstItem="3PS-Gi-UJc" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="44" id="yId-vK-efp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Поиск места" id="gP1-MU-oO1">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="q74-11-k02"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="q74-11-k02">
+                            <connections>
+                                <action selector="searchWithAddress:" destination="Y6W-OH-hqX" id="qcP-f0-oLH"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapContainer" destination="5EZ-qb-Rvc" id="ddZ-uy-mwB"/>
                         <outlet property="mapView" destination="oHu-k5-gWo" id="eGe-QJ-S7G"/>
-                        <outlet property="searchItem" destination="3PS-Gi-UJc" id="eFY-Cc-cpA"/>
                         <segue destination="0f4-kt-d5D" kind="show" identifier="toMapScreen" id="s6r-Pb-jjQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="oXb-bh-sQP">
-                    <connections>
-                        <action selector="searchWithAddress:" destination="Y6W-OH-hqX" id="NSS-6v-N92"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="892.75362318840587" y="56.919642857142854"/>
+            <point key="canvasLocation" x="893" y="68"/>
         </scene>
         <!--MapScreen-->
         <scene sceneID="wHD-P9-ygU">
@@ -88,7 +69,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

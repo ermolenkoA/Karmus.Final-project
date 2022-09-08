@@ -44,25 +44,46 @@ class ConditionTaskViewController: UIViewController {
     }
     
     @IBAction func tapToProcessingTask(_ sender: Any) {
-        performSegue(withIdentifier: References.fromConditionTaskToAccountScreen, sender: self)
-        referenceDelTask = Database.database().reference().child("Tasks")
-        self.referenceDelTask.child(uniqueKeyFromMapAndTasks!).setValue(nil)
-        saveTask()
+        let firstAlertController = UIAlertController(title: "Задание ушло на обработку", message: "Ожидайте уведомления", preferredStyle: .alert)
+        let actionOk = UIAlertAction(title: "Ок", style: .default)
+                { [weak self] _ in
+                    self?.navigationController?.popToRootViewController(animated: true)
+                    self?.referenceDelTask = Database.database().reference().child("Tasks")
+                    self?.referenceDelTask.child(self!.uniqueKeyFromMapAndTasks!).setValue(nil)
+                    self?.saveTask()
+                    }
         
+            firstAlertController.addAction(actionOk)
+            present(firstAlertController, animated: true)
+
     }
     
     @IBAction func tapToMapScreen(_ sender: Any) {
-        performSegue(withIdentifier: References.fromConditionTaskToMapScreen, sender: self)
-        
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == References.fromConditionTaskToMapScreen {
-            let controller = segue.destination as! MapViewController
+        if let controller = navigationController?.viewControllers.first as? MapViewController {
             
             controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
+            print("КООРДИНАТЫ \(controller.taskLocation)")
+            NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
+            navigationController?.popToViewController(controller, animated: true)
         }
+        
     }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == References.fromConditionTaskToMapScreen {
+//            let controller = segue.destination as! MapViewController
+//
+//            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
+//        }
+//    }
     /// weak self?
+    
+//    @IBAction func unwindToMap(_ unwindSegue: UIStoryboardSegue) {
+//        let sourceViewController = unwindSegue.source
+//        performSegue(withIdentifier: "unwindToMap", sender: self)
+//        // Use data from the view controller which initiated the unwind segue
+//    }
+
+    
     @IBAction func tapToDeleteTask(_ sender: Any) {
         
         referenceDelTask = Database.database().reference().child("Tasks")
@@ -70,8 +91,9 @@ class ConditionTaskViewController: UIViewController {
                 let actionDelete = UIAlertAction(title: "Да", style: .cancel){[unowned self] _ in
                     self.referenceDelTask.child(uniqueKeyFromMapAndTasks!).setValue(nil)
                     let secondAlertController = UIAlertController(title: "Задание удалено", message: nil, preferredStyle: .alert)
-                    let actionOk = UIAlertAction(title: "Ок", style: .default){ _ in
-                        self.performSegue(withIdentifier: References.fromConditionTaskToTasksScreen, sender: self)
+                    let actionOk = UIAlertAction(title: "Ок", style: .default)
+                    { [weak self] _ in
+                        self?.navigationController?.popToRootViewController(animated: true)
                     }
                     secondAlertController.addAction(actionOk)
                     present(secondAlertController, animated: true)

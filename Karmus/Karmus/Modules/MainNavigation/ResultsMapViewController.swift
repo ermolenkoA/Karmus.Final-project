@@ -42,12 +42,6 @@ final class ResultsMapViewController: UIViewController, UITableViewDelegate, UIT
         tableView.dataSource = self
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        (sender as? ShowButtonProtocol)?.showButton()
-        
-        
-        
-    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

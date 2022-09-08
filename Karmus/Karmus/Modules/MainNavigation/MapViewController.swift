@@ -89,9 +89,8 @@ class MapViewController: UIViewController{
     @IBOutlet weak var tasksView: UIView!
     @IBOutlet weak var taskBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var titlePositionConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageTasks: UIImageView!
-    @IBOutlet private weak var mapView: MKMapView!
-    @IBOutlet weak var itemTabBarMap: UITabBarItem!
+    @IBOutlet var mapView: MKMapView!
+    var deleg: MKMapViewDelegate!
     
     var state: State = .closed
     var viewOffset: CGFloat = 130
@@ -114,11 +113,21 @@ class MapViewController: UIViewController{
     var taskLocation: CLLocationCoordinate2D!
     var activeTaskLocation: CLLocationCoordinate2D!
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        uploadActiveTasksInMap()
+        uploadGroupTasksInMap()
+        uploadTasksInMap()
+        mapView.delegate = self
+       
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadRegion), name: NSNotification.Name("lol"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(reloadMap), name: NSNotification.Name("MapView"), object: nil)
+    }
+ 
+
     override func viewDidLoad() {
-        super.viewDidLoad()
         mapView.delegate = self
         checkLocationEnabled()
-        setupViews()
         refActiveTasksMap = Database.database().reference().child("ActiveTasks")
         refTasksMap = Database.database().reference().child("Tasks")
         refGroupActiveTasks = Database.database().reference().child("GroupTasks")
@@ -126,15 +135,24 @@ class MapViewController: UIViewController{
         uploadActiveTasksInMap()
         uploadGroupTasksInMap()
         uploadTasksInMap()
+        setupViews()
+        super.viewDidLoad()
+       
+       
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    @objc private func reloadRegion() {
+        mapView.setRegion(MKCoordinateRegion.init(center: taskLocation, latitudinalMeters: 1500, longitudinalMeters: 1500), animated: true)
+
     }
+
+    
+    
     
     func uploadTasksInMap(){
+        self.mapView.removeAnnotations(mapView.annotations)
         refTasksMap.observe(DataEventType.value, with:{(snapshot) in
-        if snapshot.childrenCount > 0 {
+//        if snapshot.childrenCount > 0 {
             self.tasksMap.removeAll()
             for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
@@ -152,13 +170,14 @@ class MapViewController: UIViewController{
             for user in self.tasksMap{
                 self.mapView.addAnnotation(user)
                 }
-            }
+         //   }
         })
     }
     
     func uploadActiveTasksInMap(){
+        self.mapView.removeAnnotations(mapView.annotations)
         refActiveTasksMap.observe(DataEventType.value, with:{(snapshot) in
-        if snapshot.childrenCount > 0 {
+//        if snapshot.childrenCount > 0 {
             self.activeTasksMap.removeAll()
             for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
@@ -176,13 +195,14 @@ class MapViewController: UIViewController{
             for user in self.activeTasksMap{
                 self.mapView.addAnnotation(user)
                 }
-            }
+            //}
         })
     }
     
     func uploadGroupTasksInMap(){
+        self.mapView.removeAnnotations(mapView.annotations)
         refGroupActiveTasks.observe(DataEventType.value, with:{(snapshot) in
-        if snapshot.childrenCount > 0 {
+ //       if snapshot.childrenCount > 0 {
             self.groupTasksMap.removeAll()
             for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
@@ -200,12 +220,21 @@ class MapViewController: UIViewController{
             for user in self.groupTasksMap{
                 self.mapView.addAnnotation(user)
                 }
-            }
+   //         }
         })
     }
     
-    @IBAction func didTapImageView(_ sender: UITapGestureRecognizer) {
-       // performSegue(withIdentifier: References.fromMapToTasksScreen, sender: self)
+    @IBAction func tapToActiveTasksScreen(_ sender: Any) {
+        performSegue(withIdentifier: References.fromMapToActiveTasksScreen, sender: self)
+        print("active")
+    }
+    
+    @IBAction func tapToTasksScreen(_ sender: Any) {
+        performSegue(withIdentifier: References.fromMapToTasksScreen, sender: self)
+    }
+    
+    @IBAction func tapToCreationScreen(_ sender: Any) {
+        performSegue(withIdentifier: References.fromMapToCreationTaskScreen, sender: self)
     }
     
     func animateView(to state: State, duration: TimeInterval) {
@@ -255,7 +284,6 @@ class MapViewController: UIViewController{
                 self.tasksTitle.transform = CGAffineTransform(scaleX: 1, y: 1)
             case .closed:
                 self.titlePositionConstraint.constant = 8
-               // self.tasksTitle.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
             }
             self.view.layoutIfNeeded()
     }
@@ -264,7 +292,6 @@ class MapViewController: UIViewController{
     
     func setupViews(){
         self.taskBottomConstraint.constant = 0
-      //  self.tasksTitle.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         self.view.layoutIfNeeded()
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.onDrag(_:)))
         let newPanGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTap(_:)))
@@ -335,8 +362,6 @@ class MapViewController: UIViewController{
             print("show")
             mapView.showsUserLocation = true
             locationManager.startUpdatingLocation()
-//            locationManager.requestLocation()
- //           break
         case .authorized:
             print("nonautho")
             break
@@ -361,47 +386,16 @@ class MapViewController: UIViewController{
         self.present(alert, animated: true)
         
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == References.fromMapActiveTaskToDeclarationTaskScreen {
-            let controller = segue.destination as! DeclarationOfTasksViewController
-            controller.uniqueKeyFromMap = uniqueKey
-         }
-        
-        if segue.identifier == References.fromMapTaskToConditionTaskScreen {
-            let controller = segue.destination as! ConditionTaskViewController
-            controller.uniqueKeyFromMapAndTasks = uniqueKey
-        }
-    }
+
 }
 
-//extension MapViewController: UISearchBarDelegate{
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        searchBarController.resignFirstResponder()
-//
-//        let geocoder = CLGeocoder()
-//        geocoder.geocodeAddressString(searchBarController.text!){ (placemarks:[CLPlacemark]?, error:Error?) in
-//            if error == nil {
-//                let placemark = placemarks?.first
-//
-//                let anno = MKPointAnnotation()
-//                anno.coordinate = (placemark?.location?.coordinate)!
-//                anno.title = self.searchBarController.text!
-//                
-//                self.mapView.addAnnotation(anno)
-//                self.mapView.selectAnnotation(anno, animated: true)
-//            }else {
-//                print(error?.localizedDescription ?? "error")
-//            }
-//        }
-//    }
-//}
+
 
 extension MapViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        guard let location = locations.last?.coordinate else {return}
         guard let latestLocation = locations.first else {return}
-        
+        mapView.reloadInputViews()
         if currentLocation == nil {
             if taskLocation != nil {
                 let region = MKCoordinateRegion.init(center: taskLocation, latitudinalMeters: 1000, longitudinalMeters: 1000)
@@ -427,50 +421,40 @@ extension MapViewController: CLLocationManagerDelegate{
 }
 extension MapViewController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        guard let annotation = annotation as? ModelTasksMap else {return nil}
+
         var viewMarker: MKMarkerAnnotationView
         let idView = "marker"
         let sameAnnotation = annotation as? ModelGroupTasksMap
         if let annotation = annotation as? ModelTasksMap {
-            
+
             viewMarker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
             viewMarker.canShowCallout = true
             viewMarker.calloutOffset = CGPoint(x: 0, y: 9)
             viewMarker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             viewMarker.markerTintColor = .green
             viewMarker.superview?.bringSubviewToFront(viewMarker)
-            
+
         } else if let annotation = annotation as? ModelActiveTasksMap{
-            
+
             viewMarker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
             viewMarker.canShowCallout = true
             viewMarker.calloutOffset = CGPoint(x: 0, y: 9)
             viewMarker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             viewMarker.markerTintColor = .red
-            
+
         } else if let annotation = annotation as? ModelGroupTasksMap {
-            
+
             viewMarker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
             viewMarker.canShowCallout = true
             viewMarker.calloutOffset = CGPoint(x: 0, y: 9)
             viewMarker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             viewMarker.markerTintColor = .systemBlue
-            
+
            // return nil
         }else{
             return nil
         }
- //       if let view = mapView.dequeueReusableAnnotationView(withIdentifier: idView) as? MKMarkerAnnotationView{
-//            view.annotation = annotation
-//            viewMarker = view
-//        }else{
-//            if refTasksMap.isProxy(){
-//                viewMarker.markerTintColor = .green
-//            }else{
-//        viewMarker.markerTintColor = .red
-//            }
-//        viewMarker.leftCalloutAccessoryView = UILabel(frame: )
-       // }
+
         return viewMarker
 
     }
@@ -486,6 +470,10 @@ extension MapViewController: MKMapViewDelegate{
         let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
         { [unowned self] _ in
             performSegue(withIdentifier: References.fromMapTaskToConditionTaskScreen, sender: self)
+            if let controller = navigationController?.topViewController as? ConditionTaskViewController {
+                controller.uniqueKeyFromMapAndTasks = uniqueKey
+            }
+            
         }
             let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default){  _ in
                 let startPointUser = MKPlacemark(coordinate: coordinate)
@@ -517,6 +505,9 @@ extension MapViewController: MKMapViewDelegate{
         let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
         { [unowned self] _ in
             performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
+            if let controller = navigationController?.topViewController as? DeclarationOfTasksViewController {
+                controller.uniqueKeyFromMap = uniqueKey
+            }
         }
             let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default){ _ in
                 let startPointUser = MKPlacemark(coordinate: coordinate)
@@ -547,6 +538,9 @@ extension MapViewController: MKMapViewDelegate{
         let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
         { [unowned self] _ in
             performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
+            if let controller = navigationController?.topViewController as? DeclarationOfTasksViewController {
+                controller.uniqueKeyFromMap = uniqueKey
+            }
         }
             let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default){ _ in
                 let startPointUser = MKPlacemark(coordinate: coordinate)
@@ -684,3 +678,4 @@ extension MapViewController: MKMapViewDelegate{
 //    print("eee[[[[[")
 ////            request.destination = MKMapItem(placemark: startPointUser)
 //}
+

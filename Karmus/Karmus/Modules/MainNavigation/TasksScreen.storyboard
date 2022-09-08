@@ -68,14 +68,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fL-dc-mVT">
-                                <rect key="frame" x="0.0" y="0.0" width="75" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="К карте"/>
-                                <connections>
-                                    <action selector="didTapToMapButton" destination="UWf-iL-1Gg" eventType="touchUpInside" id="pmo-2B-mbu"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fOv-Fd-kvv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -83,9 +75,7 @@
                             <constraint firstItem="fOv-Fd-kvv" firstAttribute="trailing" secondItem="pmq-Jq-rh0" secondAttribute="trailing" id="QL3-tl-o70"/>
                             <constraint firstItem="pmq-Jq-rh0" firstAttribute="leading" secondItem="fOv-Fd-kvv" secondAttribute="leading" id="R5p-dm-WUk"/>
                             <constraint firstItem="pmq-Jq-rh0" firstAttribute="bottom" secondItem="fOv-Fd-kvv" secondAttribute="bottom" id="YlY-rz-tgv"/>
-                            <constraint firstItem="9fL-dc-mVT" firstAttribute="top" secondItem="fOv-Fd-kvv" secondAttribute="top" id="ZbT-ih-gaq"/>
                             <constraint firstItem="pmq-Jq-rh0" firstAttribute="top" secondItem="fOv-Fd-kvv" secondAttribute="top" constant="50" id="a5w-0f-9lg"/>
-                            <constraint firstItem="9fL-dc-mVT" firstAttribute="leading" secondItem="fOv-Fd-kvv" secondAttribute="leading" id="wTm-Hc-RkT"/>
                         </constraints>
                     </view>
                     <connections>

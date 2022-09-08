@@ -22,6 +22,13 @@ class TasksTableViewController: UIViewController{
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name("TasksTableView"), object: nil)
+        self.tableView.reloadData()
         refTasks = Database.database().reference().child("Tasks")
         refTasks.observe(DataEventType.value, with:{(snapshot) in
             if snapshot.childrenCount > 0 {
@@ -44,15 +51,14 @@ class TasksTableViewController: UIViewController{
                 self.tableView.reloadData()
             }
         })
-        
-            }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.navigationController?.isNavigationBarHidden = true
+    }
+//    @objc private func reloadTable(){
+//        self.tableView.reloadData()
 //    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == References.fromTasksToConditionTaskScreen {
+            
             let controller = segue.destination as! ConditionTaskViewController
             let indexPath = sender as! IndexPath
             let task = allTasks[indexPath.row]
@@ -61,22 +67,18 @@ class TasksTableViewController: UIViewController{
             
         }
     }
-    func deleteTask(id: String){
-        refTasks.child(id).setValue(nil)
-    }
-    
-    @IBAction private func didTapToMapButton() {
-        self.dismiss(animated: true)
-        navigationController?.viewControllers.first as? MapViewController
-    }
 }
 
     // MARK: - Table view data source
 extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate{
 
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       if allTasks.count == 0 {
+           return 0
+       }else{
         return allTasks.count
     }
+   }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! TasksTableViewCell
@@ -87,7 +89,7 @@ extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let task = allTasks[indexPath.row]
         performSegue(withIdentifier: References.fromTasksToConditionTaskScreen, sender: indexPath)
-//
+
     }
-    }
+}
  

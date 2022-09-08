@@ -8,15 +8,10 @@ import Firebase
 import MapKit
 import UIKit
 
-protocol ShowButtonProtocol{
-    func showButton()
-}
-
 
 class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate, MKMapViewDelegate{
 
-    @IBOutlet var mapContainer: UIView!
-    @IBOutlet weak var searchItem: UIImageView!
+    @IBOutlet weak var mapContainer: UIView!
     
     var typeFromCreation: String?
     var dateFromCreation: String?
@@ -38,14 +33,12 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
 //    @IBOutlet weak var addButton: UIButton!
     
     @IBOutlet weak var mapView: MKMapView!
-    let searchController = UISearchController(searchResultsController: ResultsMapViewController())
+    var searchController: UISearchController!  = .init(searchResultsController: ResultsMapViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
       }
-    override func viewWillDisappear(_ animated: Bool) {
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -55,14 +48,28 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
   //      refTasksCoordinates = refTasks.child("Coordinates")
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        mapView = nil
+        searchController = nil
+        refActiveTasks = nil
+        refGroupActiveTasks = nil
+        refTasksCoordinates = nil
+        
+    }
+    
     @IBAction func addTaskButton(_ sender: Any) {
         if longitudeCoordinate != nil && latitudeCoordinate != nil{
             if switchFromCreation == true {
                 self.saveFIRData(reference: refGroupActiveTasks)
-                performSegue(withIdentifier: References.ftomTaskMapToMapScreen, sender: self)
+                if let controller = navigationController?.viewControllers.first as? MapViewController {
+                navigationController?.popToViewController(controller, animated: true)
+                }
             }else {
                 self.saveFIRData(reference: refActiveTasks)
-                performSegue(withIdentifier: References.ftomTaskMapToMapScreen, sender: self)
+                if let controller = navigationController?.viewControllers.first as? MapViewController {
+                navigationController?.popToViewController(controller, animated: true)
+                }
             }
         }else {
             showAlert()
@@ -74,6 +81,7 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
         alert.addAction(UIAlertAction(title: "Ок", style: .default))
         present(alert, animated: true)
     }
+    
     @IBAction func searchWithAddress(_ sender: Any) {
         
         searchController.searchBar.backgroundColor = .secondarySystemBackground
@@ -81,10 +89,6 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
         searchController.searchBar.delegate = self
         (searchController.searchResultsController as? SetDelegate)?.setDelegate(sender: self)
         self.present(searchController, animated: true)
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.searchItem.alpha = 0
-            
-        }
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -210,13 +214,6 @@ extension TaskMapViewController: ResultsMapViewControllerDelegate {
 }
 
 
-extension TaskMapViewController: ShowButtonProtocol {
-    func showButton() {
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.searchItem.alpha = 1
-        }
-    }
-}
 extension TaskMapViewController: GetAddress {
     func resultAddress(address: String) {
         self.resultAddress = address
