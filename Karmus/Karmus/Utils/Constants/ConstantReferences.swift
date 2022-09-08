@@ -13,6 +13,7 @@ public struct References {
     static let fromIdentificationScreenToAccountScreen = "toAccountScreen"
     static let fromIdentificationToRegistrationScreen = "toRegistrationScreen2"
     
+    static let fromAccountScreenToMainStoryboard = "toMainStoryboard"
     static let fromMapToTasksScreen = "toTasksScreen"
     static let fromMapToActiveTasksScreen = "toActiveTasksScreen"
     static let fromMapToCreationTaskScreen = "toCreationTaskScreen"
@@ -33,4 +34,10 @@ public struct References {
     static let fromConditionTaskToAccountScreen =  "toAccountScreen"
     static let fromDeclarationToActiveTasksScreen = "ToActiveTasksScreen"
     
+    static let fromDeclarationToTasksScreen = "toTasksScreen"
+    static let fromIdentificationScreenToNewUserScreen = "toNewUserScreen"
+    static let fromNewUserScreentoFillMainInfo = "toFillMainProfileInfo"
+    static let fromFillMainInfotoFillAdditionalInfo = "toFillAdditionalInfo"
+    static let fromFillAdditionalInfotoAccountScreen = "toAccountScreenSecond"
+
 }

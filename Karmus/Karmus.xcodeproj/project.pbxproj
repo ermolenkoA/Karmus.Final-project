@@ -26,6 +26,15 @@
 		5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74028AC1313004C8A90 /* IdentificationViewController.swift */; };
 		5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74228AC1326004C8A90 /* RegistrationViewController.swift */; };
 		533630CE28B7DE8200F139E7 /* ModelActiveTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */; };
+		53378AC028BF7D37002749FE /* FillMainProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378ABF28BF7D37002749FE /* FillMainProfileInfoVC.swift */; };
+		53378AC328BF7D62002749FE /* FillMainProfileInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53378AC228BF7D62002749FE /* FillMainProfileInfo.storyboard */; };
+		53378AC828BF7E5A002749FE /* SetLoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378AC728BF7E5A002749FE /* SetLoginProtocol.swift */; };
+		53378ACD28BF8600002749FE /* BelarusianCities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378ACC28BF8600002749FE /* BelarusianCities.swift */; };
+		53378ADD28C00ACA002749FE /* FillProfileInfoProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378ADC28C00ACA002749FE /* FillProfileInfoProtocols.swift */; };
+		53378AE228C00B34002749FE /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378AE128C00B34002749FE /* SearchResultViewController.swift */; };
+		53378AE528C05EFD002749FE /* FBProfileInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378AE428C05EFD002749FE /* FBProfileInfoModel.swift */; };
+		53378AE828C067F8002749FE /* FillAdditionalProfileInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53378AE728C067F8002749FE /* FillAdditionalProfileInfo.storyboard */; };
+		53378AEB28C0681B002749FE /* FillAdditionalProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53378AEA28C0681B002749FE /* FillAdditionalProfileInfoVC.swift */; };
 		534700DC28B6099B00F23539 /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DB28B6099A00F23539 /* TasksTableViewController.swift */; };
 		534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DD28B6105C00F23539 /* TasksTableViewCell.swift */; };
 		534700E028B6135300F23539 /* ModelTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DF28B6135300F23539 /* ModelTasks.swift */; };
@@ -33,6 +42,10 @@
 		534700ED28B679CC00F23539 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700EC28B679CC00F23539 /* APIManager.swift */; };
 		534700EF28B67C3A00F23539 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700EE28B67C3A00F23539 /* Document.swift */; };
 		534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 534700F028B69D0F00F23539 /* GoogleService-Info.plist */; };
+		5348CBCD28C5C8BF00955D70 /* ForceQuitFromProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBCC28C5C8BF00955D70 /* ForceQuitFromProfile.swift */; };
+		5348CBD128C61E6C00955D70 /* ProfileSettingsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */; };
+		535FC1AB28C1F8D200A0BDE0 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */; };
+		535FC1AE28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */; };
 		5372EACF28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */; };
 		5372EAD128B7ADD000F3FFA8 /* ActiveTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */; };
 		5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */; };
@@ -42,10 +55,17 @@
 		53B0C84D28BF72A3008B518B /* TaskMapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B0C84C28BF72A3008B518B /* TaskMapScreen.storyboard */; };
 		53B0C84F28BF791B008B518B /* ResultsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B0C84E28BF791B008B518B /* ResultsMapViewController.swift */; };
 		53B0C85128BF8C83008B518B /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B0C85028BF8C83008B518B /* GooglePlacesManager.swift */; };
+		5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5387573D28BE5E610007196E /* NewUserScreen.storyboard */; };
+		5387574128BE61E20007196E /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574028BE61E20007196E /* GreetingViewController.swift */; };
+		5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574428BE6E590007196E /* KeychainSwiftExtension.swift */; };
+		53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
 		53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */; };
 		53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC394328AD43E300867BC9 /* MapScreen.storyboard */; };
 		53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394528AD43FE00867BC9 /* MapViewController.swift */; };
 		53DD85EB28C9FF2000FDD84D /* CreationTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53DD85EA28C9FF2000FDD84D /* CreationTaskScreen.storyboard */; };
+		53C9BA1928C4D9C700B1EFB7 /* StoryboardNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */; };
+		53C9BA1C28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */; };
+		53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */; };
 		CE15417C28B266E0007731FA /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15417B28B266E0007731FA /* PopViewController.swift */; };
 		CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15418928B29A71007731FA /* RegistrationEnumeration.swift */; };
 		CE26DC8228B414CD0022F401 /* PhoneNumberVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */; };
@@ -59,7 +79,7 @@
 		CE29863328B3E12C00B4AE9D /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863228B3E12C00B4AE9D /* ResultModel.swift */; };
 		CE29863A28B3F55300B4AE9D /* CodeGenerate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863928B3F55300B4AE9D /* CodeGenerate.swift */; };
 		CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29863D28B400B800B4AE9D /* ConstantKeys.swift */; };
-		CE29864128B4054B00B4AE9D /* DateExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29864028B4054B00B4AE9D /* DateExtention.swift */; };
+		CE29864128B4054B00B4AE9D /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29864028B4054B00B4AE9D /* DateExtension.swift */; };
 		CE3A8A6728B8204600BCE54A /* FireBaseProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */; };
 		CE3A8A6A28B8226900BCE54A /* FireBaseKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A6928B8226900BCE54A /* FireBaseKeys.swift */; };
 		CE3A8A6F28B8389800BCE54A /* FireBaseEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A8A6E28B8389800BCE54A /* FireBaseEnumerations.swift */; };
@@ -93,6 +113,15 @@
 		5316D74028AC1313004C8A90 /* IdentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationViewController.swift; sourceTree = "<group>"; };
 		5316D74228AC1326004C8A90 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelActiveTasks.swift; sourceTree = "<group>"; };
+		53378ABF28BF7D37002749FE /* FillMainProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillMainProfileInfoVC.swift; sourceTree = "<group>"; };
+		53378AC228BF7D62002749FE /* FillMainProfileInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FillMainProfileInfo.storyboard; sourceTree = "<group>"; };
+		53378AC728BF7E5A002749FE /* SetLoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLoginProtocol.swift; sourceTree = "<group>"; };
+		53378ACC28BF8600002749FE /* BelarusianCities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BelarusianCities.swift; sourceTree = "<group>"; };
+		53378ADC28C00ACA002749FE /* FillProfileInfoProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillProfileInfoProtocols.swift; sourceTree = "<group>"; };
+		53378AE128C00B34002749FE /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		53378AE428C05EFD002749FE /* FBProfileInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBProfileInfoModel.swift; sourceTree = "<group>"; };
+		53378AE728C067F8002749FE /* FillAdditionalProfileInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FillAdditionalProfileInfo.storyboard; sourceTree = "<group>"; };
+		53378AEA28C0681B002749FE /* FillAdditionalProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillAdditionalProfileInfoVC.swift; sourceTree = "<group>"; };
 		534700DB28B6099A00F23539 /* TasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		534700DD28B6105C00F23539 /* TasksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCell.swift; sourceTree = "<group>"; };
 		534700DF28B6135300F23539 /* ModelTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTasks.swift; sourceTree = "<group>"; };
@@ -100,6 +129,10 @@
 		534700EC28B679CC00F23539 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		534700EE28B67C3A00F23539 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		534700F028B69D0F00F23539 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5348CBCC28C5C8BF00955D70 /* ForceQuitFromProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceQuitFromProfile.swift; sourceTree = "<group>"; };
+		5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocols.swift; sourceTree = "<group>"; };
+		535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewExtension.swift; sourceTree = "<group>"; };
+		535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePreferencesViewController.swift; sourceTree = "<group>"; };
 		5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActiveTasksScreen.storyboard; sourceTree = "<group>"; };
 		5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewController.swift; sourceTree = "<group>"; };
 		5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewCell.swift; sourceTree = "<group>"; };
@@ -109,6 +142,10 @@
 		53B0C84C28BF72A3008B518B /* TaskMapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskMapScreen.storyboard; sourceTree = "<group>"; };
 		53B0C84E28BF791B008B518B /* ResultsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsMapViewController.swift; sourceTree = "<group>"; };
 		53B0C85028BF8C83008B518B /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
+		5387573D28BE5E610007196E /* NewUserScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewUserScreen.storyboard; sourceTree = "<group>"; };
+		5387574028BE61E20007196E /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
+		5387574428BE6E590007196E /* KeychainSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftExtension.swift; sourceTree = "<group>"; };
+		53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountScreen.storyboard; sourceTree = "<group>"; };
 		53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksScreen.storyboard; sourceTree = "<group>"; };
 		53BC394328AD43E300867BC9 /* MapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapScreen.storyboard; sourceTree = "<group>"; };
 		53BC394528AD43FE00867BC9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +153,9 @@
 		59BABBC8549E512DF96278DA /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
 		6982DCEAC19D342C87CB2079 /* Pods_Karmus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Karmus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A8A9A8FE33EDFFB1F086985 /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
+		53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardNames.swift; sourceTree = "<group>"; };
+		53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeActivityIndicatorStatusProtocol.swift; sourceTree = "<group>"; };
+		53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		CE15417B28B266E0007731FA /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
 		CE15418928B29A71007731FA /* RegistrationEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEnumeration.swift; sourceTree = "<group>"; };
 		CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberVerification.swift; sourceTree = "<group>"; };
@@ -129,7 +169,7 @@
 		CE29863228B3E12C00B4AE9D /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 		CE29863928B3F55300B4AE9D /* CodeGenerate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeGenerate.swift; sourceTree = "<group>"; };
 		CE29863D28B400B800B4AE9D /* ConstantKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantKeys.swift; sourceTree = "<group>"; };
-		CE29864028B4054B00B4AE9D /* DateExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtention.swift; sourceTree = "<group>"; };
+		CE29864028B4054B00B4AE9D /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseProfileModel.swift; sourceTree = "<group>"; };
 		CE3A8A6928B8226900BCE54A /* FireBaseKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseKeys.swift; sourceTree = "<group>"; };
 		CE3A8A6E28B8389800BCE54A /* FireBaseEnumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseEnumerations.swift; sourceTree = "<group>"; };
@@ -147,7 +187,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EAEC71D86E014C6AE8D6CEC /* Pods_Karmus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +199,6 @@
 				5316D72428AC0FBE004C8A90 /* Karmus */,
 				5316D72328AC0FBE004C8A90 /* Products */,
 				EFE8003D3A212837F1ABA9F0 /* Pods */,
-				B22E1449D658C4A0628B1A61 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -187,6 +225,75 @@
 			path = Karmus;
 			sourceTree = "<group>";
 		};
+		53378ABD28BF646E002749FE /* ChangeProfileInfo */ = {
+			isa = PBXGroup;
+			children = (
+				53378ABF28BF7D37002749FE /* FillMainProfileInfoVC.swift */,
+				53378AC228BF7D62002749FE /* FillMainProfileInfo.storyboard */,
+				53378AE728C067F8002749FE /* FillAdditionalProfileInfo.storyboard */,
+				53378AEA28C0681B002749FE /* FillAdditionalProfileInfoVC.swift */,
+				535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */,
+				53378AE128C00B34002749FE /* SearchResultViewController.swift */,
+			);
+			path = ChangeProfileInfo;
+			sourceTree = "<group>";
+		};
+		53378AC628BF7E37002749FE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				53378AC728BF7E5A002749FE /* SetLoginProtocol.swift */,
+				53378ADC28C00ACA002749FE /* FillProfileInfoProtocols.swift */,
+				53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */,
+				5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		53378ACB28BF85B1002749FE /* BelarusianCities */ = {
+			isa = PBXGroup;
+			children = (
+				53378ACC28BF8600002749FE /* BelarusianCities.swift */,
+			);
+			path = BelarusianCities;
+			sourceTree = "<group>";
+		};
+		5348CBD428C63E9A00955D70 /* ProfileTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				5348CBD528C63F6700955D70 /* Account */,
+			);
+			path = ProfileTabBar;
+			sourceTree = "<group>";
+		};
+		5348CBD528C63F6700955D70 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */,
+				53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */,
+				53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		5348CBD628C63FAD00955D70 /* Usefull functions */ = {
+			isa = PBXGroup;
+			children = (
+				5348CBCC28C5C8BF00955D70 /* ForceQuitFromProfile.swift */,
+				CE50DF1128B7B20800D90D4A /* DefaultAlert.swift */,
+			);
+			path = "Usefull functions";
+			sourceTree = "<group>";
+		};
+		5348CBD728C63FDC00955D70 /* Verification */ = {
+			isa = PBXGroup;
+			children = (
+				CE50DF0E28B78FD100D90D4A /* AntiSpam.swift */,
+				CE29863928B3F55300B4AE9D /* CodeGenerate.swift */,
+				CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */,
+			);
+			path = Verification;
+			sourceTree = "<group>";
+		};
 		5372EAD828B7DDB100F3FFA8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,12 +303,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		B22E1449D658C4A0628B1A61 /* Frameworks */ = {
+		5387573828BE5DEB0007196E /* NewUser */ = {
 			isa = PBXGroup;
 			children = (
-				6982DCEAC19D342C87CB2079 /* Pods_Karmus.framework */,
+				5387573D28BE5E610007196E /* NewUserScreen.storyboard */,
+				5387574028BE61E20007196E /* GreetingViewController.swift */,
 			);
-			name = Frameworks;
+			path = NewUser;
 			sourceTree = "<group>";
 		};
 		CE15417A28B26693007731FA /* Registration */ = {
@@ -218,7 +326,9 @@
 			isa = PBXGroup;
 			children = (
 				CE29860E28B37C8B00B4AE9D /* StringExtension.swift */,
-				CE29864028B4054B00B4AE9D /* DateExtention.swift */,
+				CE29864028B4054B00B4AE9D /* DateExtension.swift */,
+				5387574428BE6E590007196E /* KeychainSwiftExtension.swift */,
+				535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -270,6 +380,7 @@
 			isa = PBXGroup;
 			children = (
 				CE3A8A6628B8204600BCE54A /* FireBaseProfileModel.swift */,
+				53378AE428C05EFD002749FE /* FBProfileInfoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,13 +388,13 @@
 		CE6EBC0A28ACEE080095F9BA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				CE26DC8128B414CD0022F401 /* PhoneNumberVerification.swift */,
+				53378ACB28BF85B1002749FE /* BelarusianCities */,
+				53378AC628BF7E37002749FE /* Protocols */,
 				CEE6717C28B61EB800CC8853 /* Enumerations */,
-				CE29863928B3F55300B4AE9D /* CodeGenerate.swift */,
+				5348CBD728C63FDC00955D70 /* Verification */,
+				5348CBD628C63FAD00955D70 /* Usefull functions */,
 				CE29860A28B37C5B00B4AE9D /* Extensions */,
 				CEDE8C1A28ACFEEE00957E21 /* Constants */,
-				CE50DF0E28B78FD100D90D4A /* AntiSpam.swift */,
-				CE50DF1128B7B20800D90D4A /* DefaultAlert.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -308,8 +419,11 @@
 		CE70E85A28ACDC57001F508B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				CE70E86128ACDE01001F508B /* MainNavigation */,
 				5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */,
+				53378ABD28BF646E002749FE /* ChangeProfileInfo */,
+				5387573828BE5DEB0007196E /* NewUser */,
+				CE70E86128ACDE01001F508B /* MainNavigation */,
+				5348CBD428C63E9A00955D70 /* ProfileTabBar */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -363,6 +477,7 @@
 				CE29863D28B400B800B4AE9D /* ConstantKeys.swift */,
 				CE26DC8428B4393F0022F401 /* ConstantValues.swift */,
 				CE3A8A7528B8473600BCE54A /* ProfileModelConstants.swift */,
+				53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -389,8 +504,6 @@
 		EFE8003D3A212837F1ABA9F0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				59BABBC8549E512DF96278DA /* Pods-Karmus.debug.xcconfig */,
-				9A8A9A8FE33EDFFB1F086985 /* Pods-Karmus.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -402,7 +515,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5316D73928AC0FC2004C8A90 /* Build configuration list for PBXNativeTarget "Karmus" */;
 			buildPhases = (
-				C2F2CB374DA8DD658F210FD5 /* [CP] Check Pods Manifest.lock */,
 				5316D71E28AC0FBE004C8A90 /* Sources */,
 				5316D71F28AC0FBE004C8A90 /* Frameworks */,
 				5316D72028AC0FBE004C8A90 /* Resources */,
@@ -460,11 +572,15 @@
 				53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */,
 				5316D73528AC0FC2004C8A90 /* LaunchScreen.storyboard in Resources */,
 				530A412A28C2390E00CA7F84 /* ConditionTaskScreen.storyboard in Resources */,
+				53378AE828C067F8002749FE /* FillAdditionalProfileInfo.storyboard in Resources */,
+				5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */,
 				5316D73228AC0FC2004C8A90 /* Assets.xcassets in Resources */,
 				5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */,
 				53B0C84D28BF72A3008B518B /* TaskMapScreen.storyboard in Resources */,
 				530A415A28C499A300CA7F84 /* ProcessingTaskScreen.storyboard in Resources */,
 				5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */,
+				534700E428B621D900F23539 /* CreationTaskScreen.storyboard in Resources */,
+				53378AC328BF7D62002749FE /* FillMainProfileInfo.storyboard in Resources */,
 				534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */,
 				5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */,
 				53DD85EB28C9FF2000FDD84D /* CreationTaskScreen.storyboard in Resources */,
@@ -546,6 +662,7 @@
 				CE26DC8928B4A4BA0022F401 /* SMSManagerResultEnum.swift in Sources */,
 				53B0C84B28BF7288008B518B /* TaskMapViewController.swift in Sources */,
 				CE29864128B4054B00B4AE9D /* DateExtention.swift in Sources */,
+				CE29864128B4054B00B4AE9D /* DateExtension.swift in Sources */,
 				CE50DF1228B7B20800D90D4A /* DefaultAlert.swift in Sources */,
 				CEE6717528B61BB600CC8853 /* Reachability.swift in Sources */,
 				5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */,
@@ -556,37 +673,53 @@
 				CE29863328B3E12C00B4AE9D /* ResultModel.swift in Sources */,
 				53B0C84F28BF791B008B518B /* ResultsMapViewController.swift in Sources */,
 				CE3A8A6A28B8226900BCE54A /* FireBaseKeys.swift in Sources */,
+				5348CBD128C61E6C00955D70 /* ProfileSettingsProtocols.swift in Sources */,
 				CE15417C28B266E0007731FA /* PopViewController.swift in Sources */,
 				530A416228C4B29200CA7F84 /* ComplitedTasksTableViewCell.swift in Sources */,
+				53378AE228C00B34002749FE /* SearchResultViewController.swift in Sources */,
 				534700ED28B679CC00F23539 /* APIManager.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				CEE6717F28B621C100CC8853 /* PhoneVerificationEnumerations.swift in Sources */,
+				535FC1AB28C1F8D200A0BDE0 /* TextViewExtension.swift in Sources */,
 				533630CE28B7DE8200F139E7 /* ModelActiveTasks.swift in Sources */,
 				CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */,
 				CE3A8A6728B8204600BCE54A /* FireBaseProfileModel.swift in Sources */,
 				CE3A8A7628B8473600BCE54A /* ProfileModelConstants.swift in Sources */,
+				53C9BA1928C4D9C700B1EFB7 /* StoryboardNames.swift in Sources */,
 				5316D72628AC0FBE004C8A90 /* AppDelegate.swift in Sources */,
 				CEDE8C1D28ACFF1F00957E21 /* ConstantReferences.swift in Sources */,
 				530A412C28C2393100CA7F84 /* ConditionTaskViewController.swift in Sources */,
+				535FC1AE28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift in Sources */,
 				534700DC28B6099B00F23539 /* TasksTableViewController.swift in Sources */,
 				CE26DC8228B414CD0022F401 /* PhoneNumberVerification.swift in Sources */,
+				5387574128BE61E20007196E /* GreetingViewController.swift in Sources */,
+				53378ACD28BF8600002749FE /* BelarusianCities.swift in Sources */,
 				CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
 				534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */,
 				530A416028C49A6A00CA7F84 /* ProcessingTaskViewController.swift in Sources */,
 				CE3A8A6F28B8389800BCE54A /* FireBaseEnumerations.swift in Sources */,
+				53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
 				534700EF28B67C3A00F23539 /* Document.swift in Sources */,
 				530A415C28C49A0400CA7F84 /* ComplitedTasksTableViewController.swift in Sources */,
+				53378AC028BF7D37002749FE /* FillMainProfileInfoVC.swift in Sources */,
 				5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */,
 				534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */,
+				53378ADD28C00ACA002749FE /* FillProfileInfoProtocols.swift in Sources */,
 				CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */,
+				53C9BA1C28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift in Sources */,
 				CE50DF0F28B78FD100D90D4A /* AntiSpam.swift in Sources */,
 				5372EAD128B7ADD000F3FFA8 /* ActiveTasksViewController.swift in Sources */,
 				CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */,
 				CE50DF6E28B7FC3000D90D4A /* FireBaseManager.swift in Sources */,
+				53378AE528C05EFD002749FE /* FBProfileInfoModel.swift in Sources */,
+				53378AC828BF7E5A002749FE /* SetLoginProtocol.swift in Sources */,
+				5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */,
+				5348CBCD28C5C8BF00955D70 /* ForceQuitFromProfile.swift in Sources */,
 				CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */,
 				CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */,
+				53378AEB28C0681B002749FE /* FillAdditionalProfileInfoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,13 +861,12 @@
 		};
 		5316D73A28AC0FC2004C8A90 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59BABBC8549E512DF96278DA /* Pods-Karmus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X9JXK35MFD;
+				DEVELOPMENT_TEAM = 7KWY9SWUN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Karmus/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Для выбора фото";
@@ -762,13 +894,13 @@
 		};
 		5316D73B28AC0FC2004C8A90 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A8A9A8FE33EDFFB1F086985 /* Pods-Karmus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X9JXK35MFD;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Karmus/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Для выбора фото";
@@ -788,6 +920,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vironit.Nesterovich.Ermolenko;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

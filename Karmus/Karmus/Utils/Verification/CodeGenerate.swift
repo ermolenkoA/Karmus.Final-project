@@ -25,7 +25,7 @@ final class Code {
     }
     
     func PasswordResetMessageWithCode(name: String) -> (messageBody: String, code: String){
-        ("Karmus\n\nЗдравствуйте, \(name).\nВаш код для восстановления пароля: ", self.randomCode)
+        ("Karmus\n\nЗдравствуйте, \(name).\nВаш код для смены пароля: ", self.randomCode)
     }
 }
 

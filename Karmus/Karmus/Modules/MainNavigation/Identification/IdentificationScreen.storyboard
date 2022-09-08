@@ -36,7 +36,7 @@
                             </label>
                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ke-2K-8kL">
                                 <rect key="frame" x="115" y="357" width="90" height="34"/>
-                                <color key="backgroundColor" red="0.55735138660000005" green="1" blue="0.87869217730000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.55727696419999995" green="1" blue="0.87903004880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Войти">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -82,7 +82,6 @@
                         <outlet property="passwordTextField" destination="Uax-8W-JfH" id="arv-LS-r3f"/>
                         <outlet property="submitButton" destination="3ke-2K-8kL" id="R73-GQ-2V2"/>
                         <outlet property="titleLabel" destination="qTw-3C-xWa" id="oZ5-Gp-7hf"/>
-                        <segue destination="BOa-1R-7dh" kind="show" identifier="toAccountScreen" id="gWs-Kr-evT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -93,16 +92,6 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-28" y="97"/>
-        </scene>
-        <!--AccountScreen-->
-        <scene sceneID="gke-yn-Bjo">
-            <objects>
-                <viewControllerPlaceholder storyboardName="AccountScreen" id="BOa-1R-7dh" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="6bb-7W-fkP"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Edh-5p-tM8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="646" y="96"/>
         </scene>
     </scenes>
     <resources>

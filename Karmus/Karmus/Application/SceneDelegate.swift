@@ -6,17 +6,71 @@
 //
 
 import UIKit
+import KeychainSwift
+import FirebaseDatabase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    
+    static var keyWindow: UIWindow?
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let mainScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: mainScene)
+        SceneDelegate.keyWindow = window
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        window?.rootViewController = storyboard.instantiateInitialViewController()
+        window?.rootViewController?.view.isUserInteractionEnabled = false
+        let navigationController = window?.rootViewController as? UINavigationController
+        (navigationController?.topViewController as? ChangeActivityIndicatorStatusProtocol)?.startActivityIndicator()
+        window?.makeKeyAndVisible()
+        
+        if let profileID = KeychainSwift.shared.get(ConstantKeys.currentProfile),
+           let lastLogInDate = UserDefaults.standard.value(forKey: ConstantKeys.lastLogInDate) as? Date {
+            
+            FireBaseDataBaseManager.getProfileUpdateDate(profileID) { [weak self] profileUpdateDate in
+            
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
+
+                if let noFormattedDate = profileUpdateDate,
+                   let updateDate = formatter.date(from: noFormattedDate),
+                   (updateDate.isLessThanDate(dateToCompare: lastLogInDate)
+                        || updateDate.equalToDate(dateToCompare: lastLogInDate)) {
+
+                    Database.database().reference()
+                        .child(FBDefaultKeys.profiles)
+                        .child(profileID)
+                        .child(FBProfileKeys.profileUpdateDate)
+                        .setValue(formatter.string(from: Date()))
+                    UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
+                    self?.showAccountVC()
+                    
+                } else {
+
+                    KeychainSwift.shared.delete(ConstantKeys.currentProfile)
+                    UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
+                    self?.window?.rootViewController?.view.isUserInteractionEnabled = true
+                    (navigationController?.topViewController as? ChangeActivityIndicatorStatusProtocol)?.stopActivityIndicator()
+                }
+            }
+            
+        } else {
+            KeychainSwift.shared.delete(ConstantKeys.currentProfile)
+            UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
+            window?.rootViewController?.view.isUserInteractionEnabled = true
+            (navigationController?.topViewController as? ChangeActivityIndicatorStatusProtocol)?.stopActivityIndicator()
+        }
+    }
+    
+    private func showAccountVC() {
+        let storyboard = UIStoryboard(name: "AccountScreen", bundle: nil)
+        window?.rootViewController = storyboard.instantiateInitialViewController()
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

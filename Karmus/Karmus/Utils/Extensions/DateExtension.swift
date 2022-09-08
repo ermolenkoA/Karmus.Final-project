@@ -8,6 +8,7 @@
 import Foundation
 
 extension Date {
+    
     func isGreaterThanDate(dateToCompare: Date) -> Bool {
 
         var isGreater = false
@@ -40,8 +41,14 @@ extension Date {
 
         return isEqualTo
     }
-
-
+    
+    static func year1950() -> Date {
+        let dateComponents = NSDateComponents()
+        dateComponents.year = 1950
+        let calendar = NSCalendar.current
+        return calendar.date(from: dateComponents as DateComponents)!
+    }
+    
     func addHours(hoursToAdd: UInt) -> Date {
         let secondsInHours: TimeInterval = Double(hoursToAdd) * 60 * 60
         let dateWithHoursAdded: Date = self.addingTimeInterval(secondsInHours)

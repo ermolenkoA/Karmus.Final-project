@@ -4,10 +4,14 @@ Karmus/.DS_Store
 Karmus/Pods/.DS_Store
 Karmus/Karmus.xcworkspace/xcuserdata/vironit.xcuserdatad/UserInterfaceState.xcuserstate~mapSettings
 Karmus/.DS_Store~mapSettings
+Karmus/Karmus/.DS_Store
+Karmus/Karmus/Modules/.DS_Store
+Karmus/Karmus/Resources/.DS_Store
 
 # Xcode personal settings
 xcuserdata/
-Karmus.xcodeproj/xcuserdata/vironit.xcuserdatad/xcschemes/xcschememanagement.plist
+Karmus/Karmus.xcodeproj/xcuserdata/vironit.xcuserdatad/xcschemes/xcschememanagement.plist
+
 # Cocoapods
 Pods/
 Karmus/Pods/
@@ -15,4 +19,4 @@ Karmus/Pods/
 # Build Artifacts
 build/
 .build/
-DerivedData/
+DerivedData/,

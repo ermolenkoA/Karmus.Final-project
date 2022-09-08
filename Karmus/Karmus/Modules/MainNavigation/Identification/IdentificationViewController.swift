@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import KeychainSwift
 
 final class IdentificationViewController: UIViewController {
 
@@ -16,7 +17,6 @@ final class IdentificationViewController: UIViewController {
     
     @IBOutlet private weak var loginTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
-    
     
     @IBOutlet private weak var forgotPasswordLabel: UILabel!
     
@@ -34,6 +34,7 @@ final class IdentificationViewController: UIViewController {
     private var isNetworkConected: Bool {
 
         guard Reachability.isConnectedToNetwork() else {
+            
             showAlert("Отсутствует доступ к интернету", "Проверьте подключение и повторите попытку", where: self)
             return false
         }
@@ -45,6 +46,9 @@ final class IdentificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backItem = UIBarButtonItem()
+        backItem.title = "Вернуться"
+        navigationItem.backBarButtonItem = backItem
         
         submitButton.alpha = 0.5
         submitButton.layer.cornerRadius = 3
@@ -60,8 +64,11 @@ final class IdentificationViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        phoneNumberVerification = nil
+    }
     
-    @objc func keyboardNotification(notification: Notification){
+    @objc func keyboardNotification(notification: Notification) {
         
         guard let userInfo = notification.userInfo else { return }
         
@@ -105,7 +112,7 @@ final class IdentificationViewController: UIViewController {
         
         let title = "Восстановление пароля"
         let message = "Введите номер телефона на который зарегестрирован аккаунт"
-        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        var alert: UIAlertController! = .init(title: title, message: message, preferredStyle: .alert)
         alert.addTextField() {
             $0.placeholder = "Номер телефона"
         }
@@ -120,8 +127,11 @@ final class IdentificationViewController: UIViewController {
             guard phone ~= "^(\\+375)(29|25|33|44)([\\d]{7})$" else {
                 let title = "Некорректно введён номер"
                 let message = "Повторите попытку"
-                let newAlert = UIAlertController.init(title: title, message: message , preferredStyle: .alert)
-                let closeButton = UIAlertAction(title: "Закрыть", style: .cancel)
+                var newAlert: UIAlertController! = .init(title: title, message: message , preferredStyle: .alert)
+                let closeButton  = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+                    alert = nil
+                    newAlert = nil
+                }
                 let retryButton = UIAlertAction(title: "Ещё раз", style: .default) { [unowned self] _ in
                     self.present(alert, animated: true)
                 }
@@ -132,7 +142,11 @@ final class IdentificationViewController: UIViewController {
                 return
             }
             
-            Database.database().reference().child(FireBaseDefaultKeys.profiles).observeSingleEvent(of: .value) { [unowned self] snapshot in
+            Database.database().reference().child(FBDefaultKeys.profiles).observeSingleEvent(of: .value) { [weak self] snapshot in
+                
+                guard let self = self else{
+                    return
+                }
                 
                 guard snapshot.exists() else{
                     print("\n<IdentificationViewController\\didTapForgotPasswordLabel> ERROR: snapshot isn't exist\n")
@@ -156,36 +170,41 @@ final class IdentificationViewController: UIViewController {
                     }
                     
                     
-                    if profileElements[FireBaseProfileKeys.phoneNumber] as? String == phone {
-                        guard let profile = FireBaseDataBaseManager.parseDataToProfileModel(profile) else {
+                    if profileElements[FBProfileKeys.phoneNumber] as? String == phone {
+                        guard let profile = FireBaseDataBaseManager.parseDataForVerification(profile) else {
                             showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
                             return
                         }
-                        
                         self.phoneNumberVerification = PhoneNumberVerification(profile: profile,
-                                                                          for: .resetPassword, self)
+                                                                        for: .resetPassword, self)
                         self.phoneNumberVerification?.startVerification()
+                        alert = nil
                         return
                     }
-                
-                    let title = "Пользователь с такми номером не найден"
-                    let newAlert = UIAlertController.init(title: title, message: nil, preferredStyle: .alert)
-                    let closeButton = UIAlertAction(title: "Закрыть", style: .cancel)
-                    let retryButton = UIAlertAction(title: "Ещё раз", style: .default) { [unowned self] _ in
-                        self.present(alert, animated: true)
-                    }
-                    newAlert.addAction(retryButton)
-                    newAlert.addAction(closeButton)
-                    newAlert.view.tintColor = UIColor.black
-                    self.present(newAlert, animated: true)
-        
+                    
                 }
-            
+                
+                let title = "Пользователь с такми номером не найден"
+                var newAlert: UIAlertController! = .init(title: title, message: nil, preferredStyle: .alert)
+                let closeButton = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
+                    newAlert = nil
+                    alert = nil
+                }
+                let retryButton = UIAlertAction(title: "Ещё раз", style: .default) { [unowned self] _ in
+                    self.present(alert, animated: true)
+                    newAlert = nil
+                }
+                newAlert.addAction(retryButton)
+                newAlert.addAction(closeButton)
+                newAlert.view.tintColor = UIColor.black
+                self.present(newAlert, animated: true)
             }
         
         }
         
-        let closeButton = UIAlertAction(title: "Закрыть", style: .cancel)
+        let closeButton = UIAlertAction(title: "Закрыть", style: .cancel){ _ in
+            alert = nil
+        }
         alert.addAction(closeButton)
         alert.addAction(okButton)
         alert.view.tintColor = UIColor.black
@@ -212,17 +231,21 @@ final class IdentificationViewController: UIViewController {
                 return
             }
         }
+        
         let password = passwordTextField.text!
         passwordTextField.text = nil
+        
         guard password ~= "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d!@#$%^&*]{8,}$" else {
             showAlert("Неверно введен логин или пароль", nil, where: self)
             return
         }
         
-        
-        
-        FireBaseDataBaseManager.openProfile(login: login, password: Int64(password.hash)) { [unowned self] result in
+        FireBaseDataBaseManager.openProfile(login: login, password: Int64(password.hash)) { [weak self] result, profileID in
                 
+            guard let self = self else {
+                return
+            }
+            
             guard result != .error else{
                 showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
                 return
@@ -233,14 +256,57 @@ final class IdentificationViewController: UIViewController {
             } else {
                 self.loginTextField.text = nil
                 AntiSpam.resetUserLogInAttemps()
-                performSegue(withIdentifier: References.fromIdentificationScreenToAccountScreen, sender: self)
-            }
-                
-            
-        }
+                KeychainSwift.shared.set(profileID!, forKey: ConstantKeys.currentProfile)
+                KeychainSwift.shared.set(login, forKey: ConstantKeys.currentProfileLogin)
+                FireBaseDataBaseManager.getProfileUpdateDate(profileID!){ [weak self] date in
+                    if date == nil {
+                        
+                        let storyboard = UIStoryboard(name: StoryboardNames.newUserScreen, bundle: nil)
+                        guard let greetingVC = storyboard.instantiateInitialViewController() else {
+                            showAlert("Невозможно перейти", "Повторите попытку позже", where: self)
+                            return
+                        }
+                        self?.navigationController?.pushViewController(greetingVC, animated: true)
 
+                    } else {
+                        
+                        UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
+                        
+                        let storyboard = UIStoryboard(name: StoryboardNames.accountScreen, bundle: nil)
+                        guard let profileTabBarC = storyboard.instantiateInitialViewController() else {
+                            showAlert("Невозможно перейти", "Повторите попытку позже", where: self)
+                            return
+                        }
+                        
+                        self?.view.window?.rootViewController = profileTabBarC
+                        self?.view.window?.makeKeyAndVisible()
+                        
+                    }
+                }
+                
+            }
+        }
+        
     }
     
+}
+
+extension IdentificationViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard !string.contains(" ") else {
+            return false
+        }
+        let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        
+        switch textField {
+        case loginTextField:
+            return newText.count < 25
+        case passwordTextField:
+            return newText.count < 64
+        default:
+            return true
+        }
+    }
 }
 
 // MARK: - UISearchTextFieldDelegate

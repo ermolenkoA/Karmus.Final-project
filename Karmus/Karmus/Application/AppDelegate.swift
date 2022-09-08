@@ -7,16 +7,14 @@
 import CoreData
 import FirebaseCore
 import GooglePlaces
+import KeychainSwift
 import UIKit
 
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         FirebaseApp.configure()
 
         GMSPlacesClient.provideAPIKey("AIzaSyAnp1yp1tPG0ConRQKGFCj-Irmh1cV4svc")
