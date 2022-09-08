@@ -4,9 +4,10 @@ Karmus/.DS_Store
 Karmus/Pods/.DS_Store
 Karmus/Karmus.xcworkspace/xcuserdata/vironit.xcuserdatad/UserInterfaceState.xcuserstate~mapSettings
 Karmus/.DS_Store~mapSettings
+
 # Xcode personal settings
 xcuserdata/
-
+Karmus.xcodeproj/xcuserdata/vironit.xcuserdatad/xcschemes/xcschememanagement.plist
 # Build Artifacts
 build/
 .build/
