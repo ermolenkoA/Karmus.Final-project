@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2EAEC71D86E014C6AE8D6CEC /* Pods_Karmus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6982DCEAC19D342C87CB2079 /* Pods_Karmus.framework */; };
 		530A412A28C2390E00CA7F84 /* ConditionTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530A412928C2390E00CA7F84 /* ConditionTaskScreen.storyboard */; };
 		530A412C28C2393100CA7F84 /* ConditionTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A412B28C2393100CA7F84 /* ConditionTaskViewController.swift */; };
 		530A415A28C499A300CA7F84 /* ProcessingTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 530A415928C499A300CA7F84 /* ProcessingTaskScreen.storyboard */; };
@@ -46,25 +45,23 @@
 		5348CBD128C61E6C00955D70 /* ProfileSettingsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */; };
 		535FC1AB28C1F8D200A0BDE0 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */; };
 		535FC1AE28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */; };
-		5372EACF28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */; };
 		5372EAD128B7ADD000F3FFA8 /* ActiveTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */; };
 		5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */; };
 		5372EAD528B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */; };
 		5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */; };
+		5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5387573D28BE5E610007196E /* NewUserScreen.storyboard */; };
+		5387574128BE61E20007196E /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574028BE61E20007196E /* GreetingViewController.swift */; };
+		5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574428BE6E590007196E /* KeychainSwiftExtension.swift */; };
 		53B0C84B28BF7288008B518B /* TaskMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B0C84A28BF7288008B518B /* TaskMapViewController.swift */; };
 		53B0C84D28BF72A3008B518B /* TaskMapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B0C84C28BF72A3008B518B /* TaskMapScreen.storyboard */; };
 		53B0C84F28BF791B008B518B /* ResultsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B0C84E28BF791B008B518B /* ResultsMapViewController.swift */; };
 		53B0C85128BF8C83008B518B /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B0C85028BF8C83008B518B /* GooglePlacesManager.swift */; };
-		5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5387573D28BE5E610007196E /* NewUserScreen.storyboard */; };
-		5387574128BE61E20007196E /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574028BE61E20007196E /* GreetingViewController.swift */; };
-		5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574428BE6E590007196E /* KeychainSwiftExtension.swift */; };
-		53BC393C28AD3D8900867BC9 /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
 		53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */; };
 		53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC394328AD43E300867BC9 /* MapScreen.storyboard */; };
 		53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC394528AD43FE00867BC9 /* MapViewController.swift */; };
-		53DD85EB28C9FF2000FDD84D /* CreationTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53DD85EA28C9FF2000FDD84D /* CreationTaskScreen.storyboard */; };
 		53C9BA1928C4D9C700B1EFB7 /* StoryboardNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */; };
 		53C9BA1C28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */; };
+		53DD85EB28C9FF2000FDD84D /* CreationTaskScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53DD85EA28C9FF2000FDD84D /* CreationTaskScreen.storyboard */; };
 		53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */; };
 		CE15417C28B266E0007731FA /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15417B28B266E0007731FA /* PopViewController.swift */; };
 		CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15418928B29A71007731FA /* RegistrationEnumeration.swift */; };
@@ -133,28 +130,24 @@
 		5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocols.swift; sourceTree = "<group>"; };
 		535FC1AA28C1F8D200A0BDE0 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewExtension.swift; sourceTree = "<group>"; };
 		535FC1AD28C21F1700A0BDE0 /* ChoosePreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePreferencesViewController.swift; sourceTree = "<group>"; };
-		5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActiveTasksScreen.storyboard; sourceTree = "<group>"; };
 		5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewController.swift; sourceTree = "<group>"; };
 		5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewCell.swift; sourceTree = "<group>"; };
 		5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeclataionOfTasksScreen.storyboard; sourceTree = "<group>"; };
 		5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarationOfTasksViewController.swift; sourceTree = "<group>"; };
+		5387573D28BE5E610007196E /* NewUserScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewUserScreen.storyboard; sourceTree = "<group>"; };
+		5387574028BE61E20007196E /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
+		5387574428BE6E590007196E /* KeychainSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftExtension.swift; sourceTree = "<group>"; };
 		53B0C84A28BF7288008B518B /* TaskMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMapViewController.swift; sourceTree = "<group>"; };
 		53B0C84C28BF72A3008B518B /* TaskMapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskMapScreen.storyboard; sourceTree = "<group>"; };
 		53B0C84E28BF791B008B518B /* ResultsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsMapViewController.swift; sourceTree = "<group>"; };
 		53B0C85028BF8C83008B518B /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
-		5387573D28BE5E610007196E /* NewUserScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewUserScreen.storyboard; sourceTree = "<group>"; };
-		5387574028BE61E20007196E /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
-		5387574428BE6E590007196E /* KeychainSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftExtension.swift; sourceTree = "<group>"; };
 		53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountScreen.storyboard; sourceTree = "<group>"; };
 		53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksScreen.storyboard; sourceTree = "<group>"; };
 		53BC394328AD43E300867BC9 /* MapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapScreen.storyboard; sourceTree = "<group>"; };
 		53BC394528AD43FE00867BC9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		53DD85EA28C9FF2000FDD84D /* CreationTaskScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreationTaskScreen.storyboard; sourceTree = "<group>"; };
-		59BABBC8549E512DF96278DA /* Pods-Karmus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.debug.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.debug.xcconfig"; sourceTree = "<group>"; };
-		6982DCEAC19D342C87CB2079 /* Pods_Karmus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Karmus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A8A9A8FE33EDFFB1F086985 /* Pods-Karmus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Karmus.release.xcconfig"; path = "Target Support Files/Pods-Karmus/Pods-Karmus.release.xcconfig"; sourceTree = "<group>"; };
 		53C9BA1828C4D9C700B1EFB7 /* StoryboardNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardNames.swift; sourceTree = "<group>"; };
 		53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeActivityIndicatorStatusProtocol.swift; sourceTree = "<group>"; };
+		53DD85EA28C9FF2000FDD84D /* CreationTaskScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreationTaskScreen.storyboard; sourceTree = "<group>"; };
 		53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		CE15417B28B266E0007731FA /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
 		CE15418928B29A71007731FA /* RegistrationEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEnumeration.swift; sourceTree = "<group>"; };
@@ -269,7 +262,6 @@
 			isa = PBXGroup;
 			children = (
 				53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */,
-				53BC393F28AD3E8E00867BC9 /* AccountViewController.swift */,
 				53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */,
 			);
 			path = Account;
@@ -456,7 +448,6 @@
 				53DD85EA28C9FF2000FDD84D /* CreationTaskScreen.storyboard */,
 				53BC394328AD43E300867BC9 /* MapScreen.storyboard */,
 				53BC394528AD43FE00867BC9 /* MapViewController.swift */,
-				5372EACE28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard */,
 				5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */,
 				5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */,
 				5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */,
@@ -579,14 +570,12 @@
 				53B0C84D28BF72A3008B518B /* TaskMapScreen.storyboard in Resources */,
 				530A415A28C499A300CA7F84 /* ProcessingTaskScreen.storyboard in Resources */,
 				5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */,
-				534700E428B621D900F23539 /* CreationTaskScreen.storyboard in Resources */,
 				53378AC328BF7D62002749FE /* FillMainProfileInfo.storyboard in Resources */,
 				534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */,
 				5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */,
 				53DD85EB28C9FF2000FDD84D /* CreationTaskScreen.storyboard in Resources */,
 				530A415E28C49A3C00CA7F84 /* ComplitedTasksScreen.storyboard in Resources */,
 				5372EAD528B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard in Resources */,
-				5372EACF28B7A95200F3FFA8 /* ActiveTasksScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,28 +597,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Karmus/Pods-Karmus-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C2F2CB374DA8DD658F210FD5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Karmus-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E93D05C043C026571FBFB365 /* [CP] Embed Pods Frameworks */ = {
@@ -661,7 +628,7 @@
 				5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */,
 				CE26DC8928B4A4BA0022F401 /* SMSManagerResultEnum.swift in Sources */,
 				53B0C84B28BF7288008B518B /* TaskMapViewController.swift in Sources */,
-				CE29864128B4054B00B4AE9D /* DateExtention.swift in Sources */,
+				CE29864128B4054B00B4AE9D /* DateExtension.swift in Sources */,
 				CE29864128B4054B00B4AE9D /* DateExtension.swift in Sources */,
 				CE50DF1228B7B20800D90D4A /* DefaultAlert.swift in Sources */,
 				CEE6717528B61BB600CC8853 /* Reachability.swift in Sources */,
