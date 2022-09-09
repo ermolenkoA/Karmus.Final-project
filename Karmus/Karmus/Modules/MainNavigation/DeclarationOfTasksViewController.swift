@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import KeychainSwift
 import Kingfisher
 import UIKit
 import CoreLocation
@@ -27,6 +28,7 @@ class DeclarationOfTasksViewController: UIViewController {
     var referenceTasks: DatabaseReference!
     var referenceActiveTasks: DatabaseReference!
     var referenceGroupTasks: DatabaseReference!
+    var profileId: String?
   
     var latitudeCoordinateToMap: Double?
     var longitudeCoordinateToMap: Double?
@@ -88,7 +90,6 @@ class DeclarationOfTasksViewController: UIViewController {
         if let controller = navigationController?.viewControllers.first as? MapViewController {
             
             controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
-            print("КООРДИНАТЫ \(controller.taskLocation)")
             NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
             navigationController?.popToViewController(controller, animated: true)
         }
@@ -121,7 +122,8 @@ class DeclarationOfTasksViewController: UIViewController {
     }
                              
     func uploadData(){
-        
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+        referenceTasks = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
         let key = referenceTasks.childByAutoId().key
         let task = ["address": declarationFromActiveTasks.address,
                     "taskType": declarationFromActiveTasks.type,

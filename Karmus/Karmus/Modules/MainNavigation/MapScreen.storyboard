@@ -19,6 +19,10 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YH8-Tt-ST1">
                                 <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="e4J-vr-A6H" appends="YES" id="WQg-sQ-pzU"/>
+                                </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YkV-nr-uIA">
                                 <rect key="frame" x="0.0" y="713" width="428" height="130"/>
@@ -26,8 +30,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asj-mY-oTr">
                                         <rect key="frame" x="8" y="8" width="412" height="114"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xdr-ov-xu2">
-                                                <rect key="frame" x="30" y="8" width="98" height="98.666666666666671"/>
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.closed.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xdr-ov-xu2">
+                                                <rect key="frame" x="30" y="7.3333333333333357" width="98" height="99.666666666666671"/>
                                                 <gestureRecognizers/>
                                                 <connections>
                                                     <outletCollection property="gestureRecognizers" destination="vTo-pr-XRc" appends="YES" id="yyT-xU-JbE"/>
@@ -141,6 +145,11 @@
                         <action selector="tapToTasksScreen:" destination="Y6W-OH-hqX" id="dkf-YJ-Kg8"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="e4J-vr-A6H">
+                    <connections>
+                        <action selector="closeTasksView:" destination="Y6W-OH-hqX" id="IrI-1x-gIZ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3678.5046728971961" y="7.7753779697624195"/>
         </scene>
@@ -197,7 +206,6 @@
         <!--Navigation Controller-->
         <scene sceneID="jn9-Ro-vPw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Upf-7q-hyb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="3OR-dp-3bG" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -210,12 +218,13 @@
                         <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="BNW-6N-GKs"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Upf-7q-hyb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2637" y="8"/>
         </scene>
     </scenes>
     <resources>
-        <image name="book.circle" catalog="system" width="128" height="121"/>
+        <image name="book.closed.fill" catalog="system" width="115" height="128"/>
         <image name="books.vertical.fill" catalog="system" width="128" height="109"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
