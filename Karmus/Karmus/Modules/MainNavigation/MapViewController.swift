@@ -6,6 +6,7 @@
 //
 import CoreLocation
 import Firebase
+import KeychainSwift
 import MapKit
 import UIKit
 
@@ -90,7 +91,7 @@ class MapViewController: UIViewController{
     @IBOutlet weak var taskBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var titlePositionConstraint: NSLayoutConstraint!
     @IBOutlet var mapView: MKMapView!
-    var deleg: MKMapViewDelegate!
+ 
     
     var state: State = .closed
     var viewOffset: CGFloat = 130
@@ -105,6 +106,7 @@ class MapViewController: UIViewController{
     var refTasksMap: DatabaseReference!
     var refGroupActiveTasks: DatabaseReference!
     var uniqueKey: String?
+    var profileId: String?
     
     private var authorizationStatus: CLAuthorizationStatus?
     private var locationManager = CLLocationManager()
@@ -120,8 +122,7 @@ class MapViewController: UIViewController{
         uploadGroupTasksInMap()
         uploadTasksInMap()
         mapView.delegate = self
-        setupViews()
-       
+      
         NotificationCenter.default.addObserver(self, selector: #selector(reloadRegion), name: NSNotification.Name("lol"), object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(reloadMap), name: NSNotification.Name("MapView"), object: nil)
     }
@@ -143,6 +144,11 @@ class MapViewController: UIViewController{
        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupViews()
+    }
+    
     @objc private func reloadRegion() {
         mapView.setRegion(MKCoordinateRegion.init(center: taskLocation, latitudinalMeters: 1500, longitudinalMeters: 1500), animated: true)
 
@@ -152,6 +158,18 @@ class MapViewController: UIViewController{
     
     
     func uploadTasksInMap(){
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+        let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)!
+        FireBaseDataBaseManager.getProfileInfo(login) { profile in
+            
+            guard let profile = profile else {
+                return
+            }
+            
+            let photo = profile.photo
+            
+        }
+        refTasksMap = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
         self.mapView.removeAnnotations(mapView.annotations)
         refTasksMap.observe(DataEventType.value, with:{(snapshot) in
 //        if snapshot.childrenCount > 0 {
@@ -328,7 +346,12 @@ class MapViewController: UIViewController{
         animateIfNeeded(to: state.opposite, duration: 0.4)
         runningAnimators.forEach { $0.startAnimation() }
     }
- 
+    
+    @IBAction func closeTasksView(_ sender: Any) {
+        let newPanGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTap(_:)))
+        self.mapView.addGestureRecognizer(newPanGesture)
+    }
+    
     private func checkLocationEnabled(){
         if CLLocationManager.locationServicesEnabled(){
             locationManager = CLLocationManager()

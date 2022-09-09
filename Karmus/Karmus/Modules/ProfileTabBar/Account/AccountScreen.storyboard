@@ -83,12 +83,16 @@
                                                     <outletCollection property="gestureRecognizers" destination="zRI-HW-4d1" appends="YES" id="DWy-me-0tV"/>
                                                 </connections>
                                             </view>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jpgDefaultProfile" translatesAutoresizingMaskIntoConstraints="NO" id="AtY-2D-nhj">
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jpgDefaultProfile" translatesAutoresizingMaskIntoConstraints="NO" id="AtY-2D-nhj">
                                                 <rect key="frame" x="112" y="20" width="96" height="96"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="AtY-2D-nhj" secondAttribute="height" multiplier="1:1" id="ig5-Rk-8D0"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="ob5-UY-GTY" appends="YES" id="lmL-Ql-e35"/>
+                                                </connections>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7RI-g1-w5e">
                                                 <rect key="frame" x="111.33333333333331" y="164" width="97.666666666666686" height="28"/>
@@ -455,6 +459,11 @@
                 <tapGestureRecognizer id="zRI-HW-4d1">
                     <connections>
                         <action selector="goToFriends:" destination="Y6W-OH-hqX" id="x4C-Fy-Ezg"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ob5-UY-GTY">
+                    <connections>
+                        <action selector="didTapUploadPhotoProfile:" destination="Y6W-OH-hqX" id="ohz-fX-yHx"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

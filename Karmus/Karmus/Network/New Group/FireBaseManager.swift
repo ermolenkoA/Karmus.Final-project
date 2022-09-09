@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseDatabase
 import KeychainSwift
 
@@ -116,6 +117,22 @@ final class FireBaseDataBaseManager {
             result(.failure, nil)
         }
         
+    }
+    
+    static func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())){
+        let storageRef = Storage.storage().reference().child("imageTasks")
+        let imageData = image.jpegData(compressionQuality: 0.8)
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        storageRef.putData(imageData!, metadata: metaData) {(metaData, error) in
+            guard metaData != nil else {
+                completion(nil)
+                return
+            }
+                storageRef.downloadURL(completion: {(url, error) in
+                    completion(url)
+                })
+            }
     }
     
     
@@ -574,6 +591,7 @@ final class FireBaseDataBaseManager {
         
     }
     
+    
     static func setObserverToBalance(_ profileID: String, _ result: @escaping (Int?) -> ()) {
         
         profiles.child(profileID).child(FBProfileKeys.balance).observe(.value){ snapshot in
@@ -583,6 +601,25 @@ final class FireBaseDataBaseManager {
             }
             
             result(snapshot.value as? Int)
+        }
+        
+    }
+    
+    static func getProfilePhoto(_ login: String, _ result: @escaping (String?) -> ()) {
+        
+        profilesInfo.child(login).observeSingleEvent(of: .value){ snapshot in
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            guard let profileElements = snapshot.value as? [String : AnyObject] else {
+                
+                result(nil)
+                return
+    
+            }
+            
+            result(profileElements[FBProfileInfoKeys.photo] as? String)
         }
         
     }
@@ -634,6 +671,7 @@ final class FireBaseDataBaseManager {
         }
         
     }
+    
     
     static func parseDataForVerification(_ data: DataSnapshot) -> ProfileVerificationModel? {
         
@@ -721,3 +759,5 @@ final class FireBaseDataBaseManager {
      }
     
 }
+
+    
