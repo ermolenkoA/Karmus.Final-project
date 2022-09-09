@@ -29,15 +29,66 @@ final class FriendsViewController: UIViewController {
         addFriendButton
     ] }
     
+    private var currentFriendProfile: ShortProfileInfoModel?
+    private var currentFriendStatus: FriendsTypes?
+    
     private let profileID = KeychainSwift.shared.get(ConstantKeys.currentProfile)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backItem = UIBarButtonItem()
+        backItem.title = "Мои друзья"
+        navigationItem.backBarButtonItem = backItem
+
         friendsTabelView.delegate = self
         friendsTabelView.dataSource = self
         
         didTapFriendButton(allFriendsButton)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        tabBarController?.tabBar.isHidden = true
+        
+        if let currentFriendStatus = currentFriendStatus,
+           let currentFriendProfile = currentFriendProfile {
+            
+            friends = []
+            friendsTabelView.reloadData()
+            
+            buttons.forEach {
+                $0.isUserInteractionEnabled = false
+            }
+            
+            mainActivityIndicator.startAnimating()
+            
+            guard let profileID = profileID else {
+                forceQuitFromProfile()
+                return
+            }
+            
+            FireBaseDataBaseManager.getFriends(profileID, where: getCurrentFriendType()) { [weak self] friends in
+                
+                self?.friends = friends ?? []
+                self?.friendsTabelView.reloadData()
+                
+                self?.buttons.forEach {
+                    $0.isUserInteractionEnabled = true
+                }
+                
+                self?.mainActivityIndicator.stopAnimating()
+                    
+                if self?.getCurrentFriendType() == .friends && self!.friends.isEmpty {
+                    showAlert("Ваш список друзей пуст", "Добавьте друзей и выполняйте задания вместе!", where: self)
+                }
+                
+                self?.showShortProfileInfo(profile: currentFriendProfile, friendStatus: currentFriendStatus)
+                
+            }
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -157,7 +208,30 @@ extension FriendsViewController: UITableViewDelegate {
         popOverVC?.sourceRect = CGRect(x: 0, y: 0, width: 0, height: 0)
         shortProfileInfoVC.preferredContentSize = CGSize(width: view.frame.width, height: 240 + view.frame.width*0.3)
         popOverVC?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        (shortProfileInfoVC as? GetShortProfileInfoProtocol)?.getShortProfileInfo(profile: profile, friendStatus)
+        
+        currentFriendProfile = nil
+        currentFriendStatus = nil
+        
+        (shortProfileInfoVC as? GetShortProfileInfoProtocol)?.getShortProfileInfo(profile: profile, friendStatus, conclusion: { [weak self] in
+
+            shortProfileInfoVC.dismiss(animated: true) {
+                
+                self?.currentFriendProfile = profile
+                self?.currentFriendStatus = friendStatus
+                
+                let storyboard = UIStoryboard(name: StoryboardNames.fullProfileScreen, bundle: nil)
+                
+                guard let fullProfileInfoVC = storyboard.instantiateInitialViewController() else {
+                    return
+                }
+                
+                (fullProfileInfoVC as? SetLoginProtocol)?.setLogin(login: profile.login)
+                self?.navigationController?.pushViewController(fullProfileInfoVC, animated: true)
+            }
+            
+        })
+        
+        (shortProfileInfoVC as? SetSenderProtocol)?.setSender(self)
         
         self.present(shortProfileInfoVC, animated: true)
     }

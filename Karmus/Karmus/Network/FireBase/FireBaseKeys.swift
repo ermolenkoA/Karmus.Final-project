@@ -47,6 +47,7 @@ struct FBProfileInfoKeys {
     static let sponsorName = "sponsorName"
     
     static let onlineStatus = "onlineStatus"
+    static let numberOfSessions = "numberOfSessions"
 }
 
 struct FBOnlineStatuses {

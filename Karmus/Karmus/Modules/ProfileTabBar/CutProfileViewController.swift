@@ -10,7 +10,9 @@ import KeychainSwift
 import FirebaseDatabase
 
 protocol GetShortProfileInfoProtocol {
-    func getShortProfileInfo(profile: ShortProfileInfoModel, _ friendStatus: FriendsTypes?)
+    func getShortProfileInfo(profile: ShortProfileInfoModel,
+    _ friendStatus: FriendsTypes?,
+    conclusion: (() -> ())?)
 }
 
 final class CutProfileViewController: UIViewController {
@@ -32,6 +34,7 @@ final class CutProfileViewController: UIViewController {
     @IBOutlet private weak var fullInfoButton: UIButton!
     @IBOutlet private weak var friendActionButton: UIButton!
     
+    private var conclusion: (() -> ())?
     private var friendProfile: ShortProfileInfoModel?
     private var friendStatus: FriendsTypes?
     private let myProfileID = KeychainSwift.shared.get(ConstantKeys.currentProfile)
@@ -43,6 +46,10 @@ final class CutProfileViewController: UIViewController {
         profilePhotoImageView.layer.cornerRadius =
             (view.frame.width - 40) * 0.15
         setStartSettings()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        conclusion = nil
     }
     
     private func setStartSettings() {
@@ -115,14 +122,25 @@ final class CutProfileViewController: UIViewController {
     
     
     @IBAction func didTapFullInfoButton(_ sender: UIButton) {
-  
+        let storyboard = UIStoryboard(name: StoryboardNames.fullProfileScreen, bundle: nil)
+
+        guard let fullProfileInfoVC = storyboard.instantiateInitialViewController(),
+              let friendProfile = friendProfile else {
+            return
+            
+        }
+
+        (fullProfileInfoVC as? SetLoginProtocol)?.setLogin(login: friendProfile.login)
+        conclusion?()
     }
     
 }
 
 extension CutProfileViewController: GetShortProfileInfoProtocol {
-    func getShortProfileInfo(profile: ShortProfileInfoModel, _ friendStatus: FriendsTypes? = nil) {
+    func getShortProfileInfo(profile: ShortProfileInfoModel,  _ friendStatus: FriendsTypes? = nil,
+                             conclusion: (() -> ())?) {
         self.friendProfile = profile
         self.friendStatus = friendStatus
+        self.conclusion = conclusion
     }
 }

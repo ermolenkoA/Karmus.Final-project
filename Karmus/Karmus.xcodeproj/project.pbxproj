@@ -58,6 +58,8 @@
 		5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5387573D28BE5E610007196E /* NewUserScreen.storyboard */; };
 		5387574128BE61E20007196E /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574028BE61E20007196E /* GreetingViewController.swift */; };
 		5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574428BE6E590007196E /* KeychainSwiftExtension.swift */; };
+		5396669B28CA4B8A00CCC2A5 /* FullProfileScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5396669A28CA4B8A00CCC2A5 /* FullProfileScreen.storyboard */; };
+		5396669E28CA4B9800CCC2A5 /* FullProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5396669D28CA4B9800CCC2A5 /* FullProfileViewController.swift */; };
 		53B0C84B28BF7288008B518B /* TaskMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B0C84A28BF7288008B518B /* TaskMapViewController.swift */; };
 		53B0C84D28BF72A3008B518B /* TaskMapScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B0C84C28BF72A3008B518B /* TaskMapScreen.storyboard */; };
 		53B0C84F28BF791B008B518B /* ResultsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B0C84E28BF791B008B518B /* ResultsMapViewController.swift */; };
@@ -159,6 +161,8 @@
 		5387573D28BE5E610007196E /* NewUserScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewUserScreen.storyboard; sourceTree = "<group>"; };
 		5387574028BE61E20007196E /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
 		5387574428BE6E590007196E /* KeychainSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftExtension.swift; sourceTree = "<group>"; };
+		5396669A28CA4B8A00CCC2A5 /* FullProfileScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FullProfileScreen.storyboard; sourceTree = "<group>"; };
+		5396669D28CA4B9800CCC2A5 /* FullProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullProfileViewController.swift; sourceTree = "<group>"; };
 		53B0C84A28BF7288008B518B /* TaskMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMapViewController.swift; sourceTree = "<group>"; };
 		53B0C84C28BF72A3008B518B /* TaskMapScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskMapScreen.storyboard; sourceTree = "<group>"; };
 		53B0C84E28BF791B008B518B /* ResultsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsMapViewController.swift; sourceTree = "<group>"; };
@@ -292,6 +296,8 @@
 		5348CBD428C63E9A00955D70 /* ProfileTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				5396669A28CA4B8A00CCC2A5 /* FullProfileScreen.storyboard */,
+				5396669D28CA4B9800CCC2A5 /* FullProfileViewController.swift */,
 				5348CBD528C63F6700955D70 /* Account */,
 				5348CBF128C6436200955D70 /* FriendsScreen.storyboard */,
 				5348CBF528C6460F00955D70 /* FriendsViewController.swift */,
@@ -613,6 +619,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5396669B28CA4B8A00CCC2A5 /* FullProfileScreen.storyboard in Resources */,
 				53BC393E28AD3DE400867BC9 /* TasksScreen.storyboard in Resources */,
 				53BC394428AD43E300867BC9 /* MapScreen.storyboard in Resources */,
 				5316D73528AC0FC2004C8A90 /* LaunchScreen.storyboard in Resources */,
@@ -774,6 +781,7 @@
 				5348CBCD28C5C8BF00955D70 /* ForceQuitFromProfile.swift in Sources */,
 				CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */,
 				CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */,
+				5396669E28CA4B9800CCC2A5 /* FullProfileViewController.swift in Sources */,
 				5348CBFA28C64B9700955D70 /* FriendsTVCell.swift in Sources */,
 				53378AEB28C0681B002749FE /* FillAdditionalProfileInfoVC.swift in Sources */,
 			);

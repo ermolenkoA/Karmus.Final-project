@@ -9,8 +9,12 @@ import UIKit
 import KeychainSwift
 
 func forceQuitFromProfile() {
+    
+    FireBaseDataBaseManager.removeSession()
+    KeychainSwift.shared.delete(ConstantKeys.isProfileActive)
     KeychainSwift.shared.delete(ConstantKeys.currentProfile)
     KeychainSwift.shared.delete(ConstantKeys.currentProfileLogin)
+    KeychainSwift.shared.set(false, forKey: ConstantKeys.isProfileActive)
     UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
     
     let storyboard = UIStoryboard(name: StoryboardNames.main, bundle: nil)

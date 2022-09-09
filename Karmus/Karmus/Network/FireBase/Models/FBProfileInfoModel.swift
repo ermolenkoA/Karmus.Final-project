@@ -25,13 +25,14 @@ final class ProfileInfoModel {
     let profileType: String?
     let sponsorName: String?
     let onlineStatus: String?
+    let numberOfSessions: Int?
 
     init(firstName: String?, secondName: String?, photo: String?,
           dateOfBirth: String?, email: String?, phone: String?,
           city: String?, preferences: [String]?, education: String?,
           work: String?, skills: String?, numberOfRespects: Int?,
           numberOfFriends: Int?, profileType: String?, sponsorName: String?,
-          onlineStatus: String?) {
+          onlineStatus: String?, numberOfSessions: Int?) {
         
         self.firstName = firstName
         self.secondName = secondName
@@ -49,6 +50,7 @@ final class ProfileInfoModel {
         self.profileType = profileType
         self.sponsorName = sponsorName
         self.onlineStatus = onlineStatus
+        self.numberOfSessions = numberOfSessions
     }
     
     var about: String { """

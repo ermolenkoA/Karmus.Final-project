@@ -147,15 +147,6 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
         referenceTask.child(key!).setValue(task)
         
         }
-    
-    func saveCoordinate(){
-        let key = refTasksCoordinates.childByAutoId().key
-        let taskCoordinate = ["coordinate": taskCoordinate]
-        as! [String: Double]
-        self.refTasksCoordinates.child(key!).setValue(taskCoordinate)
-    }
-        
-    
         
     func saveFIRData(reference: DatabaseReference){
         self.uploadPhoto(imageFromCreation){ url in

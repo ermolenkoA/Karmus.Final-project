@@ -62,6 +62,10 @@ final class FillAdditionalProfileInfoVC: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = true
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -106,6 +110,7 @@ final class FillAdditionalProfileInfoVC: UIViewController {
 
         }
         
+        setNewInfo(0, for: FBProfileInfoKeys.numberOfSessions)
         setNewInfo(0, for: FBProfileInfoKeys.numberOfFriends)
         setNewInfo(0, for: FBProfileInfoKeys.numberOfRespects)
         

@@ -181,8 +181,6 @@ final class FireBaseDataBaseManager {
         
         profiles.child(profileID).child(key).observe(.value) { snapshot in
             
-            print("\nMYLOG: Ну и шо\n")
-            
             guard snapshot.exists() else {
                 result(nil)
                 return
@@ -359,8 +357,9 @@ final class FireBaseDataBaseManager {
                              _ friendLogin: String, _ friendFriendsLists: [String : [String]],
                              _ resultFriendType: @escaping (FriendsTypes?) -> ()) {
         
+        
+        
         guard myFriendsLists[FBProfileKeys.friends]!.contains(friendLogin) else {
-            
             profiles.child(myProfileID).child(FBProfileKeys.requests)
                 .setValue(myFriendsLists[FBProfileKeys.requests]!.filter { $0 != friendLogin })
             profiles.child(friendProfileID).child(FBProfileKeys.followers)
@@ -384,6 +383,28 @@ final class FireBaseDataBaseManager {
             .setValue(myFollowers)
         profiles.child(friendProfileID).child(FBProfileKeys.requests)
             .setValue(friendRequests)
+        
+        profilesInfo.child(myLogin)
+            .child(FBProfileInfoKeys.numberOfFriends).observeSingleEvent(of: .value) { snapshot in
+                
+                if snapshot.exists(), var numberOfFriends = snapshot.value as? Int {
+                    numberOfFriends -= 1
+                    profilesInfo.child(myLogin)
+                        .child(FBProfileInfoKeys.numberOfFriends).setValue(numberOfFriends)
+                }
+                
+                profilesInfo.child(friendLogin)
+                    .child(FBProfileInfoKeys.numberOfFriends).observeSingleEvent(of: .value) { snapshot in
+                        
+                        if snapshot.exists(), var numberOfFriends = snapshot.value as? Int {
+                            numberOfFriends -= 1
+                            profilesInfo.child(friendLogin)
+                                .child(FBProfileInfoKeys.numberOfFriends).setValue(numberOfFriends)
+                        }
+                        
+                    }
+            }
+        
         resultFriendType(.followers)
         
     }
@@ -423,6 +444,29 @@ final class FireBaseDataBaseManager {
             .setValue(myFriends)
         profiles.child(friendProfileID).child(FBProfileKeys.friends)
             .setValue(friendFriends)
+        
+        profilesInfo.child(myLogin)
+            .child(FBProfileInfoKeys.numberOfFriends).observeSingleEvent(of: .value) { snapshot in
+                
+                if snapshot.exists(), var numberOfFriends = snapshot.value as? Int {
+                    numberOfFriends += 1
+                    profilesInfo.child(myLogin)
+                        .child(FBProfileInfoKeys.numberOfFriends).setValue(numberOfFriends)
+                }
+                
+                profilesInfo.child(friendLogin)
+                    .child(FBProfileInfoKeys.numberOfFriends).observeSingleEvent(of: .value) { snapshot in
+                        
+                        if snapshot.exists(), var numberOfFriends = snapshot.value as? Int {
+                            numberOfFriends += 1
+                            profilesInfo.child(friendLogin)
+                                .child(FBProfileInfoKeys.numberOfFriends).setValue(numberOfFriends)
+                        }
+                        
+                    }
+                
+            }
+        
         resultFriendType(.friends)
         
     }
@@ -544,6 +588,76 @@ final class FireBaseDataBaseManager {
         let date = formatter.string(from: Date())
         profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).setValue(date)
         
+    }
+    
+    static func getCurrentNumberOfSessions() {
+        guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) else { return }
+        
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfSessions).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists(), let numberOfSessions = snapshot.value as? Int else {
+                forceQuitFromProfile()
+                return
+            }
+            
+            setNumberOfSessions(login, numberOfSessions: numberOfSessions + 1)
+        }
+        
+    }
+    
+    static func setNumberOfSessions(_ login: String, numberOfSessions: Int) {
+
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfSessions).setValue(numberOfSessions)
+        KeychainSwift.shared.set(true, forKey: ConstantKeys.isProfileActive)
+        if numberOfSessions == 1 {
+            profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).setValue(FBOnlineStatuses.online)
+        }
+        setSessionObserver(login)
+        
+    }
+    
+    static func setSessionObserver(_ login: String) {
+        
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfSessions).observe(.value) { snapshot in
+            
+            guard snapshot.exists(), let numberOfSessions = snapshot.value as? Int else {
+                forceQuitFromProfile()
+                return
+            }
+        
+            KeychainSwift.shared.set(String(numberOfSessions), forKey: ConstantKeys.numberOfSessions)
+            
+            profilesInfo.child(login).child(FBProfileInfoKeys.numberOfSessions).onDisconnectSetValue(numberOfSessions - 1)
+            
+            if numberOfSessions - 1 == 0 {
+                profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).onDisconnectSetValue(FBOnlineStatuses.offline)
+            }
+            
+        }
+
+    }
+    
+    static func removeSession() {
+        
+        guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin),
+              let numberOfSessionsStr = KeychainSwift.shared.get(ConstantKeys.numberOfSessions),
+              let numberOfSessions = Int(numberOfSessionsStr),
+              numberOfSessions > 0 else { return }
+        
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfSessions).removeAllObservers()
+        profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).removeAllObservers()
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfSessions).setValue(numberOfSessions - 1)
+        KeychainSwift.shared.delete(ConstantKeys.numberOfSessions)
+        
+        if numberOfSessions - 1 == 0 {
+            profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).setValue(FBOnlineStatuses.offline)
+        }
+
+    }
+    
+    private static func changeOnlineStatus(online: Bool, login: String){
+        let status = online ? FBOnlineStatuses.online : FBOnlineStatuses.offline
+        profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).setValue(status)
     }
     
     
@@ -672,6 +786,7 @@ final class FireBaseDataBaseManager {
         let profileType = profileElements[FBProfileInfoKeys.profileType] as? String
         let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String
         let onlineStatus = profileElements[FBProfileInfoKeys.onlineStatus] as? String
+        let numberOfSessions = profileElements[FBProfileInfoKeys.numberOfSessions] as? Int
         
         return ProfileInfoModel.init(
             firstName: firstName, secondName: secondName, photo: photo,
@@ -679,7 +794,7 @@ final class FireBaseDataBaseManager {
             city: city, preferences: preferences, education: education,
             work: work, skills: skills, numberOfRespects: numberOfRespects,
             numberOfFriends: numberOfFriends, profileType: profileType,
-            sponsorName: sponsorName, onlineStatus: onlineStatus)
+            sponsorName: sponsorName, onlineStatus: onlineStatus, numberOfSessions: numberOfSessions)
     }
     
    private static func parseDataToFriend(_ data: DataSnapshot) -> Friend? {

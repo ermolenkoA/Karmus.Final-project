@@ -13,11 +13,27 @@ final class AddFriendsViewController: UIViewController {
     @IBOutlet private weak var mainActivityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var mainTableView: UITableView!
     
+    private var currentFriendProfile: ShortProfileInfoModel?
+    private var currentFriendStatus: FriendsTypes?
+    
     private var searchController: UISearchController!
     private var searchResult = [Friend]()
     
+    override func viewWillAppear(_ animated: Bool) {
+        guard currentFriendStatus == nil || currentFriendProfile == nil else {
+            showShortProfileInfo(profile: currentFriendProfile!, friendStatus: currentFriendStatus!)
+            return
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = "Поиск"
+        navigationItem.backBarButtonItem = backItem
+
         
         mainTableView.delegate = self
         mainTableView.dataSource = self
@@ -61,9 +77,33 @@ final class AddFriendsViewController: UIViewController {
         popOverVC?.sourceRect = CGRect(x: 0, y: 0, width: 0, height: 0)
         shortProfileInfoVC.preferredContentSize = CGSize(width: view.frame.width, height: 240 + view.frame.width*0.3)
         popOverVC?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        (shortProfileInfoVC as? GetShortProfileInfoProtocol)?.getShortProfileInfo(profile: profile, friendStatus)
+        
+        currentFriendProfile = nil
+        currentFriendStatus = nil
+        
+        (shortProfileInfoVC as? GetShortProfileInfoProtocol)?.getShortProfileInfo(profile: profile, friendStatus, conclusion: { [weak self] in
+            
+            shortProfileInfoVC.dismiss(animated: true) {
+                
+                self?.currentFriendProfile = profile
+                self?.currentFriendStatus = friendStatus
+                
+                let storyboard = UIStoryboard(name: StoryboardNames.fullProfileScreen, bundle: nil)
+                
+                guard let fullProfileInfoVC = storyboard.instantiateInitialViewController() else {
+                    return
+                }
+                
+                (fullProfileInfoVC as? SetLoginProtocol)?.setLogin(login: profile.login)
+                self?.navigationController?.pushViewController(fullProfileInfoVC, animated: true)
+            }
+            
+        })
+        
+        (shortProfileInfoVC as? SetSenderProtocol)?.setSender(self)
         
         self.present(shortProfileInfoVC, animated: true)
+        
     }
 
 }

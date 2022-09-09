@@ -249,7 +249,7 @@ final class PhoneNumberVerification {
                             FBProfileInfoKeys.firstName : self.profile.firstName,
                             FBProfileInfoKeys.secondName : self.profile.secondName,
                             FBProfileInfoKeys.photo : "jpgDefault",
-                            FBProfileTypes.user: FBProfileTypes.user
+                            FBProfileInfoKeys.profileType : FBProfileTypes.user
                         ])
                     
                     showAlert("Вы были успешно зарегистрированы!", nil , where: self.controller)
