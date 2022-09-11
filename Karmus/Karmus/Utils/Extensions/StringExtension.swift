@@ -64,6 +64,28 @@ extension String {
         return result
     }
     
+    static func messageDate(_ date: Date) -> String {
+        
+        let difference = Date().difference(from: date)
+        
+        if difference.year! > 0 {
+            return difference.year! < 5 ? "\(difference.year!)г" : "\(difference.year!)л"
+        } else if difference.month! > 0 {
+            return "\(difference.month!)М"
+        } else if difference.day! / 7 > 0 {
+            return "\(difference.day! / 7)н"
+        } else if difference.day! > 0 {
+            return "\(difference.day!)д"
+        } else if difference.hour! > 0 {
+            return "\(difference.hour!)ч"
+        } else if difference.minute! > 0 {
+            return "\(difference.minute!)м"
+        } else {
+            return ""
+        }
+        
+    }
+    
     mutating func removeExtraSpaces(){
         guard !self.isEmpty else {
             return

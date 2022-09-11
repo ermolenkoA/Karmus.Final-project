@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+
 extension Date {
     
     func isGreaterThanDate(dateToCompare: Date) -> Bool {
@@ -69,5 +71,29 @@ extension Date {
     
     static func - (lhs: Date, rhs: Date) -> TimeInterval {
         return lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
+    }
+    
+    func difference(from secondDate: Date) -> DateComponents {
+        return Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: secondDate, to: self)
+    }
+    
+    func mounthsDifference(from secondDate: Date) -> Int {
+        return Calendar.current.dateComponents([.month], from: secondDate, to: self).month!
+    }
+    
+    func weeksDifference(from secondDate: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: secondDate, to: self).day! / 7
+    }
+    
+    func daysDifference(from secondDate: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: secondDate, to: self).day!
+    }
+    
+    func hoursDifference(from secondDate: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: secondDate, to: self).hour!
+    }
+    
+    func minutesDifference(from secondDate: Date) -> Int {
+        return Calendar.current.dateComponents([.minute], from: secondDate, to: self).minute!
     }
 }

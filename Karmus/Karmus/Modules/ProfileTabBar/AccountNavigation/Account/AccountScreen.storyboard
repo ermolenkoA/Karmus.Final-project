@@ -21,11 +21,11 @@
                                 <rect key="frame" x="0.0" y="88" width="320" height="663"/>
                                 <color key="color" systemColor="labelColor"/>
                             </activityIndicatorView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tMO-RR-vj6">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMO-RR-vj6">
                                 <rect key="frame" x="0.0" y="88" width="320" height="663"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qIC-an-C3z">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="174"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qIC-an-C3z">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="765.33333333333337"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9FN-4t-DyL">
                                                 <rect key="frame" x="20" y="20" width="72" height="96"/>
@@ -332,11 +332,11 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="AtY-2D-nhj" firstAttribute="centerX" secondItem="qIC-an-C3z" secondAttribute="centerX" id="1rh-1Q-pOD"/>
+                                            <constraint firstAttribute="bottom" secondItem="ZQB-zl-fka" secondAttribute="bottom" constant="20" id="5VD-55-CtX"/>
                                             <constraint firstItem="AtY-2D-nhj" firstAttribute="width" secondItem="qIC-an-C3z" secondAttribute="width" multiplier="0.3" id="6P1-CM-qDm"/>
                                             <constraint firstAttribute="trailing" secondItem="8f0-bo-EiP" secondAttribute="trailing" constant="20" id="8AK-3J-7QY"/>
                                             <constraint firstItem="8f0-bo-EiP" firstAttribute="centerY" secondItem="AtY-2D-nhj" secondAttribute="centerY" id="Bqh-Fj-C6P"/>
                                             <constraint firstItem="7RI-g1-w5e" firstAttribute="centerX" secondItem="qIC-an-C3z" secondAttribute="centerX" id="EB2-vD-DQj"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZQB-zl-fka" secondAttribute="bottom" constant="20" id="HGF-k4-A2G"/>
                                             <constraint firstItem="XYN-vu-vSR" firstAttribute="leading" secondItem="qIC-an-C3z" secondAttribute="leading" id="Ogz-k4-N6s"/>
                                             <constraint firstItem="AtY-2D-nhj" firstAttribute="leading" secondItem="9FN-4t-DyL" secondAttribute="trailing" constant="20" id="Okj-CD-d0J"/>
                                             <constraint firstAttribute="trailing" secondItem="ZQB-zl-fka" secondAttribute="trailing" id="PEq-Fl-AEl"/>
@@ -394,7 +394,7 @@
                         <imageReference key="selectedImage" image="list.bullet.rectangle.portrait" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="@login" id="Tux-uK-BLh">
-                        <barButtonItem key="backBarButtonItem" title="Вернуться" id="5C2-Kc-4LD"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="5C2-Kc-4LD"/>
                         <barButtonItem key="leftBarButtonItem" style="done" id="C71-Xa-BVP">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="7jL-Ql-xZF">
                                 <rect key="frame" x="16" y="9.6666666666666661" width="25" height="24.666666666666671"/>
@@ -466,7 +466,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2771" y="962"/>
+            <point key="canvasLocation" x="303" y="1637"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="hjo-fn-6ZR">
@@ -495,13 +495,23 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HcV-Jz-S1S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3622" y="962"/>
+            <point key="canvasLocation" x="1036" y="1637"/>
+        </scene>
+        <!--ChatScreen-->
+        <scene sceneID="El3-F5-EWK">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChatScreen" id="ZkX-aU-azo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="1P8-n4-5hn"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pcv-ef-aPk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1529" y="681"/>
         </scene>
         <!--Item-->
         <scene sceneID="QMP-xA-Rq1">
             <objects>
                 <navigationController id="bFg-Po-yJJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="9CG-Er-RUJ"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="person.fill" catalog="system" selectedImage="person.fill" id="9CG-Er-RUJ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zFD-3S-YbO">
                         <rect key="frame" x="0.0" y="44" width="428" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -512,7 +522,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hft-aq-bQZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1545" y="962"/>
+            <point key="canvasLocation" x="303" y="1003"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="0Jy-fZ-6ex">
@@ -530,6 +540,7 @@
                     <connections>
                         <segue destination="bFg-Po-yJJ" kind="relationship" relationship="viewControllers" id="TU5-dp-6Tl"/>
                         <segue destination="Lgz-BN-gcN" kind="relationship" relationship="viewControllers" id="PbS-gW-VVb"/>
+                        <segue destination="ZkX-aU-azo" kind="relationship" relationship="viewControllers" id="lhP-Rg-qAI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c3j-vO-yT4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -545,7 +556,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ibZ-ef-ZPd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="412" y="642"/>
+            <point key="canvasLocation" x="896" y="681"/>
         </scene>
     </scenes>
     <resources>
@@ -554,6 +565,7 @@
         <image name="jpgDefaultProfile" width="860" height="913"/>
         <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
         <image name="list.bullet.rectangle.portrait.fill" catalog="system" width="115" height="128"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

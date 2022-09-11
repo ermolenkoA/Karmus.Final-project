@@ -248,7 +248,7 @@ final class PhoneNumberVerification {
                             FBProfileInfoKeys.onlineStatus : FBOnlineStatuses.offline,
                             FBProfileInfoKeys.firstName : self.profile.firstName,
                             FBProfileInfoKeys.secondName : self.profile.secondName,
-                            FBProfileInfoKeys.photo : "jpgDefault",
+                            FBProfileInfoKeys.photo : ProfileModelConstants.defaultPhoto,
                             FBProfileInfoKeys.profileType : FBProfileTypes.user
                         ])
                     

@@ -8,6 +8,7 @@
 import Foundation
 
 struct StoryboardNames {
+    
     static let main = "Main"
     static let identificationScreen = "IdentificationScreen"
     static let registrationScreen = "RegistrationScreen"
@@ -19,4 +20,7 @@ struct StoryboardNames {
     static let addFriends = "AddFriends"
     static let cutProfileScreen = "CutProfileScreen"
     static let fullProfileScreen = "FullProfileScreen"
+    static let chatScreen = "ChatScreen"
+    static let createNewChat = "CreateNewChat"
+    
 }

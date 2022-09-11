@@ -12,6 +12,7 @@ struct FBDefaultKeys {
     static let profilesInfo = "ProfilesInfo"
     static let tasks = "Tasks"
     static let topics = "Topics"
+    static let chats = "Chats"
 }
 
 struct FBProfileKeys {
