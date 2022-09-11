@@ -24,6 +24,10 @@
 		5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */; };
 		5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74028AC1313004C8A90 /* IdentificationViewController.swift */; };
 		5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D74228AC1326004C8A90 /* RegistrationViewController.swift */; };
+		532182BE28CDBD05000C4DCE /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532182BD28CDBD05000C4DCE /* ConversationViewController.swift */; };
+		532182C328CDBD37000C4DCE /* ChatModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532182C228CDBD37000C4DCE /* ChatModels.swift */; };
+		532182C628CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532182C528CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift */; };
+		532182C928CDC875000C4DCE /* SetProfilesCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532182C828CDC875000C4DCE /* SetProfilesCellProtocol.swift */; };
 		533630CE28B7DE8200F139E7 /* ModelActiveTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */; };
 		5336322E28CCAD61007BC5B2 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5336322D28CCAD61007BC5B2 /* AccountViewController.swift */; };
 		5336323528CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */; };
@@ -134,6 +138,10 @@
 		5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IdentificationScreen.storyboard; sourceTree = "<group>"; };
 		5316D74028AC1313004C8A90 /* IdentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationViewController.swift; sourceTree = "<group>"; };
 		5316D74228AC1326004C8A90 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		532182BD28CDBD05000C4DCE /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		532182C228CDBD37000C4DCE /* ChatModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModels.swift; sourceTree = "<group>"; };
+		532182C528CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewChatConclusionProtocol.swift; sourceTree = "<group>"; };
+		532182C828CDC875000C4DCE /* SetProfilesCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfilesCellProtocol.swift; sourceTree = "<group>"; };
 		533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelActiveTasks.swift; sourceTree = "<group>"; };
 		5336322D28CCAD61007BC5B2 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFriendsCellInfoProtocol.swift; sourceTree = "<group>"; };
@@ -271,6 +279,23 @@
 			path = Karmus;
 			sourceTree = "<group>";
 		};
+		532182BC28CDBCA2000C4DCE /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				532182C128CDBD22000C4DCE /* Models */,
+				532182BD28CDBD05000C4DCE /* ConversationViewController.swift */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		532182C128CDBD22000C4DCE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				532182C228CDBD37000C4DCE /* ChatModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		5336323128CCADD4007BC5B2 /* PopOverControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +316,7 @@
 		5336323728CCB10A007BC5B2 /* ChatNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				532182BC28CDBCA2000C4DCE /* Conversation */,
 				5336324428CCB5F0007BC5B2 /* CreateNewChat */,
 				5336323828CCB12E007BC5B2 /* ChatScreen.storyboard */,
 				5336324028CCB186007BC5B2 /* ChatViewController.swift */,
@@ -330,6 +356,8 @@
 				53C9BA1B28C5431900B1EFB7 /* ChangeActivityIndicatorStatusProtocol.swift */,
 				5348CBD028C61E6C00955D70 /* ProfileSettingsProtocols.swift */,
 				5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */,
+				532182C528CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift */,
+				532182C828CDC875000C4DCE /* SetProfilesCellProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -846,6 +874,7 @@
 				53B0C84F28BF791B008B518B /* ResultsMapViewController.swift in Sources */,
 				53F284E228CCF27B0070A5FC /* ProfileForChatModel.swift in Sources */,
 				CE3A8A6A28B8226900BCE54A /* FireBaseKeys.swift in Sources */,
+				532182C628CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift in Sources */,
 				5348CBD128C61E6C00955D70 /* ProfileSettingsProtocols.swift in Sources */,
 				CE15417C28B266E0007731FA /* PopViewController.swift in Sources */,
 				53F284DE28CCF05A0070A5FC /* CreateNewChatViewController.swift in Sources */,
@@ -875,6 +904,7 @@
 				CE26DC8228B414CD0022F401 /* PhoneNumberVerification.swift in Sources */,
 				5387574128BE61E20007196E /* GreetingViewController.swift in Sources */,
 				53378ACD28BF8600002749FE /* BelarusianCities.swift in Sources */,
+				532182BE28CDBD05000C4DCE /* ConversationViewController.swift in Sources */,
 				CE26DC8528B4393F0022F401 /* ConstantValues.swift in Sources */,
 				5316D74328AC1326004C8A90 /* RegistrationViewController.swift in Sources */,
 				5336323528CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift in Sources */,
@@ -884,8 +914,10 @@
 				53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */,
 				5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */,
 				534700EF28B67C3A00F23539 /* Document.swift in Sources */,
+				532182C928CDC875000C4DCE /* SetProfilesCellProtocol.swift in Sources */,
 				530A415C28C49A0400CA7F84 /* ComplitedTasksTableViewController.swift in Sources */,
 				53378AC028BF7D37002749FE /* FillMainProfileInfoVC.swift in Sources */,
+				532182C328CDBD37000C4DCE /* ChatModels.swift in Sources */,
 				5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */,
 				534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */,
 				53378ADD28C00ACA002749FE /* FillProfileInfoProtocols.swift in Sources */,

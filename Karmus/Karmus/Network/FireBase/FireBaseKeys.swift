@@ -51,6 +51,19 @@ struct FBProfileInfoKeys {
     static let numberOfSessions = "numberOfSessions"
 }
 
+struct FBChatKeys {
+    static let members = "members"
+    static let messages = "offline"
+}
+
+struct FBChatMessageKeys {
+    static let sender = "sender"
+    static let sentDate = "sentDate"
+    static let messageText = "messageText"
+    static let isRead = "isRead"
+}
+
+
 struct FBOnlineStatuses {
     static let online = "online"
     static let offline = "offline"

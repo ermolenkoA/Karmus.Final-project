@@ -18,7 +18,7 @@ final class CreateNewChatViewController: UIViewController {
     
     private var searchController: UISearchController!
     private var searchResult: [ProfileForChatModel]! = []
-    
+    private var conclusion: ((ProfileForChatModel, String?) -> ())?
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -58,6 +58,12 @@ final class CreateNewChatViewController: UIViewController {
 
 }
 
+extension CreateNewChatViewController: CreateNewChatConclusionProtocol {
+    func getConclusion(_ conclusion: @escaping (ProfileForChatModel, String?) -> ()) {
+        self.conclusion = conclusion
+    }
+}
+
 // MARK: - UISearchResultsUpdating
 
 extension CreateNewChatViewController: UISearchResultsUpdating {
@@ -84,27 +90,44 @@ extension CreateNewChatViewController: UISearchResultsUpdating {
 extension CreateNewChatViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
+        searchingStarted()
         
-        var alert: UIAlertController! = .init(title: "Желаете перейти к чату с пользователем?",
-                                              message: "@" + searchResult[indexPath.row].login,
-                                              preferredStyle: .alert)
+        let profile = searchResult[indexPath.row]
         
-        let sumbitButton = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
-            self?.searchController?.isActive = false
-            alert = nil
+        FireBaseDataBaseManager.findChat(profile.login) { [weak self] chatID in
+            
+            var title = ""
+            
+            if chatID != nil {
+                title = "Желаете перейти к чату с пользователем?"
+            } else {
+                title = "Начать чат с пользователем?"
+            }
+            
+            var alert: UIAlertController! = .init(title: title,
+                                                  message: "@" + profile.login,
+                                                  preferredStyle: .alert)
+            
+            let sumbitButton = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
+                self?.searchController?.isActive = false
+                self?.conclusion?(profile, chatID)
+                alert = nil
+            }
+            
+            let backButton = UIAlertAction(title: "Вернуться", style: .default) { _ in
+                alert = nil
+            }
+            
+            alert.addAction(sumbitButton)
+            alert.addAction(backButton)
+            alert.view.tintColor = .black
+            self?.searchingEnded()
+            self?.present(alert, animated: true)
+            
         }
-        
-        let backButton = UIAlertAction(title: "Вернуться", style: .default) { _ in
-            alert = nil
-        }
-        
-        alert.addAction(sumbitButton)
-        alert.addAction(backButton)
-        alert.view.tintColor = .black
-        
-        self.present(alert, animated: true)
-        
+    
     }
     
 }

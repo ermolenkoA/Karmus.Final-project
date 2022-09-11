@@ -11,18 +11,20 @@ import FirebaseDatabase
 import KeychainSwift
 import Kingfisher
 
+typealias Chat = (chatID: String, interlocutor: ProfileForChatModel, messages: [MessageModel])
+
 final class FireBaseDataBaseManager {
     
     // MARK: - Private Properties
-    
+
     private static let profiles =  Database.database().reference().child(FBDefaultKeys.profiles)
     private static let profilesInfo =  Database.database().reference().child(FBDefaultKeys.profilesInfo)
     private static let topics =  Database.database().reference().child(FBDefaultKeys.topics)
-    private static var chats =  Database.database().reference().child(FBDefaultKeys.chats)
+    private static let chats =  Database.database().reference().child(FBDefaultKeys.chats)
     
     private static var closure: ((Friend?, [DataSnapshot]) -> ())?
     private static var newClosure: ((ProfileForChatModel?, [DataSnapshot]) -> ())?
-    
+    private static var chatClosure: ((Chat?, [DataSnapshot]) -> ())?
     
     // MARK: - Description
     
@@ -363,12 +365,7 @@ final class FireBaseDataBaseManager {
         
         profiles.child(profileID).child(key).observe(.value) { snapshot in
             
-            guard snapshot.exists() else {
-                result(nil)
-                return
-            }
-            
-            guard let friendsLogins = snapshot.value as? [String] else {
+            guard snapshot.exists(), let friendsLogins = snapshot.value as? [String]  else {
                 result(nil)
                 return
             }
@@ -684,6 +681,229 @@ final class FireBaseDataBaseManager {
         
     }
     
+    // MARK: - Chat Settings
+    
+    static func getChatsIDs(conclusion: @escaping ([String]) -> ()){
+        
+        guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) else {
+            forceQuitFromProfile()
+            return
+        }
+        
+        chats.observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists(), let allChats = snapshot.children.allObjects as? [DataSnapshot] else {
+                conclusion([String]())
+                return
+            }
+            
+            conclusion(
+            
+                allChats.filter {
+                    if let chat = $0.value as? [String : Any],
+                       let members = chat[FBChatKeys.members] as? [String],
+                       members.contains(login) {
+                        return true
+                    } else {
+                        return false
+                    }
+                }.map{ $0.key }
+            
+            )
+            
+        }
+        
+    }
+    
+    static func sendMessage(_ chatID: String, message: Message, conclusion: @escaping (Bool) -> ()) {
+        
+        chats.child(chatID).child(FBChatKeys.messages).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists(), var allMassages = snapshot.value as? [[String : Any]] else {
+                conclusion(false)
+                return
+            }
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy HH:mm"
+            
+            var messageText = ""
+            
+            switch message.kind {
+            case .text(let messageTxt):
+                messageText = messageTxt
+            default:
+                conclusion(false)
+                return
+            }
+            
+            var newMassage = [String : Any]()
+            newMassage[FBChatMessageKeys.sender] = message.sender.senderId
+            newMassage[FBChatMessageKeys.sentDate] = formatter.string(from: message.sentDate)
+            newMassage[FBChatMessageKeys.messageText] = messageText
+            newMassage[FBChatMessageKeys.isRead] = false
+
+            allMassages.append(newMassage)
+            
+            chats.child(chatID).child(FBChatKeys.messages).setValue(allMassages)
+            conclusion(true)
+            
+        }
+        
+    }
+    
+    static func createNewChat(interlocutorLogin: String, message: Message, conclusion: @escaping (Bool) -> ()) {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        
+        var messageText = ""
+        
+        switch message.kind {
+        case .text(let messageTxt):
+            messageText = messageTxt
+        default:
+            conclusion(false)
+            return
+        }
+        
+        chats.childByAutoId().setValue([
+            
+            FBChatKeys.members : [message.sender.senderId, interlocutorLogin],
+            FBChatKeys.messages : [
+        
+                [
+                    FBChatMessageKeys.sender : message.sender.senderId,
+                    FBChatMessageKeys.sentDate : formatter.string(from: message.sentDate),
+                    FBChatMessageKeys.messageText : messageText,
+                    FBChatMessageKeys.isRead : false
+                
+                ]
+            
+            ]
+        ]) { error, _ in
+            
+            guard error == nil else {
+                conclusion(false)
+                return
+            }
+            conclusion(true)
+            
+        }
+        
+    }
+    
+    static func getChatMessages(_ chatID: String, conclusion: @escaping ([Message]) -> ()) {
+        
+        chats.child(chatID).observe(.childChanged) { snapshot in
+            
+            guard let chatElements = snapshot.value as? [String : AnyObject],
+                  let messages = chatElements[FBChatKeys.messages] as? [[String : AnyObject]] else {
+                
+                conclusion([Message]())
+                return
+                
+            }
+            
+            var allMessages = [Message]()
+            
+            var counter = 0
+            
+            for message in messages {
+                guard let sender = message[FBChatMessageKeys.sender] as? String,
+                      let sentDate = message[FBChatMessageKeys.sentDate] as? String,
+                      let messageText = message[FBChatMessageKeys.messageText] as? String,
+                      let isRead = message[FBChatMessageKeys.isRead] as? Bool else {
+                    
+                    conclusion([Message]())
+                    return
+                    
+                }
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd.MM.yyyy HH:mm"
+                
+                allMessages.append(Message(sender: Sender(senderId: sender, displayName: ""),
+                                           messageId: String(counter),
+                                           sentDate: formatter.date(from: sentDate)!,
+                                           kind: .text(messageText),
+                                           isRead: isRead))
+                counter += 1
+            }
+            
+        }
+        
+    }
+    
+    static func getChatsInfo(_ chatIDs: [String], conclusion: @escaping ([Chat]) -> ()) {
+        
+        chats.observeSingleEvent(of: .value) { snapshot in
+            
+            var chats = [Chat]()
+            
+            guard snapshot.exists(), var allChats = snapshot.children.allObjects as? [DataSnapshot] else {
+                conclusion(chats)
+                return
+            }
+            
+            allChats = allChats.filter{ chatIDs.contains($0.key) }
+            
+            if allChats.isEmpty {
+                conclusion(chats)
+                return
+            }
+            
+            chatClosure = { chat, remainingChats in
+                
+                if let chat = chat {
+                    chats.append(chat)
+                }
+                
+                if remainingChats.isEmpty {
+                    closure = nil
+                    conclusion(chats)
+                }
+                
+                parseDataToChatInfo(remainingChats, conclusion: self.chatClosure!)
+
+                
+            }
+            
+            parseDataToChatInfo(allChats, conclusion: chatClosure!)
+            
+        }
+        
+    }
+    
+    static func findChat(_ interlocutorLogin: String, conclusion: @escaping (String?) -> ()) {
+        
+        guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) else {
+            forceQuitFromProfile()
+            return
+        }
+        
+        chats.observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists(), let allChats = snapshot.children.allObjects as? [DataSnapshot] else {
+                conclusion(nil)
+                return
+            }
+            
+            let chats = allChats.filter {
+                if let elements = $0.value as? [String: Any],
+                let members = elements[FBChatKeys.members] as? [String],
+                members.contains(login) && members.contains(interlocutorLogin) {
+                    return true
+                }
+                return false
+            }
+            
+            conclusion(chats.isEmpty ? nil : chats.first!.key )
+            
+        }
+        
+    }
+    
     // MARK: - Session Settings
     
     static func removeSession() {
@@ -705,6 +925,12 @@ final class FireBaseDataBaseManager {
     }
     
     // MARK: - Observers
+    
+    static func createChatsObserver(conclusion: @escaping () -> ()) {
+        chats.observe(.childChanged) { snapshot in
+            conclusion()
+        }
+    }
     
     static func createProfileObserver(_ profileID: String, _ login: String) {
         
@@ -881,14 +1107,24 @@ final class FireBaseDataBaseManager {
         profiles.child(profileID).child(FBProfileKeys.balance).removeAllObservers()
         profilesInfo.child(login).child(FBProfileInfoKeys.numberOfRespects).removeAllObservers()
         profilesInfo.child(login).child(FBProfileInfoKeys.numberOfFriends).removeAllObservers()
+        
     }
     
     static func removeObserversFromProfile(_ profileID: String, _ login: String) {
+        
         profiles.child(profileID).removeAllObservers()
         profiles.child(profileID).child(FBProfileKeys.login).removeAllObservers()
         profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).removeAllObservers()
         profilesInfo.child(login).removeAllObservers()
         profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).removeAllObservers()
+        
+        profilesInfo.removeAllObservers()
+        
+        profiles.child(profileID).child(FBProfileKeys.friends).removeAllObservers()
+        profiles.child(profileID).child(FBProfileKeys.followers).removeAllObservers()
+        profiles.child(profileID).child(FBProfileKeys.requests).removeAllObservers()
+
+        chats.removeAllObservers()
     }
     
     static func removeObserverFromFriendsList(_ profileID: String, where friendsType: FriendsTypes) {
@@ -897,6 +1133,10 @@ final class FireBaseDataBaseManager {
         
         profiles.child(profileID).child(key).removeAllObservers()
         
+    }
+    
+    static func removeCurrentChatObserver(_ chatID: String) {
+        chats.child(chatID).child(FBChatKeys.messages).removeAllObservers()
     }
     
     // MARK: - Data parsing
@@ -1014,7 +1254,8 @@ final class FireBaseDataBaseManager {
         } else {
             let url = URL(string: photoName)
             if let url = url {
-                KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                KingfisherManager.shared.retrieveImage(with: url as Resource,
+                                                       options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
                     guard let image = image else {
                         conclusion(nil, [DataSnapshot](friends.dropFirst()))
                         return
@@ -1033,11 +1274,12 @@ final class FireBaseDataBaseManager {
 
     }
     
-    private static func parseDataToProfileForChatModel(profiles: [DataSnapshot], conclusion: @escaping (ProfileForChatModel?, [DataSnapshot]) -> ()) {
+    private static func parseDataToProfileForChatModel(profiles: [DataSnapshot],
+                                                       conclusion: @escaping (ProfileForChatModel?,[DataSnapshot]) -> ()) {
         
         let profile = profiles.first!
         
-        guard let profileElements = profile.value as? [String : AnyObject] else {
+        guard let profileElements = profile.value as? [String : Any] else {
             conclusion(nil, [DataSnapshot](profiles.dropFirst()))
             return
         }
@@ -1127,8 +1369,68 @@ final class FireBaseDataBaseManager {
         ]
      }
     
-
-
+    private static func parseDataToChatInfo(_ chats: [DataSnapshot],
+                                            conclusion: @escaping (Chat?, [DataSnapshot]) -> ()) {
+        
+        let chat = chats.first!
+        
+        guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) else { return }
+        
+        guard let chatElements = chat.value as? [String : AnyObject],
+              let members = chatElements[FBChatKeys.members] as? [String],
+              let messages = chatElements[FBChatKeys.messages] as? [[String : AnyObject]] else {
+            
+            conclusion( nil, [DataSnapshot](chats.dropFirst()) )
+            return
+            
+        }
+        
+        var allMessages = [MessageModel]()
+    
+       
+        
+        let lastMassageDate = messages.last![FBChatMessageKeys.sentDate] as! String
+        
+        for message in messages {
+            guard let sender = message[FBChatMessageKeys.sender] as? String,
+                  let sentDate = message[FBChatMessageKeys.sentDate] as? String,
+                  let messageText = message[FBChatMessageKeys.messageText] as? String,
+                  let isRead = message[FBChatMessageKeys.isRead] as? Bool,
+                  (lastMassageDate == sentDate || isRead == false) else {
+                
+                conclusion( nil, [DataSnapshot](chats.dropFirst()) )
+                return
+                
+            }
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy HH:mm"
+            
+            allMessages.append(MessageModel(sender: sender,
+                                            sentDate: formatter.date(from: sentDate)!,
+                                            messageText: messageText,
+                                            isRead: isRead))
+        }
+    
+        profilesInfo.child(members.first{ $0 != login }!).observeSingleEvent(of: .value) { snapshot in
+            guard snapshot.exists() else {
+                conclusion( nil, [DataSnapshot](chats.dropFirst()) )
+                return
+            }
+            
+            parseDataToProfileForChatModel(profiles: [snapshot]) { interlocutor, _ in
+                if let interlocutor = interlocutor {
+                    conclusion( (chat.key, interlocutor, allMessages), [DataSnapshot](chats.dropFirst()) )
+                } else {
+                    conclusion( nil, [DataSnapshot](chats.dropFirst()) )
+                }
+            }
+        }
+        
+        
+        
+     }
+    
     // MARK: - Get other info
     
     static func getTopics(_ result: @escaping ([String]?) -> ()){

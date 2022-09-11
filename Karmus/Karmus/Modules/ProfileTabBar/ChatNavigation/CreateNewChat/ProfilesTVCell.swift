@@ -7,13 +7,6 @@
 
 import UIKit
 
-protocol SetProfilesCellProtocol {
-    func setProfilesCell(photo: UIImage, name: String,
-                          city: String, onlineStatus: String,
-                          profileType: String, login: String,
-                          dateOfBirth: Date?)
-}
-
 final class ProfilesTVCell: UITableViewCell {
     
     // MARK: - IBOutlet

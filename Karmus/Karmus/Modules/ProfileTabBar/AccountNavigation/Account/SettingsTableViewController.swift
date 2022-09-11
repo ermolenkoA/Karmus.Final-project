@@ -64,7 +64,7 @@ final class SettingsTableViewController: UITableViewController {
         
         let setting = settings[indexPath.row]
         cell.textLabel?.text = setting
-
+        cell.textLabel?.textColor = .label
         return cell
     }
     

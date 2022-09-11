@@ -67,7 +67,6 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pCs-Nc-bRn">
                                                                     <rect key="frame" x="0.0" y="0.0" width="277" height="30.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="syU-FD-DWU">
@@ -116,6 +115,11 @@
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                            <integer key="value" value="9"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </label>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBlueColor"/>
@@ -128,22 +132,31 @@
                                                                 <constraint firstItem="dDO-1f-pNE" firstAttribute="top" secondItem="ebV-3k-iTO" secondAttribute="top" constant="2" id="xwx-22-2ta"/>
                                                             </constraints>
                                                         </view>
+                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hAU-cQ-pbL">
+                                                            <rect key="frame" x="45" y="5" width="20" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="20" id="Ecj-dG-c8h"/>
+                                                                <constraint firstAttribute="height" constant="20" id="ImB-vn-ncv"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="Koe-5A-hh5" secondAttribute="bottom" constant="5" id="2bA-GA-7uj"/>
+                                                        <constraint firstItem="hAU-cQ-pbL" firstAttribute="trailing" secondItem="Koe-5A-hh5" secondAttribute="trailing" id="7Yi-9L-5iZ"/>
                                                         <constraint firstItem="ebV-3k-iTO" firstAttribute="leading" secondItem="yTu-YJ-mQm" secondAttribute="trailing" constant="10" id="Mk8-5K-1Vg"/>
                                                         <constraint firstAttribute="bottom" secondItem="yTu-YJ-mQm" secondAttribute="bottom" constant="5" id="NGf-oQ-Qio"/>
                                                         <constraint firstAttribute="height" constant="70" id="OmC-JT-FWO"/>
                                                         <constraint firstItem="yTu-YJ-mQm" firstAttribute="top" secondItem="QLf-dL-IEL" secondAttribute="top" constant="5" id="Ryd-ws-1vu"/>
                                                         <constraint firstItem="Koe-5A-hh5" firstAttribute="top" secondItem="QLf-dL-IEL" secondAttribute="top" constant="5" id="cKf-pV-iKH"/>
                                                         <constraint firstAttribute="trailing" secondItem="ebV-3k-iTO" secondAttribute="trailing" constant="10" id="e61-mQ-ae8"/>
+                                                        <constraint firstItem="hAU-cQ-pbL" firstAttribute="top" secondItem="Koe-5A-hh5" secondAttribute="top" id="gtf-Ay-kJ2"/>
                                                         <constraint firstItem="Koe-5A-hh5" firstAttribute="leading" secondItem="QLf-dL-IEL" secondAttribute="leading" constant="5" id="gy0-oE-uck"/>
                                                         <constraint firstItem="yTu-YJ-mQm" firstAttribute="leading" secondItem="Koe-5A-hh5" secondAttribute="trailing" constant="15" id="rOz-q2-d1c"/>
                                                         <constraint firstItem="ebV-3k-iTO" firstAttribute="centerY" secondItem="QLf-dL-IEL" secondAttribute="centerY" id="tcU-Hz-Y5h"/>
                                                     </constraints>
                                                 </view>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57c-tA-90P">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57c-tA-90P">
                                                     <rect key="frame" x="60" y="55.5" width="15" height="15"/>
                                                     <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                     <constraints>
@@ -172,21 +185,36 @@
                                             <outlet property="numberOfUnreadMessagesLabel" destination="dDO-1f-pNE" id="eJH-4C-8kH"/>
                                             <outlet property="onlineStatusView" destination="57c-tA-90P" id="9CQ-GR-PBy"/>
                                             <outlet property="profilePhotoImageView" destination="Koe-5A-hh5" id="juk-21-LLT"/>
+                                            <outlet property="profileTypeImageView" destination="hAU-cQ-pbL" id="zLA-VH-XdU"/>
                                             <outlet property="senderLabel" destination="CbH-bW-Uz8" id="cIG-AI-bNT"/>
                                             <outlet property="timeFromMessageSentLabel" destination="rtL-qe-qJX" id="1Jq-v7-yPg"/>
-                                            <outlet property="unreadMessagesView" destination="dDO-1f-pNE" id="ohY-17-dGR"/>
+                                            <outlet property="unreadMessagesView" destination="ebV-3k-iTO" id="oFn-gJ-Cy9"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Список чатов пуст" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkN-73-PUQ">
+                                <rect key="frame" x="110.5" y="437" width="193.5" height="27.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="N4C-8x-aRL">
+                                <rect key="frame" x="188.5" y="432" width="37" height="37"/>
+                                <color key="color" systemColor="labelColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="h6s-nl-yfS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="DkN-73-PUQ" firstAttribute="centerY" secondItem="h6s-nl-yfS" secondAttribute="centerY" id="4ga-lo-CYg"/>
                             <constraint firstItem="KYy-64-VcQ" firstAttribute="leading" secondItem="h6s-nl-yfS" secondAttribute="leading" id="Cbe-jL-R4l"/>
                             <constraint firstItem="KYy-64-VcQ" firstAttribute="bottom" secondItem="h6s-nl-yfS" secondAttribute="bottom" id="Lg9-To-Liz"/>
                             <constraint firstItem="KYy-64-VcQ" firstAttribute="trailing" secondItem="h6s-nl-yfS" secondAttribute="trailing" id="SWD-dA-Yyu"/>
+                            <constraint firstItem="N4C-8x-aRL" firstAttribute="centerX" secondItem="KYy-64-VcQ" secondAttribute="centerX" id="ZVr-xi-kma"/>
+                            <constraint firstItem="N4C-8x-aRL" firstAttribute="centerY" secondItem="KYy-64-VcQ" secondAttribute="centerY" id="h6X-NK-vuD"/>
                             <constraint firstItem="KYy-64-VcQ" firstAttribute="top" secondItem="h6s-nl-yfS" secondAttribute="top" id="kPp-c0-fUk"/>
+                            <constraint firstItem="DkN-73-PUQ" firstAttribute="centerX" secondItem="h6s-nl-yfS" secondAttribute="centerX" id="scl-zv-ZQk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Чаты" id="t6C-Zn-o8v">
@@ -200,7 +228,9 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="chatListIsEmptyLabel" destination="DkN-73-PUQ" id="dqU-6E-Sph"/>
                         <outlet property="chatsTableView" destination="KYy-64-VcQ" id="598-Xa-Rmd"/>
+                        <outlet property="mainActivityIndicatorView" destination="N4C-8x-aRL" id="1lh-8x-PGi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YIw-g5-B1E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

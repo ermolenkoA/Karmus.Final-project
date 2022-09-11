@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9DJ-wT-OEL">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -22,7 +22,7 @@
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yMt-Zg-mXs">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendsCell" id="GkF-Zd-jh2" customClass="FriendsTVCell" customModule="Karmus" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="80.5"/>
@@ -82,7 +82,6 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="9eR-st-DKb" secondAttribute="bottom" constant="5" id="Gjb-HF-O2m"/>
                                                         <constraint firstItem="mS8-qI-dHG" firstAttribute="leading" secondItem="fG0-a8-f7m" secondAttribute="leading" constant="5" id="H7q-bH-yaA"/>
@@ -102,6 +101,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="fG0-a8-f7m" secondAttribute="bottom" constant="5" id="NWs-zF-BBt"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="cityAndAgeLabel" destination="V8F-SE-8L4" id="LhH-Sf-CCU"/>
                                             <outlet property="friendView" destination="fG0-a8-f7m" id="hvD-La-Tbb"/>
@@ -115,7 +115,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hYH-eH-OzS"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="tintColor" red="0.65321147440000005" green="0.80299025769999999" blue="0.94600397349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="07J-Qh-knt" firstAttribute="bottom" secondItem="yMt-Zg-mXs" secondAttribute="bottom" id="AAa-wu-jkh"/>
