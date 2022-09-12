@@ -112,7 +112,10 @@ final class AccountViewController: UIViewController {
             showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
             return
         }
-        
+
+        FireBaseDataBaseManager.removeObserversFromProfile(profileID, login)
+        FireBaseDataBaseManager.removeAccountObservers(profileID, login)
+   
         self.title = "@" + login
         
         FireBaseDataBaseManager.getProfileInfo(login) { [weak self] info in
@@ -144,12 +147,12 @@ final class AccountViewController: UIViewController {
                     self?.profileTypeImageView.isHidden = false
                     
                     self?.mainView.frame = self!.view.frame
-                    self?.profileFullnessView.removeFromSuperview()
-                    self?.additionalInfoView.removeFromSuperview()
-                    self?.mainInfoView.removeFromSuperview()
-                    self?.karmaView.removeFromSuperview()
-                    self?.numberOfFriendsView.removeFromSuperview()
-                    self?.numberOfRespectsView.removeFromSuperview()
+                    self?.profileFullnessView?.removeFromSuperview()
+                    self?.additionalInfoView?.removeFromSuperview()
+                    self?.mainInfoView?.removeFromSuperview()
+                    self?.karmaView?.removeFromSuperview()
+                    self?.numberOfFriendsView?.removeFromSuperview()
+                    self?.numberOfRespectsView?.removeFromSuperview()
                     
                     if let sponsorName = info.sponsorName {
                         self?.firstAndSecondNamesLabel.text = sponsorName
@@ -622,7 +625,9 @@ extension AccountViewController {
     }
     
     private func changeLogin() {
-        var alert: UIAlertController! = .init(title: "Введите новый логин", message: nil, preferredStyle: .alert)
+        var alert: UIAlertController! = .init(title: "Введите новый логин",
+                                              message: "Внимание! После смены логина все чаты будут удалены.",
+                                              preferredStyle: .alert)
         
         alert.addTextField {
             $0.placeholder = "Логин"
@@ -780,16 +785,24 @@ extension AccountViewController {
                             .child(FBProfileInfoKeys.photo)
                             .setValue(info.photo)
                         
-                        FireBaseDataBaseManager.changeLoginInFriendAccounts(profileID, oldLogin: login, newLogin: newLogin) { [weak self] in
+                        FireBaseDataBaseManager.changeLoginInFriendAccounts(profileID, oldLogin: login, newLogin: newLogin) {
                             
-                            self?.login = newLogin
-                            self?.title = "@" + newLogin
-                            showAlert("Логин был успешно изменен", nil, where: self)
-                            FireBaseDataBaseManager.setProfileUpdateDate(profileID)
-                            UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
-                            KeychainSwift.shared.set(newLogin, forKey: ConstantKeys.currentProfileLogin)
-                            self?.standartSettingsWithObserver()
-                            alert = nil
+                            FireBaseDataBaseManager.getChatsIDs { [weak self] chatIDs in
+                                
+                                for chatID in chatIDs {
+                                    FireBaseDataBaseManager.deleteChat(chatID)
+                                }
+                    
+                                self?.login = newLogin
+                                self?.title = "@" + newLogin
+                                showAlert("Логин был успешно изменен", nil, where: self)
+                                FireBaseDataBaseManager.setProfileUpdateDate(profileID)
+                                UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
+                                KeychainSwift.shared.set(newLogin, forKey: ConstantKeys.currentProfileLogin)
+                                self?.standartSettingsWithObserver()
+                                alert = nil
+                                
+                            }
                             
                         }
                         

@@ -124,7 +124,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GSy-KC-odO"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <color key="tintColor" red="0.65321147440000005" green="0.80299025769999999" blue="0.94600397349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="F77-1n-djn" firstAttribute="top" secondItem="Cuc-BU-qDN" secondAttribute="top" id="7hR-pU-Rt0"/>
@@ -148,6 +148,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -45,6 +45,7 @@ extension ProfilesTVCell: SetProfilesCellProtocol {
         switch profileType {
         case FBProfileTypes.sponsor:
             profileTypeImageView.image = UIImage(named: "iconSponsor")
+            cityAndAgeLabel.text = " "
             cityAndAgeLabel.isHidden = true
         case FBProfileTypes.admin:
             profileTypeImageView.image = UIImage(named: "iconAdmin")
@@ -56,7 +57,6 @@ extension ProfilesTVCell: SetProfilesCellProtocol {
                 cityAndAgeLabel.text = city
             }
         }
-        
         photoImageView.image = photo
         photoImageView.kf.indicatorType = .activity
         nameLabel.text = name

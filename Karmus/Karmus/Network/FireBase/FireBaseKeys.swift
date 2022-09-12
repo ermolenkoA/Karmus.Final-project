@@ -53,7 +53,7 @@ struct FBProfileInfoKeys {
 
 struct FBChatKeys {
     static let members = "members"
-    static let messages = "offline"
+    static let messages = "messages"
 }
 
 struct FBChatMessageKeys {

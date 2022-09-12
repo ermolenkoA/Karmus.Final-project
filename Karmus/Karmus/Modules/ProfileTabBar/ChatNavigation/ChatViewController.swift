@@ -10,13 +10,17 @@ import KeychainSwift
 
 final class ChatViewController: UIViewController {
 
+    // MARK: - IBOutlet
     
     @IBOutlet private weak var mainActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var chatListIsEmptyLabel: UILabel!
-    
     @IBOutlet private weak var chatsTableView: UITableView!
     
+    // MARK: - Private Properties
+    
     private var chats = [Chat]()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +39,8 @@ final class ChatViewController: UIViewController {
         getChats()
     }
     
+    // MARK: - Private functions
+    
     private func startSearching() {
         mainActivityIndicatorView.startAnimating()
         chatListIsEmptyLabel.isHidden = true
@@ -52,7 +58,7 @@ final class ChatViewController: UIViewController {
         
         FireBaseDataBaseManager.getChatsIDs { chatsIDs in
             
-        FireBaseDataBaseManager.getChatsInfo(chatsIDs) { [weak self] chats in
+            FireBaseDataBaseManager.getChatsInfo(chatsIDs) { [weak self] chats in
                 self?.chats = chats
                 self?.chatsTableView.reloadData()
                 self?.chatListIsEmptyLabel.isHidden = !chats.isEmpty
@@ -60,9 +66,13 @@ final class ChatViewController: UIViewController {
             }
             
         }
+        
     }
     
+    // MARK: - IBAction
+    
     @IBAction func createNewChat(_ sender: Any) {
+        
         let storyboard = UIStoryboard(name: StoryboardNames.createNewChat, bundle: nil)
         let createNewChatVC = storyboard.instantiateInitialViewController()!
         (createNewChatVC as? CreateNewChatConclusionProtocol)?.getConclusion{ [weak self] interlocutor, chatID in
@@ -84,6 +94,8 @@ final class ChatViewController: UIViewController {
     
 }
 
+// MARK: - UITableViewDelegate
+
 extension ChatViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -95,7 +107,29 @@ extension ChatViewController: UITableViewDelegate {
         navigationController?.pushViewController(conversationVC, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let chatID = chats[indexPath.row].chatID
+        
+        if editingStyle == .delete {
+            
+            tableView.beginUpdates()
+            chats.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+            chatListIsEmptyLabel.isHidden = !chats.isEmpty
+            tableView.endUpdates()
+        }
+        FireBaseDataBaseManager.deleteChat(chatID)
+        
+    }
+    
 }
+
+// MARK: - UITableViewDataSource
 
 extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

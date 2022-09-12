@@ -9,14 +9,11 @@ import UIKit
 import KeychainSwift
 import FirebaseDatabase
 
-protocol GetChatProtocol {
-    func getChat(_ chat: Chat)
-}
-
 final class ChatsTVCell: UITableViewCell {
 
     // MARK: - IBOutlet
     
+    @IBOutlet private weak var messageInfoView: UIView!
     
     @IBOutlet private weak var profileTypeImageView: UIImageView!
     @IBOutlet private weak var profilePhotoImageView: UIImageView!
@@ -24,7 +21,7 @@ final class ChatsTVCell: UITableViewCell {
     
     @IBOutlet private weak var firstAndSecondNamesLabel: UILabel!
     
-    @IBOutlet private weak var senderLabel: UILabel!
+    @IBOutlet private var senderLabel: UILabel!
     @IBOutlet private weak var lastMessageLabel: UILabel!
     @IBOutlet private weak var timeFromMessageSentLabel: UILabel!
     
@@ -44,8 +41,10 @@ final class ChatsTVCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }
+
+// MARK: - GetChatProtocol
 
 extension ChatsTVCell: GetChatProtocol {
     func getChat(_ chat: Chat) {
@@ -61,8 +60,10 @@ extension ChatsTVCell: GetChatProtocol {
         
         case FBProfileTypes.sponsor:
             profileTypeImageView.image = UIImage(named: "iconSponsor")
+            profileTypeImageView.isHidden = false
         case FBProfileTypes.admin:
             profileTypeImageView.image = UIImage(named: "iconAdmin")
+            profileTypeImageView.isHidden = false
         default:
             break
         }
@@ -84,8 +85,12 @@ extension ChatsTVCell: GetChatProtocol {
         
         let lastMessage = chat.messages.last!
         
-        if lastMessage.sender != login{
+        if lastMessage.sender != login {
             senderLabel.isHidden = true
+            senderLabel.superview?.transform.tx = -27
+        } else {
+            senderLabel.isHidden = false
+            senderLabel.superview?.transform.tx = 0
         }
         
         lastMessageLabel.text = lastMessage.messageText
@@ -93,12 +98,15 @@ extension ChatsTVCell: GetChatProtocol {
         
         if lastMessage.isRead {
             unreadMessagesView.isHidden = true
-        } else if !senderLabel.isHidden {
+        } else if lastMessage.sender == login {
             unreadMessagesView.isHidden = false
             numberOfUnreadMessagesLabel.isHidden = true
-            unreadMessagesView.layer.cornerRadius = 12
+            
+            unreadMessagesView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         } else {
+            
             var numberOfUnreadMessage = UInt(0)
+            
             for message in chat.messages.reversed() {
                 guard !message.isRead else {
                     break
@@ -108,6 +116,7 @@ extension ChatsTVCell: GetChatProtocol {
             }
             
             unreadMessagesView.isHidden = false
+            unreadMessagesView.transform = CGAffineTransform(scaleX: 1, y: 1)
             numberOfUnreadMessagesLabel.isHidden = false
             numberOfUnreadMessagesLabel.text = numberOfUnreadMessage < 100 ? String(numberOfUnreadMessage) : "99+"
         }

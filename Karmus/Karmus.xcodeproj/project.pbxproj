@@ -28,6 +28,7 @@
 		532182C328CDBD37000C4DCE /* ChatModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532182C228CDBD37000C4DCE /* ChatModels.swift */; };
 		532182C628CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532182C528CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift */; };
 		532182C928CDC875000C4DCE /* SetProfilesCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532182C828CDC875000C4DCE /* SetProfilesCellProtocol.swift */; };
+		532182D628CF1B70000C4DCE /* ConversationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532182D528CF1B70000C4DCE /* ConversationProtocols.swift */; };
 		533630CE28B7DE8200F139E7 /* ModelActiveTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */; };
 		5336322E28CCAD61007BC5B2 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5336322D28CCAD61007BC5B2 /* AccountViewController.swift */; };
 		5336323528CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */; };
@@ -142,6 +143,7 @@
 		532182C228CDBD37000C4DCE /* ChatModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModels.swift; sourceTree = "<group>"; };
 		532182C528CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewChatConclusionProtocol.swift; sourceTree = "<group>"; };
 		532182C828CDC875000C4DCE /* SetProfilesCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfilesCellProtocol.swift; sourceTree = "<group>"; };
+		532182D528CF1B70000C4DCE /* ConversationProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationProtocols.swift; sourceTree = "<group>"; };
 		533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelActiveTasks.swift; sourceTree = "<group>"; };
 		5336322D28CCAD61007BC5B2 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFriendsCellInfoProtocol.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				5336324428CCB5F0007BC5B2 /* CreateNewChat */,
 				5336323828CCB12E007BC5B2 /* ChatScreen.storyboard */,
 				5336324028CCB186007BC5B2 /* ChatViewController.swift */,
+				53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */,
 			);
 			path = ChatNavigation;
 			sourceTree = "<group>";
@@ -328,7 +331,6 @@
 			isa = PBXGroup;
 			children = (
 				53F284E428CCF2BE0070A5FC /* Models */,
-				53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */,
 				53F284DA28CCEFCE0070A5FC /* CreateNewChat.storyboard */,
 				53F284DD28CCF05A0070A5FC /* CreateNewChatViewController.swift */,
 				53F284E528CCF3B70070A5FC /* ProfilesTVCell.swift */,
@@ -358,6 +360,7 @@
 				5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */,
 				532182C528CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift */,
 				532182C828CDC875000C4DCE /* SetProfilesCellProtocol.swift */,
+				532182D528CF1B70000C4DCE /* ConversationProtocols.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -862,6 +865,7 @@
 				CE26DC8928B4A4BA0022F401 /* SMSManagerResultEnum.swift in Sources */,
 				53B0C84B28BF7288008B518B /* TaskMapViewController.swift in Sources */,
 				CE29864128B4054B00B4AE9D /* DateExtension.swift in Sources */,
+				532182D628CF1B70000C4DCE /* ConversationProtocols.swift in Sources */,
 				CE29864128B4054B00B4AE9D /* DateExtension.swift in Sources */,
 				CE50DF1228B7B20800D90D4A /* DefaultAlert.swift in Sources */,
 				CEE6717528B61BB600CC8853 /* Reachability.swift in Sources */,

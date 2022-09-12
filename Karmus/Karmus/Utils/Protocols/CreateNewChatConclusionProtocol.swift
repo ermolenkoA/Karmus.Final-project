@@ -10,3 +10,7 @@ import Foundation
 protocol CreateNewChatConclusionProtocol {
     func getConclusion(_ conclusion: @escaping (ProfileForChatModel, String?) -> ())
 }
+
+protocol GetChatProtocol {
+    func getChat(_ chat: Chat)
+}

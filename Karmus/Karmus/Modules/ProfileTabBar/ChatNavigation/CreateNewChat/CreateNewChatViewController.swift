@@ -58,6 +58,8 @@ final class CreateNewChatViewController: UIViewController {
 
 }
 
+// MARK: - CreateNewChatConclusionProtocol
+
 extension CreateNewChatViewController: CreateNewChatConclusionProtocol {
     func getConclusion(_ conclusion: @escaping (ProfileForChatModel, String?) -> ()) {
         self.conclusion = conclusion

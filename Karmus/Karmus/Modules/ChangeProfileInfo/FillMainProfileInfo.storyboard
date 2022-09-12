@@ -96,7 +96,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button hidden="YES" opaque="NO" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jt2-Vg-dDM">
+                                    <button hidden="YES" opaque="NO" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jt2-Vg-dDM">
                                         <rect key="frame" x="179" y="147.5" width="15" height="15.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="0jn-cG-scR"/>

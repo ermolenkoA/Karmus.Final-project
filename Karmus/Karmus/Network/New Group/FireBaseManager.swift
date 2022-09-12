@@ -306,6 +306,7 @@ final class FireBaseDataBaseManager {
         
         profilesInfo.observe(.value) { snapshot in
             
+            
             guard snapshot.exists() else {
                 result(nil)
                 return
@@ -683,6 +684,95 @@ final class FireBaseDataBaseManager {
     
     // MARK: - Chat Settings
     
+    static func sendMessage(_ chatID: String, message: Message, conclusion: @escaping (Bool) -> ()) {
+        
+        chats.child(chatID).child(FBChatKeys.messages).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists(), var allMassages = snapshot.value as? [[String : Any]] else {
+                conclusion(false)
+                return
+            }
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
+            
+            var messageText = ""
+            
+            switch message.kind {
+            case .text(let messageTxt):
+                messageText = messageTxt
+            default:
+                conclusion(false)
+                return
+            }
+            
+            var newMassage = [String : Any]()
+            newMassage[FBChatMessageKeys.sender] = message.sender.senderId
+            newMassage[FBChatMessageKeys.sentDate] = formatter.string(from: message.sentDate)
+            newMassage[FBChatMessageKeys.messageText] = messageText
+            newMassage[FBChatMessageKeys.isRead] = false
+
+            allMassages.append(newMassage)
+            
+            chats.child(chatID).child(FBChatKeys.messages).setValue(allMassages)
+            conclusion(true)
+            
+        }
+        
+    }
+    
+    static func createNewChat(interlocutorLogin: String, message: Message, conclusion: @escaping (String?) -> ()) {
+        
+        profilesInfo.child(interlocutorLogin).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists() else {
+                conclusion(nil)
+                return
+            }
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
+            
+            var messageText = ""
+            
+            switch message.kind {
+            case .text(let messageTxt):
+                messageText = messageTxt
+            default:
+                conclusion(nil)
+                return
+            }
+            
+            let newRef = chats.childByAutoId()
+            
+            newRef.setValue([
+                
+                FBChatKeys.members : [message.sender.senderId, interlocutorLogin],
+                FBChatKeys.messages : [
+            
+                    [
+                        FBChatMessageKeys.sender : message.sender.senderId,
+                        FBChatMessageKeys.sentDate : formatter.string(from: message.sentDate),
+                        FBChatMessageKeys.messageText : messageText,
+                        FBChatMessageKeys.isRead : false
+                    
+                    ]
+                
+                ]
+            ]) { error, _ in
+                
+                guard error == nil else {
+                    conclusion(nil)
+                    return
+                }
+                conclusion(newRef.key)
+                
+            }
+            
+        }
+        
+    }
+    
     static func getChatsIDs(conclusion: @escaping ([String]) -> ()){
         
         guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) else {
@@ -715,90 +805,22 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func sendMessage(_ chatID: String, message: Message, conclusion: @escaping (Bool) -> ()) {
-        
+    static func readAllMessage(_ chatID: String) {
         chats.child(chatID).child(FBChatKeys.messages).observeSingleEvent(of: .value) { snapshot in
-            
-            guard snapshot.exists(), var allMassages = snapshot.value as? [[String : Any]] else {
-                conclusion(false)
+            guard snapshot.exists(), let messages = snapshot.value as? [[String : AnyObject]]else {
                 return
             }
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy HH:mm"
-            
-            var messageText = ""
-            
-            switch message.kind {
-            case .text(let messageTxt):
-                messageText = messageTxt
-            default:
-                conclusion(false)
-                return
+            for id in 0..<messages.count {
+                chats.child(chatID).child(FBChatKeys.messages).child(String(id)).child(FBChatMessageKeys.isRead).setValue(true)
             }
-            
-            var newMassage = [String : Any]()
-            newMassage[FBChatMessageKeys.sender] = message.sender.senderId
-            newMassage[FBChatMessageKeys.sentDate] = formatter.string(from: message.sentDate)
-            newMassage[FBChatMessageKeys.messageText] = messageText
-            newMassage[FBChatMessageKeys.isRead] = false
-
-            allMassages.append(newMassage)
-            
-            chats.child(chatID).child(FBChatKeys.messages).setValue(allMassages)
-            conclusion(true)
-            
         }
-        
-    }
-    
-    static func createNewChat(interlocutorLogin: String, message: Message, conclusion: @escaping (Bool) -> ()) {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm"
-        
-        var messageText = ""
-        
-        switch message.kind {
-        case .text(let messageTxt):
-            messageText = messageTxt
-        default:
-            conclusion(false)
-            return
-        }
-        
-        chats.childByAutoId().setValue([
-            
-            FBChatKeys.members : [message.sender.senderId, interlocutorLogin],
-            FBChatKeys.messages : [
-        
-                [
-                    FBChatMessageKeys.sender : message.sender.senderId,
-                    FBChatMessageKeys.sentDate : formatter.string(from: message.sentDate),
-                    FBChatMessageKeys.messageText : messageText,
-                    FBChatMessageKeys.isRead : false
-                
-                ]
-            
-            ]
-        ]) { error, _ in
-            
-            guard error == nil else {
-                conclusion(false)
-                return
-            }
-            conclusion(true)
-            
-        }
-        
     }
     
     static func getChatMessages(_ chatID: String, conclusion: @escaping ([Message]) -> ()) {
         
-        chats.child(chatID).observe(.childChanged) { snapshot in
+        chats.child(chatID).child(FBChatKeys.messages).observe(.value) { snapshot in
             
-            guard let chatElements = snapshot.value as? [String : AnyObject],
-                  let messages = chatElements[FBChatKeys.messages] as? [[String : AnyObject]] else {
+            guard snapshot.exists(), let messages = snapshot.value as? [[String : AnyObject]] else {
                 
                 conclusion([Message]())
                 return
@@ -821,15 +843,17 @@ final class FireBaseDataBaseManager {
                 }
                 
                 let formatter = DateFormatter()
-                formatter.dateFormat = "dd.MM.yyyy HH:mm"
+                formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
                 
-                allMessages.append(Message(sender: Sender(senderId: sender, displayName: ""),
+                allMessages.append(Message(sender: Sender(senderId: sender, displayName: sender),
                                            messageId: String(counter),
                                            sentDate: formatter.date(from: sentDate)!,
                                            kind: .text(messageText),
                                            isRead: isRead))
                 counter += 1
             }
+            
+            conclusion(allMessages)
             
         }
         
@@ -848,7 +872,7 @@ final class FireBaseDataBaseManager {
             
             allChats = allChats.filter{ chatIDs.contains($0.key) }
             
-            if allChats.isEmpty {
+            guard !allChats.isEmpty else {
                 conclusion(chats)
                 return
             }
@@ -859,9 +883,10 @@ final class FireBaseDataBaseManager {
                     chats.append(chat)
                 }
                 
-                if remainingChats.isEmpty {
+                guard !remainingChats.isEmpty else {
                     closure = nil
                     conclusion(chats)
+                    return
                 }
                 
                 parseDataToChatInfo(remainingChats, conclusion: self.chatClosure!)
@@ -869,7 +894,7 @@ final class FireBaseDataBaseManager {
                 
             }
             
-            parseDataToChatInfo(allChats, conclusion: chatClosure!)
+            parseDataToChatInfo(allChats, conclusion: self.chatClosure!)
             
         }
         
@@ -904,6 +929,10 @@ final class FireBaseDataBaseManager {
         
     }
     
+    static func deleteChat(_ chatID: String) {
+        chats.child(chatID).removeValue()
+    }
+    
     // MARK: - Session Settings
     
     static func removeSession() {
@@ -929,6 +958,20 @@ final class FireBaseDataBaseManager {
     static func createChatsObserver(conclusion: @escaping () -> ()) {
         chats.observe(.childChanged) { snapshot in
             conclusion()
+        }
+    }
+    
+    static func putObserverOnOnlineStatus(_ login: String, conclusion: @escaping (String?) -> ()) {
+        profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).observe(.value) { snapshot in
+            
+            guard snapshot.exists() else {
+                conclusion(nil)
+                removeObserverFromOnlineStatus(login)
+                return
+            }
+            
+            conclusion(snapshot.value as? String)
+            
         }
     }
     
@@ -1137,6 +1180,10 @@ final class FireBaseDataBaseManager {
     
     static func removeCurrentChatObserver(_ chatID: String) {
         chats.child(chatID).child(FBChatKeys.messages).removeAllObservers()
+    }
+    
+    static func removeObserverFromOnlineStatus(_ login: String) {
+        profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).removeAllObservers()
     }
     
     // MARK: - Data parsing
@@ -1379,7 +1426,7 @@ final class FireBaseDataBaseManager {
         guard let chatElements = chat.value as? [String : AnyObject],
               let members = chatElements[FBChatKeys.members] as? [String],
               let messages = chatElements[FBChatKeys.messages] as? [[String : AnyObject]] else {
-            
+            print("\nMYLOG: 12231231\n")
             conclusion( nil, [DataSnapshot](chats.dropFirst()) )
             return
             
@@ -1397,14 +1444,11 @@ final class FireBaseDataBaseManager {
                   let messageText = message[FBChatMessageKeys.messageText] as? String,
                   let isRead = message[FBChatMessageKeys.isRead] as? Bool,
                   (lastMassageDate == sentDate || isRead == false) else {
-                
-                conclusion( nil, [DataSnapshot](chats.dropFirst()) )
-                return
-                
+                continue
             }
             
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy HH:mm"
+            formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
             
             allMessages.append(MessageModel(sender: sender,
                                             sentDate: formatter.date(from: sentDate)!,
