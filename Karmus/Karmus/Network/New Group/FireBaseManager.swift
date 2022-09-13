@@ -21,10 +21,12 @@ final class FireBaseDataBaseManager {
     private static let profilesInfo =  Database.database().reference().child(FBDefaultKeys.profilesInfo)
     private static let topics =  Database.database().reference().child(FBDefaultKeys.topics)
     private static let chats =  Database.database().reference().child(FBDefaultKeys.chats)
+    private static let coupons =  Database.database().reference().child(FBDefaultKeys.coupons)
     
     private static var closure: ((Friend?, [DataSnapshot]) -> ())?
     private static var newClosure: ((ProfileForChatModel?, [DataSnapshot]) -> ())?
     private static var chatClosure: ((Chat?, [DataSnapshot]) -> ())?
+    private static var couponClosure: ((CouponInfoModel?, [DataSnapshot]) -> ())?
     
     // MARK: - Description
     
@@ -884,7 +886,7 @@ final class FireBaseDataBaseManager {
                 }
                 
                 guard !remainingChats.isEmpty else {
-                    closure = nil
+                    chatClosure = nil
                     conclusion(chats)
                     return
                 }
@@ -932,6 +934,151 @@ final class FireBaseDataBaseManager {
     static func deleteChat(_ chatID: String) {
         chats.child(chatID).removeValue()
     }
+    
+    // MARK: - Coupons Settings
+    
+    static func createNewCoupon(_ coupon: CouponModel){
+        
+        coupons.childByAutoId().setValue([
+            FBCoupons.name : coupon.name,
+            FBCoupons.description : coupon.description,
+            FBCoupons.codes : coupon.codes,
+            FBCoupons.sponsorLogin : coupon.sponsorLogin,
+            FBCoupons.price : coupon.price
+        ])
+        
+    }
+    
+    static func getAllCoupons(_ conclusion: @escaping ([CouponInfoModel]) -> ()) {
+        
+        coupons.observeSingleEvent(of: .value) { snapshot in
+            
+            var resultCoupons = [CouponInfoModel]()
+            
+            guard snapshot.exists(), let coupons = snapshot.children.allObjects as? [DataSnapshot] else{
+                conclusion(resultCoupons)
+                return
+            }
+            
+            couponClosure = { coupon, remainingCoupons in
+                
+                if let coupon = coupon {
+                    resultCoupons.append(coupon)
+                }
+                
+                guard !remainingCoupons.isEmpty else {
+                    couponClosure = nil
+                    conclusion(resultCoupons)
+                    return
+                }
+                
+                parseDataToCoupons(remainingCoupons, conclusion: self.couponClosure!)
+
+                
+            }
+            
+            parseDataToCoupons(coupons, conclusion: self.couponClosure!)
+            
+        }
+    
+    }
+    
+    static func getActiveCoupons(_ conclusion: @escaping ([CouponInfoModel]) -> ()) {
+        
+        getAllCoupons { coupons in
+            conclusion( coupons.filter{
+                $0.remaningAmount != 0
+            })
+        }
+    
+    }
+    
+    static func getProfileCoupons(_ profileID: String , _ conclusion: @escaping ([UserCouponInfoModel]) -> ()) {
+        
+        profiles.child(profileID).child(FBProfileKeys.coupons).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists(), let profileCoupons = snapshot.value as? [String : [String]] else {
+                conclusion([UserCouponInfoModel]())
+                return
+            }
+            
+            getActiveCoupons { coupons in
+                
+                var resultCoupons = [UserCouponInfoModel]()
+                
+                let fixedCoupons = coupons.filter{
+                    profileCoupons.keys.contains($0.id)
+                }
+                
+                for coupon in fixedCoupons {
+                    
+                    guard let codes = profileCoupons[coupon.id] else {
+                        continue
+                    }
+                    
+                    for code in codes {
+                        resultCoupons.append( UserCouponInfoModel(
+                                                id: coupon.id,
+                                                code: code,
+                                                name: coupon.name,
+                                                description: coupon.description,
+                                                sponsorLogin: coupon.sponsorLogin,
+                                                sponsorPhoto: coupon.sponsorPhoto,
+                                                sponsorName: coupon.sponsorName )
+                        )
+                    }
+                    
+                }
+                
+                conclusion(resultCoupons)
+                
+            }
+            
+        }
+    
+    }
+    
+    static func buyCoupon(profileID: String, couponID: String, _ conclusion: @escaping (String?) -> ()) {
+        
+        coupons.child(couponID).observeSingleEvent(of: .value) { coupon in
+            
+            guard coupon.exists(),
+                  let elements = coupon.value as? [String : Any],
+                  var codes = elements[FBCoupons.description] as? [String] else{
+                
+                conclusion(nil)
+                return
+                
+            }
+            
+            if codes.count > 0 {
+                let code = codes.removeFirst()
+                coupons.child(couponID).child(FBCoupons.codes).setValue(codes)
+                conclusion(code)
+            } else {
+                conclusion(nil)
+            }
+            
+            
+        }
+        
+    }
+    
+    static func removeCoupon(profileID: String, couponID: String, code: String,  _ conclusion: @escaping () -> ()) {
+        
+        profiles.child(profileID).child(FBProfileKeys.coupons).child(couponID).observe(.value) { snapshot in
+            
+            guard snapshot.exists(), var codes = snapshot.value as? [String] else {
+                conclusion()
+                return
+            }
+            
+            codes.removeAll { $0 == code }
+            profiles.child(profileID).child(FBProfileKeys.coupons).child(couponID).setValue(codes)
+        }
+        
+    }
+    
     
     // MARK: - Session Settings
     
@@ -1426,15 +1573,11 @@ final class FireBaseDataBaseManager {
         guard let chatElements = chat.value as? [String : AnyObject],
               let members = chatElements[FBChatKeys.members] as? [String],
               let messages = chatElements[FBChatKeys.messages] as? [[String : AnyObject]] else {
-            print("\nMYLOG: 12231231\n")
             conclusion( nil, [DataSnapshot](chats.dropFirst()) )
             return
-            
         }
         
         var allMessages = [MessageModel]()
-    
-       
         
         let lastMassageDate = messages.last![FBChatMessageKeys.sentDate] as! String
         
@@ -1457,6 +1600,7 @@ final class FireBaseDataBaseManager {
         }
     
         profilesInfo.child(members.first{ $0 != login }!).observeSingleEvent(of: .value) { snapshot in
+            
             guard snapshot.exists() else {
                 conclusion( nil, [DataSnapshot](chats.dropFirst()) )
                 return
@@ -1469,9 +1613,83 @@ final class FireBaseDataBaseManager {
                     conclusion( nil, [DataSnapshot](chats.dropFirst()) )
                 }
             }
+            
         }
         
+    }
+    
+    private static func parseDataToCoupons(_ coupons: [DataSnapshot],
+                                            conclusion: @escaping (CouponInfoModel?, [DataSnapshot]) -> ()) {
         
+        let coupon = coupons.first!
+        
+        guard let elements = coupon.value as? [String : Any],
+              let name = elements[FBCoupons.name] as? String,
+              let description = elements[FBCoupons.description] as? String,
+              let codes = elements[FBCoupons.description] as? [String],
+              let sponsorLogin = elements[FBCoupons.sponsorLogin] as? String,
+              let price = elements[FBCoupons.price] as? UInt else{
+            
+            conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
+            return
+            
+        }
+    
+        profilesInfo.child(sponsorLogin).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists() else {
+                conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
+                return
+            }
+            
+            guard let profileElements = snapshot.value as? [String : Any],
+                  let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
+                  profileType == FBProfileTypes.sponsor,
+                  let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String,
+                  let sponsorPhoto = profileElements[FBProfileInfoKeys.photo] as? String else{
+                
+                conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
+                return
+                
+            }
+            
+            if sponsorPhoto == ProfileModelConstants.defaultPhoto {
+                
+                conclusion(
+                    CouponInfoModel(id: coupon.key, name: name, description: description,
+                                    remaningAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
+                                    sponsorPhoto: UIImage(named: "jpgDefaultProfile")!,
+                                    sponsorName: sponsorName, price: price),
+                    [DataSnapshot](coupons.dropFirst())
+                )
+                
+            } else {
+                
+                let url = URL(string: sponsorPhoto)
+                if let url = url {
+                    
+                    KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                        
+                        guard let image = image else {
+                            conclusion(nil, [DataSnapshot](coupons.dropFirst()))
+                            return
+                        }
+                        
+                        conclusion(
+                            CouponInfoModel(id: coupon.key, name: name, description: description,
+                                            remaningAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
+                                            sponsorPhoto: image,
+                                            sponsorName: sponsorName, price: price),
+                            [DataSnapshot](coupons.dropFirst())
+                        )
+                        
+                    }
+                    
+                }
+                
+            }
+    
+        }
         
      }
     

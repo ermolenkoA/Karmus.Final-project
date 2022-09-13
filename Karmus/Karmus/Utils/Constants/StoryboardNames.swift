@@ -22,5 +22,7 @@ struct StoryboardNames {
     static let fullProfileScreen = "FullProfileScreen"
     static let chatScreen = "ChatScreen"
     static let createNewChat = "CreateNewChat"
-    
+    static let allCouponsScreen = "AllCouponsScreen"
+    static let myCouponsScreen = "MyCouponsScreen"
+    static let createCouponsScreen = "CreateCouponsScreen"
 }

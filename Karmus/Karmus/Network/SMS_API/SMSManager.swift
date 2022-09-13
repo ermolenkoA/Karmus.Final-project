@@ -53,7 +53,7 @@ final class SMSManager {
             }
             
             if response != nil {
-                // print("\n<SMSManager\\sendSMS> RESPONSE: \(response!.debugDescription)\n")
+//                 print("\n<SMSManager\\sendSMS> RESPONSE: \(response!.debugDescription)\n")
             }
             
             if data != nil{
