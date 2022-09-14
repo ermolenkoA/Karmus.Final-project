@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import KeychainSwift
 import Kingfisher
 import UIKit
 import CoreLocation
@@ -14,14 +15,20 @@ class ConditionTaskViewController: UIViewController {
 
     
     @IBOutlet weak var imageCondition: UIImageView!
-    @IBOutlet weak var declarationCondition: UILabel!
+    @IBOutlet weak var declarationCondition: UITextView!
     @IBOutlet weak var dateCondition: UILabel!
     @IBOutlet weak var typeCondition: UILabel!
     @IBOutlet weak var addressCondition: UILabel!
+    @IBOutlet weak var profilePhoto: UIImageView!
+    @IBOutlet weak var profileLogin: UILabel!
+    @IBOutlet weak var profileName: UILabel!
     
     
-    var declarationFromTasks: ModelTasks!
+    var declarationFromTasks: ModelActiveTasks!
     var declarationFromMap: ModelTasks!
+    var declarationForProfile: ModelUserProfile!
+    var profileInfo: ModelUserProfile!
+    var loginForProcessing: String?
     
     var latitudeCoordinateToMap: Double?
     var longitudeCoordinateToMap: Double?
@@ -29,28 +36,63 @@ class ConditionTaskViewController: UIViewController {
     var referenceFromMapTask: DatabaseReference!
     var referenceDelTask: DatabaseReference!
     var referenceProcessingTask: DatabaseReference!
+    var referenceActiveTask: DatabaseReference!
+    var referenceProfileInfo: DatabaseReference!
     var uniqueKeyFromMapAndTasks: String?
     var uniqueKey: String?
+    var profileId: String?
+    var profileUserLogin: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         choiceOfData()
-
+        processProfile()
+        getProfileInfo()
+        
     }
     
-    @IBAction func backToTasksScreen(_ sender: Any) {
-        performSegue(withIdentifier: References.fromConditionTaskToTasksScreen, sender: self)
-    
+    func processProfile(){
+        referenceProcessingTask = Database.database().reference().child("ProfilesInfo")
+        referenceProcessingTask.observe(DataEventType.value, with:{ [weak self](snapshot) in
+            if snapshot.childrenCount > 0 {
+                for tasks in snapshot.children.allObjects as! [DataSnapshot] {
+                    if tasks.key == self?.profileLogin.text {
+                        self?.referenceProcessingTask = Database.database().reference().child("ProfilesInfo").child(tasks.key)
+                    }
+                }
+            }
+        }
+        )
     }
+    
+    func getProfileInfo(){
+        profileUserLogin = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
+        referenceProfileInfo = Database.database().reference().child("ProfilesInfo").child(profileUserLogin!)
+        FireBaseDataBaseManager.getProfileForTask(profileUserLogin!) { [weak self] profile in
+            
+            guard let profile = profile else {
+                return
+            }
+            let task = ModelUserProfile(photo: profile.photo,
+                                        profileName: profile.name,
+                                        login: profile.login)
+            self?.profileInfo = task
+            }
+        }
+    
+    
     
     @IBAction func tapToProcessingTask(_ sender: Any) {
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+        referenceDelTask = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
         let firstAlertController = UIAlertController(title: "Задание ушло на обработку", message: "Ожидайте уведомления", preferredStyle: .alert)
         let actionOk = UIAlertAction(title: "Ок", style: .default)
                 { [weak self] _ in
                     self?.navigationController?.popToRootViewController(animated: true)
-                    self?.referenceDelTask = Database.database().reference().child("Tasks")
+                    
                     self?.referenceDelTask.child(self!.uniqueKeyFromMapAndTasks!).setValue(nil)
-                    self?.saveTask()
+                    self?.saveTask(reference: (self?.referenceProcessingTask.child("ProcessingTasks"))!, photo: (self?.profileInfo.photo)!, login: (self?.profileInfo.login)!, name: (self?.profileInfo.profileName)!)
+//                    self!.referenceProcessingTask.child("ProcessingTasks"))
                     }
         
             firstAlertController.addAction(actionOk)
@@ -85,11 +127,18 @@ class ConditionTaskViewController: UIViewController {
 
     
     @IBAction func tapToDeleteTask(_ sender: Any) {
-        
-        referenceDelTask = Database.database().reference().child("Tasks")
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+        referenceDelTask = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
+        referenceActiveTask = Database.database().reference().child("ActiveTasks")
         let firstAlertController = UIAlertController(title: "Удалить задание", message: "Вы уверены?", preferredStyle: .alert)
                 let actionDelete = UIAlertAction(title: "Да", style: .cancel){[unowned self] _ in
                     self.referenceDelTask.child(uniqueKeyFromMapAndTasks!).setValue(nil)
+                    self.saveTask(reference:referenceActiveTask,
+                                  photo: declarationFromTasks.photo,
+                                  login: declarationFromTasks.login,
+                                  name: declarationFromTasks.profileName)
+                    
+                   // self.referenceActiveTask.child(uniqueKeyFromMapAndTasks!).setValue(<#T##value: Any?##Any?#>)
                     let secondAlertController = UIAlertController(title: "Задание удалено", message: nil, preferredStyle: .alert)
                     let actionOk = UIAlertAction(title: "Ок", style: .default)
                     { [weak self] _ in
@@ -110,24 +159,38 @@ class ConditionTaskViewController: UIViewController {
             dateCondition.text = declarationFromTasks.date
             latitudeCoordinateToMap = declarationFromTasks.latitudeCoordinate
             longitudeCoordinateToMap = declarationFromTasks.longitudeCoordinate
-            addressCondition.text = declarationFromTasks.address
-            typeCondition.text = declarationFromTasks.type
+            addressCondition.text = "Адресс: \(declarationFromTasks.address)"
+            typeCondition.text = "Тип задания: \(declarationFromTasks.type)"
+            profileName.text = declarationFromTasks.profileName
+            profileLogin.text = declarationFromTasks.login
+            let profileUrl = URL(string: declarationFromTasks!.photo)
             let url = URL(string: declarationFromTasks!.imageURL)
-            if let url = url as? URL {
+            if let url = url {
                 
                 KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
                     self.imageCondition.image = image
                     self.imageCondition.kf.indicatorType = .activity
                 }
             }
+            if let profileUrl = profileUrl {
+                
+                KingfisherManager.shared.retrieveImage(with: profileUrl as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                    self.profilePhoto.image = image
+                    self.profilePhoto.kf.indicatorType = .activity
+                }
+            }
         }else {
             print("перешло")
-            referenceFromMapTask = Database.database().reference().child("Tasks")
-            
+            profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+            referenceFromMapTask =  Database.database().reference().child(FBDefaultKeys.profiles).child(profileId!).child("Tasks")
+            print("КЛЮЧ \(uniqueKeyFromMapAndTasks!)")
             referenceFromMapTask.child(uniqueKeyFromMapAndTasks!).observeSingleEvent(of: .value){ snapshot in
                 if snapshot.exists(){
                     
                     let taskObject = snapshot.value as! [String: AnyObject]
+                    let taskProfileName = taskObject["name"]
+                    let taskPhoto = taskObject["photo"]
+                    let taskLogin = taskObject["login"]
                     let taskName = taskObject["taskName"]
                     let taskType = taskObject["taskType"]
                     let taskId = snapshot.key
@@ -137,7 +200,7 @@ class ConditionTaskViewController: UIViewController {
                     let taskLatitudeCoordinate = taskObject["latitudeCoordinate"]
                     let taskLongitudeCoordinate = taskObject["longitudeCoordinate"]
                     
-                    let task = ModelTasks(imageURL: taskImage as? String ?? "", id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String)
+                    let task = ModelActiveTasks(imageURL: taskImage as? String ?? "", id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String,  photo: taskPhoto as! String, profileName: taskProfileName as! String, login: taskLogin as! String)
                     
                     self.declarationFromTasks = task
                     self.latitudeCoordinateToMap = self.declarationFromTasks.latitudeCoordinate
@@ -146,13 +209,23 @@ class ConditionTaskViewController: UIViewController {
                     self.dateCondition.text = self.declarationFromTasks.date
                     self.addressCondition.text = self.declarationFromTasks.address
                     self.typeCondition.text = self.declarationFromTasks.type
+                    self.profileName.text = self.declarationFromTasks.profileName
+                    self.profileLogin.text = self.declarationFromTasks.login
                     
+                    let profileUrl = URL(string: self.declarationFromTasks.photo)
                     let url = URL(string: self.declarationFromTasks.imageURL)
-                    if let url = url as? URL {
+                    if let url = url {
                         
                         KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
                             self.imageCondition.image = image
                             self.imageCondition.kf.indicatorType = .activity
+                        }
+                    }
+                    if let profileUrl = profileUrl {
+                        
+                        KingfisherManager.shared.retrieveImage(with: profileUrl as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                            self.profilePhoto.image = image
+                            self.profilePhoto.kf.indicatorType = .activity
                         }
                     }
                 }
@@ -160,14 +233,15 @@ class ConditionTaskViewController: UIViewController {
         }
     }
     
-    func saveTask(){
-        referenceProcessingTask = Database.database().reference().child("ProcessingTasks")
-            let key = referenceProcessingTask.childByAutoId().key
+    func saveTask(reference: DatabaseReference, photo: String, login: String, name: String){
+        
+        let key = reference.childByAutoId().key
         uniqueKey = key
-//        print(resultAddress!)
-//            let date = dateField.text!
-//            let decloration = taskDeclorationField.text!
-        let task = ["taskType": declarationFromTasks.type,
+        let task = [
+                    "name": name,
+                    "login": login,
+                    "photo": photo,
+                    "taskType": declarationFromTasks.type,
                     "address": declarationFromTasks.address,
                     "longitudeCoordinate": declarationFromTasks.longitudeCoordinate,
                     "latitudeCoordinate": declarationFromTasks.latitudeCoordinate,
@@ -176,7 +250,7 @@ class ConditionTaskViewController: UIViewController {
                     "imageURL": declarationFromTasks.imageURL
                     
             ] as! [String: AnyObject]
-        self.referenceProcessingTask.child(key!).setValue(task)
+        reference.child(key!).setValue(task)
         
         }
     

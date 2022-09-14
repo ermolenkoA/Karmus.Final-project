@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 import KeychainSwift
+import Kingfisher
 
 final class FireBaseDataBaseManager {
     
@@ -119,22 +120,7 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())){
-        let storageRef = Storage.storage().reference().child("imageTasks")
-        let imageData = image.jpegData(compressionQuality: 0.8)
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpeg"
-        storageRef.putData(imageData!, metadata: metaData) {(metaData, error) in
-            guard metaData != nil else {
-                completion(nil)
-                return
-            }
-                storageRef.downloadURL(completion: {(url, error) in
-                    completion(url)
-                })
-            }
-    }
-    
+ 
     
     static func changeLoginInFriendAccounts(_ profileID: String, oldLogin: String, newLogin: String? = nil, _ conclusion: @escaping () -> ()) {
         profiles.child(profileID).observeSingleEvent(of: .value) { snapshot in
@@ -873,6 +859,85 @@ final class FireBaseDataBaseManager {
         ]
      }
     
-}
+    static func uploadPhoto( image: UIImage, completion: @escaping (( _ url: URL?) -> ())){
+            let storageRef = Storage.storage().reference().child("imageTasks/")
+            let imageData = image.jpegData(compressionQuality: 0.8)
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            storageRef.putData(imageData!, metadata: metaData) {(metaData, error) in
+                guard metaData != nil else {
+                    completion(nil)
+                    return
+                }
+                    storageRef.downloadURL(completion: {(url, error) in
+                        completion(url)
+                    })
+                }
+        }
+    
+    static func getProfileForTask(_ login: String,
+                                          _ conclusion: @escaping (ProfileForTask?) -> ()) {
+        
+        profilesInfo.child(login).observeSingleEvent(of: .value) { snapshot in
+            
+            guard snapshot.exists() else {
+                conclusion(nil)
+                return
+            }
+            
+            parseDataToProfileForTask(profile: snapshot, conclusion: conclusion)
+            
+        }
+        
+    }
 
+    private static func parseDataToProfileForTask(profile: DataSnapshot,
+                                                  conclusion: @escaping (ProfileForTask?) -> ()) {
+        
+        
+        guard let profileElements = profile.value as? [String : Any] else {
+            conclusion(nil)
+            return
+        }
+        
+        
+        guard let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
+              let photo = profileElements[FBProfileInfoKeys.photo] as? String else {
+            
+            conclusion(nil)
+            return
+            
+        }
+        
+        var name = "Неизвестный пользователь"
+        
+        if profileType == FBProfileTypes.sponsor {
+            
+            guard let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String else {
+                conclusion(nil)
+                return
+            }
+            
+            name = sponsorName
+            
+        } else {
+            
+            guard let firstName = profileElements[FBProfileInfoKeys.firstName] as? String,
+                  let secondName = profileElements[FBProfileInfoKeys.secondName] as? String else{
+                conclusion(nil)
+                return
+            }
+            
+            name = firstName + " " + secondName
+        }
+        
+        conclusion(
+            ProfileForTask.init(login: profile.key,
+                                name: name,
+                                photo: photo,
+                                profileType: profileType)
+        )
+        
+    }
+}
     

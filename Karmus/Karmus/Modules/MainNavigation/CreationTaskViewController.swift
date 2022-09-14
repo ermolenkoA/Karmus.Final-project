@@ -12,10 +12,10 @@
 import Firebase
 import UIKit
 
-class CreationTaskViewController: UIViewController {
+class CreationTaskViewController: UIViewController, UITextFieldDelegate {
+    
     
     @IBOutlet weak var taskImage: UIImageView!
-    @IBOutlet weak var respectTask: UITextField!
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var typeOfTask: UITextField!
     @IBOutlet weak var switchTask: UISwitch!
@@ -42,8 +42,7 @@ class CreationTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-       // typeOfTask.delegate = self
+        setupGestures()
         tabBarController?.tabBar.isHidden = true
         imagePicker.delegate = self
         datePicker.preferredDatePickerStyle = .wheels
@@ -66,11 +65,48 @@ class CreationTaskViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
+       
     }
     
-    @IBAction func startEditingPopover(_ sender: Any) {
-        view.endEditing(true)
+
+    
+    
+    
+    private func setupGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedToPop))
+        tapGesture.numberOfTapsRequired = 1
+        typeOfTask.addGestureRecognizer(tapGesture)
+        
     }
+    
+    @objc
+    private func tappedToPop() {
+        
+        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "popVC") else { return }
+        
+        popVC.modalPresentationStyle = .popover
+        
+        let popOverVC = popVC.popoverPresentationController
+        popOverVC?.delegate = self
+        popOverVC?.sourceView = self.typeOfTask
+        popOverVC?.sourceRect = CGRect(x: self.typeOfTask.bounds.midX, y: self.typeOfTask.bounds.midY, width: 0, height: 0)
+        popVC.preferredContentSize = CGSize(width: 160, height: 160)
+        FireBaseDataBaseManager.getTopics { [weak self] topics in
+            if let topics = topics {
+                (popVC as? PopTypeOfTaskTableViewController)?.typeArray = topics
+            }
+            
+            (popVC as? GetHandlerProtocol)?.getHandler{ [weak self] topic in
+                self?.typeOfTask.text = topic
+                popVC.dismiss(animated: true)
+            }
+            self?.present(popVC, animated: true)
+        }
+    }
+        
+    
+    
+    
     
     
     
@@ -80,25 +116,13 @@ class CreationTaskViewController: UIViewController {
                 if datePicker.date.isGreaterThanDate(dateToCompare: Date().addHours(hoursToAdd: 6)){
                 performSegue(withIdentifier: References.fromCreationToTaskMapScreen, sender: self)
             }else {
-                print("NE TA DATE")
+                showAlert("Дата заполненна не корректно", "Задание должно оставаться активным не менее 6 часов ", where: self)
             }
             }else{
-                showAlert()
+                showAlert("Ошибка", "Поля не все заполненны", where: self)
             }
     }
     
-    @IBAction func taskForGroup(_ sender: UISwitch) {
-        if sender.isOn {
-            view.backgroundColor = .blue
-        }else {
-            view.backgroundColor = .red
-        }
-    }
-    
-    private func popupTypeOfTask() {
-        
-      //  typeOfTask.background = UIColor.tertiarySystemBackground.withAlphaComponent(0.3)
-    }
     
 
     func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())) {
@@ -171,12 +195,12 @@ class CreationTaskViewController: UIViewController {
 //        }
         
     }
-    
-    func showAlert() {
-        let alert = UIAlertController(title: "Ошибка", message: "Поля не все заполнены", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ок", style: .default))
-        present(alert, animated: true)
-    }
+//
+//    func showAlert() {
+//        let alert = UIAlertController(title: "Ошибка", message: "Поля не все заполнены", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+//        present(alert, animated: true)
+//    }
     
     ////
     
@@ -213,9 +237,25 @@ class CreationTaskViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "toPopoverTypeOfTask" {
-            let controller = segue.destination as! PopTypeOfTaskViewController
-        }
+//        if segue.identifier == "toPopoverTypeOfTask" {
+//            print("Яс сосу хуй")
+//            let vc = segue.destination as! PopTypeOfTaskViewController
+//            vc.preferredContentSize = CGSize(width: 300,
+//                                             height: 300)
+//            let controller = vc.popoverPresentationController
+//            controller?.delegate = self
+//            controller?.sourceView = self.view
+//            controller?.permittedArrowDirections = UIPopoverArrowDirection.up
+//
+//            let myTextField = (sender as! UITextField)
+//
+//            controller?.sourceRect = CGRect(x: myTextField.frame.origin.x,
+//                                            y: myTextField.frame.origin.y + myTextField.bounds.height,
+//                                            width: 0,
+//                                            height: 0)
+//
+//
+//        }
         
         if segue.identifier == References.fromCreationToTaskMapScreen {
             let controller = segue.destination as! TaskMapViewController
@@ -245,6 +285,20 @@ extension CreationTaskViewController: UIImagePickerControllerDelegate, UINavigat
     
 }
 
-extension CreationTaskViewController: UISearchBarDelegate{
-    
+extension CreationTaskViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
 }
+
+//extension CreationTaskViewController: GetTopicProtocol {
+//    func getTopic(_ topic: String) {
+//        typeOfTask.text = topic
+//    }
+//
+//
+//}
+
+//extension CreationTaskViewController: GetTopicProtocol {
+//    var getTopic: String = ""
+//}

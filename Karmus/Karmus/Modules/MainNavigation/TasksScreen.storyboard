@@ -18,11 +18,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pmq-Jq-rh0">
-                                <rect key="frame" x="0.0" y="50" width="320" height="430"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ваши задания" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Emb-jp-10X">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="AppleSymbols" family="Apple Symbols" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellID" rowHeight="80" id="T2E-jB-jJR" customClass="TasksTableViewCell" customModule="Karmus" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="65.5" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T2E-jB-jJR" id="FOA-Cu-9qB">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
@@ -30,9 +37,15 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8ph-IX-uLA">
                                                     <rect key="frame" x="16" y="0.0" width="80" height="80"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="4FC-5V-Oeg"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="45"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="краткое описания задания краткое описания задания краткое описания задания краткое описания задания" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLu-H6-Q9c">
                                                     <rect key="frame" x="104" y="24" width="205" height="45"/>
@@ -41,20 +54,28 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vuc-Lt-ayc">
-                                                    <rect key="frame" x="104" y="5" width="33" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <rect key="frame" x="181" y="5" width="30.5" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" systemColor="systemGrayColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Активно до:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzu-uU-pyC">
+                                                    <rect key="frame" x="104" y="6" width="75.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="8ph-IX-uLA" firstAttribute="top" secondItem="FOA-Cu-9qB" secondAttribute="top" id="0An-d4-fhe"/>
-                                                <constraint firstItem="vuc-Lt-ayc" firstAttribute="leading" secondItem="8ph-IX-uLA" secondAttribute="trailing" constant="8" symbolic="YES" id="8bv-Yc-d0U"/>
+                                                <constraint firstItem="vuc-Lt-ayc" firstAttribute="leading" secondItem="8ph-IX-uLA" secondAttribute="trailing" constant="85" id="8bv-Yc-d0U"/>
                                                 <constraint firstItem="vuc-Lt-ayc" firstAttribute="top" secondItem="FOA-Cu-9qB" secondAttribute="top" constant="5" id="BRU-56-e56"/>
                                                 <constraint firstItem="vLu-H6-Q9c" firstAttribute="top" secondItem="vuc-Lt-ayc" secondAttribute="bottom" constant="2" id="IiO-Ej-3Pe"/>
                                                 <constraint firstAttribute="bottom" secondItem="8ph-IX-uLA" secondAttribute="bottom" id="Qjw-mP-j0e"/>
                                                 <constraint firstAttribute="bottom" secondItem="vLu-H6-Q9c" secondAttribute="bottom" constant="11" id="YHs-7n-sLo"/>
+                                                <constraint firstItem="Nzu-uU-pyC" firstAttribute="leading" secondItem="8ph-IX-uLA" secondAttribute="trailing" constant="8" symbolic="YES" id="cjK-Z6-0bB"/>
                                                 <constraint firstItem="8ph-IX-uLA" firstAttribute="leading" secondItem="FOA-Cu-9qB" secondAttribute="leading" constant="16" id="juv-1Y-Vdj"/>
                                                 <constraint firstItem="vLu-H6-Q9c" firstAttribute="leading" secondItem="8ph-IX-uLA" secondAttribute="trailing" constant="8" symbolic="YES" id="lYM-wS-bgJ"/>
+                                                <constraint firstItem="Nzu-uU-pyC" firstAttribute="top" secondItem="FOA-Cu-9qB" secondAttribute="top" constant="6" id="m3n-vP-f2m"/>
                                                 <constraint firstItem="vLu-H6-Q9c" firstAttribute="top" secondItem="FOA-Cu-9qB" secondAttribute="top" constant="24" id="thH-jL-UWD"/>
                                                 <constraint firstAttribute="trailing" secondItem="vLu-H6-Q9c" secondAttribute="trailing" constant="11" id="xIF-5h-g0h"/>
                                             </constraints>
@@ -75,7 +96,7 @@
                             <constraint firstItem="fOv-Fd-kvv" firstAttribute="trailing" secondItem="pmq-Jq-rh0" secondAttribute="trailing" id="QL3-tl-o70"/>
                             <constraint firstItem="pmq-Jq-rh0" firstAttribute="leading" secondItem="fOv-Fd-kvv" secondAttribute="leading" id="R5p-dm-WUk"/>
                             <constraint firstItem="pmq-Jq-rh0" firstAttribute="bottom" secondItem="fOv-Fd-kvv" secondAttribute="bottom" id="YlY-rz-tgv"/>
-                            <constraint firstItem="pmq-Jq-rh0" firstAttribute="top" secondItem="fOv-Fd-kvv" secondAttribute="top" constant="50" id="a5w-0f-9lg"/>
+                            <constraint firstItem="pmq-Jq-rh0" firstAttribute="top" secondItem="fOv-Fd-kvv" secondAttribute="top" id="a5w-0f-9lg"/>
                         </constraints>
                     </view>
                     <connections>
@@ -109,6 +130,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="secondarySystemGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

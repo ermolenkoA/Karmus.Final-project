@@ -10,18 +10,19 @@ import UIKit
 class ComplitedTasksTableViewCell: UITableViewCell {
 
     @IBOutlet weak var declarationLabel: UILabel!
-    @IBOutlet weak var dataLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var taskImageView: UIImageView!
     
-    var compliteModelTasks: ModelTasks? {
+    var compliteModelTasks: ModelActiveTasks? {
         didSet{
             declarationLabel.text = compliteModelTasks?.type
-            dataLabel.text = compliteModelTasks?.date
-            let url = URL(string: compliteModelTasks!.imageURL)
-            if let url = url as? URL {
+            dateLabel.text = compliteModelTasks!.date
+            let url = URL(string: compliteModelTasks!.photo)
+                if let url = url {
                 KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
-                self.taskImageView.image = image
-                self.taskImageView.kf.indicatorType = .activity
+                    self.taskImageView.image = image
+                    self.taskImageView.kf.indicatorType = .activity
+                    
                 }
             }
         }

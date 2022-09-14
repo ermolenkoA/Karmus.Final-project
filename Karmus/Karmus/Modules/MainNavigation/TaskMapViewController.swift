@@ -7,6 +7,7 @@
 import Firebase
 import MapKit
 import UIKit
+import KeychainSwift
 
 
 class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate, MKMapViewDelegate{
@@ -23,9 +24,17 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
     var resultAddress: String?
     var resultDeleagte: GetAddress?
     var switchFromCreation: Bool?
+    var profileLogin: String?
+    var profileId: String?
+    
+    var photo: String?
+    var name: String?
+    var login: String?
+    var addCoordinate = false
     
     var refActiveTasks: DatabaseReference!
     var refGroupActiveTasks: DatabaseReference!
+    var refAccuintCreatedTasks: DatabaseReference!
     
     var refTasksCoordinates: DatabaseReference!
     var taskCoordinate: CLLocationCoordinate2D!
@@ -38,6 +47,7 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
       }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -45,6 +55,8 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
         mapView.delegate = self
         refGroupActiveTasks = Database.database().reference().child("GroupTasks")
         refActiveTasks = Database.database().reference().child("ActiveTasks")
+        
+        
   //      refTasksCoordinates = refTasks.child("Coordinates")
     }
     
@@ -52,38 +64,50 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
         super.viewWillDisappear(animated)
         mapView = nil
         searchController = nil
-        refActiveTasks = nil
+       // refActiveTasks = nil
         refGroupActiveTasks = nil
         refTasksCoordinates = nil
         
     }
     
+    
+    
     @IBAction func addTaskButton(_ sender: Any) {
+        
+    if addCoordinate == false {
+            
         if longitudeCoordinate != nil && latitudeCoordinate != nil{
-            if switchFromCreation == true {
-                self.saveFIRData(reference: refGroupActiveTasks)
-                if let controller = navigationController?.viewControllers.first as? MapViewController {
-                navigationController?.popToViewController(controller, animated: true)
+            
+                if switchFromCreation == true {
+                    dataFromProfile(reference: refGroupActiveTasks)
+                    if let controller = navigationController?.viewControllers.first as? MapViewController {
+                        navigationController?.popToViewController(controller, animated: true)
+                    }
+                }else {
+                    dataFromProfile(reference: refActiveTasks)
+                    
+                    if let controller = navigationController?.viewControllers.first as? MapViewController {
+                        navigationController?.popToViewController(controller, animated: true)
+                    }
                 }
-            }else {
-                self.saveFIRData(reference: refActiveTasks)
-                if let controller = navigationController?.viewControllers.first as? MapViewController {
-                navigationController?.popToViewController(controller, animated: true)
-                }
+            }else{
+                showAlert(title: "Ошибка", message: "Вы не указали адрес", action: "Ок")
             }
         }else {
-            showAlert()
+            showAlert(title: "Ошибка", message: "такой адрес уже существует", action: "Эхх")
+            
         }
     }
     
-    func showAlert(){
-        let alert = UIAlertController(title: "Ошибка", message: "Вы не указали адрес", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+    func showAlert(title: String, message: String, action: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: action, style: .default))
         present(alert, animated: true)
     }
     
     @IBAction func searchWithAddress(_ sender: Any) {
-        
+        print("Я в поиске адреса")
+        self.addCoordinate = false
         searchController.searchBar.backgroundColor = .secondarySystemBackground
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
@@ -113,6 +137,37 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
         }
     }
     
+    func checkCoordinate(reference: DatabaseReference){
+    //   var boolSearch = false
+        
+        reference.observeSingleEvent(of: .value){ [unowned self] snapshot in
+//            let tasks = snapshot.children.allObjects as! [DataSnapshot]
+            if snapshot.exists() {
+//                if let taskObject = binarySearch(inputArr: tasks.map { $0.value as? Double ?? 0 } , searchItem: self.latitudeCoordinate!){
+//                    boolSearch = true
+//                    print("LOG: ", boolSearch)
+//                }
+                
+                for tasks in snapshot.children.allObjects as! [DataSnapshot] {
+
+                    let taskObject = tasks.value as? [String: AnyObject]
+                    let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
+                    let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
+                    print("\(taskLatitudeCoordinate!) +  \(taskLongitudeCoordinate!)")
+
+                    if  taskLongitudeCoordinate as? Double == self.longitudeCoordinate &&
+                            taskLatitudeCoordinate as? Double == self.latitudeCoordinate
+                    {
+                    print("КООРДИНАТЫ")
+                        self.addCoordinate = true
+                        }
+                    }
+                
+                }
+            }
+
+    }
+    
     func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())) {
    //     let key = refTasks.childByAutoId().key
         let storageRef = Storage.storage().reference().child("imageTasks").child("my photo")
@@ -130,25 +185,49 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
                 })
             }
     }
+    
+    func dataFromProfile(reference: DatabaseReference){
+        profileLogin = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+        refAccuintCreatedTasks = Database.database().reference().child("Profiles").child(profileId!).child("CreatedTasks")
+        FireBaseDataBaseManager.getProfileForTask(profileLogin!) { [weak self] profile in
+            
+            guard let profile = profile else {
+                return
+            }
+            self?.login = profile.login
+            self?.photo = profile.photo
+            self?.name = profile.name
+            self?.saveFIRData(reference: reference)
+            self?.saveFIRData(reference: (self?.refAccuintCreatedTasks)!)
+        }
+        
+    }
    
 
     func saveTask(imageURL: URL, referenceTask: DatabaseReference, completion: @escaping ((_ url: URL?) -> ())) {
+//        dataFromProfile()
+        
             let key = referenceTask.childByAutoId().key
-        uniqueKey = key
-        let task = ["address": resultAddress!,
-                    "longitudeCoordinate": longitudeCoordinate!,
-                    "latitudeCoordinate": latitudeCoordinate!,
-                    "taskName": declorationFromCreation!,
-                    "taskDate": dateFromCreation!,
-                    "imageURL": imageURL.absoluteString,
-                    "taskType": typeFromCreation!
+            uniqueKey = key
+            let task = ["login": login!,
+                        "photo": photo!,
+                        "name": name!,
+                        "address": resultAddress!,
+                        "longitudeCoordinate": longitudeCoordinate!,
+                        "latitudeCoordinate": latitudeCoordinate!,
+                        "taskName": declorationFromCreation!,
+                        "taskDate": dateFromCreation!,
+                        "imageURL": imageURL.absoluteString,
+                        "taskType": typeFromCreation!
                     
             ] as! [String: AnyObject]
         referenceTask.child(key!).setValue(task)
         
-        }
+    }
         
     func saveFIRData(reference: DatabaseReference){
+        
         self.uploadPhoto(imageFromCreation){ url in
             if url == nil {
                 print("error1")
@@ -165,6 +244,33 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
             }
         }
     }
+    
+    
+    func binarySearch<T:Comparable>(inputArr:Array<T>, searchItem: T) -> Int? {
+        var lowerIndex = 0
+        var upperIndex = inputArr.count - 1
+
+        while (true) {
+            let currentIndex = (lowerIndex + upperIndex)/2
+            if(inputArr[currentIndex] == searchItem) {
+                return currentIndex
+            } else if (lowerIndex > upperIndex) {
+                return nil
+            } else {
+                if (inputArr[currentIndex] > searchItem) {
+                    upperIndex = currentIndex - 1
+                } else {
+                    lowerIndex = currentIndex + 1
+                }
+            }
+        }
+    }
+    
+    
+   
+   
+
+    
 //    func passData(){
 //        let storyboard = UIStoryboard(name: "DeclataionOfTasksScreen", bundle: nil)
 //        if let declarationTasksVC = storyboard.instantiateViewController(identifier: "DeclarationOfTasksViewController") as? DeclarationOfTasksViewController {
@@ -183,6 +289,8 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
 
 extension TaskMapViewController: ResultsMapViewControllerDelegate {
     func didTapPlace(with coordinates: CLLocationCoordinate2D) {
+        checkCoordinate(reference: refActiveTasks)
+        checkCoordinate(reference: refGroupActiveTasks)
         searchController.dismiss(animated: true)
         searchController.searchBar.resignFirstResponder()
 
@@ -194,6 +302,7 @@ extension TaskMapViewController: ResultsMapViewControllerDelegate {
         taskCoordinate = coordinates
         longitudeCoordinate = coordinates.longitude
         latitudeCoordinate = coordinates.latitude
+        
         mapView.addAnnotation(pin)
         mapView.setRegion(MKCoordinateRegion(
             center: coordinates,

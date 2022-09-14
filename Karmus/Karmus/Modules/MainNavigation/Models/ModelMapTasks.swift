@@ -6,36 +6,75 @@
 //
 
 import Foundation
+import MapKit
 import UIKit
 
-//class Tasks: NSObject{
-//    var image: UIImage
-//    var data: String
-//    var declaration: String
-//    init(image: UIImage, data: String, declaration: String){
-//        self.data = data
-//        self.image = image
-//        self.declaration = declaration
-////    }
-////}
-//
-//class ModelTasks {
-//    var addTap = DeclarationOfTasksViewController()
-//    var tasks = [ActiveTasks]()
-//    var tasksFromActive = ModelActiveTasks()
-//    init(){
-//        setUp()
-//    }
-//    func setUp(){
-////        let task1 = tasksFromActive.tasks
-////if addTap.tapToAddTaskUser(<#T##sender: Any##Any#>)
-//        for myTask in tasksFromActive.tasks {
-//        tasks.append(myTask)
-//        }
-////        let taskNumber1 = ActiveTasks(image: UIImage(named:"tmb_215871_399815")!, data: "Активно до 25 августа, 2022", declaration: "Убрать территорию в парке")
-////        let taskNumber2 = ActiveTasks(image: UIImage(named:"a482c3b8a982a4dd34fb10df40806ae6")!, data: "Активно до 28 августа, 2022", declaration: "Посадить дерево у болота")
-////        tasks.append(taskNumber1)
-////        tasks.append(taskNumber2)
-////
-//    }
-//}
+class ModelTasksMap: NSObject, MKAnnotation{
+    var name: String?
+    var coordinate: CLLocationCoordinate2D
+    var id: String?
+    var address: String?
+    var type: String?
+    var title: String?{
+        return type
+    }
+
+    var subtitle: String?{
+        return address
+    }
+
+    init(coordinate: CLLocationCoordinate2D, name: String, id: String, address: String, type: String){
+        self.coordinate = coordinate
+        self.name = name
+        self.id = id
+        self.address = address
+        self.type = type
+    }
+}
+
+class ModelActiveTasksMap: NSObject, MKAnnotation{
+    var name: String?
+    var coordinate: CLLocationCoordinate2D
+    var id: String?
+    var address: String?
+    var type: String?
+    var title: String?{
+        return type
+    }
+
+    var subtitle: String?{
+        return address
+    }
+
+    init(coordinate: CLLocationCoordinate2D, name: String, id: String, address: String, type: String){
+        self.coordinate = coordinate
+        self.name = name
+        self.id = id
+        self.address = address
+        self.type = type
+    }
+}
+
+class ModelGroupTasksMap:  NSObject, MKAnnotation{
+    var name: String?
+    var coordinate: CLLocationCoordinate2D
+    var id: String?
+    var address: String?
+    var type: String?
+    var title: String?{
+        return type
+    }
+
+    var subtitle: String?{
+        return address
+    }
+
+    init(coordinate: CLLocationCoordinate2D, name: String, id: String, address: String, type: String){
+        self.coordinate = coordinate
+        self.name = name
+        self.id = id
+        self.address = address
+        self.type = type
+    }
+    
+}
