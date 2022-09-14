@@ -21,7 +21,7 @@ final class CreateNewChatViewController: UIViewController {
     private var conclusion: ((ProfileForChatModel, String?) -> ())?
     // MARK: - Life Cycle
     
-    override func viewDidLoad() {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
         
         self.title = "Перейти к чату"
@@ -92,7 +92,7 @@ extension CreateNewChatViewController: UISearchResultsUpdating {
 extension CreateNewChatViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        searchController?.isActive = false
         tableView.deselectRow(at: indexPath, animated: true)
         searchingStarted()
         
@@ -113,7 +113,6 @@ extension CreateNewChatViewController: UITableViewDelegate {
                                                   preferredStyle: .alert)
             
             let sumbitButton = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
-                self?.searchController?.isActive = false
                 self?.conclusion?(profile, chatID)
                 alert = nil
             }

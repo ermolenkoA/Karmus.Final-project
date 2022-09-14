@@ -131,12 +131,14 @@ final class AccountViewController: UIViewController {
                 return
             }
 
-            if KeychainSwift.shared.getBool(ConstantKeys.isProfileActive) == nil{
+            if KeychainSwift.shared.getBool(ConstantKeys.isProfileActive) == nil {
                 FireBaseDataBaseManager.setNumberOfSessions(login, onlineStatus, numberOfSessions: numberOfSessions + 1)
             }
             
             if let profileType = info.profileType {
                 
+                KeychainSwift.shared.set(profileType, forKey: ConstantKeys.profileType)
+               
                 self?.profileType = profileType
                 
                 switch profileType {
@@ -236,6 +238,7 @@ final class AccountViewController: UIViewController {
             } else {
                 self?.skillsLabel.text = "Не указаны"
             }
+            
             
             self?.profilePhotoImageView.image = info.photo
             self?.profilePhotoImageView.kf.indicatorType = .activity
@@ -369,6 +372,7 @@ final class AccountViewController: UIViewController {
             KeychainSwift.shared.delete(ConstantKeys.isProfileActive)
             KeychainSwift.shared.delete(ConstantKeys.currentProfile)
             KeychainSwift.shared.delete(ConstantKeys.currentProfileLogin)
+            KeychainSwift.shared.delete(ConstantKeys.profileType)
             UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
             if let login = self?.login, let profileID = self?.profileID {
                 FireBaseDataBaseManager.removeObserversFromProfile(profileID, login)
@@ -415,8 +419,6 @@ final class AccountViewController: UIViewController {
                 self?.changeFirstAndSecondNames()
             case "Изменить имя спонсора":
                 self?.changeSponsorName()
-            case "Изменить логин":
-                self?.changeLogin()
             case "Изменить пароль":
                 self?.changePassword()
             case "@ Удалить аккаунт":
@@ -461,7 +463,7 @@ extension AccountViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             profilePhotoImageView.image = pickedImage
-            
+
             FireBaseDataBaseManager.uploadPhoto(pickedImage){ url in
                 if url == nil {
                     return
@@ -617,223 +619,11 @@ extension AccountViewController {
         
         if sponsorName.count < 2 || sponsorName.count > 25 {
             return "Название должно содержать от 2 до 25 символов"
-        } else if !(sponsorName ~= "^[A-za-zА-Яа-яЁё_-//d]{2,}$") {
+        } else if !(sponsorName ~= "^[A-za-zА-Яа-яЁё\\-_\\d]{2,}$$") {
             return "Название может содержать только буквы и цифры"
         }
         return nil
         
-    }
-    
-    private func changeLogin() {
-        var alert: UIAlertController! = .init(title: "Введите новый логин",
-                                              message: "Внимание! После смены логина все чаты будут удалены.",
-                                              preferredStyle: .alert)
-        
-        alert.addTextField {
-            $0.placeholder = "Логин"
-        }
-        
-        let closeButton = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
-            alert = nil
-        }
-        
-        let submitButton = UIAlertAction(title: "Подтвердить", style: .default) { [weak self] _ in
-            
-            guard let self = self else { return }
-            
-            guard let newLogin = alert.textFields?.first?.text else {
-                print("\n<AccountViewController\\changeLogin> ERROR: textFields aren't exist\n")
-                showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
-                alert = nil
-                return
-            }
-            
-            guard !newLogin.isEmpty else {
-                self.present(alert, animated: true)
-                return
-            }
-            
-            if let errorText = self.getErrorLogin(newLogin) {
-                self.showCustomAlert("Ошибка", errorText, alert)
-                return
-            }
-            
-            FireBaseDataBaseManager.findLoginOrPhone(newLogin) { [weak self] result in
-                
-                guard result != .error else{
-                    showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
-                    alert = nil
-                    return
-                }
-                
-                if result == .found {
-                    self?.showCustomAlert("Ошибка", "Логин уже используется", alert)
-                    alert = nil
-                } else {
-                    
-                    guard let login = self?.login,
-                          let profileID = self?.profileID else { return }
-
-                    FireBaseDataBaseManager.getProfileInfo(login) { [weak self] info in
-                        FireBaseDataBaseManager.removeAccountObservers(profileID, login)
-                        FireBaseDataBaseManager.removeObserversFromProfile(profileID, login)
-                        
-                        guard let info = info else {
-                            alert = nil
-                            forceQuitFromProfile()
-                            return
-                        }
-                        
-                        let profiles = Database.database().reference().child(FBDefaultKeys.profiles)
-                        let profilesInfo = Database.database().reference().child(FBDefaultKeys.profilesInfo)
-                        profiles.child(profileID).child(FBProfileKeys.login).setValue(newLogin)
-                        profilesInfo.child(login).removeValue()
-                        
-                        if let firstName = info.firstName {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.firstName)
-                                .setValue(firstName)
-                        }
-                        
-                        if let secondName = info.secondName {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.secondName)
-                                .setValue(secondName)
-                        }
-                        
-                        if let dateOfBirth = info.dateOfBirth {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.dateOfBirth)
-                                .setValue(dateOfBirth)
-                        }
-                        
-                        if let city = info.city {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.city)
-                                .setValue(city)
-                        }
-                        
-                        if let email = info.email {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.email)
-                                .setValue(email)
-                        }
-                        
-                        if let phone = info.phone {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.phone)
-                                .setValue(phone)
-                        }
-                        
-                        if let preferences = info.preferences {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.preferences)
-                                .setValue(preferences)
-                        }
-                        
-                        if let education = info.education {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.education)
-                                .setValue(education)
-                        }
-                        
-                        if let work = info.work {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.work)
-                                .setValue(work)
-                        }
-                        
-                        if let skills = info.skills {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.skills)
-                                .setValue(skills)
-                        }
-                        
-
-                        
-                        if let numberOfFriends = info.numberOfFriends {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.numberOfFriends)
-                                .setValue(numberOfFriends)
-                        }
-                        
-                        
-                        if let numberOfRespects = info.numberOfRespects {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.numberOfRespects)
-                                .setValue(numberOfRespects)
-                        }
-                        
-                        
-                        if let profileType = info.profileType {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.profileType)
-                                .setValue(profileType)
-                        }
-                        
-                        if let sponsorName = info.sponsorName {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.sponsorName)
-                                .setValue(sponsorName)
-                        }
-                        
-                        profilesInfo.child(newLogin)
-                            .child(FBProfileInfoKeys.onlineStatus)
-                            .setValue(info.onlineStatus)
-                        
-                        profilesInfo.child(newLogin)
-                            .child(FBProfileInfoKeys.photo)
-                            .setValue(info.photo)
-                        
-                        FireBaseDataBaseManager.changeLoginInFriendAccounts(profileID, oldLogin: login, newLogin: newLogin) {
-                            
-                            FireBaseDataBaseManager.getChatsIDs { [weak self] chatIDs in
-                                
-                                for chatID in chatIDs {
-                                    FireBaseDataBaseManager.deleteChat(chatID)
-                                }
-                    
-                                self?.login = newLogin
-                                self?.title = "@" + newLogin
-                                showAlert("Логин был успешно изменен", nil, where: self)
-                                FireBaseDataBaseManager.setProfileUpdateDate(profileID)
-                                UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
-                                KeychainSwift.shared.set(newLogin, forKey: ConstantKeys.currentProfileLogin)
-                                self?.standartSettingsWithObserver()
-                                alert = nil
-                                
-                            }
-                            
-                        }
-                        
-                        
-                    }
-                    
-
-                }
-                
-            }
-            
-        }
-        alert.addAction(submitButton)
-        alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
-        present(alert, animated: true)
-    }
-    
-    private func getErrorLogin(_ login: String) -> String? {
-        if login.count < 3 || login.count > 25 {
-            return "Логин должен содержать от 3 до 25 символов"
-        } else if !(login ~= "^[-_\\.A-Za-z\\d]+$") {
-            return "Логин может содержать только латинские буквы, цифры, \"-\", \".\", \"_\""
-        } else if !(login ~= "^[A-Za-z]+[-_\\.A-Za-z0-9]+$") {
-            return "Логин должен начинаться с буквы"
-        } else if !(login ~= "^[-_\\.A-Za-z0-9]+[A-Za-z0-9]+$") {
-            return "Логин не может заканчиваться на (\"_\", \"-\", \".\")"
-        } else if !(login ~= "^([-_\\.]?[A-Za-z0-9]+){0,2}$") {
-            return "Логин не может содержать более двух знаков (\"_\", \"-\", \".\") и не под ряд"
-        }
-        return nil
     }
     
     private func changePassword() {

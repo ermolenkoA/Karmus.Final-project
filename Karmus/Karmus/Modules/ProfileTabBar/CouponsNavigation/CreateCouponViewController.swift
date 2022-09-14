@@ -28,15 +28,11 @@ final class CreateCouponViewController: UIViewController {
     
     @IBOutlet private weak var generateCouponsButton: UIButton!
     
-    // MARK: - Private Properties
-    
-    private let priceRange = 20...1000
-    private let amountRange = 5...100
-    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
-        
+        titleTextField.delegate = self
+        descriptionTextView.delegate = self
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -115,16 +111,16 @@ final class CreateCouponViewController: UIViewController {
     @IBAction private func didTapAmountIncreaseButton(_ sender: UIButton) {
         
         let currentValue = Int(amountLabel.text!)!
-        amountLabel.text = String(currentValue + 1)
+        amountLabel.text = String(currentValue + 5)
         
         if currentValue + 5 == 100 {
-            amountDecreaseButton.tintColor  = .lightGray
-            amountDecreaseButton.isUserInteractionEnabled = false
+            amountIncreaseButton.tintColor  = .lightGray
+            amountIncreaseButton.isUserInteractionEnabled = false
         }
         
         if currentValue == 5 {
-            amountIncreaseButton.tintColor  = .label
-            amountIncreaseButton.isUserInteractionEnabled = true
+            amountDecreaseButton.tintColor  = .label
+            amountDecreaseButton.isUserInteractionEnabled = true
         }
         
     }
@@ -168,10 +164,7 @@ final class CreateCouponViewController: UIViewController {
             
             SMSManager.sendSMS(phone: phone, message: message.messageBody) { [weak self] result in
                 
-                
-                
                 guard let self = self else { return }
-                
                 
                 guard result != .error else {
                     self.stopSending()
@@ -179,43 +172,46 @@ final class CreateCouponViewController: UIViewController {
                     return
                 }
                 
-                FireBaseDataBaseManager.createNewCoupon(
-                    CouponModel(name: self.titleTextField.text!,
-                                description: self.descriptionTextView.text,
-                                codes: message.codes,
-                                sponsorLogin: login,
-                                price: UInt(self.priceLabel.text!)!)
-                )
-                
-                
-                
-                self.titleTextField.text = nil
-                self.descriptionTextView.text = nil
-                
-                self.priceLabel.text = "150"
-                self.priceDecreaseButton.tintColor = .label
-                self.priceDecreaseButton.isUserInteractionEnabled = true
-                self.priceIncreaseButton.tintColor = .label
-                self.priceDecreaseButton.isUserInteractionEnabled = true
-                
-                
-                
-                self.amountLabel.text = "20"
-                self.amountDecreaseButton.tintColor = .label
-                self.amountDecreaseButton.isUserInteractionEnabled = true
-                self.amountIncreaseButton.tintColor = .label
-                self.amountIncreaseButton.isUserInteractionEnabled = true
-                
-                self.stopSending()
-                
-                showAlert("Успех!", "Коды для купонов отправлены на ваш контактный телефон", where: self)
+                DispatchQueue.main.async {
+                    
+                    FireBaseDataBaseManager.createNewCoupon(
+                        CouponModel(name: self.titleTextField.text!,
+                                    description: self.descriptionTextView.text,
+                                    codes: message.codes,
+                                    sponsorLogin: login,
+                                    price: UInt(self.priceLabel.text!)!)
+                    )
+                    
+                    
+                    
+                    self.titleTextField.text = nil
+                    self.descriptionTextView.text = nil
+                    
+                    self.priceLabel.text = "150"
+                    self.priceDecreaseButton.tintColor = .label
+                    self.priceDecreaseButton.isUserInteractionEnabled = true
+                    self.priceIncreaseButton.tintColor = .label
+                    self.priceDecreaseButton.isUserInteractionEnabled = true
+                    
+                    
+                    
+                    self.amountLabel.text = "20"
+                    self.amountDecreaseButton.tintColor = .label
+                    self.amountDecreaseButton.isUserInteractionEnabled = true
+                    self.amountIncreaseButton.tintColor = .label
+                    self.amountIncreaseButton.isUserInteractionEnabled = true
+                    
+                    self.stopSending()
+                    
+                    showAlert("Успех!", "Коды для купонов отправлены на ваш контактный телефон", where: self)
+                    
+                }
                 
             }
-            
         }
         
     }
-
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -238,6 +234,6 @@ extension CreateCouponViewController: UITextFieldDelegate {
 extension CreateCouponViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text! as NSString).replacingCharacters(in: range, with: text)
-        return newText.count <= 200
+        return newText.count <= 150
     }
 }

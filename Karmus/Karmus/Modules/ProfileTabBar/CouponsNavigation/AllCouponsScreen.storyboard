@@ -7,11 +7,15 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Купоны-->
         <scene sceneID="4jM-aL-4pY">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="07J-Ee-HwM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Купоны" image="square.stack.3d.down.right.fill" catalog="system" selectedImage="square.stack.3d.down.right.fill" id="syf-fy-Kjl">
+                        <color key="badgeColor" systemColor="systemGreenColor"/>
+                    </tabBarItem>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rel-QD-F7G">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -25,22 +29,102 @@
             </objects>
             <point key="canvasLocation" x="-214" y="135"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Купоны-->
         <scene sceneID="VVf-5F-beI">
             <objects>
-                <tableViewController id="TPW-5T-eEc" sceneMemberID="viewController">
+                <tableViewController id="TPW-5T-eEc" customClass="AllCouponsTableViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="s9x-E3-eZP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ZJO-Mb-EsH">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="allCouponsCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="allCouponsTVCell" id="ZJO-Mb-EsH" customClass="AllCouponsTVCell" customModule="Karmus" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="80.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZJO-Mb-EsH" id="AEG-OO-1WX">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0Q-sf-tlh">
+                                            <rect key="frame" x="5" y="5" width="404" height="70.5"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rvp-yN-axt">
+                                                    <rect key="frame" x="5" y="5" width="60" height="60.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="0Nb-Rn-fbd">
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="30"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </constraint>
+                                                        <constraint firstAttribute="height" constant="60" id="O5q-rt-K3h"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="30"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="x4l-uM-Hif">
+                                                    <rect key="frame" x="75" y="0.0" width="324" height="70.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9C-Z3-PQX">
+                                                            <rect key="frame" x="0.0" y="0.0" width="324" height="30"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="sxI-73-1lL"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя спонсора" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1B-HL-eya">
+                                                            <rect key="frame" x="0.0" y="30" width="324" height="19"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </label>
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" @login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Eg-fn-voa">
+                                                            <rect key="frame" x="0.0" y="49" width="324" height="21.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="x4l-uM-Hif" secondAttribute="bottom" id="JyH-kx-RKh"/>
+                                                <constraint firstItem="Rvp-yN-axt" firstAttribute="top" secondItem="w0Q-sf-tlh" secondAttribute="top" constant="5" id="PhL-d0-cvK"/>
+                                                <constraint firstAttribute="bottom" secondItem="Rvp-yN-axt" secondAttribute="bottom" constant="5" id="UaR-St-AI0"/>
+                                                <constraint firstItem="x4l-uM-Hif" firstAttribute="leading" secondItem="Rvp-yN-axt" secondAttribute="trailing" constant="10" id="VRd-pV-Y2p"/>
+                                                <constraint firstItem="Rvp-yN-axt" firstAttribute="leading" secondItem="w0Q-sf-tlh" secondAttribute="leading" constant="5" id="fT5-QN-ScP"/>
+                                                <constraint firstAttribute="trailing" secondItem="x4l-uM-Hif" secondAttribute="trailing" constant="5" id="fkp-a0-DdE"/>
+                                                <constraint firstItem="x4l-uM-Hif" firstAttribute="top" secondItem="w0Q-sf-tlh" secondAttribute="top" id="tkF-Z4-Idq"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="w0Q-sf-tlh" firstAttribute="top" secondItem="AEG-OO-1WX" secondAttribute="top" constant="5" id="6dX-RF-RH9"/>
+                                        <constraint firstAttribute="bottom" secondItem="w0Q-sf-tlh" secondAttribute="bottom" constant="5" id="Jfe-RA-wi4"/>
+                                        <constraint firstItem="w0Q-sf-tlh" firstAttribute="leading" secondItem="AEG-OO-1WX" secondAttribute="leading" constant="5" id="Sd3-cT-NtE"/>
+                                        <constraint firstAttribute="trailing" secondItem="w0Q-sf-tlh" secondAttribute="trailing" constant="5" id="b7f-lK-0QU"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="loginLabel" destination="5Eg-fn-voa" id="9Ip-v6-8Ov"/>
+                                    <outlet property="photoImageView" destination="Rvp-yN-axt" id="nw3-Ig-Qj9"/>
+                                    <outlet property="sponsorNameLabel" destination="c1B-HL-eya" id="0gp-e6-sEG"/>
+                                    <outlet property="titleLabel" destination="z9C-Z3-PQX" id="mFK-KE-Wdp"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -48,16 +132,51 @@
                             <outlet property="delegate" destination="TPW-5T-eEc" id="cgt-yg-kEs"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ovb-Kp-N3z"/>
+                    <navigationItem key="navigationItem" title="Купоны" id="ovb-Kp-N3z">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="Wtz-HM-Qbn"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="ENR-NW-Zj2">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5IW-DK-3vn">
+                                <rect key="frame" x="20" y="10.5" width="20" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" image="goforward" catalog="system"/>
+                                <connections>
+                                    <action selector="reloadData:" destination="TPW-5T-eEc" eventType="touchUpInside" id="eDx-Wo-znl"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="J3F-gW-qc9">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="H0h-L0-HPn">
+                                <rect key="frame" x="376" y="11" width="18" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" backgroundImage="doc.plaintext.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="didTapCouponButton:" destination="TPW-5T-eEc" eventType="touchUpInside" id="P93-Z8-Whx"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0CI-kC-4g3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="781" y="135"/>
+            <point key="canvasLocation" x="779.71014492753625" y="134.59821428571428"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <image name="doc.plaintext.fill" catalog="system" width="115" height="128"/>
+        <image name="goforward" catalog="system" width="121" height="128"/>
+        <image name="square.stack.3d.down.right.fill" catalog="system" width="124" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

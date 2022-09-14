@@ -30,13 +30,19 @@ final class Code {
     }
     
     func couponsGenerate(numberOfCoupons: UInt) -> (messageBody: String, codes: [String]) {
-        var message = "Karmus\n\nЗдравствуйте, в данном сообщении мы отправляем вам созданные купоны: \n"
+        var message = "Karmus\n\nЗдравствуйте, в данном сообщении мы отправляем вам созданные купоны: \n\n"
         
         var codes = [String]()
-        
+        var code: String
         for _ in 1..<numberOfCoupons {
-            let code = randomCodeNine
+            
+            repeat {
+                code = randomCodeNine
+            }
+            while codes.contains(code)
+            
             message += code + ", "
+            codes.append(code)
         }
         
         codes.append(randomCodeNine)

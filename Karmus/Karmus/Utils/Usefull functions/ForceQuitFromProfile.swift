@@ -14,6 +14,7 @@ func forceQuitFromProfile() {
     KeychainSwift.shared.delete(ConstantKeys.isProfileActive)
     KeychainSwift.shared.delete(ConstantKeys.currentProfile)
     KeychainSwift.shared.delete(ConstantKeys.currentProfileLogin)
+    KeychainSwift.shared.delete(ConstantKeys.profileType)
     UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
     
     let storyboard = UIStoryboard(name: StoryboardNames.main, bundle: nil)

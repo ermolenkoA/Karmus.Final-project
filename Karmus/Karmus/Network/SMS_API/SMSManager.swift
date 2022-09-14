@@ -12,15 +12,15 @@ final class SMSManager {
     private static let defaultSession = URLSession.shared
     private static var dataTask: URLSessionDataTask?
     
-    static func sendSMS(phone: String, message: String, _ completion: @escaping (SMSResult) -> Void ) {
-        
+    static func sendSMS(phone: String, message: String, _ completion: @escaping (SMSResult) -> Void) {
+    
         guard phone ~= "^\\+375([\\d]{0,9})$" else {
             print("\n<SMSManager\\sendSMS> ERROR: wrong phone - \(phone)\n")
             completion(.error)
             return
         }
         
-        guard message.count <= 100 else {
+        guard message.count <= 1100 else {
             print("\n<SMSManager\\sendSMS> ERROR: message is too long\n")
             completion(.error)
             return

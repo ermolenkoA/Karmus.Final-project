@@ -59,13 +59,13 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbW-pL-KgR">
                                                         <rect key="frame" x="0.0" y="37.666666666666657" width="72" height="20.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" red="0.00090105868039981022" green="0.017090907928003822" blue="0.72067338197969544" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Друзья" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRI-Fo-7dZ">
                                                         <rect key="frame" x="0.0" y="58.333333333333343" width="72" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" red="0.00090249660593188304" green="0.017118181904061718" blue="0.72182344543147203" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -505,7 +505,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pcv-ef-aPk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1529" y="681"/>
+            <point key="canvasLocation" x="1037" y="681"/>
+        </scene>
+        <!--AllCouponsScreen-->
+        <scene sceneID="CUX-0N-uyi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AllCouponsScreen" id="OgX-Al-t6w" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="bDC-fI-gw9"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vMC-GW-tVH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1463" y="681"/>
         </scene>
         <!--Item-->
         <scene sceneID="QMP-xA-Rq1">
@@ -541,6 +551,7 @@
                         <segue destination="bFg-Po-yJJ" kind="relationship" relationship="viewControllers" id="TU5-dp-6Tl"/>
                         <segue destination="Lgz-BN-gcN" kind="relationship" relationship="viewControllers" id="PbS-gW-VVb"/>
                         <segue destination="ZkX-aU-azo" kind="relationship" relationship="viewControllers" id="lhP-Rg-qAI"/>
+                        <segue destination="OgX-Al-t6w" kind="relationship" relationship="viewControllers" id="rfo-Bk-DAF"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c3j-vO-yT4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -556,7 +567,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ibZ-ef-ZPd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="896" y="681"/>
+            <point key="canvasLocation" x="767" y="681"/>
         </scene>
     </scenes>
     <resources>

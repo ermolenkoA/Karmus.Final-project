@@ -15,7 +15,6 @@ final class SettingsTableViewController: UITableViewController {
     private var profileType = ""
     private var settings = [String] ( arrayLiteral:
         "Изменить имя и фамилию",
-        "Изменить логин",
         "Изменить пароль"
     )
     

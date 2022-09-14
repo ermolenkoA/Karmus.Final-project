@@ -19,7 +19,7 @@ struct CouponInfoModel {
     let id: String
     let name: String
     let description: String
-    let remaningAmount: UInt
+    let remainingAmount: UInt
     let sponsorLogin: String
     let sponsorPhoto: UIImage
     let sponsorName: String

@@ -987,7 +987,7 @@ final class FireBaseDataBaseManager {
         
         getAllCoupons { coupons in
             conclusion( coupons.filter{
-                $0.remaningAmount != 0
+                $0.remainingAmount != 0
             })
         }
     
@@ -1002,7 +1002,7 @@ final class FireBaseDataBaseManager {
                 return
             }
             
-            getActiveCoupons { coupons in
+            getAllCoupons { coupons in
                 
                 var resultCoupons = [UserCouponInfoModel]()
                 
@@ -1029,7 +1029,6 @@ final class FireBaseDataBaseManager {
                     }
                     
                 }
-                
                 conclusion(resultCoupons)
                 
             }
@@ -1038,38 +1037,62 @@ final class FireBaseDataBaseManager {
     
     }
     
-    static func buyCoupon(profileID: String, couponID: String, _ conclusion: @escaping (String?) -> ()) {
+    static func buyCoupon(profileID: String, couponID: String, _ conclusion: @escaping (String?, String?) -> ()) {
         
-        coupons.child(couponID).observeSingleEvent(of: .value) { coupon in
+        profiles.child(profileID).child(FBProfileKeys.balance).observeSingleEvent(of: .value) { snapshot in
             
-            guard coupon.exists(),
-                  let elements = coupon.value as? [String : Any],
-                  var codes = elements[FBCoupons.description] as? [String] else{
-                
-                conclusion(nil)
+            guard snapshot.exists(), let balance = snapshot.value as? Int else {
+                forceQuitFromProfile()
                 return
-                
             }
             
-            if codes.count > 0 {
+            coupons.child(couponID).observeSingleEvent(of: .value) { coupon in
+                
+                guard coupon.exists(),
+                      let elements = coupon.value as? [String : Any],
+                      var codes = elements[FBCoupons.codes] as? [String],
+                      codes.count > 0 else{
+                    
+                    conclusion(nil, "Купоны закончились")
+                    return
+                    
+                }
+                
+                guard let price = elements[FBCoupons.price] as? Int,
+                      price <= balance else {
+                    
+                    conclusion(nil, "Недостаточно кармы")
+                    return
+                    
+                }
+                
                 let code = codes.removeFirst()
                 coupons.child(couponID).child(FBCoupons.codes).setValue(codes)
-                conclusion(code)
-            } else {
-                conclusion(nil)
+                profiles.child(profileID).child(FBProfileKeys.balance).setValue(balance - price)
+                profiles.child(profileID).child(FBProfileKeys.coupons).child(couponID).observeSingleEvent(of: .value) { coupons in
+                    
+                    if snapshot.exists(), var myCodes = coupons.value as? [String] {
+                        myCodes.append(code)
+                        profiles.child(profileID).child(FBProfileKeys.coupons).child(couponID).setValue(myCodes)
+                        
+                    } else {
+                        profiles.child(profileID).child(FBProfileKeys.coupons).child(couponID).setValue([code])
+                    }
+                    
+                }
+                conclusion(code, nil)
+                
             }
-            
             
         }
         
     }
     
-    static func removeCoupon(profileID: String, couponID: String, code: String,  _ conclusion: @escaping () -> ()) {
+    static func removeCoupon(profileID: String, couponID: String, code: String) {
         
         profiles.child(profileID).child(FBProfileKeys.coupons).child(couponID).observe(.value) { snapshot in
             
-            guard snapshot.exists(), var codes = snapshot.value as? [String] else {
-                conclusion()
+            guard snapshot.exists(), var codes = snapshot.value as? [String] else{
                 return
             }
             
@@ -1102,10 +1125,21 @@ final class FireBaseDataBaseManager {
     
     // MARK: - Observers
     
+    
     static func createChatsObserver(conclusion: @escaping () -> ()) {
+        
         chats.observe(.childChanged) { snapshot in
             conclusion()
         }
+        
+        chats.observe(.childAdded) { snapshot in
+            conclusion()
+        }
+        
+        chats.observe(.childRemoved) { snapshot in
+            conclusion()
+        }
+        
     }
     
     static func putObserverOnOnlineStatus(_ login: String, conclusion: @escaping (String?) -> ()) {
@@ -1198,6 +1232,19 @@ final class FireBaseDataBaseManager {
                 }
                 
             }
+        
+        profilesInfo.child(login).child(FBProfileInfoKeys.profileType).observe(.value) { snapshot in
+            
+            guard snapshot.exists(),
+                  let profileType = KeychainSwift.shared.get(ConstantKeys.profileType),
+                  snapshot.value as? String == profileType else {
+                removeObserversFromProfile(profileID, login)
+                removeAccountObservers(profileID, login)
+                forceQuitFromProfile()
+                return
+            }
+            
+        }
     
         profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).observe(.value) { snapshot in
             guard let status = snapshot.value as? String, status != FBOnlineStatuses.blocked else {
@@ -1216,6 +1263,7 @@ final class FireBaseDataBaseManager {
                 KeychainSwift.shared.delete(ConstantKeys.isProfileActive)
                 KeychainSwift.shared.delete(ConstantKeys.currentProfile)
                 KeychainSwift.shared.delete(ConstantKeys.currentProfileLogin)
+                KeychainSwift.shared.delete(ConstantKeys.profileType)
                 UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
                 
                 let storyboard = UIStoryboard(name: StoryboardNames.main, bundle: nil)
@@ -1307,6 +1355,7 @@ final class FireBaseDataBaseManager {
         profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).removeAllObservers()
         profilesInfo.child(login).removeAllObservers()
         profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).removeAllObservers()
+        profilesInfo.child(login).child(FBProfileInfoKeys.profileType).removeAllObservers()
         
         profilesInfo.removeAllObservers()
         
@@ -1626,7 +1675,6 @@ final class FireBaseDataBaseManager {
         guard let elements = coupon.value as? [String : Any],
               let name = elements[FBCoupons.name] as? String,
               let description = elements[FBCoupons.description] as? String,
-              let codes = elements[FBCoupons.description] as? [String],
               let sponsorLogin = elements[FBCoupons.sponsorLogin] as? String,
               let price = elements[FBCoupons.price] as? UInt else{
             
@@ -1634,7 +1682,9 @@ final class FireBaseDataBaseManager {
             return
             
         }
-    
+        
+        let codes = elements[FBCoupons.codes] as? [String] ?? [String]()
+        
         profilesInfo.child(sponsorLogin).observeSingleEvent(of: .value) { snapshot in
             
             guard snapshot.exists() else {
@@ -1657,7 +1707,7 @@ final class FireBaseDataBaseManager {
                 
                 conclusion(
                     CouponInfoModel(id: coupon.key, name: name, description: description,
-                                    remaningAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
+                                    remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
                                     sponsorPhoto: UIImage(named: "jpgDefaultProfile")!,
                                     sponsorName: sponsorName, price: price),
                     [DataSnapshot](coupons.dropFirst())
@@ -1677,7 +1727,7 @@ final class FireBaseDataBaseManager {
                         
                         conclusion(
                             CouponInfoModel(id: coupon.key, name: name, description: description,
-                                            remaningAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
+                                            remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
                                             sponsorPhoto: image,
                                             sponsorName: sponsorName, price: price),
                             [DataSnapshot](coupons.dropFirst())

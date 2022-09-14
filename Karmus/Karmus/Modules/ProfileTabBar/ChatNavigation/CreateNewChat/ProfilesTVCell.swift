@@ -45,8 +45,7 @@ extension ProfilesTVCell: SetProfilesCellProtocol {
         switch profileType {
         case FBProfileTypes.sponsor:
             profileTypeImageView.image = UIImage(named: "iconSponsor")
-            cityAndAgeLabel.text = " "
-            cityAndAgeLabel.isHidden = true
+            cityAndAgeLabel.text = "Беларусь"
         case FBProfileTypes.admin:
             profileTypeImageView.image = UIImage(named: "iconAdmin")
             fallthrough

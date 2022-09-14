@@ -132,6 +132,7 @@ extension ChatViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 
 extension ChatViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chats.count
     }

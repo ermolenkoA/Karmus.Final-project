@@ -80,11 +80,11 @@ struct FBProfileTypes {
 }
 
 struct FBCoupons {
-    static let name = "user"
-    static let description = "admin"
-    static let codes = "sponsor"
-    static let sponsorLogin = "sponsor"
-    static let price = "sponsor"
+    static let name = "name"
+    static let description = "description"
+    static let codes = "codes"
+    static let sponsorLogin = "sponsorLogin"
+    static let price = "price"
 }
 
 

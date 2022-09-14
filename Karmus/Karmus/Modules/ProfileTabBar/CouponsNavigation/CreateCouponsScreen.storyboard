@@ -81,7 +81,7 @@
                                 <color key="tintColor" name="label"/>
                                 <state key="normal" image="forward.frame.fill" catalog="system"/>
                                 <connections>
-                                    <action selector="didTapPriceDecreaseButton:" destination="G5c-cH-TIJ" eventType="touchUpInside" id="oRP-p0-8Bu"/>
+                                    <action selector="didTapPriceIncreaseButton:" destination="G5c-cH-TIJ" eventType="touchUpInside" id="lwK-Dm-bjV"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koH-4G-PQF">
@@ -93,7 +93,7 @@
                                 <color key="tintColor" name="label"/>
                                 <state key="normal" image="backward.frame.fill" catalog="system"/>
                                 <connections>
-                                    <action selector="didTapPriceIncreaseButton:" destination="G5c-cH-TIJ" eventType="touchUpInside" id="Sfd-VE-gK7"/>
+                                    <action selector="didTapPriceDecreaseButton:" destination="G5c-cH-TIJ" eventType="touchUpInside" id="fFs-Jm-xI7"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4uO-jb-09M">
@@ -134,7 +134,7 @@
                                 <color key="tintColor" name="label"/>
                                 <state key="normal" image="forward.frame.fill" catalog="system"/>
                                 <connections>
-                                    <action selector="didTapAmountDecreaseButton:" destination="G5c-cH-TIJ" eventType="touchUpInside" id="Cqd-YI-cb8"/>
+                                    <action selector="didTapAmountIncreaseButton:" destination="G5c-cH-TIJ" eventType="touchUpInside" id="PEV-ad-RWB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dxb-YC-gg9">
@@ -165,7 +165,7 @@
                                 <color key="tintColor" name="label"/>
                                 <state key="normal" image="backward.frame.fill" catalog="system"/>
                                 <connections>
-                                    <action selector="didTapAmountIncreaseButton:" destination="G5c-cH-TIJ" eventType="touchUpInside" id="30c-Zd-OBc"/>
+                                    <action selector="didTapAmountDecreaseButton:" destination="G5c-cH-TIJ" eventType="touchUpInside" id="Uvb-rb-1K5"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Стоимость :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvN-UT-Lgn">
@@ -237,7 +237,7 @@
                         <outlet property="amountLabel" destination="ffI-cl-1Wl" id="DBn-4d-DFL"/>
                         <outlet property="descriptionTextView" destination="RoH-6q-D4U" id="SFp-Zi-aPS"/>
                         <outlet property="generateCouponsButton" destination="dxb-YC-gg9" id="gVo-nI-5BT"/>
-                        <outlet property="mainActivityIndicatorView" destination="8qn-Xd-viX" id="Eiq-ve-5Tw"/>
+                        <outlet property="mainActivityIndicatorView" destination="8qn-Xd-viX" id="mwU-l2-O86"/>
                         <outlet property="priceDecreaseButton" destination="koH-4G-PQF" id="eO6-tD-9CG"/>
                         <outlet property="priceIncreaseButton" destination="D2C-Ut-z4n" id="31V-s7-bh5"/>
                         <outlet property="priceLabel" destination="hon-Dz-jIt" id="Tda-pa-Qvt"/>

@@ -7,19 +7,25 @@
 
 import UIKit
 
-class AllCouponsTVCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+protocol FillCouponProtocol {
+    func fillCoupon(photo: UIImage, title: String, sponsorName: String, login: String)
 }
 
-llCouponsTVCell
+final class AllCouponsTVCell: UITableViewCell {
+
+    @IBOutlet private weak var photoImageView: UIImageView!
+    
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var sponsorNameLabel: UILabel!
+    @IBOutlet private weak var loginLabel: UILabel!
+    
+}
+
+extension AllCouponsTVCell: FillCouponProtocol {
+    func fillCoupon(photo: UIImage, title: String, sponsorName: String, login: String) {
+        photoImageView.image = photo
+        titleLabel.text = title
+        sponsorNameLabel.text = sponsorName
+        loginLabel.text = "@" + login
+    }
+}

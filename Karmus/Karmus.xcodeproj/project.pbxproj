@@ -37,6 +37,7 @@
 		5328205528D0BF9F005142E0 /* MyCouponsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328205428D0BF9F005142E0 /* MyCouponsTableViewController.swift */; };
 		5328205928D0BFFD005142E0 /* AllCouponsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328205828D0BFFD005142E0 /* AllCouponsTableViewController.swift */; };
 		5328205C28D0C0A2005142E0 /* AllCouponsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328205B28D0C0A2005142E0 /* AllCouponsTVCell.swift */; };
+		5328205F28D10E8A005142E0 /* MyCouponsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328205E28D10E8A005142E0 /* MyCouponsTVCell.swift */; };
 		533630CE28B7DE8200F139E7 /* ModelActiveTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */; };
 		5336322E28CCAD61007BC5B2 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5336322D28CCAD61007BC5B2 /* AccountViewController.swift */; };
 		5336323528CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */; };
@@ -160,6 +161,7 @@
 		5328205428D0BF9F005142E0 /* MyCouponsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponsTableViewController.swift; sourceTree = "<group>"; };
 		5328205828D0BFFD005142E0 /* AllCouponsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCouponsTableViewController.swift; sourceTree = "<group>"; };
 		5328205B28D0C0A2005142E0 /* AllCouponsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCouponsTVCell.swift; sourceTree = "<group>"; };
+		5328205E28D10E8A005142E0 /* MyCouponsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponsTVCell.swift; sourceTree = "<group>"; };
 		533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelActiveTasks.swift; sourceTree = "<group>"; };
 		5336322D28CCAD61007BC5B2 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFriendsCellInfoProtocol.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				5328205428D0BF9F005142E0 /* MyCouponsTableViewController.swift */,
 				5328205828D0BFFD005142E0 /* AllCouponsTableViewController.swift */,
 				5328205B28D0C0A2005142E0 /* AllCouponsTVCell.swift */,
+				5328205E28D10E8A005142E0 /* MyCouponsTVCell.swift */,
 			);
 			path = CouponsNavigation;
 			sourceTree = "<group>";
@@ -972,6 +975,7 @@
 				532182C328CDBD37000C4DCE /* ChatModels.swift in Sources */,
 				5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */,
 				534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */,
+				5328205F28D10E8A005142E0 /* MyCouponsTVCell.swift in Sources */,
 				53378ADD28C00ACA002749FE /* FillProfileInfoProtocols.swift in Sources */,
 				53F284E628CCF3B70070A5FC /* ProfilesTVCell.swift in Sources */,
 				CE29863E28B400B800B4AE9D /* ConstantKeys.swift in Sources */,
