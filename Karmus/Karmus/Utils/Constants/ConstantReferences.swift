@@ -18,6 +18,7 @@ public struct References {
     static let fromMapToTasksScreen = "toTasksScreen"
     static let fromMapToActiveTasksScreen = "toActiveTasksScreen"
     static let fromMapToCreationTaskScreen = "toCreationTaskScreen"
+    static let fromMapToComplitedTasksScreen = "toComplitedTasksScreen"
     
     static let fromMapActiveTaskToDeclarationTaskScreen = "toDeclarationScreen"
     static let fromMapTaskToConditionTaskScreen = "toConditionTaskScreen"
@@ -34,6 +35,7 @@ public struct References {
     static let fromComplitedTasksToProcessingTaskScreen = "toProcessingTaskScreen"
     static let fromConditionTaskToAccountScreen =  "toAccountScreen"
     static let fromDeclarationToActiveTasksScreen = "ToActiveTasksScreen"
+    
     
     static let fromDeclarationToTasksScreen = "toTasksScreen"
     static let fromIdentificationScreenToNewUserScreen = "toNewUserScreen"

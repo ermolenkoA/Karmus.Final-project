@@ -5,28 +5,39 @@
 //  Created by VironIT on 4.09.22.
 //
 import Firebase
+import KeychainSwift
 import UIKit
 
 class ComplitedTasksTableViewController: UIViewController{
     
+   
     @IBOutlet weak var tableView: UITableView!
-    var completeTasks = [ModelTasks]()
+    var completeTasks = [ModelActiveTasks]()
+    
     var referenceTasks: DatabaseReference!
+    var profileLogin: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         downloadTask()
+
+        
         // Do any additional setup after loading the view.
     }
     func downloadTask(){
-        referenceTasks = Database.database().reference().child("ProcessingTasks")
+        profileLogin = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
+        referenceTasks = Database.database().reference().child("ProfilesInfo").child(profileLogin!).child("ProcessingTasks")
         referenceTasks.observe(DataEventType.value, with:{(snapshot) in
         if snapshot.childrenCount > 0 {
             self.completeTasks.removeAll()
             for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
+                let taskProfileName = taskObject?["name"]
+                let taskPhoto = taskObject?["photo"]
+                let taskLogin = taskObject?["login"]
                 let taskName = taskObject?["taskName"]
                 let taskType = taskObject?["taskType"]
                 let taskAddress = taskObject?["address"]
@@ -36,7 +47,7 @@ class ComplitedTasksTableViewController: UIViewController{
                 let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
                 let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
                 
-                let task = ModelTasks(imageURL: taskImage as! String, id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String)
+                let task = ModelActiveTasks(imageURL: taskImage as! String, id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String, photo: taskPhoto as! String, profileName: taskProfileName as! String, login: taskLogin as! String)
                 
                 self.completeTasks.append(task)
             }
@@ -52,6 +63,7 @@ class ComplitedTasksTableViewController: UIViewController{
             let task = completeTasks[indexPath.row]
             controller.declarationFromComplitedTasks = task
             controller.uniqueKeyFromComplitedTasks = task.id
+            
             
         }
     }

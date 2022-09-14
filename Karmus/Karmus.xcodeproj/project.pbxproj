@@ -56,9 +56,10 @@
 		5338771528C8945100C3A729 /* CutProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338771428C8945100C3A729 /* CutProfileViewController.swift */; };
 		5338771828C8950600C3A729 /* CutProfileScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5338771728C8950600C3A729 /* CutProfileScreen.storyboard */; };
 		5338771B28C8A12E00C3A729 /* ShortProfileInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338771A28C8A12E00C3A729 /* ShortProfileInfoModel.swift */; };
+		533C385C28CE33870068C2C9 /* PopTypeOfTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533C385B28CE33870068C2C9 /* PopTypeOfTaskTableViewController.swift */; };
 		534700DC28B6099B00F23539 /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DB28B6099A00F23539 /* TasksTableViewController.swift */; };
 		534700DE28B6105C00F23539 /* TasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DD28B6105C00F23539 /* TasksTableViewCell.swift */; };
-		534700E028B6135300F23539 /* ModelTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DF28B6135300F23539 /* ModelTasks.swift */; };
+		534700E028B6135300F23539 /* ModelMapTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700DF28B6135300F23539 /* ModelMapTasks.swift */; };
 		534700E228B621A700F23539 /* CreationTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700E128B621A700F23539 /* CreationTaskViewController.swift */; };
 		534700ED28B679CC00F23539 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700EC28B679CC00F23539 /* APIManager.swift */; };
 		534700EF28B67C3A00F23539 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534700EE28B67C3A00F23539 /* Document.swift */; };
@@ -74,7 +75,8 @@
 		5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */; };
 		5372EAD528B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */; };
 		5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */; };
-		5384DCD828CB9F3C00A5F55D /* PopTypeOfTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5384DCD728CB9F3C00A5F55D /* PopTypeOfTaskViewController.swift */; };
+		537F654E28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F654D28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift */; };
+		537F655028D0BE6F002B3AF8 /* MapEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F654F28D0BE6F002B3AF8 /* MapEnumeration.swift */; };
 		5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5387573D28BE5E610007196E /* NewUserScreen.storyboard */; };
 		5387574128BE61E20007196E /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574028BE61E20007196E /* GreetingViewController.swift */; };
 		5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574428BE6E590007196E /* KeychainSwiftExtension.swift */; };
@@ -182,9 +184,10 @@
 		5338771428C8945100C3A729 /* CutProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutProfileViewController.swift; sourceTree = "<group>"; };
 		5338771728C8950600C3A729 /* CutProfileScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CutProfileScreen.storyboard; sourceTree = "<group>"; };
 		5338771A28C8A12E00C3A729 /* ShortProfileInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortProfileInfoModel.swift; sourceTree = "<group>"; };
+		533C385B28CE33870068C2C9 /* PopTypeOfTaskTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTypeOfTaskTableViewController.swift; sourceTree = "<group>"; };
 		534700DB28B6099A00F23539 /* TasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		534700DD28B6105C00F23539 /* TasksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCell.swift; sourceTree = "<group>"; };
-		534700DF28B6135300F23539 /* ModelTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTasks.swift; sourceTree = "<group>"; };
+		534700DF28B6135300F23539 /* ModelMapTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMapTasks.swift; sourceTree = "<group>"; };
 		534700E128B621A700F23539 /* CreationTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationTaskViewController.swift; sourceTree = "<group>"; };
 		534700EC28B679CC00F23539 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		534700EE28B67C3A00F23539 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -200,7 +203,8 @@
 		5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewCell.swift; sourceTree = "<group>"; };
 		5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeclataionOfTasksScreen.storyboard; sourceTree = "<group>"; };
 		5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarationOfTasksViewController.swift; sourceTree = "<group>"; };
-		5384DCD728CB9F3C00A5F55D /* PopTypeOfTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTypeOfTaskViewController.swift; sourceTree = "<group>"; };
+		537F654D28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheirCreatedTasksTableViewController.swift; sourceTree = "<group>"; };
+		537F654F28D0BE6F002B3AF8 /* MapEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapEnumeration.swift; sourceTree = "<group>"; };
 		5387573D28BE5E610007196E /* NewUserScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewUserScreen.storyboard; sourceTree = "<group>"; };
 		5387574028BE61E20007196E /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
 		5387574428BE6E590007196E /* KeychainSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftExtension.swift; sourceTree = "<group>"; };
@@ -487,7 +491,7 @@
 		5372EAD828B7DDB100F3FFA8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				534700DF28B6135300F23539 /* ModelTasks.swift */,
+				534700DF28B6135300F23539 /* ModelMapTasks.swift */,
 				533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */,
 			);
 			path = Models;
@@ -710,7 +714,6 @@
 				534700DB28B6099A00F23539 /* TasksTableViewController.swift */,
 				534700DD28B6105C00F23539 /* TasksTableViewCell.swift */,
 				534700E128B621A700F23539 /* CreationTaskViewController.swift */,
-				5384DCD728CB9F3C00A5F55D /* PopTypeOfTaskViewController.swift */,
 				53DD85FC28CA21B600FDD84D /* CreationTaskScreen.storyboard */,
 				53BC394328AD43E300867BC9 /* MapScreen.storyboard */,
 				53BC394528AD43FE00867BC9 /* MapViewController.swift */,
@@ -724,6 +727,8 @@
 				53B0C84E28BF791B008B518B /* ResultsMapViewController.swift */,
 				530A412928C2390E00CA7F84 /* ConditionTaskScreen.storyboard */,
 				530A412B28C2393100CA7F84 /* ConditionTaskViewController.swift */,
+				533C385B28CE33870068C2C9 /* PopTypeOfTaskTableViewController.swift */,
+				537F654D28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift */,
 			);
 			path = MainNavigation;
 			sourceTree = "<group>";
@@ -747,6 +752,7 @@
 				CE15418928B29A71007731FA /* RegistrationEnumeration.swift */,
 				CEE6717E28B621C100CC8853 /* PhoneVerificationEnumerations.swift */,
 				CE3A8A6E28B8389800BCE54A /* FireBaseEnumerations.swift */,
+				537F654F28D0BE6F002B3AF8 /* MapEnumeration.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -935,6 +941,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				537F655028D0BE6F002B3AF8 /* MapEnumeration.swift in Sources */,
 				5316D72A28AC0FBE004C8A90 /* ViewController.swift in Sources */,
 				CE29863A28B3F55300B4AE9D /* CodeGenerate.swift in Sources */,
 				5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */,
@@ -946,7 +953,7 @@
 				CE50DF1228B7B20800D90D4A /* DefaultAlert.swift in Sources */,
 				CEE6717528B61BB600CC8853 /* Reachability.swift in Sources */,
 				5316D74128AC1313004C8A90 /* IdentificationViewController.swift in Sources */,
-				534700E028B6135300F23539 /* ModelTasks.swift in Sources */,
+				534700E028B6135300F23539 /* ModelMapTasks.swift in Sources */,
 				CE29860F28B37C8B00B4AE9D /* StringExtension.swift in Sources */,
 				CE29863028B3E0E200B4AE9D /* BalanceModel.swift in Sources */,
 				53B0C85128BF8C83008B518B /* GooglePlacesManager.swift in Sources */,
@@ -962,6 +969,7 @@
 				5328206B28D171DD005142E0 /* FillCouponProtocol.swift in Sources */,
 				53F284D728CCE8CC0070A5FC /* ChatsTVCell.swift in Sources */,
 				53378AE228C00B34002749FE /* SearchResultViewController.swift in Sources */,
+				537F654E28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift in Sources */,
 				534700ED28B679CC00F23539 /* APIManager.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				532182E528CF4512000C4DCE /* CreateCouponViewController.swift in Sources */,
@@ -971,7 +979,6 @@
 				535FC1AB28C1F8D200A0BDE0 /* TextViewExtension.swift in Sources */,
 				5336322E28CCAD61007BC5B2 /* AccountViewController.swift in Sources */,
 				533630CE28B7DE8200F139E7 /* ModelActiveTasks.swift in Sources */,
-				5384DCD828CB9F3C00A5F55D /* PopTypeOfTaskViewController.swift in Sources */,
 				CE15418A28B29A71007731FA /* RegistrationEnumeration.swift in Sources */,
 				5328205928D0BFFD005142E0 /* AllCouponsTableViewController.swift in Sources */,
 				5328205C28D0C0A2005142E0 /* AllCouponsTVCell.swift in Sources */,
@@ -1022,6 +1029,7 @@
 				5338771528C8945100C3A729 /* CutProfileViewController.swift in Sources */,
 				53378AC828BF7E5A002749FE /* SetLoginProtocol.swift in Sources */,
 				5387574528BE6E590007196E /* KeychainSwiftExtension.swift in Sources */,
+				533C385C28CE33870068C2C9 /* PopTypeOfTaskTableViewController.swift in Sources */,
 				5348CBCD28C5C8BF00955D70 /* ForceQuitFromProfile.swift in Sources */,
 				CE2985F328B3759700B4AE9D /* KarmusDataBase.xcdatamodeld in Sources */,
 				CE29861F28B3C55B00B4AE9D /* SMSManager.swift in Sources */,

@@ -1325,7 +1325,6 @@ final class FireBaseDataBaseManager {
         
     }
     
-    
     static func setObserverToBalance(_ profileID: String, _ result: @escaping (Int?) -> ()) {
         
         profiles.child(profileID).child(FBProfileKeys.balance).observe(.value){ snapshot in
@@ -1338,7 +1337,6 @@ final class FireBaseDataBaseManager {
         }
         
     }
-    
     
     static func removeAccountObservers(_ profileID: String, _ login: String) {
         
@@ -1612,6 +1610,38 @@ final class FireBaseDataBaseManager {
         ]
      }
     
+    static func uploadPhoto( image: UIImage, completion: @escaping (( _ url: URL?) -> ())){
+            let storageRef = Storage.storage().reference().child("imageTasks/")
+            let imageData = image.jpegData(compressionQuality: 0.8)
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            storageRef.putData(imageData!, metadata: metaData) {(metaData, error) in
+                guard metaData != nil else {
+                    completion(nil)
+                    return
+                }
+                    storageRef.downloadURL(completion: {(url, error) in
+                        completion(url)
+                    })
+                }
+        }
+    
+    static func getProfileForTask(_ login: String,
+                                  _ conclusion: @escaping (ProfileForTask?) -> ()) {
+    
+    profilesInfo.child(login).observeSingleEvent(of: .value) { snapshot in
+        
+        guard snapshot.exists() else {
+            conclusion(nil)
+            return
+        }
+        
+        parseDataToProfileForTask(profile: snapshot, conclusion: conclusion)
+        
+    }
+    
+}
+            
     private static func parseDataToChatInfo(_ chats: [DataSnapshot],
                                             conclusion: @escaping (Chat?, [DataSnapshot]) -> ()) {
         
@@ -1662,8 +1692,55 @@ final class FireBaseDataBaseManager {
                     conclusion( nil, [DataSnapshot](chats.dropFirst()) )
                 }
             }
+        }
+    }
+
+    private static func parseDataToProfileForTask(profile: DataSnapshot,
+                                                  conclusion: @escaping (ProfileForTask?) -> ()) {
+        
+        
+        guard let profileElements = profile.value as? [String : Any] else {
+            conclusion(nil)
+            return
+        }
+        
+        
+        guard let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
+              let photo = profileElements[FBProfileInfoKeys.photo] as? String else {
+            
+            conclusion(nil)
+            return
             
         }
+        
+        var name = "Неизвестный пользователь"
+        
+        if profileType == FBProfileTypes.sponsor {
+            
+            guard let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String else {
+                conclusion(nil)
+                return
+            }
+            
+            name = sponsorName
+            
+        } else {
+            
+            guard let firstName = profileElements[FBProfileInfoKeys.firstName] as? String,
+                  let secondName = profileElements[FBProfileInfoKeys.secondName] as? String else{
+                conclusion(nil)
+                return
+            }
+            
+            name = firstName + " " + secondName
+        }
+        
+        conclusion(
+            ProfileForTask.init(login: profile.key,
+                                name: name,
+                                photo: photo,
+                                profileType: profileType)
+        )
         
     }
     
@@ -1676,72 +1753,72 @@ final class FireBaseDataBaseManager {
               let name = elements[FBCoupons.name] as? String,
               let description = elements[FBCoupons.description] as? String,
               let sponsorLogin = elements[FBCoupons.sponsorLogin] as? String,
-              let price = elements[FBCoupons.price] as? UInt else{
+              let price = elements[FBCoupons.price] as? UInt else {
             
             conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
             return
             
         }
-        
-        let codes = elements[FBCoupons.codes] as? [String] ?? [String]()
-        
-        profilesInfo.child(sponsorLogin).observeSingleEvent(of: .value) { snapshot in
             
-            guard snapshot.exists() else {
-                conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
-                return
-            }
+            let codes = elements[FBCoupons.codes] as? [String] ?? [String]()
             
-            guard let profileElements = snapshot.value as? [String : Any],
-                  let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
-                  profileType == FBProfileTypes.sponsor,
-                  let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String,
-                  let sponsorPhoto = profileElements[FBProfileInfoKeys.photo] as? String else{
+            profilesInfo.child(sponsorLogin).observeSingleEvent(of: .value) { snapshot in
                 
-                conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
-                return
+                guard snapshot.exists() else {
+                    conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
+                    return
+                }
                 
-            }
-            
-            if sponsorPhoto == ProfileModelConstants.defaultPhoto {
-                
-                conclusion(
-                    CouponInfoModel(id: coupon.key, name: name, description: description,
-                                    remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
-                                    sponsorPhoto: UIImage(named: "jpgDefaultProfile")!,
-                                    sponsorName: sponsorName, price: price),
-                    [DataSnapshot](coupons.dropFirst())
-                )
-                
-            } else {
-                
-                let url = URL(string: sponsorPhoto)
-                if let url = url {
+                guard let profileElements = snapshot.value as? [String : Any],
+                      let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
+                      profileType == FBProfileTypes.sponsor,
+                      let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String,
+                      let sponsorPhoto = profileElements[FBProfileInfoKeys.photo] as? String else{
                     
-                    KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                    conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
+                    return
+                    
+                }
+                
+                if sponsorPhoto == ProfileModelConstants.defaultPhoto {
+                    
+                    conclusion(
+                        CouponInfoModel(id: coupon.key, name: name, description: description,
+                                        remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
+                                        sponsorPhoto: UIImage(named: "jpgDefaultProfile")!,
+                                        sponsorName: sponsorName, price: price),
+                        [DataSnapshot](coupons.dropFirst())
+                    )
+                    
+                } else {
+                    
+                    let url = URL(string: sponsorPhoto)
+                    if let url = url {
                         
-                        guard let image = image else {
-                            conclusion(nil, [DataSnapshot](coupons.dropFirst()))
-                            return
+                        KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                            
+                            guard let image = image else {
+                                conclusion(nil, [DataSnapshot](coupons.dropFirst()))
+                                return
+                            }
+                            
+                            conclusion(
+                                CouponInfoModel(id: coupon.key, name: name, description: description,
+                                                remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
+                                                sponsorPhoto: image,
+                                                sponsorName: sponsorName, price: price),
+                                [DataSnapshot](coupons.dropFirst())
+                            )
+                            
                         }
-                        
-                        conclusion(
-                            CouponInfoModel(id: coupon.key, name: name, description: description,
-                                            remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
-                                            sponsorPhoto: image,
-                                            sponsorName: sponsorName, price: price),
-                            [DataSnapshot](coupons.dropFirst())
-                        )
                         
                     }
                     
                 }
-                
-            }
-    
-        }
         
-     }
+            }
+            
+         }
     
     // MARK: - Get other info
     

@@ -26,3 +26,8 @@ protocol SetCityProtocol {
 protocol GetPreferencesProtocol {
     func getPreferences(_ preferences: [String])
 }
+
+protocol GetHandlerProtocol {
+    func getHandler(_ handler: @escaping (String) -> ())
+}
+

@@ -8,6 +8,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--ComplitedTasksScreen-->
+        <scene sceneID="Ant-Uk-bB8">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ComplitedTasksScreen" id="Iib-QX-wEr" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="t1D-cM-BPY"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wXa-N0-5hU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4293" y="8"/>
+        </scene>
         <!--Item-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
@@ -95,14 +105,35 @@
                                     <constraint firstItem="c6f-bk-PiS" firstAttribute="top" secondItem="p0V-OM-Czt" secondAttribute="top" constant="9" id="rb9-Mf-Ms2"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scroll.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wQ8-Gs-mFm">
+                                <rect key="frame" x="29.999999999999996" y="88.666666666666657" width="42.666666666666657" height="42"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wQ8-Gs-mFm" secondAttribute="height" multiplier="1:1" id="v0J-v3-dIy"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="aaG-PN-SBC" appends="YES" id="KRB-mh-dwA"/>
+                                </connections>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PS8-po-3YX">
+                                <rect key="frame" x="64.666666666666671" y="81.666666666666671" width="8" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="wQ8-Gs-mFm" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="1Um-BZ-ww8"/>
+                            <constraint firstItem="PS8-po-3YX" firstAttribute="trailing" secondItem="wQ8-Gs-mFm" secondAttribute="trailing" id="3i4-zW-dxM"/>
                             <constraint firstItem="YkV-nr-uIA" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="4IE-8o-WC8"/>
                             <constraint firstItem="YH8-Tt-ST1" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="6xf-eo-yDY"/>
+                            <constraint firstItem="PS8-po-3YX" firstAttribute="bottom" secondItem="wQ8-Gs-mFm" secondAttribute="bottom" constant="-20" id="ALb-fn-bgK"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="p0V-OM-Czt" secondAttribute="bottom" constant="130" id="C6A-VL-EdC"/>
                             <constraint firstItem="p0V-OM-Czt" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Isa-TB-ayr"/>
+                            <constraint firstItem="wQ8-Gs-mFm" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="NOf-qe-rgy"/>
+                            <constraint firstItem="wQ8-Gs-mFm" firstAttribute="width" secondItem="YH8-Tt-ST1" secondAttribute="width" multiplier="0.1" id="ctU-sQ-5Hp"/>
                             <constraint firstItem="YkV-nr-uIA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="doF-bc-V8n"/>
                             <constraint firstItem="YkV-nr-uIA" firstAttribute="top" secondItem="p0V-OM-Czt" secondAttribute="bottom" id="f71-Mg-DqR"/>
                             <constraint firstItem="YH8-Tt-ST1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="fcz-PO-n1x"/>
@@ -113,9 +144,10 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" image="square.and.arrow.up.fill" catalog="system" selectedImage="square.and.arrow.up" id="vmp-0J-E82"/>
-                    <navigationItem key="navigationItem" id="zlC-W3-KRU"/>
+                    <navigationItem key="navigationItem" id="Qfc-N2-2rO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="attention" destination="PS8-po-3YX" id="jwB-Fm-bNh"/>
                         <outlet property="mapView" destination="YH8-Tt-ST1" id="ImZ-ig-AZD"/>
                         <outlet property="taskBottomConstraint" destination="C6A-VL-EdC" id="7H3-rg-dzU"/>
                         <outlet property="tasksTitle" destination="c6f-bk-PiS" id="Tly-yJ-lpw"/>
@@ -126,6 +158,7 @@
                         <segue destination="PyY-jP-yhK" kind="show" identifier="toTasksScreen" id="4Wh-SF-y4J"/>
                         <segue destination="iBx-5v-x5i" kind="show" identifier="toActiveTasksScreen" id="0eU-t0-QGA"/>
                         <segue destination="lZo-pZ-g8t" kind="show" identifier="toCreationTaskScreen" id="hZB-eF-H1M"/>
+                        <segue destination="Iib-QX-wEr" kind="show" identifier="toComplitedTasksScreen" id="F4l-T7-sWM"/>
                     </connections>
                 </viewController>
                 <tapGestureRecognizer id="Iih-jJ-af9">
@@ -147,6 +180,11 @@
                 <tapGestureRecognizer id="e4J-vr-A6H">
                     <connections>
                         <action selector="closeTasksView:" destination="Y6W-OH-hqX" id="IrI-1x-gIZ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="aaG-PN-SBC">
+                    <connections>
+                        <action selector="tapToComplitedTasks:" destination="Y6W-OH-hqX" id="2qJ-38-wCu"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -226,6 +264,7 @@
         <image name="book.closed.fill" catalog="system" width="115" height="128"/>
         <image name="books.vertical.fill" catalog="system" width="128" height="100"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="scroll.fill" catalog="system" width="128" height="116"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
@@ -233,6 +272,9 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
