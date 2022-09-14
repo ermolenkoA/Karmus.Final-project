@@ -14,8 +14,8 @@
             filePath = "Karmus/Modules/MainNavigation/MapViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "440"
-            endingLineNumber = "440"
+            startingLineNumber = "450"
+            endingLineNumber = "450"
             landmarkName = "locationManagerDidChangeAuthorization(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "Karmus/Modules/MainNavigation/CreationTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "uploadPhoto(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "Karmus/Modules/MainNavigation/TasksTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "Karmus/Modules/MainNavigation/DeclarationOfTasksViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "choiceData(reference:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "Karmus/Modules/MainNavigation/MapViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "MapViewController"
             landmarkType = "3">
             <Locations>
@@ -186,8 +186,8 @@
             filePath = "Karmus/Modules/MainNavigation/MapViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "MapViewController"
             landmarkType = "3">
             <Locations>
@@ -282,6 +282,54 @@
                   offsetFromSymbolStart = "901">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A169F848-8CDE-49E2-AA51-12C3C9E3A975"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Karmus/Modules/MainNavigation/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "uploadTasksInMap()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "62EB94C8-662B-46DE-AC71-BF57773F4CFA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Karmus/Modules/MainNavigation/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "uploadTasksInMap()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3360909D-5554-4D69-81ED-A81017B9EBA3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Karmus/Modules/MainNavigation/ProcessingTaskViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "addRespectWithKarma(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
