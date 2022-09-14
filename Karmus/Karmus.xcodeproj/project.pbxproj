@@ -18,7 +18,6 @@
 		5316D72828AC0FBE004C8A90 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */; };
 		5316D72A28AC0FBE004C8A90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5316D72928AC0FBE004C8A90 /* ViewController.swift */; };
 		5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D72B28AC0FBE004C8A90 /* Main.storyboard */; };
-		5316D73228AC0FC2004C8A90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73128AC0FC2004C8A90 /* Assets.xcassets */; };
 		5316D73528AC0FC2004C8A90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */; };
 		5316D73D28AC129F004C8A90 /* RegistrationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */; };
 		5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5316D73E28AC12E9004C8A90 /* IdentificationScreen.storyboard */; };
@@ -94,6 +93,7 @@
 		53DD860128CA220100FDD84D /* ActiveTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53DD860028CA220100FDD84D /* ActiveTasksScreen.storyboard */; };
 		53DD860228CA28C300FDD84D /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
 		53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */; };
+		53DECF7928D1A1F20035DA65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53DECF7828D1A1F20035DA65 /* Assets.xcassets */; };
 		53F284D728CCE8CC0070A5FC /* ChatsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */; };
 		53F284DB28CCEFCE0070A5FC /* CreateNewChat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53F284DA28CCEFCE0070A5FC /* CreateNewChat.storyboard */; };
 		53F284DE28CCF05A0070A5FC /* CreateNewChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F284DD28CCF05A0070A5FC /* CreateNewChatViewController.swift */; };
@@ -143,7 +143,6 @@
 		5316D72728AC0FBE004C8A90 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5316D72928AC0FBE004C8A90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5316D72C28AC0FBE004C8A90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5316D73128AC0FC2004C8A90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5316D73428AC0FC2004C8A90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5316D73628AC0FC2004C8A90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5316D73C28AC129E004C8A90 /* RegistrationScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegistrationScreen.storyboard; sourceTree = "<group>"; };
@@ -220,6 +219,7 @@
 		53DD85FC28CA21B600FDD84D /* CreationTaskScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreationTaskScreen.storyboard; sourceTree = "<group>"; };
 		53DD860028CA220100FDD84D /* ActiveTasksScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActiveTasksScreen.storyboard; sourceTree = "<group>"; };
 		53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		53DECF7828D1A1F20035DA65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTVCell.swift; sourceTree = "<group>"; };
 		53F284DA28CCEFCE0070A5FC /* CreateNewChat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateNewChat.storyboard; sourceTree = "<group>"; };
 		53F284DD28CCF05A0070A5FC /* CreateNewChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewChatViewController.swift; sourceTree = "<group>"; };
@@ -688,7 +688,7 @@
 		CE70E85B28ACDC6E001F508B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5316D73128AC0FC2004C8A90 /* Assets.xcassets */,
+				53DECF7828D1A1F20035DA65 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -847,7 +847,6 @@
 				5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */,
 				53DD860228CA28C300FDD84D /* AccountScreen.storyboard in Resources */,
 				532182E228CF43C8000C4DCE /* CreateCouponsScreen.storyboard in Resources */,
-				5316D73228AC0FC2004C8A90 /* Assets.xcassets in Resources */,
 				53F284DB28CCEFCE0070A5FC /* CreateNewChat.storyboard in Resources */,
 				5316D73F28AC12E9004C8A90 /* IdentificationScreen.storyboard in Resources */,
 				53B0C84D28BF72A3008B518B /* TaskMapScreen.storyboard in Resources */,
@@ -857,6 +856,7 @@
 				5316D72D28AC0FBE004C8A90 /* Main.storyboard in Resources */,
 				532182DF28CF43AA000C4DCE /* MyCouponsScreen.storyboard in Resources */,
 				53DD85FD28CA21B600FDD84D /* CreationTaskScreen.storyboard in Resources */,
+				53DECF7928D1A1F20035DA65 /* Assets.xcassets in Resources */,
 				53378AC328BF7D62002749FE /* FillMainProfileInfo.storyboard in Resources */,
 				5348CBF228C6436200955D70 /* FriendsScreen.storyboard in Resources */,
 				534700F128B69D0F00F23539 /* GoogleService-Info.plist in Resources */,
