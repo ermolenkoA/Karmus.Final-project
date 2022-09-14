@@ -42,11 +42,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                    (updateDate.isLessThanDate(dateToCompare: lastLogInDate)
                         || updateDate.equalToDate(dateToCompare: lastLogInDate)) {
 
-                    Database.database().reference()
-                        .child(FBDefaultKeys.profiles)
-                        .child(profileID)
-                        .child(FBProfileKeys.profileUpdateDate)
-                        .setValue(formatter.string(from: Date()))
                     UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
                     self?.showAccountVC()
                     

@@ -5,13 +5,13 @@
 //  Created by VironIT on 9/6/22.
 //
 
-import Foundation
+import UIKit
 
 struct Friend {
     let login: String
     let firstName: String
     let secondName: String
-    let photo: String
+    let photo: UIImage 
     let city: String
     let dateOfBirth: String?
     let onlineStatus: String

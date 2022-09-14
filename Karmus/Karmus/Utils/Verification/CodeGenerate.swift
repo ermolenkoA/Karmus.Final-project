@@ -20,11 +20,42 @@ final class Code {
         return code
     }
     
-    func RegistrationMessageWithCode(name: String) -> (messageBody: String, code: String){
+    var randomCodeNine: String {
+        let charactersForCode = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789"
+        var code = ""
+        for _ in 1...9{
+           code += String(charactersForCode.randomElement()!)
+        }
+        return code
+    }
+    
+    func couponsGenerate(numberOfCoupons: UInt) -> (messageBody: String, codes: [String]) {
+        var message = "Karmus\n\nЗдравствуйте, в данном сообщении мы отправляем вам созданные купоны: \n\n"
+        
+        var codes = [String]()
+        var code: String
+        for _ in 1..<numberOfCoupons {
+            
+            repeat {
+                code = randomCodeNine
+            }
+            while codes.contains(code)
+            
+            message += code + ", "
+            codes.append(code)
+        }
+        
+        codes.append(randomCodeNine)
+        message += codes.last!
+        
+        return (message, codes)
+    }
+    
+    func registrationMessageWithCode(name: String) -> (messageBody: String, code: String) {
         ("Karmus\n\nЗдравствуйте, \(name).\nВаш код для завершения регистрации: ", self.randomCode)
     }
     
-    func PasswordResetMessageWithCode(name: String) -> (messageBody: String, code: String){
+    func passwordResetMessageWithCode(name: String) -> (messageBody: String, code: String) {
         ("Karmus\n\nЗдравствуйте, \(name).\nВаш код для смены пароля: ", self.randomCode)
     }
 }

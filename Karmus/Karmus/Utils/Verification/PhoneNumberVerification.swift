@@ -82,9 +82,9 @@ final class PhoneNumberVerification {
         
         switch verificationModel {
         case .registration:
-            message = Code.shared.RegistrationMessageWithCode(name: name)
+            message = Code.shared.registrationMessageWithCode(name: name)
         case .resetPassword:
-            message = Code.shared.PasswordResetMessageWithCode(name: name)
+            message = Code.shared.passwordResetMessageWithCode(name: name)
         }
         return true
         
@@ -95,6 +95,7 @@ final class PhoneNumberVerification {
     private func checkBalanceAndSendCode() {
         
         guard isMessageCreated() else { return }
+        
         
         guard let message = self.message else {
             print("\n<PhoneNumberVerification\\checkBalanceAndSendCode> ERROR: message wasn't created\n")
@@ -134,6 +135,8 @@ final class PhoneNumberVerification {
     
     private func sendCode(_ message: (messageBody: String, code: String)) {
         
+    
+        
         guard Reachability.isConnectedToNetwork() else {
             showAlert("Отсутствует доступ к интернету"
                       , "Проверьте подключение и повторите попытку", where: controller)
@@ -141,10 +144,7 @@ final class PhoneNumberVerification {
         }
         
         print("\nCODE: \(message.code)\n")
-        
-        DispatchQueue.main.async {
-            self.showEnterVerificationCodeAlert(validCode: message.code)
-        }
+        showEnterVerificationCodeAlert(validCode: message.code)
         
 //        SMSManager.sendSMS(phone: phone, message: message.messageBody + message.code){ [weak self] (result) in
 //            DispatchQueue.main.async {
@@ -248,7 +248,7 @@ final class PhoneNumberVerification {
                             FBProfileInfoKeys.onlineStatus : FBOnlineStatuses.offline,
                             FBProfileInfoKeys.firstName : self.profile.firstName,
                             FBProfileInfoKeys.secondName : self.profile.secondName,
-                            FBProfileInfoKeys.photo : "jpgDefault",
+                            FBProfileInfoKeys.photo : ProfileModelConstants.defaultPhoto,
                             FBProfileInfoKeys.profileType : FBProfileTypes.user
                         ])
                     

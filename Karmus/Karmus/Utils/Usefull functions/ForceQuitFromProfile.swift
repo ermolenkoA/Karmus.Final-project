@@ -14,12 +14,12 @@ func forceQuitFromProfile() {
     KeychainSwift.shared.delete(ConstantKeys.isProfileActive)
     KeychainSwift.shared.delete(ConstantKeys.currentProfile)
     KeychainSwift.shared.delete(ConstantKeys.currentProfileLogin)
-    KeychainSwift.shared.set(false, forKey: ConstantKeys.isProfileActive)
+    KeychainSwift.shared.delete(ConstantKeys.profileType)
     UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
     
     let storyboard = UIStoryboard(name: StoryboardNames.main, bundle: nil)
     let mainVC = storyboard.instantiateInitialViewController()!
     SceneDelegate.keyWindow?.rootViewController = mainVC
+    ((mainVC as? UINavigationController)?.viewControllers.first as? ViewController)?.wasForceExit = true
     SceneDelegate.keyWindow?.makeKeyAndVisible()
-    showAlert("В акаунте произошли серьезные изменения", "Вы были усиленно выгнаны", where: mainVC)
 }

@@ -12,6 +12,8 @@ struct FBDefaultKeys {
     static let profilesInfo = "ProfilesInfo"
     static let tasks = "Tasks"
     static let topics = "Topics"
+    static let chats = "Chats"
+    static let coupons = "Coupons"
 }
 
 struct FBProfileKeys {
@@ -26,6 +28,7 @@ struct FBProfileKeys {
     static let requests = "requests"
     static let followers = "followers"
     static let balance = "balance"
+    static let coupons = "coupons"
 }
 
 struct FBProfileInfoKeys {
@@ -50,6 +53,19 @@ struct FBProfileInfoKeys {
     static let numberOfSessions = "numberOfSessions"
 }
 
+struct FBChatKeys {
+    static let members = "members"
+    static let messages = "messages"
+}
+
+struct FBChatMessageKeys {
+    static let sender = "sender"
+    static let sentDate = "sentDate"
+    static let messageText = "messageText"
+    static let isRead = "isRead"
+}
+
+
 struct FBOnlineStatuses {
     static let online = "online"
     static let offline = "offline"
@@ -61,6 +77,14 @@ struct FBProfileTypes {
     static let admin = "admin"
     static let sponsor = "sponsor"
 
+}
+
+struct FBCoupons {
+    static let name = "name"
+    static let description = "description"
+    static let codes = "codes"
+    static let sponsorLogin = "sponsorLogin"
+    static let price = "price"
 }
 
 

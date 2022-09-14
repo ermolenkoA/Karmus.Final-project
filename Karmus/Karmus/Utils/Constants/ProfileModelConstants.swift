@@ -8,6 +8,5 @@
 import Foundation
 
 struct ProfileModelConstants {
-    static let defaultPhoto = "defaultImage"
-    static let defaultDate = "01.01.1980"
+    static let defaultPhoto = "defaultPhoto"
 }

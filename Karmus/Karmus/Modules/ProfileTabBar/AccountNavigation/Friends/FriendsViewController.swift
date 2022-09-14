@@ -10,15 +10,18 @@ import KeychainSwift
 
 final class FriendsViewController: UIViewController {
 
-    @IBOutlet weak var mainActivityIndicator: UIActivityIndicatorView!
+    // MARK: - IBOutlet
+    
+    @IBOutlet private weak var mainActivityIndicator: UIActivityIndicatorView!
     
     @IBOutlet private weak var requestButton: UIButton!
     @IBOutlet private weak var allFriendsButton: UIButton!
     @IBOutlet private weak var followersButton: UIButton!
     @IBOutlet private weak var addFriendButton: UIButton!
     
-    
     @IBOutlet private weak var friendsTabelView: UITableView!
+    
+    // MARK: - Private Properties
     
     private var activeButton: UIButton?
     private var friends = [Friend]()
@@ -34,12 +37,10 @@ final class FriendsViewController: UIViewController {
     
     private let profileID = KeychainSwift.shared.get(ConstantKeys.currentProfile)
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let backItem = UIBarButtonItem()
-        backItem.title = "Мои друзья"
-        navigationItem.backBarButtonItem = backItem
 
         friendsTabelView.delegate = self
         friendsTabelView.dataSource = self
@@ -49,6 +50,14 @@ final class FriendsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = " "
+        navigationController?.viewControllers.dropLast().last?.navigationItem.backBarButtonItem = backItem
+        self.title = "Список друзей"
+        let newBackItem = UIBarButtonItem()
+        newBackItem.title = "Мои друзья"
+        navigationItem.backBarButtonItem = newBackItem
         
         tabBarController?.tabBar.isHidden = true
         
@@ -101,6 +110,8 @@ final class FriendsViewController: UIViewController {
         FireBaseDataBaseManager.removeObserverFromFriendsList(profileID, where: getCurrentFriendType())
     }
     
+    // MARK: - Private functions
+    
     private func getCurrentFriendType() -> FriendsTypes {
         activeButton != allFriendsButton ? activeButton != followersButton ? .requests : .followers : .friends
     }
@@ -135,11 +146,13 @@ final class FriendsViewController: UIViewController {
         }
     }
     
-    func setActiveButton(_ button: UIButton?) {
+    private func setActiveButton(_ button: UIButton?) {
         activeButton?.backgroundColor = #colorLiteral(red: 0.1108371988, green: 0, blue: 1, alpha: 1)
         activeButton = button
         activeButton?.backgroundColor = #colorLiteral(red: 0.03359736346, green: 0.4016051504, blue: 1, alpha: 1)
     }
+    
+    // MARK: - IBAction
     
     @IBAction func didTapFriendButton(_ sender: UIButton) {
         
@@ -169,6 +182,8 @@ final class FriendsViewController: UIViewController {
     
 }
 
+// MARK: - UITableViewDelegate
+
 extension FriendsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -183,7 +198,7 @@ extension FriendsViewController: UITableViewDelegate {
                                                      secondName: profile.secondName,
                                                      numberOfRespects: String.makeStringFromNumber(profile.numberOfRespects),
                                                      numberOfFriends: String.makeStringFromNumber(profile.numberOfFriends),
-                                                     photo: UIImage(named: "jpgDefaultProfile")!,
+                                                     photo: profile.photo,
                                                      profileType: profile.profileType)
         
         FireBaseDataBaseManager.getFriendStatus(myProfileID, friendLogin: profile.login) { [weak self] friendStatus in
@@ -238,6 +253,8 @@ extension FriendsViewController: UITableViewDelegate {
     
 }
 
+// MARK: - UIPopoverPresentationControllerDelegate
+
 extension FriendsViewController: UIPopoverPresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -246,6 +263,8 @@ extension FriendsViewController: UIPopoverPresentationControllerDelegate {
     
 }
 
+// MARK: - UITableViewDataSource
+
 extension FriendsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -253,11 +272,10 @@ extension FriendsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "friendsCell", for: indexPath as IndexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "friendsCell", for: indexPath)
         
         let friend = friends[indexPath.row]
         
-        let photo = UIImage(named: "jpgDefaultProfile")!
         let name = friend.firstName + " " + friend.secondName
         let index = friend.city.firstIndex(of: ",")
         let city = index == nil ? friend.city
@@ -268,7 +286,7 @@ extension FriendsViewController: UITableViewDataSource {
         
         let date = friend.dateOfBirth != nil ? formatter.date(from: friend.dateOfBirth!) : nil
         
-        (cell as? SetFriendsCellInfo)?.setFriendsInfo(photo: photo,
+        (cell as? SetFriendsCellInfoProtocol)?.setFriendsInfo(photo: friend.photo,
                                                       name: name,
                                                       city: city,
                                                       onlineStatus: friend.onlineStatus,
@@ -277,7 +295,6 @@ extension FriendsViewController: UITableViewDataSource {
         
         return cell
     }
-    
     
 }
 

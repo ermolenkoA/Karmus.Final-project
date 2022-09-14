@@ -15,7 +15,6 @@ final class SettingsTableViewController: UITableViewController {
     private var profileType = ""
     private var settings = [String] ( arrayLiteral:
         "Изменить имя и фамилию",
-        "Изменить логин",
         "Изменить пароль"
     )
     
@@ -64,7 +63,7 @@ final class SettingsTableViewController: UITableViewController {
         
         let setting = settings[indexPath.row]
         cell.textLabel?.text = setting
-
+        cell.textLabel?.textColor = .label
         return cell
     }
     

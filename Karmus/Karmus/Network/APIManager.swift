@@ -8,30 +8,14 @@
 import FirebaseCore
 import FirebaseDatabase
 import FirebaseStorage
-import FirebaseFirestore
 import Foundation
 import UIKit
 
 class APIManager {
 
     static let shared = APIManager()
-
-    private func configureFB() -> Firestore {
-        var datebase: Firestore!
-        let settings = FirestoreSettings()
-        Firestore.firestore().settings = settings
-        datebase = Firestore.firestore()
-        return datebase
-    }
     
-//    func getPost(collection: String, docName: String, completion: @escaping (Document?) -> Void) {
-//        let datebase = configureFB()
-//        datebase.collection(collection).document(docName).getDocument(completion: { (document, error) in
-//            guard error == nil else { completion(nil); return }
-//            let doc = Document(field1: document?.get("field1") as! String, field2: document?.get("field2") as! String)
-//            completion(doc)
-//        })
-    }
+}
     func getImage(picName: String, completion: @escaping (UIImage) -> Void) {
         let storage = Storage.storage()
         let reference = storage.reference()

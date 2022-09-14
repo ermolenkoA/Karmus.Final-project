@@ -20,4 +20,5 @@ struct ConstantKeys {
     static let lastLogInDate = "lastLogInDate"
     static let numberOfSessions = "numberOfSessions"
     static let isProfileActive = "isProfileActive"
+    static let profileType = "profileType"
 }

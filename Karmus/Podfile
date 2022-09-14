@@ -7,18 +7,18 @@ target 'Karmus' do
 
 pod 'SwiftLint', '0.48.0'
 pod 'KeychainSwift', '20.0'
-pod 'Firebase', '8.15.0'
 pod 'Firebase/Database', '8.15.0'
 pod 'Firebase/Storage', '8.15.0'
-pod 'FirebaseFirestore', '8.15.0'
 pod 'Kingfisher', '~> 4.0'
 pod 'GooglePlaces', '7.1.0'
+pod 'MessageKit', '3.8.0'
+
   # Pods for Karmus
 
 post_install do |installer|
  installer.pods_project.targets.each do |target|
   target.build_configurations.each do |config|
-   config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+   config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
   end
  end
 end

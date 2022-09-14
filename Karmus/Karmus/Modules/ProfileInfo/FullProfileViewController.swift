@@ -54,6 +54,7 @@ final class FullProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         mainScrollView.frame.size = mainScrollView.contentSize
         mainInfoView.backgroundColor =
             mainInfoView.backgroundColor?.withAlphaComponent(0.4)
@@ -109,6 +110,10 @@ final class FullProfileViewController: UIViewController {
                     } else {
                         self?.firstAndSecondNamesLabel.text = "UNKNOWED SPONSOR"
                     }
+                    
+                    self?.profilePhotoImageView.image = info.photo
+                    self?.profilePhotoImageView.kf.indicatorType = .activity
+                    
                     self?.mainScrollView.isUserInteractionEnabled = true
                     self?.mainActivityIndicatorView.stopAnimating()
                     return
@@ -189,6 +194,10 @@ final class FullProfileViewController: UIViewController {
                 }
                 
             }
+            
+            self?.profilePhotoImageView.image = info.photo
+            self?.profilePhotoImageView.kf.indicatorType = .activity
+            
             self?.mainScrollView.isUserInteractionEnabled = true
             self?.mainActivityIndicatorView.stopAnimating()
         }

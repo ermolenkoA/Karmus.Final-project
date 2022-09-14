@@ -5,14 +5,15 @@
 //  Created by VironIT on 9/1/22.
 //
 
-import Foundation
+import UIKit
 
 
 final class ProfileInfoModel {
     
     let firstName: String?
     let secondName: String?
-    let photo: String?
+    let photo: UIImage
+    let photoName: String
     let dateOfBirth: String?
     let email: String?
     let phone: String?
@@ -28,7 +29,7 @@ final class ProfileInfoModel {
     let onlineStatus: String?
     let numberOfSessions: Int?
 
-    init(firstName: String?, secondName: String?, photo: String?,
+    init(firstName: String?, secondName: String?, photo: UIImage, photoName: String,
           dateOfBirth: String?, email: String?, phone: String?,
           city: String?, preferences: [String]?, education: String?,
           work: String?, skills: String?, numberOfRespects: Int?,
@@ -52,6 +53,7 @@ final class ProfileInfoModel {
         self.sponsorName = sponsorName
         self.onlineStatus = onlineStatus
         self.numberOfSessions = numberOfSessions
+        self.photoName = photoName
     }
     
     var about: String { """
@@ -60,7 +62,7 @@ ProfileInfoModel:
 
     "firstName" = \(firstName ?? "")
     "secondName" = \(secondName ?? "")
-    "photo" = \(photo ?? "")
+    "photo" = \(photoName)
     "dateOfBirth" = \(dateOfBirth ?? "")
     "email" = \(email ?? "")
     "phone" = \(phone ?? "")

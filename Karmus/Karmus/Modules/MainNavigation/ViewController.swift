@@ -12,7 +12,9 @@ final class ViewController: UIViewController {
 
     @IBOutlet private weak var mainActivityIndicatorView: UIActivityIndicatorView!
     
-    var isAnimationEnabled = false
+    private var isAnimationEnabled = false
+    var accountWasBlocked = false
+    var wasForceExit = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +23,21 @@ final class ViewController: UIViewController {
             ? mainActivityIndicatorView.startAnimating()
             : mainActivityIndicatorView.stopAnimating()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.dismiss(animated: true)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if wasForceExit {
+            showAlert("В акаунте произошли серьезные изменения", "Вы были усиленно выгнаны", where: self)
+            wasForceExit = false
+        } else if accountWasBlocked {
+            showAlert("Ваш аккаунт был заблокирован", "Свяжитесь с администрацией", where: self)
+            accountWasBlocked = false
+        }
+    }
 
     @IBAction private func didTapToIdentification(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: StoryboardNames.identificationScreen, bundle: nil)
@@ -37,7 +49,7 @@ final class ViewController: UIViewController {
         self.navigationController?.pushViewController(identificationVC, animated: true)
     }
     
-    @IBAction func didTapSingUpButton(_ sender: UIButton) {
+    @IBAction private func didTapSingUpButton(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: StoryboardNames.registrationScreen, bundle: nil)
         guard let registrationVC = storyboard.instantiateInitialViewController() else {
             showAlert("Невозможно перейти", "Повторите попытку позже", where: self)
@@ -47,13 +59,6 @@ final class ViewController: UIViewController {
         self.navigationController?.pushViewController(registrationVC, animated: true)
     }
     
-//    @IBAction func didTapToAccountScreen(_ sender: UIButton) {
-//        let storyboar = UIStoryboard(name: "AccountScreen", bundle: nil)
-//        let toNext = storyboar.instantiateViewController(identifier: "AccountViewController")
-//        self.present(toNext, animated: true)
-//
-//    }
-
 }
 
 extension ViewController: ChangeActivityIndicatorStatusProtocol {

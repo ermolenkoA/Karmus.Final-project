@@ -7,6 +7,7 @@
 
 import UIKit
 import KeychainSwift
+import Kingfisher
 import FirebaseDatabase
 
 final class AccountViewController: UIViewController {
@@ -57,6 +58,8 @@ final class AccountViewController: UIViewController {
     private let profileID = KeychainSwift.shared.get(ConstantKeys.currentProfile)
     private var profileType = ""
     
+    private let imagePicker = UIImagePickerController()
+    
     private var phoneNumberVerification: PhoneNumberVerification?
     private let maxFullnessValue: Float = 9
     private var profileFullnessValue: Float = 0
@@ -65,6 +68,7 @@ final class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker.delegate = self
         mainScrollView.frame.size = mainScrollView.contentSize
         mainInfoView.backgroundColor =
             mainInfoView.backgroundColor?.withAlphaComponent(0.4)
@@ -84,11 +88,20 @@ final class AccountViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         phoneNumberVerification = nil
-        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let backItem = UIBarButtonItem()
+        backItem.title = "Вернуться"
+        navigationItem.backBarButtonItem = backItem
     }
     
     // MARK: - Private functions
     
+    private func saveProfileImage(imageURL: URL) {
+         Database.database().reference().child(FBDefaultKeys.profilesInfo).child(login!).child(FBProfileInfoKeys.photo).setValue(imageURL.absoluteString)
+        
+    }
         
     private func standartSettings() {
         
@@ -99,7 +112,10 @@ final class AccountViewController: UIViewController {
             showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
             return
         }
-        
+
+        FireBaseDataBaseManager.removeObserversFromProfile(profileID, login)
+        FireBaseDataBaseManager.removeAccountObservers(profileID, login)
+   
         self.title = "@" + login
         
         FireBaseDataBaseManager.getProfileInfo(login) { [weak self] info in
@@ -110,8 +126,19 @@ final class AccountViewController: UIViewController {
                 return
             }
             
+            guard let numberOfSessions = info.numberOfSessions,
+                  let onlineStatus = info.onlineStatus else {
+                return
+            }
+
+            if KeychainSwift.shared.getBool(ConstantKeys.isProfileActive) == nil {
+                FireBaseDataBaseManager.setNumberOfSessions(login, onlineStatus, numberOfSessions: numberOfSessions + 1)
+            }
+            
             if let profileType = info.profileType {
                 
+                KeychainSwift.shared.set(profileType, forKey: ConstantKeys.profileType)
+               
                 self?.profileType = profileType
                 
                 switch profileType {
@@ -122,25 +149,29 @@ final class AccountViewController: UIViewController {
                     self?.profileTypeImageView.isHidden = false
                     
                     self?.mainView.frame = self!.view.frame
-                    self?.profileFullnessView.removeFromSuperview()
-                    self?.additionalInfoView.removeFromSuperview()
-                    self?.mainInfoView.removeFromSuperview()
-                    self?.karmaView.removeFromSuperview()
-                    self?.numberOfFriendsView.removeFromSuperview()
-                    self?.numberOfRespectsView.removeFromSuperview()
+                    self?.profileFullnessView?.removeFromSuperview()
+                    self?.additionalInfoView?.removeFromSuperview()
+                    self?.mainInfoView?.removeFromSuperview()
+                    self?.karmaView?.removeFromSuperview()
+                    self?.numberOfFriendsView?.removeFromSuperview()
+                    self?.numberOfRespectsView?.removeFromSuperview()
                     
                     if let sponsorName = info.sponsorName {
                         self?.firstAndSecondNamesLabel.text = sponsorName
                     } else {
                         self?.firstAndSecondNamesLabel.text = "UNKNOWED SPONSOR"
                     }
-                    self?.view.isUserInteractionEnabled = true
-                    self?.mainActivityIndicatorView.stopAnimating()
+                    
+                    self?.profilePhotoImageView.image = info.photo
+                    self?.profilePhotoImageView.kf.indicatorType = .activity
+                    
                     FireBaseDataBaseManager.createProfileObserver(profileID, login)
                     return
+                    
                 case FBProfileTypes.admin:
                     self?.profileTypeImageView.image = UIImage(named: "iconAdmin")
                     self?.profileTypeImageView.isHidden = false
+                    
                 default:
                     break
                 }
@@ -155,6 +186,8 @@ final class AccountViewController: UIViewController {
             if let dateOfBirth = info.dateOfBirth {
                 self?.dateOfBirthLabel.text = "Дата рождения: " + dateOfBirth
                 self?.profileFullnessValue += 1
+            } else {
+                self?.dateOfBirthLabel.text = "Дата рождения: - "
             }
             
             if let city = info.city {
@@ -165,11 +198,15 @@ final class AccountViewController: UIViewController {
             if let phone = info.phone {
                 self?.phoneNumberLabel.text = "Телефон: " +  phone
                 self?.profileFullnessValue += 1
+            } else {
+                self?.phoneNumberLabel.text = "Телефон: - "
             }
             
             if let email = info.email {
                 self?.emailLabel.text = "Эл. почта: " +  email
                 self?.profileFullnessValue += 1
+            } else {
+                self?.emailLabel.text = "Эл. почта: - "
             }
             
             if let preferences = info.preferences {
@@ -177,25 +214,37 @@ final class AccountViewController: UIViewController {
                     $0 == "" ? $0 + $1 : $0 + ", \($1)"
                 }
                 self?.profileFullnessValue += 1
+            } else {
+                self?.preferencesLabel.text = "Не указаны"
             }
             
             if let education = info.education {
                 self?.educationLabel.text = education.last == "\n" ? String(education.dropLast()) : education
                 self?.profileFullnessValue += 1
+            } else {
+                self?.educationLabel.text = "Не указано"
             }
             
             if let work = info.work {
                 self?.workLabel.text = work.last == "\n" ? String(work.dropLast()) : work
                 self?.profileFullnessValue += 1
+            } else {
+                self?.workLabel.text = "Не указано"
             }
             
             if let skills = info.skills {
                 self?.skillsLabel.text = skills.last == "\n" ? String(skills.dropLast()) : skills
                 self?.profileFullnessValue += 1
+            } else {
+                self?.skillsLabel.text = "Не указаны"
             }
             
+            
+            self?.profilePhotoImageView.image = info.photo
+            self?.profilePhotoImageView.kf.indicatorType = .activity
             self?.setFullnessLabel()
             self?.standartSettingsWithObserver()
+            
         }
         
     }
@@ -268,6 +317,31 @@ final class AccountViewController: UIViewController {
     
     // MARK: - IBAction
     
+    
+    @IBAction func didTapUploadPhotoProfile(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "Добавить изображение", message: nil, preferredStyle: .actionSheet)
+        let actionCamera = UIAlertAction(title: "С камеры", style: .default){     [unowned self] (action) in
+            self.imagePicker.sourceType = .camera
+            present(self.imagePicker, animated: true)
+            
+        }
+        let actionPhoto = UIAlertAction(title: "С фотогалереи", style: .default){[unowned self] (action) in
+            self.imagePicker.sourceType = .photoLibrary
+            self.imagePicker.isEditing = true
+            present(self.imagePicker, animated: true)
+        }
+        let actionCancel = UIAlertAction(title: "Отмена", style: .cancel)
+            
+        alert.addAction(actionPhoto)
+        alert.addAction(actionCamera)
+        alert.addAction(actionCancel)
+        
+        present(alert, animated: true)
+        
+        
+    }
+    
     @IBAction func didTabChangeMainInfoButton(_ sender: UIButton) {
         
         let storyboard = UIStoryboard(name: StoryboardNames.fillMainProfileInfo, bundle: nil)
@@ -294,14 +368,16 @@ final class AccountViewController: UIViewController {
         let alert = UIAlertController.init(title: title, message: nil, preferredStyle: .alert)
         let quitButton = UIAlertAction(title: "Да", style: .destructive) { [weak self] _ in
             
+            FireBaseDataBaseManager.removeSession()
+            KeychainSwift.shared.delete(ConstantKeys.isProfileActive)
             KeychainSwift.shared.delete(ConstantKeys.currentProfile)
             KeychainSwift.shared.delete(ConstantKeys.currentProfileLogin)
+            KeychainSwift.shared.delete(ConstantKeys.profileType)
             UserDefaults.standard.setValue(Date?(nil), forKey: ConstantKeys.lastLogInDate)
             if let login = self?.login, let profileID = self?.profileID {
                 FireBaseDataBaseManager.removeObserversFromProfile(profileID, login)
                 FireBaseDataBaseManager.removeAccountObservers(profileID, login)
             }
-            
             
             let storyboard = UIStoryboard(name: StoryboardNames.main, bundle: nil)
             guard let mainVC = storyboard.instantiateInitialViewController() else {
@@ -310,7 +386,6 @@ final class AccountViewController: UIViewController {
             }
             self?.view.window?.rootViewController = mainVC
             self?.view.window?.makeKeyAndVisible()
-            
             
         }
         let backButton = UIAlertAction(title: "Вернуться", style: .default)
@@ -344,8 +419,6 @@ final class AccountViewController: UIViewController {
                 self?.changeFirstAndSecondNames()
             case "Изменить имя спонсора":
                 self?.changeSponsorName()
-            case "Изменить логин":
-                self?.changeLogin()
             case "Изменить пароль":
                 self?.changePassword()
             case "@ Удалить аккаунт":
@@ -384,7 +457,28 @@ extension AccountViewController: UIPopoverPresentationControllerDelegate {
     
 }
 
-// MARK: - Account Settings, for info changing
+// MARK: - UIImagePickerControllerDelegate
+
+extension AccountViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            profilePhotoImageView.image = pickedImage
+
+            FireBaseDataBaseManager.uploadPhoto(pickedImage){ url in
+                if url == nil {
+                    return
+                }
+            else{
+                self.saveProfileImage(imageURL: url!)
+                }
+            }
+        }
+        dismiss(animated: true)
+    }
+}
+
+
+// MARK: - Account Settings and info changing
 
 extension AccountViewController {
     
@@ -525,213 +619,11 @@ extension AccountViewController {
         
         if sponsorName.count < 2 || sponsorName.count > 25 {
             return "Название должно содержать от 2 до 25 символов"
-        } else if !(sponsorName ~= "^[A-za-zА-Яа-яЁё_-//d]{2,}$") {
+        } else if !(sponsorName ~= "^[A-za-zА-Яа-яЁё\\-_\\d]{2,}$$") {
             return "Название может содержать только буквы и цифры"
         }
         return nil
         
-    }
-    
-    private func changeLogin() {
-        var alert: UIAlertController! = .init(title: "Введите новый логин", message: nil, preferredStyle: .alert)
-        
-        alert.addTextField {
-            $0.placeholder = "Логин"
-        }
-        
-        let closeButton = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
-            alert = nil
-        }
-        
-        let submitButton = UIAlertAction(title: "Подтвердить", style: .default) { [weak self] _ in
-            
-            guard let self = self else { return }
-            
-            guard let newLogin = alert.textFields?.first?.text else {
-                print("\n<AccountViewController\\changeLogin> ERROR: textFields aren't exist\n")
-                showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
-                alert = nil
-                return
-            }
-            
-            guard !newLogin.isEmpty else {
-                self.present(alert, animated: true)
-                return
-            }
-            
-            if let errorText = self.getErrorLogin(newLogin) {
-                self.showCustomAlert("Ошибка", errorText, alert)
-                return
-            }
-            
-            FireBaseDataBaseManager.findLoginOrPhone(newLogin) { [weak self] result in
-                
-                guard result != .error else{
-                    showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
-                    alert = nil
-                    return
-                }
-                
-                if result == .found {
-                    self?.showCustomAlert("Ошибка", "Логин уже используется", alert)
-                    alert = nil
-                } else {
-                    
-                    guard let login = self?.login,
-                          let profileID = self?.profileID else { return }
-
-                    FireBaseDataBaseManager.getProfileInfo(login) { [weak self] info in
-                        FireBaseDataBaseManager.removeAccountObservers(profileID, login)
-                        FireBaseDataBaseManager.removeObserversFromProfile(profileID, login)
-                        
-                        guard let info = info else {
-                            alert = nil
-                            forceQuitFromProfile()
-                            return
-                        }
-                        
-                        let profiles = Database.database().reference().child(FBDefaultKeys.profiles)
-                        let profilesInfo = Database.database().reference().child(FBDefaultKeys.profilesInfo)
-                        profiles.child(profileID).child(FBProfileKeys.login).setValue(newLogin)
-                        profilesInfo.child(login).removeValue()
-                        
-                        if let firstName = info.firstName {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.firstName)
-                                .setValue(firstName)
-                        }
-                        
-                        if let secondName = info.secondName {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.secondName)
-                                .setValue(secondName)
-                        }
-                        
-                        if let dateOfBirth = info.dateOfBirth {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.dateOfBirth)
-                                .setValue(dateOfBirth)
-                        }
-                        
-                        if let city = info.city {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.city)
-                                .setValue(city)
-                        }
-                        
-                        if let email = info.email {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.email)
-                                .setValue(email)
-                        }
-                        
-                        if let phone = info.phone {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.phone)
-                                .setValue(phone)
-                        }
-                        
-                        if let preferences = info.preferences {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.preferences)
-                                .setValue(preferences)
-                        }
-                        
-                        if let education = info.education {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.education)
-                                .setValue(education)
-                        }
-                        
-                        if let work = info.work {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.work)
-                                .setValue(work)
-                        }
-                        
-                        if let skills = info.skills {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.skills)
-                                .setValue(skills)
-                        }
-                        
-                        if let photo = info.photo {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.photo)
-                                .setValue(photo)
-                        }
-                        
-                        if let numberOfFriends = info.numberOfFriends {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.numberOfFriends)
-                                .setValue(numberOfFriends)
-                        }
-                        
-                        
-                        if let numberOfRespects = info.numberOfRespects {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.numberOfRespects)
-                                .setValue(numberOfRespects)
-                        }
-                        
-                        
-                        if let profileType = info.profileType {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.profileType)
-                                .setValue(profileType)
-                        }
-                        
-                        if let sponsorName = info.sponsorName {
-                            profilesInfo.child(newLogin)
-                                .child(FBProfileInfoKeys.sponsorName)
-                                .setValue(sponsorName)
-                        }
-                        
-                        profilesInfo.child(newLogin)
-                            .child(FBProfileInfoKeys.onlineStatus)
-                            .setValue(info.onlineStatus)
-                        
-                        FireBaseDataBaseManager.changeLoginInFriendAccounts(profileID, oldLogin: login, newLogin: newLogin) { [weak self] in
-                            
-                            self?.login = newLogin
-                            self?.title = "@" + newLogin
-                            showAlert("Логин был успешно изменен", nil, where: self)
-                            FireBaseDataBaseManager.setProfileUpdateDate(profileID)
-                            UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
-                            KeychainSwift.shared.set(newLogin, forKey: ConstantKeys.currentProfileLogin)
-                            self?.standartSettingsWithObserver()
-                            alert = nil
-                            
-                        }
-                        
-                        
-                    }
-                    
-
-                }
-                
-            }
-            
-        }
-        alert.addAction(submitButton)
-        alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
-        present(alert, animated: true)
-    }
-    
-    private func getErrorLogin(_ login: String) -> String? {
-        if login.count < 3 || login.count > 25 {
-            return "Логин должен содержать от 3 до 25 символов"
-        } else if !(login ~= "^[-_\\.A-Za-z\\d]+$") {
-            return "Логин может содержать только латинские буквы, цифры, \"-\", \".\", \"_\""
-        } else if !(login ~= "^[A-Za-z]+[-_\\.A-Za-z0-9]+$") {
-            return "Логин должен начинаться с буквы"
-        } else if !(login ~= "^[-_\\.A-Za-z0-9]+[A-Za-z0-9]+$") {
-            return "Логин не может заканчиваться на (\"_\", \"-\", \".\")"
-        } else if !(login ~= "^([-_\\.]?[A-Za-z0-9]+){0,2}$") {
-            return "Логин не может содержать более двух знаков (\"_\", \"-\", \".\") и не под ряд"
-        }
-        return nil
     }
     
     private func changePassword() {
