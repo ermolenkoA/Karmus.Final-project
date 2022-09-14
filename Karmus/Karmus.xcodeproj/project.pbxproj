@@ -38,6 +38,8 @@
 		5328205928D0BFFD005142E0 /* AllCouponsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328205828D0BFFD005142E0 /* AllCouponsTableViewController.swift */; };
 		5328205C28D0C0A2005142E0 /* AllCouponsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328205B28D0C0A2005142E0 /* AllCouponsTVCell.swift */; };
 		5328205F28D10E8A005142E0 /* MyCouponsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328205E28D10E8A005142E0 /* MyCouponsTVCell.swift */; };
+		5328206728D17164005142E0 /* FillMyCouponProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328206628D17164005142E0 /* FillMyCouponProtocol.swift */; };
+		5328206B28D171DD005142E0 /* FillCouponProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328206A28D171DD005142E0 /* FillCouponProtocol.swift */; };
 		533630CE28B7DE8200F139E7 /* ModelActiveTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */; };
 		5336322E28CCAD61007BC5B2 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5336322D28CCAD61007BC5B2 /* AccountViewController.swift */; };
 		5336323528CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */; };
@@ -162,6 +164,8 @@
 		5328205828D0BFFD005142E0 /* AllCouponsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCouponsTableViewController.swift; sourceTree = "<group>"; };
 		5328205B28D0C0A2005142E0 /* AllCouponsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCouponsTVCell.swift; sourceTree = "<group>"; };
 		5328205E28D10E8A005142E0 /* MyCouponsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponsTVCell.swift; sourceTree = "<group>"; };
+		5328206628D17164005142E0 /* FillMyCouponProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillMyCouponProtocol.swift; sourceTree = "<group>"; };
+		5328206A28D171DD005142E0 /* FillCouponProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillCouponProtocol.swift; sourceTree = "<group>"; };
 		533630CD28B7DE8200F139E7 /* ModelActiveTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelActiveTasks.swift; sourceTree = "<group>"; };
 		5336322D28CCAD61007BC5B2 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		5336323428CCAF8B007BC5B2 /* SetFriendsCellInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFriendsCellInfoProtocol.swift; sourceTree = "<group>"; };
@@ -319,15 +323,10 @@
 		532182DA28CF4309000C4DCE /* CouponsNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				5328206528D17115005142E0 /* UserCoupons */,
+				5328206428D170FC005142E0 /* CreateCoupon */,
+				5328206328D170E6005142E0 /* AllCoupons */,
 				532182ED28CF7156000C4DCE /* Models */,
-				532182DB28CF433B000C4DCE /* AllCouponsScreen.storyboard */,
-				532182DE28CF43AA000C4DCE /* MyCouponsScreen.storyboard */,
-				532182E128CF43C8000C4DCE /* CreateCouponsScreen.storyboard */,
-				532182E428CF4512000C4DCE /* CreateCouponViewController.swift */,
-				5328205428D0BF9F005142E0 /* MyCouponsTableViewController.swift */,
-				5328205828D0BFFD005142E0 /* AllCouponsTableViewController.swift */,
-				5328205B28D0C0A2005142E0 /* AllCouponsTVCell.swift */,
-				5328205E28D10E8A005142E0 /* MyCouponsTVCell.swift */,
 			);
 			path = CouponsNavigation;
 			sourceTree = "<group>";
@@ -338,6 +337,35 @@
 				532182EE28CF7167000C4DCE /* CouponModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		5328206328D170E6005142E0 /* AllCoupons */ = {
+			isa = PBXGroup;
+			children = (
+				532182DB28CF433B000C4DCE /* AllCouponsScreen.storyboard */,
+				5328205828D0BFFD005142E0 /* AllCouponsTableViewController.swift */,
+				5328205B28D0C0A2005142E0 /* AllCouponsTVCell.swift */,
+			);
+			path = AllCoupons;
+			sourceTree = "<group>";
+		};
+		5328206428D170FC005142E0 /* CreateCoupon */ = {
+			isa = PBXGroup;
+			children = (
+				532182E128CF43C8000C4DCE /* CreateCouponsScreen.storyboard */,
+				532182E428CF4512000C4DCE /* CreateCouponViewController.swift */,
+			);
+			path = CreateCoupon;
+			sourceTree = "<group>";
+		};
+		5328206528D17115005142E0 /* UserCoupons */ = {
+			isa = PBXGroup;
+			children = (
+				532182DE28CF43AA000C4DCE /* MyCouponsScreen.storyboard */,
+				5328205428D0BF9F005142E0 /* MyCouponsTableViewController.swift */,
+				5328205E28D10E8A005142E0 /* MyCouponsTVCell.swift */,
+			);
+			path = UserCoupons;
 			sourceTree = "<group>";
 		};
 		5336323128CCADD4007BC5B2 /* PopOverControllers */ = {
@@ -403,6 +431,8 @@
 				532182C528CDC838000C4DCE /* CreateNewChatConclusionProtocol.swift */,
 				532182C828CDC875000C4DCE /* SetProfilesCellProtocol.swift */,
 				532182D528CF1B70000C4DCE /* ConversationProtocols.swift */,
+				5328206628D17164005142E0 /* FillMyCouponProtocol.swift */,
+				5328206A28D171DD005142E0 /* FillCouponProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -929,11 +959,13 @@
 				CE15417C28B266E0007731FA /* PopViewController.swift in Sources */,
 				53F284DE28CCF05A0070A5FC /* CreateNewChatViewController.swift in Sources */,
 				530A416228C4B29200CA7F84 /* ComplitedTasksTableViewCell.swift in Sources */,
+				5328206B28D171DD005142E0 /* FillCouponProtocol.swift in Sources */,
 				53F284D728CCE8CC0070A5FC /* ChatsTVCell.swift in Sources */,
 				53378AE228C00B34002749FE /* SearchResultViewController.swift in Sources */,
 				534700ED28B679CC00F23539 /* APIManager.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				532182E528CF4512000C4DCE /* CreateCouponViewController.swift in Sources */,
+				5328206728D17164005142E0 /* FillMyCouponProtocol.swift in Sources */,
 				CEE6717F28B621C100CC8853 /* PhoneVerificationEnumerations.swift in Sources */,
 				5338771B28C8A12E00C3A729 /* ShortProfileInfoModel.swift in Sources */,
 				535FC1AB28C1F8D200A0BDE0 /* TextViewExtension.swift in Sources */,

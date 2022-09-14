@@ -7,12 +7,10 @@
 
 import UIKit
 
-protocol FillCouponProtocol {
-    func fillCoupon(photo: UIImage, title: String, sponsorName: String, login: String)
-}
-
 final class AllCouponsTVCell: UITableViewCell {
 
+    // MARK: - IBOutlet
+    
     @IBOutlet private weak var photoImageView: UIImageView!
     
     @IBOutlet private weak var titleLabel: UILabel!
@@ -20,6 +18,8 @@ final class AllCouponsTVCell: UITableViewCell {
     @IBOutlet private weak var loginLabel: UILabel!
     
 }
+
+// MARK: - FillCouponProtocol
 
 extension AllCouponsTVCell: FillCouponProtocol {
     func fillCoupon(photo: UIImage, title: String, sponsorName: String, login: String) {

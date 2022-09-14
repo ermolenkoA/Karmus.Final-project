@@ -167,6 +167,7 @@ final class AllCouponsTableViewController: UITableViewController {
         
     }
     
+    // MARK: - IBAction
 
     @IBAction func didTapCouponButton(_ sender: UIButton) {
         

@@ -19,6 +19,7 @@ final class CreateNewChatViewController: UIViewController {
     private var searchController: UISearchController!
     private var searchResult: [ProfileForChatModel]! = []
     private var conclusion: ((ProfileForChatModel, String?) -> ())?
+    
     // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
