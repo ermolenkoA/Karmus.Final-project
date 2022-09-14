@@ -12,7 +12,7 @@ class ActiveTasksViewController: UIViewController {
     
     var refActiveTasks: DatabaseReference!
     var refGroupActiveTasks: DatabaseReference!
-    var activeTasks = [ModelTasks]()
+    var activeTasks = [ModelActiveTasks]()
 
     
     override func viewDidLoad() {
@@ -32,6 +32,9 @@ class ActiveTasksViewController: UIViewController {
             
             for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
+                let taskProfileName = taskObject?["name"]
+                let taskPhoto = taskObject?["photo"]
+                let taskLogin = taskObject?["login"]
                 let taskName = taskObject?["taskName"]
                 let taskType = taskObject?["taskType"]
                 let taskId = tasks.key
@@ -41,7 +44,7 @@ class ActiveTasksViewController: UIViewController {
                 let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
                 let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
                 
-                let task = ModelTasks(imageURL: taskImage as! String, id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String)
+                let task = ModelActiveTasks(imageURL: taskImage as! String, id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String, photo: taskPhoto as! String, profileName: taskProfileName as! String, login: taskLogin as! String)
                 
                 self.activeTasks.append(task)
             }

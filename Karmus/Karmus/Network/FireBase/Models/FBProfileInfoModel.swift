@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 final class ProfileInfoModel {
     
     let firstName: String?
@@ -77,4 +78,11 @@ ProfileInfoModel:
 
 """ }
     
+}
+
+struct ProfileForTask {
+    let login: String
+    let name: String
+    let photo: String
+    let profileType: String
 }

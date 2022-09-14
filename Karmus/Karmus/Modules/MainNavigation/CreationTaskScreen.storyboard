@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
-    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -13,25 +13,22 @@
         <!--Creation Task View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="CreationTaskScreen" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="CreationTaskViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreationTaskViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="CreationTaskViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HFQ-hX-z6A">
-                                <rect key="frame" x="16" y="308" width="360" height="41"/>
+                                <rect key="frame" x="16" y="278" width="382" height="41"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Задание для группы людей?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dR7-s2-PPD">
-                                        <rect key="frame" x="8" y="11" width="230" height="18"/>
+                                        <rect key="frame" x="8.0000000000000142" y="11" width="242.33333333333337" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eYg-CN-wvJ">
-                                        <rect key="frame" x="303" y="5" width="51" height="31"/>
-                                        <connections>
-                                            <action selector="taskForGroup:" destination="Y6W-OH-hqX" eventType="valueChanged" id="F0l-i7-OC0"/>
-                                        </connections>
+                                        <rect key="frame" x="325" y="5" width="51" height="31"/>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -52,16 +49,16 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l0d-yt-N9C">
-                                <rect key="frame" x="15" y="240" width="360" height="60"/>
+                                <rect key="frame" x="15" y="210" width="382" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="axo-mc-efK">
-                                        <rect key="frame" x="211" y="13" width="141" height="34"/>
+                                        <rect key="frame" x="224.33333333333337" y="13" width="149.66666666666663" height="34"/>
                                         <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Укажите до какого числа и времени можно выполнить задание" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LWL-9P-br7">
-                                        <rect key="frame" x="8" y="0.0" width="182" height="60"/>
+                                        <rect key="frame" x="8" y="0.0" width="193" height="60"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <color key="highlightedColor" systemColor="systemRedColor"/>
                                     </label>
@@ -86,14 +83,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Описание задания" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVU-qK-OoP">
-                                <rect key="frame" x="15" y="394" width="181" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание задания" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVU-qK-OoP">
+                                <rect key="frame" x="15" y="392" width="181" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Leb-px-Wtu">
-                                <rect key="frame" x="15" y="448" width="361" height="203"/>
+                                <rect key="frame" x="15" y="418" width="383.33333333333331" height="203"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -105,9 +102,10 @@
                                 </userDefinedRuntimeAttributes>
                             </textView>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hh6-Q8-vrW">
-                                <rect key="frame" x="15" y="60" width="191" height="170"/>
+                                <rect key="frame" x="15" y="31.666666666666657" width="202.66666666666666" height="167"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
-                                <imageReference key="image" image="imagePhoto" renderingMode="hierarchical-single">
+                                <imageReference key="image" image="photo" catalog="system" renderingMode="hierarchical-single">
                                     <hierarchicalColors>
                                         <color red="0.054263480615733856" green="0.17698331669537526" blue="0.19311392609023359" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color systemColor="secondaryLabelColor"/>
@@ -124,7 +122,7 @@
                                 </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uR2-Uk-XvB">
-                                <rect key="frame" x="128.66666666666666" y="671" width="132.99999999999997" height="31"/>
+                                <rect key="frame" x="140.66666666666666" y="641" width="132.99999999999997" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Добавить адрес">
                                     <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -135,22 +133,22 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8U-42-HoP">
-                                <rect key="frame" x="16" y="364" width="360" height="52"/>
+                                <rect key="frame" x="16" y="334" width="382" height="52"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Укажите тип задания -&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdx-1U-KSk">
-                                        <rect key="frame" x="8" y="17" width="213" height="18"/>
+                                        <rect key="frame" x="8" y="17" width="223.66666666666666" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x26-g1-M1E">
-                                        <rect key="frame" x="217" y="10" width="135" height="32.666666666666664"/>
+                                        <rect key="frame" x="231" y="10" width="143" height="32.666666666666664"/>
                                         <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <action selector="startEditingPopover:" destination="Y6W-OH-hqX" eventType="editingDidBegin" id="dE8-z7-wvG"/>
-                                            <segue destination="KXG-yS-XAh" kind="popoverPresentation" identifier="toPopoverTypeOfTask" popoverAnchorView="x26-g1-M1E" id="mXW-gz-M2A">
+                                            <segue destination="wsm-XJ-klf" kind="popoverPresentation" popoverAnchorView="x26-g1-M1E" id="P6o-pE-zYw">
                                                 <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                             </segue>
                                         </connections>
@@ -174,29 +172,44 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создание задания" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rz4-i8-yoL">
+                                <rect key="frame" x="133" y="0.0" width="148" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавьте фото (по желанию)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSL-DS-6uI">
+                                <rect key="frame" x="225.66666666666663" y="29.999999999999996" width="109" height="51.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
                         <constraints>
+                            <constraint firstItem="hSL-DS-6uI" firstAttribute="width" secondItem="Hh6-Q8-vrW" secondAttribute="width" multiplier="0.537829" id="51e-JQ-TYj"/>
+                            <constraint firstItem="hSL-DS-6uI" firstAttribute="top" secondItem="Hh6-Q8-vrW" secondAttribute="top" id="6bE-1H-Ibu"/>
                             <constraint firstItem="Leb-px-Wtu" firstAttribute="top" secondItem="d8U-42-HoP" secondAttribute="bottom" constant="32" id="85K-fX-CKa"/>
                             <constraint firstItem="HFQ-hX-z6A" firstAttribute="top" secondItem="l0d-yt-N9C" secondAttribute="bottom" constant="8" symbolic="YES" id="9Pz-yF-jd1"/>
                             <constraint firstItem="uR2-Uk-XvB" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="BHj-0Q-eRF"/>
                             <constraint firstItem="l0d-yt-N9C" firstAttribute="top" secondItem="Hh6-Q8-vrW" secondAttribute="bottom" constant="10" id="D8E-Il-21h"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="d8U-42-HoP" secondAttribute="trailing" constant="14" id="Eee-Li-Ozh"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="HFQ-hX-z6A" secondAttribute="trailing" constant="14" id="G3B-C1-hOa"/>
                             <constraint firstItem="Leb-px-Wtu" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="GI2-Vn-68w"/>
                             <constraint firstItem="Hh6-Q8-vrW" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.209716" constant="-7" id="Gdg-aM-mh8"/>
                             <constraint firstItem="Leb-px-Wtu" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.925641" id="KIJ-DI-NMW"/>
+                            <constraint firstItem="hSL-DS-6uI" firstAttribute="leading" secondItem="Hh6-Q8-vrW" secondAttribute="trailing" constant="8" id="LdL-wM-baZ"/>
                             <constraint firstItem="l0d-yt-N9C" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.923077" id="OPP-0N-aqJ"/>
                             <constraint firstItem="HFQ-hX-z6A" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="PbB-Xo-lj2"/>
                             <constraint firstItem="iVU-qK-OoP" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="RGG-js-dxW"/>
+                            <constraint firstItem="rz4-i8-yoL" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Ry9-T5-kwi"/>
                             <constraint firstItem="Hh6-Q8-vrW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="SEi-1Q-Bax"/>
                             <constraint firstItem="d8U-42-HoP" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="So4-gi-fyc"/>
+                            <constraint firstItem="rz4-i8-yoL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="XSV-Ka-BTZ"/>
                             <constraint firstItem="Leb-px-Wtu" firstAttribute="top" secondItem="iVU-qK-OoP" secondAttribute="bottom" constant="8" symbolic="YES" id="Xtc-iY-q2f"/>
                             <constraint firstItem="uR2-Uk-XvB" firstAttribute="top" secondItem="Leb-px-Wtu" secondAttribute="bottom" constant="20" id="XxJ-y9-6fb"/>
-                            <constraint firstItem="Hh6-Q8-vrW" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="60" id="Z1V-4u-qvK"/>
+                            <constraint firstItem="Hh6-Q8-vrW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="Z1V-4u-qvK"/>
                             <constraint firstItem="Leb-px-Wtu" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.28" constant="-33.320000000000022" id="bhm-v8-Yk9"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="l0d-yt-N9C" secondAttribute="trailing" constant="15" id="edD-Oh-Po8"/>
+                            <constraint firstItem="hSL-DS-6uI" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0611413" id="fVc-1l-Vnv"/>
                             <constraint firstItem="d8U-42-HoP" firstAttribute="top" secondItem="HFQ-hX-z6A" secondAttribute="bottom" constant="15" id="fbc-na-5bX"/>
                             <constraint firstItem="iVU-qK-OoP" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.021327" id="gZD-UF-hM2"/>
                             <constraint firstItem="l0d-yt-N9C" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="iov-vE-qfG"/>
@@ -225,22 +238,35 @@
             </objects>
             <point key="canvasLocation" x="-20.289855072463769" y="16.304347826086957"/>
         </scene>
-        <!--Pop Type Of Task View Controller-->
-        <scene sceneID="mEp-kC-Fih">
+        <!--Pop Type Of Task Table View Controller-->
+        <scene sceneID="CvT-yd-sYv">
             <objects>
-                <viewController id="KXG-yS-XAh" customClass="PopTypeOfTaskViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="XiN-YC-qJd">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                <tableViewController storyboardIdentifier="popVC" id="wsm-XJ-klf" customClass="PopTypeOfTaskTableViewController" customModule="Karmus" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="9m5-32-8h5">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="J0r-jj-yd0"/>
-                        <color key="backgroundColor" systemColor="systemCyanColor"/>
-                    </view>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="cgK-jS-tiI">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="160" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cgK-jS-tiI" id="M33-pG-uAn">
+                                    <rect key="frame" x="0.0" y="0.0" width="160" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wsm-XJ-klf" id="CUb-jD-1dI"/>
+                            <outlet property="delegate" destination="wsm-XJ-klf" id="b1b-aP-51S"/>
+                        </connections>
+                    </tableView>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="300"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mMO-a7-LQD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                    <size key="freeformSize" width="160" height="150"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qOn-eG-thg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="878" y="16"/>
+            <point key="canvasLocation" x="838" y="16"/>
         </scene>
         <!--TaskMapScreen-->
         <scene sceneID="0Tg-ai-xPM">
@@ -254,7 +280,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="imagePhoto" width="390" height="319"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -263,9 +289,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

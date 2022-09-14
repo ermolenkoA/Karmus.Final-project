@@ -17,20 +17,16 @@ class ActiveTasksViewCell: UITableViewCell {
     private var login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
 //    @IBOutlet weak var groupLabel: UILabel!
     
-    var activeModelTask: ModelTasks? {
+    var activeModelTask: ModelActiveTasks? {
         didSet{
             declarationLabel.text = activeModelTask?.type
-            dateLabel.text = "Активно до " + activeModelTask!.date
-            FireBaseDataBaseManager.getProfilePhoto(login!){[weak self] photo in
-                guard let photo = photo else {
-                    return
-                }
-                let url = URL(string: photo)
+            dateLabel.text = activeModelTask!.date
+            let url = URL(string: activeModelTask!.photo)
                 if let url = url {
                 KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
-                    self?.taskImageView.image = image
-                    self?.taskImageView.kf.indicatorType = .activity
-                    }
+                    self.taskImageView.image = image
+                    self.taskImageView.kf.indicatorType = .activity
+                    
                 }
             }
         }

@@ -5,16 +5,19 @@
 //  Created by VironIT on 24.08.22.
 //
 import Firebase
+import KeychainSwift
 import UIKit
 
 
 class TasksTableViewController: UIViewController{
     
     
-    var allTasks = [ModelTasks]()
+    var allTasks = [ModelActiveTasks]()
+    
 //    var tasksFromDeclaration: ActiveTasks!
     var tasksFromDeclaration = DeclarationOfTasksViewController()
     var refTasks: DatabaseReference!
+    var profileId: String?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -29,12 +32,17 @@ class TasksTableViewController: UIViewController{
         super.viewDidAppear(animated)
 //        NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name("TasksTableView"), object: nil)
         self.tableView.reloadData()
-        refTasks = Database.database().reference().child("Tasks")
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+        refTasks = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
+       
         refTasks.observe(DataEventType.value, with:{(snapshot) in
             if snapshot.childrenCount > 0 {
                 self.allTasks.removeAll()
                 for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                     let taskObject = tasks.value as? [String: AnyObject]
+                    let taskProfileName = taskObject?["name"]
+                    let taskPhoto = taskObject?["photo"]
+                    let taskLogin = taskObject?["login"]
                     let taskName = taskObject?["taskName"]
                     let taskAddress = taskObject?["address"]
                     let taskType = taskObject?["taskType"]
@@ -44,7 +52,7 @@ class TasksTableViewController: UIViewController{
                     let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
                     let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
                     
-                    let task = ModelTasks(imageURL: taskImage as! String, id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String)
+                    let task = ModelActiveTasks(imageURL: taskImage as! String, id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String, photo: taskPhoto as! String, profileName: taskProfileName as! String, login: taskLogin as! String)
                     
                     self.allTasks.append(task)
                 }
@@ -52,6 +60,9 @@ class TasksTableViewController: UIViewController{
             }
         })
     }
+    
+    
+    
 //    @objc private func reloadTable(){
 //        self.tableView.reloadData()
 //    }
@@ -90,6 +101,10 @@ extension TasksTableViewController: UITableViewDataSource, UITableViewDelegate{
 //        let task = allTasks[indexPath.row]
         performSegue(withIdentifier: References.fromTasksToConditionTaskScreen, sender: indexPath)
 
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }
  

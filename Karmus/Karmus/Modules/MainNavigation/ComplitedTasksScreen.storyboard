@@ -46,32 +46,40 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e34-WD-2jZ">
-                                                    <rect key="frame" x="104" y="0.0" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="181" y="4" width="199" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="краткое описания задания краткое описания задания краткое описания задания краткое описания задания" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPS-LR-E7w">
-                                                    <rect key="frame" x="104" y="24" width="270" height="39.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPS-LR-E7w">
+                                                    <rect key="frame" x="104" y="35.5" width="270" height="13.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Активно до:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMd-82-DYP">
+                                                    <rect key="frame" x="104" y="4" width="76" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cPS-LR-E7w" firstAttribute="top" secondItem="e34-WD-2jZ" secondAttribute="bottom" constant="3" id="Bbr-MI-zky"/>
+                                                <constraint firstItem="e34-WD-2jZ" firstAttribute="width" secondItem="cPS-LR-E7w" secondAttribute="width" multiplier="0.122222" constant="166" id="00I-7C-t0k"/>
+                                                <constraint firstItem="uMd-82-DYP" firstAttribute="leading" secondItem="FqL-gy-cF2" secondAttribute="trailing" constant="8" symbolic="YES" id="5uW-LA-pd4"/>
+                                                <constraint firstItem="uMd-82-DYP" firstAttribute="top" secondItem="j7N-5X-HhO" secondAttribute="top" constant="4" id="BjD-B9-BXx"/>
                                                 <constraint firstAttribute="bottom" secondItem="FqL-gy-cF2" secondAttribute="bottom" id="Nds-44-RBk"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="cPS-LR-E7w" secondAttribute="trailing" constant="20" id="ScP-Gf-Zoy"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="cPS-LR-E7w" secondAttribute="bottom" constant="20" id="WAP-m3-DYe"/>
                                                 <constraint firstItem="FqL-gy-cF2" firstAttribute="top" secondItem="j7N-5X-HhO" secondAttribute="top" id="ZLi-RA-Q4f"/>
-                                                <constraint firstItem="e34-WD-2jZ" firstAttribute="leading" secondItem="FqL-gy-cF2" secondAttribute="trailing" constant="8" symbolic="YES" id="eaz-Dh-iV2"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="cPS-LR-E7w" secondAttribute="bottom" constant="5.5" id="gOq-fx-0g6"/>
-                                                <constraint firstItem="e34-WD-2jZ" firstAttribute="top" secondItem="j7N-5X-HhO" secondAttribute="top" id="lVh-49-r1A"/>
+                                                <constraint firstItem="e34-WD-2jZ" firstAttribute="leading" secondItem="FqL-gy-cF2" secondAttribute="trailing" constant="85" id="eaz-Dh-iV2"/>
+                                                <constraint firstItem="e34-WD-2jZ" firstAttribute="top" secondItem="j7N-5X-HhO" secondAttribute="top" constant="4" id="qpZ-hw-sbx"/>
                                                 <constraint firstItem="cPS-LR-E7w" firstAttribute="leading" secondItem="FqL-gy-cF2" secondAttribute="trailing" constant="8" symbolic="YES" id="rak-xT-CvZ"/>
                                                 <constraint firstItem="FqL-gy-cF2" firstAttribute="leading" secondItem="j7N-5X-HhO" secondAttribute="leading" constant="16" id="zTv-VV-WvN"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="dataLabel" destination="e34-WD-2jZ" id="KkW-55-lL8"/>
+                                            <outlet property="dateLabel" destination="e34-WD-2jZ" id="s0u-G6-j0v"/>
                                             <outlet property="declarationLabel" destination="cPS-LR-E7w" id="AT8-OK-vdQ"/>
                                             <outlet property="taskImageView" destination="FqL-gy-cF2" id="nHK-Gr-sOv"/>
                                         </connections>
@@ -95,7 +103,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-16" y="54"/>
+            <point key="canvasLocation" x="-17.39130434782609" y="53.571428571428569"/>
         </scene>
         <!--ProcessingTaskScreen-->
         <scene sceneID="Uua-BV-JG1">
