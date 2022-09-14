@@ -13,45 +13,49 @@ import CoreLocation
 
 class ConditionTaskViewController: UIViewController {
 
+    // MARK: - IBOutlet
     
-    @IBOutlet weak var imageCondition: UIImageView!
-    @IBOutlet weak var declarationCondition: UITextView!
-    @IBOutlet weak var dateCondition: UILabel!
-    @IBOutlet weak var typeCondition: UILabel!
-    @IBOutlet weak var addressCondition: UILabel!
-    @IBOutlet weak var profilePhoto: UIImageView!
-    @IBOutlet weak var profileLogin: UILabel!
-    @IBOutlet weak var profileName: UILabel!
+    @IBOutlet private weak var imageCondition: UIImageView!
+    @IBOutlet private weak var declarationCondition: UITextView!
+    @IBOutlet private weak var dateCondition: UILabel!
+    @IBOutlet private weak var typeCondition: UILabel!
+    @IBOutlet private weak var addressCondition: UILabel!
+    @IBOutlet private weak var profilePhoto: UIImageView!
+    @IBOutlet private weak var profileLogin: UILabel!
+    @IBOutlet private weak var profileName: UILabel!
     
+    // MARK: - Private Properties
+    
+    private var referenceFromMapTask: DatabaseReference!
+    private var referenceDelTask: DatabaseReference!
+    private var referenceProcessingTask: DatabaseReference!
+    private var referenceActiveTask: DatabaseReference!
+    private var referenceProfileInfo: DatabaseReference!
+    private var uniqueKeyFromMapAndTasks: String?
+    private var uniqueKey: String?
+    private var profileId: String?
+    private var profileUserLogin: String?
+    
+    // MARK: - Public Properties
     
     var declarationFromTasks: ModelActiveTasks!
-    var declarationFromMap: ModelTasks!
-    var declarationForProfile: ModelUserProfile!
     var profileInfo: ModelUserProfile!
     var loginForProcessing: String?
-    
     var latitudeCoordinateToMap: Double?
     var longitudeCoordinateToMap: Double?
     
-    var referenceFromMapTask: DatabaseReference!
-    var referenceDelTask: DatabaseReference!
-    var referenceProcessingTask: DatabaseReference!
-    var referenceActiveTask: DatabaseReference!
-    var referenceProfileInfo: DatabaseReference!
-    var uniqueKeyFromMapAndTasks: String?
-    var uniqueKey: String?
-    var profileId: String?
-    var profileUserLogin: String?
-    
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         choiceOfData()
         processProfile()
         getProfileInfo()
-        
     }
     
-    func processProfile(){
+    // MARK: - Private functions
+
+    private func processProfile() {
         referenceProcessingTask = Database.database().reference().child("ProfilesInfo")
         referenceProcessingTask.observe(DataEventType.value, with:{ [weak self](snapshot) in
             if snapshot.childrenCount > 0 {
@@ -65,7 +69,7 @@ class ConditionTaskViewController: UIViewController {
         )
     }
     
-    func getProfileInfo(){
+    private func getProfileInfo() {
         profileUserLogin = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
         referenceProfileInfo = Database.database().reference().child("ProfilesInfo").child(profileUserLogin!)
         FireBaseDataBaseManager.getProfileForTask(profileUserLogin!) { [weak self] profile in
@@ -80,79 +84,7 @@ class ConditionTaskViewController: UIViewController {
             }
         }
     
-    
-    
-    @IBAction func tapToProcessingTask(_ sender: Any) {
-        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
-        referenceDelTask = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
-        let firstAlertController = UIAlertController(title: "Задание ушло на обработку", message: "Ожидайте уведомления", preferredStyle: .alert)
-        let actionOk = UIAlertAction(title: "Ок", style: .default)
-                { [weak self] _ in
-                    self?.navigationController?.popToRootViewController(animated: true)
-                    
-                    self?.referenceDelTask.child(self!.uniqueKeyFromMapAndTasks!).setValue(nil)
-                    self?.saveTask(reference: (self?.referenceProcessingTask.child("ProcessingTasks"))!, photo: (self?.profileInfo.photo)!, login: (self?.profileInfo.login)!, name: (self?.profileInfo.profileName)!)
-//                    self!.referenceProcessingTask.child("ProcessingTasks"))
-                    }
-        
-            firstAlertController.addAction(actionOk)
-            present(firstAlertController, animated: true)
-
-    }
-    
-    @IBAction func tapToMapScreen(_ sender: Any) {
-        if let controller = navigationController?.viewControllers.first as? MapViewController {
-            
-            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
-            print("КООРДИНАТЫ \(controller.taskLocation)")
-            NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
-            navigationController?.popToViewController(controller, animated: true)
-        }
-        
-    }
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == References.fromConditionTaskToMapScreen {
-//            let controller = segue.destination as! MapViewController
-//
-//            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
-//        }
-//    }
-    /// weak self?
-    
-//    @IBAction func unwindToMap(_ unwindSegue: UIStoryboardSegue) {
-//        let sourceViewController = unwindSegue.source
-//        performSegue(withIdentifier: "unwindToMap", sender: self)
-//        // Use data from the view controller which initiated the unwind segue
-//    }
-
-    
-    @IBAction func tapToDeleteTask(_ sender: Any) {
-        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
-        referenceDelTask = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
-        referenceActiveTask = Database.database().reference().child("ActiveTasks")
-        let firstAlertController = UIAlertController(title: "Удалить задание", message: "Вы уверены?", preferredStyle: .alert)
-                let actionDelete = UIAlertAction(title: "Да", style: .cancel){[unowned self] _ in
-                    self.referenceDelTask.child(uniqueKeyFromMapAndTasks!).setValue(nil)
-                    self.saveTask(reference:referenceActiveTask,
-                                  photo: declarationFromTasks.photo,
-                                  login: declarationFromTasks.login,
-                                  name: declarationFromTasks.profileName)
-                    
-                   // self.referenceActiveTask.child(uniqueKeyFromMapAndTasks!).setValue(<#T##value: Any?##Any?#>)
-                    let secondAlertController = UIAlertController(title: "Задание удалено", message: nil, preferredStyle: .alert)
-                    let actionOk = UIAlertAction(title: "Ок", style: .default)
-                    { [weak self] _ in
-                        self?.navigationController?.popToRootViewController(animated: true)
-                    }
-                    secondAlertController.addAction(actionOk)
-                    present(secondAlertController, animated: true)
-                
-                }
-        firstAlertController.addAction(actionDelete)
-                present(firstAlertController, animated: true)
-    }
-    
-    func choiceOfData(){
+    private func choiceOfData() {
         if declarationFromTasks != nil {
             
             declarationCondition.text = declarationFromTasks.declaration
@@ -163,23 +95,29 @@ class ConditionTaskViewController: UIViewController {
             typeCondition.text = "Тип задания: \(declarationFromTasks.type)"
             profileName.text = declarationFromTasks.profileName
             profileLogin.text = declarationFromTasks.login
+            
             let profileUrl = URL(string: declarationFromTasks!.photo)
             let url = URL(string: declarationFromTasks!.imageURL)
             if let url = url {
                 
-                KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                KingfisherManager.shared.retrieveImage(with: url as Resource,
+                                                       options: nil,
+                                                       progressBlock: nil)
+                { (image, error, cache, imageURL) in
                     self.imageCondition.image = image
                     self.imageCondition.kf.indicatorType = .activity
                 }
             }
+            
             if let profileUrl = profileUrl {
-                
                 KingfisherManager.shared.retrieveImage(with: profileUrl as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
                     self.profilePhoto.image = image
                     self.profilePhoto.kf.indicatorType = .activity
                 }
             }
-        }else {
+            
+        } else {
+            
             print("перешло")
             profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
             referenceFromMapTask =  Database.database().reference().child(FBDefaultKeys.profiles).child(profileId!).child("Tasks")
@@ -216,7 +154,9 @@ class ConditionTaskViewController: UIViewController {
                     let url = URL(string: self.declarationFromTasks.imageURL)
                     if let url = url {
                         
-                        KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                        KingfisherManager.shared.retrieveImage(with: url as Resource,
+                                                               options: nil,
+                                                               progressBlock: nil){ (image, error, cache, imageURL) in
                             self.imageCondition.image = image
                             self.imageCondition.kf.indicatorType = .activity
                         }
@@ -233,7 +173,7 @@ class ConditionTaskViewController: UIViewController {
         }
     }
     
-    func saveTask(reference: DatabaseReference, photo: String, login: String, name: String){
+    private func saveTask(reference: DatabaseReference, photo: String, login: String, name: String){
         
         let key = reference.childByAutoId().key
         uniqueKey = key
@@ -248,10 +188,64 @@ class ConditionTaskViewController: UIViewController {
                     "taskName": declarationFromTasks.declaration,
                     "taskDate": declarationFromTasks.date,
                     "imageURL": declarationFromTasks.imageURL
-                    
             ] as! [String: AnyObject]
         reference.child(key!).setValue(task)
-        
         }
+    
+    
+    @IBAction func tapToProcessingTask(_ sender: Any) {
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+        referenceDelTask = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
+        let firstAlertController = UIAlertController(title: "Задание ушло на обработку", message: "Ожидайте уведомления", preferredStyle: .alert)
+        let actionOk = UIAlertAction(title: "Ок", style: .default)
+                { [weak self] _ in
+                    self?.navigationController?.popToRootViewController(animated: true)
+                    self?.referenceDelTask.child(self!.uniqueKeyFromMapAndTasks!).setValue(nil)
+                    self?.saveTask(reference: (self?.referenceProcessingTask.child("ProcessingTasks"))!, photo: (self?.profileInfo.photo)!, login: (self?.profileInfo.login)!, name: (self?.profileInfo.profileName)!)
+                    }
+        
+            firstAlertController.addAction(actionOk)
+            present(firstAlertController, animated: true)
+
+    }
+
+    // MARK: - IBAction
+    
+    @IBAction func tapToMapScreen(_ sender: Any) {
+        if let controller = navigationController?.viewControllers.first as? MapViewController {
+            
+            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
+            print("КООРДИНАТЫ \(controller.taskLocation)")
+            NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
+            navigationController?.popToViewController(controller, animated: true)
+        }
+        
+    }
+    
+    @IBAction func tapToDeleteTask(_ sender: Any) {
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+        referenceDelTask = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
+        referenceActiveTask = Database.database().reference().child("ActiveTasks")
+        let firstAlertController = UIAlertController(title: "Удалить задание", message: "Вы уверены?", preferredStyle: .alert)
+                let actionDelete = UIAlertAction(title: "Да", style: .cancel){[unowned self] _ in
+                    self.referenceDelTask.child(uniqueKeyFromMapAndTasks!).setValue(nil)
+                    self.saveTask(reference:referenceActiveTask,
+                                  photo: declarationFromTasks.photo,
+                                  login: declarationFromTasks.login,
+                                  name: declarationFromTasks.profileName)
+                    
+                    let secondAlertController = UIAlertController(title: "Задание удалено", message: nil, preferredStyle: .alert)
+                    let actionOk = UIAlertAction(title: "Ок", style: .default)
+                    { [weak self] _ in
+                        self?.navigationController?.popToRootViewController(animated: true)
+                    }
+                    secondAlertController.addAction(actionOk)
+                    present(secondAlertController, animated: true)
+                
+                }
+        firstAlertController.addAction(actionDelete)
+                present(firstAlertController, animated: true)
+    }
+    
     
 }

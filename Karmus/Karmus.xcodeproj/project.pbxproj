@@ -75,7 +75,6 @@
 		5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */; };
 		5372EAD528B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */; };
 		5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */; };
-		537F654E28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F654D28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift */; };
 		537F655028D0BE6F002B3AF8 /* MapEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F654F28D0BE6F002B3AF8 /* MapEnumeration.swift */; };
 		5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5387573D28BE5E610007196E /* NewUserScreen.storyboard */; };
 		5387574128BE61E20007196E /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574028BE61E20007196E /* GreetingViewController.swift */; };
@@ -96,6 +95,7 @@
 		53DD860228CA28C300FDD84D /* AccountScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BC393B28AD3D8900867BC9 /* AccountScreen.storyboard */; };
 		53DEBCE728C5862500204E1D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */; };
 		53DECF7928D1A1F20035DA65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53DECF7828D1A1F20035DA65 /* Assets.xcassets */; };
+		53DECFA828D1F77D0035DA65 /* ResultSearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DECFA728D1F77D0035DA65 /* ResultSearchProtocol.swift */; };
 		53F284D728CCE8CC0070A5FC /* ChatsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */; };
 		53F284DB28CCEFCE0070A5FC /* CreateNewChat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53F284DA28CCEFCE0070A5FC /* CreateNewChat.storyboard */; };
 		53F284DE28CCF05A0070A5FC /* CreateNewChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F284DD28CCF05A0070A5FC /* CreateNewChatViewController.swift */; };
@@ -203,7 +203,6 @@
 		5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewCell.swift; sourceTree = "<group>"; };
 		5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeclataionOfTasksScreen.storyboard; sourceTree = "<group>"; };
 		5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarationOfTasksViewController.swift; sourceTree = "<group>"; };
-		537F654D28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheirCreatedTasksTableViewController.swift; sourceTree = "<group>"; };
 		537F654F28D0BE6F002B3AF8 /* MapEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapEnumeration.swift; sourceTree = "<group>"; };
 		5387573D28BE5E610007196E /* NewUserScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewUserScreen.storyboard; sourceTree = "<group>"; };
 		5387574028BE61E20007196E /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +223,7 @@
 		53DD860028CA220100FDD84D /* ActiveTasksScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActiveTasksScreen.storyboard; sourceTree = "<group>"; };
 		53DEBCE628C5862500204E1D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		53DECF7828D1A1F20035DA65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		53DECFA728D1F77D0035DA65 /* ResultSearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultSearchProtocol.swift; sourceTree = "<group>"; };
 		53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTVCell.swift; sourceTree = "<group>"; };
 		53F284DA28CCEFCE0070A5FC /* CreateNewChat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateNewChat.storyboard; sourceTree = "<group>"; };
 		53F284DD28CCF05A0070A5FC /* CreateNewChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewChatViewController.swift; sourceTree = "<group>"; };
@@ -437,6 +437,7 @@
 				532182D528CF1B70000C4DCE /* ConversationProtocols.swift */,
 				5328206628D17164005142E0 /* FillMyCouponProtocol.swift */,
 				5328206A28D171DD005142E0 /* FillCouponProtocol.swift */,
+				53DECFA728D1F77D0035DA65 /* ResultSearchProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -452,6 +453,7 @@
 		5348CBD428C63E9A00955D70 /* ProfileTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				53DECF9728D1CEB40035DA65 /* MapNavigation */,
 				532182DA28CF4309000C4DCE /* CouponsNavigation */,
 				5336323728CCB10A007BC5B2 /* ChatNavigation */,
 				5373F4D928CCA4E400B8F380 /* AccountNavigation */,
@@ -562,6 +564,100 @@
 				5387574028BE61E20007196E /* GreetingViewController.swift */,
 			);
 			path = NewUser;
+			sourceTree = "<group>";
+		};
+		53DECF9728D1CEB40035DA65 /* MapNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				53DECF9F28D1D03E0035DA65 /* ComplitedTasks */,
+				53DECF9D28D1CFED0035DA65 /* ActiveTasks */,
+				53DECFA028D1D05E0035DA65 /* Tasks */,
+				53DECF9928D1CF340035DA65 /* CreateTask */,
+				53BC394328AD43E300867BC9 /* MapScreen.storyboard */,
+				53BC394528AD43FE00867BC9 /* MapViewController.swift */,
+			);
+			path = MapNavigation;
+			sourceTree = "<group>";
+		};
+		53DECF9928D1CF340035DA65 /* CreateTask */ = {
+			isa = PBXGroup;
+			children = (
+				53DECFA328D1D0B30035DA65 /* TaskMap */,
+				534700E128B621A700F23539 /* CreationTaskViewController.swift */,
+				533C385B28CE33870068C2C9 /* PopTypeOfTaskTableViewController.swift */,
+				53DD85FC28CA21B600FDD84D /* CreationTaskScreen.storyboard */,
+			);
+			path = CreateTask;
+			sourceTree = "<group>";
+		};
+		53DECF9D28D1CFED0035DA65 /* ActiveTasks */ = {
+			isa = PBXGroup;
+			children = (
+				53DECF9E28D1D01B0035DA65 /* DeclarationTask */,
+				5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */,
+				53DD860028CA220100FDD84D /* ActiveTasksScreen.storyboard */,
+				5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */,
+			);
+			path = ActiveTasks;
+			sourceTree = "<group>";
+		};
+		53DECF9E28D1D01B0035DA65 /* DeclarationTask */ = {
+			isa = PBXGroup;
+			children = (
+				5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */,
+				5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */,
+			);
+			path = DeclarationTask;
+			sourceTree = "<group>";
+		};
+		53DECF9F28D1D03E0035DA65 /* ComplitedTasks */ = {
+			isa = PBXGroup;
+			children = (
+				53DECFA228D1D0960035DA65 /* ProcessingTask */,
+				530A416128C4B29200CA7F84 /* ComplitedTasksTableViewCell.swift */,
+				530A415B28C49A0400CA7F84 /* ComplitedTasksTableViewController.swift */,
+				530A415D28C49A3C00CA7F84 /* ComplitedTasksScreen.storyboard */,
+			);
+			path = ComplitedTasks;
+			sourceTree = "<group>";
+		};
+		53DECFA028D1D05E0035DA65 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				53DECFA128D1D0750035DA65 /* ConditionTask */,
+				534700DB28B6099A00F23539 /* TasksTableViewController.swift */,
+				53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */,
+				534700DD28B6105C00F23539 /* TasksTableViewCell.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		53DECFA128D1D0750035DA65 /* ConditionTask */ = {
+			isa = PBXGroup;
+			children = (
+				530A412B28C2393100CA7F84 /* ConditionTaskViewController.swift */,
+				530A412928C2390E00CA7F84 /* ConditionTaskScreen.storyboard */,
+			);
+			path = ConditionTask;
+			sourceTree = "<group>";
+		};
+		53DECFA228D1D0960035DA65 /* ProcessingTask */ = {
+			isa = PBXGroup;
+			children = (
+				530A415928C499A300CA7F84 /* ProcessingTaskScreen.storyboard */,
+				530A415F28C49A6A00CA7F84 /* ProcessingTaskViewController.swift */,
+			);
+			path = ProcessingTask;
+			sourceTree = "<group>";
+		};
+		53DECFA328D1D0B30035DA65 /* TaskMap */ = {
+			isa = PBXGroup;
+			children = (
+				53B0C84E28BF791B008B518B /* ResultsMapViewController.swift */,
+				53B0C84C28BF72A3008B518B /* TaskMapScreen.storyboard */,
+				53B0C84A28BF7288008B518B /* TaskMapViewController.swift */,
+			);
+			path = TaskMap;
 			sourceTree = "<group>";
 		};
 		53F284E428CCF2BE0070A5FC /* Models */ = {
@@ -705,30 +801,6 @@
 				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
 				CE15417A28B26693007731FA /* Registration */,
 				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
-				53BC393D28AD3DE400867BC9 /* TasksScreen.storyboard */,
-				530A415928C499A300CA7F84 /* ProcessingTaskScreen.storyboard */,
-				530A415F28C49A6A00CA7F84 /* ProcessingTaskViewController.swift */,
-				530A415B28C49A0400CA7F84 /* ComplitedTasksTableViewController.swift */,
-				530A416128C4B29200CA7F84 /* ComplitedTasksTableViewCell.swift */,
-				530A415D28C49A3C00CA7F84 /* ComplitedTasksScreen.storyboard */,
-				534700DB28B6099A00F23539 /* TasksTableViewController.swift */,
-				534700DD28B6105C00F23539 /* TasksTableViewCell.swift */,
-				534700E128B621A700F23539 /* CreationTaskViewController.swift */,
-				53DD85FC28CA21B600FDD84D /* CreationTaskScreen.storyboard */,
-				53BC394328AD43E300867BC9 /* MapScreen.storyboard */,
-				53BC394528AD43FE00867BC9 /* MapViewController.swift */,
-				5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */,
-				53DD860028CA220100FDD84D /* ActiveTasksScreen.storyboard */,
-				5372EAD028B7ADD000F3FFA8 /* ActiveTasksViewController.swift */,
-				5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */,
-				5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */,
-				53B0C84A28BF7288008B518B /* TaskMapViewController.swift */,
-				53B0C84C28BF72A3008B518B /* TaskMapScreen.storyboard */,
-				53B0C84E28BF791B008B518B /* ResultsMapViewController.swift */,
-				530A412928C2390E00CA7F84 /* ConditionTaskScreen.storyboard */,
-				530A412B28C2393100CA7F84 /* ConditionTaskViewController.swift */,
-				533C385B28CE33870068C2C9 /* PopTypeOfTaskTableViewController.swift */,
-				537F654D28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift */,
 			);
 			path = MainNavigation;
 			sourceTree = "<group>";
@@ -969,7 +1041,6 @@
 				5328206B28D171DD005142E0 /* FillCouponProtocol.swift in Sources */,
 				53F284D728CCE8CC0070A5FC /* ChatsTVCell.swift in Sources */,
 				53378AE228C00B34002749FE /* SearchResultViewController.swift in Sources */,
-				537F654E28D063A2002B3AF8 /* TheirCreatedTasksTableViewController.swift in Sources */,
 				534700ED28B679CC00F23539 /* APIManager.swift in Sources */,
 				53BC394628AD43FE00867BC9 /* MapViewController.swift in Sources */,
 				532182E528CF4512000C4DCE /* CreateCouponViewController.swift in Sources */,
@@ -1022,6 +1093,7 @@
 				5348CBF628C6460F00955D70 /* FriendsViewController.swift in Sources */,
 				CE50DF0F28B78FD100D90D4A /* AntiSpam.swift in Sources */,
 				53FFF25D28C79E3D0054AA5D /* AddFriendsViewController.swift in Sources */,
+				53DECFA828D1F77D0035DA65 /* ResultSearchProtocol.swift in Sources */,
 				5372EAD128B7ADD000F3FFA8 /* ActiveTasksViewController.swift in Sources */,
 				CE29862328B3C6A700B4AE9D /* SMSAPIConstants.swift in Sources */,
 				CE50DF6E28B7FC3000D90D4A /* FireBaseManager.swift in Sources */,

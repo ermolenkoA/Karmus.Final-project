@@ -182,8 +182,6 @@ final class CreateCouponViewController: UIViewController {
                                     price: UInt(self.priceLabel.text!)!)
                     )
                     
-                    
-                    
                     self.titleTextField.text = nil
                     self.descriptionTextView.text = nil
                     
@@ -192,8 +190,6 @@ final class CreateCouponViewController: UIViewController {
                     self.priceDecreaseButton.isUserInteractionEnabled = true
                     self.priceIncreaseButton.tintColor = .label
                     self.priceDecreaseButton.isUserInteractionEnabled = true
-                    
-                    
                     
                     self.amountLabel.text = "20"
                     self.amountDecreaseButton.tintColor = .label
@@ -223,10 +219,12 @@ extension CreateCouponViewController: UITextFieldDelegate {
         return true
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         return newText.count <= 20
     }
+    
 }
 
 // MARK: - UITextViewDelegate

@@ -23,10 +23,10 @@ final class FireBaseDataBaseManager {
     private static let chats =  Database.database().reference().child(FBDefaultKeys.chats)
     private static let coupons =  Database.database().reference().child(FBDefaultKeys.coupons)
     
-    private static var closure: ((Friend?, [DataSnapshot]) -> ())?
-    private static var newClosure: ((ProfileForChatModel?, [DataSnapshot]) -> ())?
-    private static var chatClosure: ((Chat?, [DataSnapshot]) -> ())?
-    private static var couponClosure: ((CouponInfoModel?, [DataSnapshot]) -> ())?
+    private static var closure: ((Friend?, [DataSnapshot]) -> Void)?
+    private static var newClosure: ((ProfileForChatModel?, [DataSnapshot]) -> Void)?
+    private static var chatClosure: ((Chat?, [DataSnapshot]) -> Void)?
+    private static var couponClosure: ((CouponInfoModel?, [DataSnapshot]) -> Void)?
     
     // MARK: - Description
     
@@ -34,10 +34,10 @@ final class FireBaseDataBaseManager {
     
     // MARK: - Get private info from account
     
-    static func findLoginOrPhone(_ loginOrPhone: String, _ result: @escaping (FireBaseRequestResult) -> ()) {
+    static func findLoginOrPhone(_ loginOrPhone: String, _ result: @escaping (FireBaseRequestResult) -> Void) {
         
             guard loginOrPhone ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$" ||
-                    loginOrPhone ~= "^(\\+375)(29|25|33|44)([\\d]{7})$" else{
+                    loginOrPhone ~= "^(\\+375)(29|25|33|44)([\\d]{7})$" else {
                 
                 print("\n \(self.description) ERROR: login is incorrect\n)")
                 result(.error)
@@ -46,7 +46,7 @@ final class FireBaseDataBaseManager {
         
         profiles.observeSingleEvent(of: .value) { snapshot in
             
-            guard snapshot.exists() else{
+            guard snapshot.exists() else {
                 result(.notFound)
                 return
             }
@@ -66,7 +66,7 @@ final class FireBaseDataBaseManager {
                 }
                 
                 if profileElements[FBProfileKeys.login] as? String == loginOrPhone ||
-                    profileElements[FBProfileKeys.phoneNumber] as? String == loginOrPhone{
+                    profileElements[FBProfileKeys.phoneNumber] as? String == loginOrPhone {
                     result(.found)
                     return
                 }
@@ -78,9 +78,12 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func openProfile(login: String, password: Int64, newPassword: Int64? = nil, _ result: @escaping (FireBaseOpenProfileResult, String?) -> ()) {
+    static func openProfile(login: String,
+                            password: Int64,
+                            newPassword: Int64? = nil,
+                            _ result: @escaping (FireBaseOpenProfileResult, String?) -> Void) {
 
-        if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$"){
+        if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$") {
             if !(login ~= "^(\\+375)(29|25|33|44)([\\d]{7})$") {
                 result(.failure, nil)
                 return
@@ -89,7 +92,7 @@ final class FireBaseDataBaseManager {
         
         profiles.observeSingleEvent(of: .value) { snapshot in
 
-            guard snapshot.exists() else{
+            guard snapshot.exists() else {
                 result(.failure, nil)
                 return
                 
@@ -118,7 +121,7 @@ final class FireBaseDataBaseManager {
                     return
                 }
                 
-                guard ( loginFromData == login || phoneNumber == login ) && (password == passwordFromData) else {
+                guard ( loginFromData == login || phoneNumber == login ) && ( password == passwordFromData ) else {
                     continue
                 }
                 
@@ -127,7 +130,9 @@ final class FireBaseDataBaseManager {
                 }
 
                 result(.success, profile.key)
+                
                 return
+                
             }
             
             result(.failure, nil)
@@ -135,9 +140,10 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func getProfileUpdateDate(_ profileID: String, _ result: @escaping (String?) -> ()) {
+    static func getProfileUpdateDate(_ profileID: String, _ result: @escaping (String?) -> Void) {
         
-        profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).observeSingleEvent(of: .value){ snapshot in
+        profiles.child(profileID).child(FBProfileKeys.profileUpdateDate)
+            .observeSingleEvent(of: .value) { snapshot in
             guard snapshot.exists() else {
                 result(nil)
                 return
@@ -147,9 +153,9 @@ final class FireBaseDataBaseManager {
         
     }
       
-    static func getProfileLogin(_ profileID: String, _ result: @escaping (String?) -> ()) {
+    static func getProfileLogin(_ profileID: String, _ result: @escaping (String?) -> Void) {
         
-        profiles.child(profileID).child(FBProfileKeys.login).observeSingleEvent(of: .value){ snapshot in
+        profiles.child(profileID).child(FBProfileKeys.login).observeSingleEvent(of: .value) { snapshot in
             guard snapshot.exists() else {
                 result(nil)
                 return
@@ -166,7 +172,6 @@ final class FireBaseDataBaseManager {
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         let date = formatter.string(from: Date())
         profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).setValue(date)
-        
     }
     
     // MARK: - Get public info from account
@@ -175,7 +180,7 @@ final class FireBaseDataBaseManager {
         guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) else { return }
         
         profilesInfo.child(login).observeSingleEvent(of: .value) { snapshot in
-            
+    
             guard snapshot.exists(),
                   let elements = snapshot.value as? [String : AnyObject],
                   let numberOfSessions = elements[FBProfileInfoKeys.numberOfSessions] as? Int,
@@ -185,22 +190,22 @@ final class FireBaseDataBaseManager {
             }
             
             setNumberOfSessions(login, onlineStatus, numberOfSessions: numberOfSessions + 1)
+            
         }
         
     }
     
-    static func getProfilePhoto(_ login: String, _ result: @escaping (String?) -> ()) {
+    static func getProfilePhoto(_ login: String, _ result: @escaping (String?) -> Void) {
         
         profilesInfo.child(login).observeSingleEvent(of: .value){ snapshot in
             guard snapshot.exists() else {
                 result(nil)
                 return
             }
+            
             guard let profileElements = snapshot.value as? [String : AnyObject] else {
-                
                 result(nil)
                 return
-    
             }
             
             result(profileElements[FBProfileInfoKeys.photo] as? String)
@@ -235,7 +240,7 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())){
+    static func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> Void)) {
         let storageRef = Storage.storage().reference().child("imageTasks")
         let imageData = image.jpegData(compressionQuality: 0.8)
         let metaData = StorageMetadata()
@@ -245,7 +250,7 @@ final class FireBaseDataBaseManager {
                 completion(nil)
                 return
             }
-                storageRef.downloadURL(completion: {(url, error) in
+                storageRef.downloadURL(completion: {(url, _) in
                     completion(url)
                 })
             }
@@ -253,10 +258,8 @@ final class FireBaseDataBaseManager {
     
     // MARK: - Profiles searching
     
-    static func searchProfiles(_ string: String = "", _ result: @escaping ([Friend]?) -> ()) {
-        
+    static func searchProfiles(_ string: String = "", _ result: @escaping ([Friend]?) -> Void) {
         profilesInfo.observe(.value) { snapshot in
-            
             
             guard snapshot.exists() else {
                 result(nil)
@@ -267,6 +270,7 @@ final class FireBaseDataBaseManager {
                 result(nil)
                 return
             }
+            
             if let me = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) {
                 profiles.removeAll(where: { $0.key == me })
             }
@@ -307,7 +311,6 @@ final class FireBaseDataBaseManager {
     static func searchAllProfiles(_ string: String = "", _ result: @escaping ([ProfileForChatModel]?) -> ()) {
         
         profilesInfo.observe(.value) { snapshot in
-            
             
             guard snapshot.exists() else {
                 result(nil)
@@ -363,7 +366,6 @@ final class FireBaseDataBaseManager {
     // MARK: - Friends Settings
     
     static func getFriends(_ profileID: String, where friendsType: FriendsTypes, _ result: @escaping ([Friend]?) -> ()) {
-        
         let key = friendsType != .friends ? friendsType != .followers ? FBProfileKeys.requests : FBProfileKeys.followers : FBProfileKeys.friends
         
         profiles.child(profileID).child(key).observe(.value) { snapshot in
@@ -387,7 +389,7 @@ final class FireBaseDataBaseManager {
                 var friends = [Friend]()
                 
                 while let profile = profiles.first  {
-                    
+            
                     guard friendsLogins.contains(profile.key) else {
                         profiles.removeFirst()
                         continue
@@ -433,7 +435,6 @@ final class FireBaseDataBaseManager {
                 }
                 
             }
-            
         }
         
     }
@@ -466,7 +467,10 @@ final class FireBaseDataBaseManager {
         
     }
     
-    static func changeLoginInFriendAccounts(_ profileID: String, oldLogin: String, newLogin: String? = nil, _ conclusion: @escaping () -> ()) {
+    static func changeLoginInFriendAccounts(_ profileID: String,
+                                            oldLogin: String,
+                                            newLogin: String? = nil,
+                                            _ conclusion: @escaping () -> Void) {
         profiles.child(profileID).observeSingleEvent(of: .value) { snapshot in
             
             guard snapshot.exists(), let myFriendsLists = parseDataToFriendsLists(snapshot) else {
@@ -479,8 +483,7 @@ final class FireBaseDataBaseManager {
             let requests = myFriendsLists[FBProfileKeys.requests]!
             
             profiles.observeSingleEvent(of: .value) { snapshot in
-                
-                guard snapshot.exists() else{
+                guard snapshot.exists() else {
                     conclusion()
                     return
                 }
@@ -497,14 +500,9 @@ final class FireBaseDataBaseManager {
                     
                     guard let key = friends.contains(login) ? FBProfileKeys.friends
                     : followers.contains(login) ? FBProfileKeys.requests
-                            : requests.contains(login) ? FBProfileKeys.followers : nil else  {
-                        
-                        continue
-                    }
+                            : requests.contains(login) ? FBProfileKeys.followers : nil else { continue }
                     
-                    guard let friendFriendsList = parseDataToFriendsLists(snapshot) else {
-                        continue
-                    }
+                    guard let friendFriendsList = parseDataToFriendsLists(snapshot) else { continue }
                     
                     var newFriendsList = friendFriendsList[key]!.filter{ $0 != oldLogin }
                     
@@ -517,21 +515,19 @@ final class FireBaseDataBaseManager {
                 }
                 
                 conclusion()
-                
             }
         }
+        
     }
     
     static func changeFriendsLists(profileID: String, myLogin: String,
                                    friendLogin: String, currentFriendType: FriendsTypes?,
-                                   _ resultFriendType: @escaping (FriendsTypes?) -> ()) {
-        
+                                   _ resultFriendType: @escaping (FriendsTypes?) -> Void) {
         profiles.child(profileID).observeSingleEvent(of: .value) { snapshot in
             
             guard snapshot.exists(), let myFriendsLists = parseDataToFriendsLists(snapshot) else { return }
             
             profiles.observeSingleEvent(of: .value) { snapshot in
-                
                 guard snapshot.exists(), let profiles = snapshot.children.allObjects as? [DataSnapshot] else { return }
                 
                 for profile in profiles {
@@ -541,27 +537,21 @@ final class FireBaseDataBaseManager {
                           let anotherFriendsList = parseDataToFriendsLists(profile) else { continue }
                     
                     switch currentFriendType {
-                    
                     case .friends:
                         fallthrough
-                        
                     case .requests:
                         removeFromFriends(profileID, myLogin, myFriendsLists,
                                      profile.key, friendLogin, anotherFriendsList,
                                      resultFriendType)
-                        
                     case .followers:
                         fallthrough
-                        
                     default:
                         acceptRequest(profileID, myLogin, myFriendsLists,
                                      profile.key, friendLogin, anotherFriendsList,
                                      resultFriendType)
-                        
                     }
                     
                 }
-                
             }
             
         }
@@ -570,7 +560,7 @@ final class FireBaseDataBaseManager {
     private static func removeFromFriends(_ myProfileID: String, _ myLogin: String,
                              _ myFriendsLists: [String : [String]], _ friendProfileID: String,
                              _ friendLogin: String, _ friendFriendsLists: [String : [String]],
-                             _ resultFriendType: @escaping (FriendsTypes?) -> ()) {
+                             _ resultFriendType: @escaping (FriendsTypes?) -> Void) {
         
         guard myFriendsLists[FBProfileKeys.friends]!.contains(friendLogin) else {
             profiles.child(myProfileID).child(FBProfileKeys.requests)
@@ -625,7 +615,7 @@ final class FireBaseDataBaseManager {
     private static func acceptRequest(_ myProfileID: String, _ myLogin: String,
                              _ myFriendsLists: [String : [String]], _ friendProfileID: String,
                              _ friendLogin: String, _ friendFriendsLists: [String : [String]],
-                             _ resultFriendType: @escaping (FriendsTypes?) -> ()) {
+                             _ resultFriendType: @escaping (FriendsTypes?) -> Void) {
         
         guard myFriendsLists[FBProfileKeys.followers]!.contains(friendLogin) else {
             
@@ -679,14 +669,12 @@ final class FireBaseDataBaseManager {
                     }
                 
             }
-        
         resultFriendType(.friends)
-        
     }
     
     // MARK: - Chat Settings
     
-    static func sendMessage(_ chatID: String, message: Message, conclusion: @escaping (Bool) -> ()) {
+    static func sendMessage(_ chatID: String, message: Message, conclusion: @escaping (Bool) -> Void) {
         
         chats.child(chatID).child(FBChatKeys.messages).observeSingleEvent(of: .value) { snapshot in
             
@@ -726,7 +714,6 @@ final class FireBaseDataBaseManager {
     static func createNewChat(interlocutorLogin: String, message: Message, conclusion: @escaping (String?) -> ()) {
         
         profilesInfo.child(interlocutorLogin).observeSingleEvent(of: .value) { snapshot in
-            
             guard snapshot.exists() else {
                 conclusion(nil)
                 return
@@ -748,19 +735,13 @@ final class FireBaseDataBaseManager {
             let newRef = chats.childByAutoId()
             
             newRef.setValue([
-                
                 FBChatKeys.members : [message.sender.senderId, interlocutorLogin],
-                FBChatKeys.messages : [
-            
-                    [
+                FBChatKeys.messages : [[
                         FBChatMessageKeys.sender : message.sender.senderId,
                         FBChatMessageKeys.sentDate : formatter.string(from: message.sentDate),
                         FBChatMessageKeys.messageText : messageText,
                         FBChatMessageKeys.isRead : false
-                    
-                    ]
-                
-                ]
+                ]]
             ]) { error, _ in
                 
                 guard error == nil else {
@@ -770,12 +751,11 @@ final class FireBaseDataBaseManager {
                 conclusion(newRef.key)
                 
             }
-            
         }
         
     }
     
-    static func getChatsIDs(conclusion: @escaping ([String]) -> ()){
+    static func getChatsIDs(conclusion: @escaping ([String]) -> Void) {
         
         guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) else {
             forceQuitFromProfile()
@@ -783,15 +763,12 @@ final class FireBaseDataBaseManager {
         }
         
         chats.observeSingleEvent(of: .value) { snapshot in
-            
             guard snapshot.exists(), let allChats = snapshot.children.allObjects as? [DataSnapshot] else {
                 conclusion([String]())
                 return
             }
             
-            conclusion(
-            
-                allChats.filter {
+            conclusion( allChats.filter {
                     if let chat = $0.value as? [String : Any],
                        let members = chat[FBChatKeys.members] as? [String],
                        members.contains(login) {
@@ -799,38 +776,34 @@ final class FireBaseDataBaseManager {
                     } else {
                         return false
                     }
-                }.map{ $0.key }
-            
-            )
-            
+                }.map{ $0.key } )
         }
         
     }
     
     static func readAllMessage(_ chatID: String) {
         chats.child(chatID).child(FBChatKeys.messages).observeSingleEvent(of: .value) { snapshot in
-            guard snapshot.exists(), let messages = snapshot.value as? [[String : AnyObject]]else {
+            guard snapshot.exists(), let messages = snapshot.value as? [[String : AnyObject]] else {
                 return
             }
             for id in 0..<messages.count {
-                chats.child(chatID).child(FBChatKeys.messages).child(String(id)).child(FBChatMessageKeys.isRead).setValue(true)
+                chats.child(chatID)
+                    .child(FBChatKeys.messages)
+                    .child(String(id))
+                    .child(FBChatMessageKeys.isRead).setValue(true)
             }
         }
     }
     
-    static func getChatMessages(_ chatID: String, conclusion: @escaping ([Message]) -> ()) {
-        
+    static func getChatMessages(_ chatID: String, conclusion: @escaping ([Message]) -> Void) {
         chats.child(chatID).child(FBChatKeys.messages).observe(.value) { snapshot in
             
             guard snapshot.exists(), let messages = snapshot.value as? [[String : AnyObject]] else {
-                
                 conclusion([Message]())
                 return
-                
             }
             
             var allMessages = [Message]()
-            
             var counter = 0
             
             for message in messages {
@@ -852,17 +825,15 @@ final class FireBaseDataBaseManager {
                                            sentDate: formatter.date(from: sentDate)!,
                                            kind: .text(messageText),
                                            isRead: isRead))
+                
                 counter += 1
             }
-            
             conclusion(allMessages)
             
         }
-        
     }
     
-    static func getChatsInfo(_ chatIDs: [String], conclusion: @escaping ([Chat]) -> ()) {
-        
+    static func getChatsInfo(_ chatIDs: [String], conclusion: @escaping ([Chat]) -> Void) {
         chats.observeSingleEvent(of: .value) { snapshot in
             
             var chats = [Chat]()
@@ -893,16 +864,14 @@ final class FireBaseDataBaseManager {
                 
                 parseDataToChatInfo(remainingChats, conclusion: self.chatClosure!)
 
-                
             }
             
             parseDataToChatInfo(allChats, conclusion: self.chatClosure!)
             
         }
-        
     }
     
-    static func findChat(_ interlocutorLogin: String, conclusion: @escaping (String?) -> ()) {
+    static func findChat(_ interlocutorLogin: String, conclusion: @escaping (String?) -> Void) {
         
         guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) else {
             forceQuitFromProfile()
@@ -925,7 +894,7 @@ final class FireBaseDataBaseManager {
                 return false
             }
             
-            conclusion(chats.isEmpty ? nil : chats.first!.key )
+            conclusion(chats.isEmpty ? nil : chats.first!.key)
             
         }
         
@@ -937,8 +906,7 @@ final class FireBaseDataBaseManager {
     
     // MARK: - Coupons Settings
     
-    static func createNewCoupon(_ coupon: CouponModel){
-        
+    static func createNewCoupon(_ coupon: CouponModel) {
         coupons.childByAutoId().setValue([
             FBCoupons.name : coupon.name,
             FBCoupons.description : coupon.description,
@@ -946,10 +914,9 @@ final class FireBaseDataBaseManager {
             FBCoupons.sponsorLogin : coupon.sponsorLogin,
             FBCoupons.price : coupon.price
         ])
-        
     }
     
-    static func getAllCoupons(_ conclusion: @escaping ([CouponInfoModel]) -> ()) {
+    static func getAllCoupons(_ conclusion: @escaping ([CouponInfoModel]) -> Void) {
         
         coupons.observeSingleEvent(of: .value) { snapshot in
             
@@ -973,8 +940,6 @@ final class FireBaseDataBaseManager {
                 }
                 
                 parseDataToCoupons(remainingCoupons, conclusion: self.couponClosure!)
-
-                
             }
             
             parseDataToCoupons(coupons, conclusion: self.couponClosure!)
@@ -983,20 +948,17 @@ final class FireBaseDataBaseManager {
     
     }
     
-    static func getActiveCoupons(_ conclusion: @escaping ([CouponInfoModel]) -> ()) {
-        
+    static func getActiveCoupons(_ conclusion: @escaping ([CouponInfoModel]) -> Void) {
         getAllCoupons { coupons in
             conclusion( coupons.filter{
                 $0.remainingAmount != 0
             })
         }
-    
     }
     
-    static func getProfileCoupons(_ profileID: String , _ conclusion: @escaping ([UserCouponInfoModel]) -> ()) {
+    static func getProfileCoupons(_ profileID: String , _ conclusion: @escaping ([UserCouponInfoModel]) -> Void) {
         
         profiles.child(profileID).child(FBProfileKeys.coupons).observeSingleEvent(of: .value) { snapshot in
-            
             guard snapshot.exists(), let profileCoupons = snapshot.value as? [String : [String]] else {
                 conclusion([UserCouponInfoModel]())
                 return
@@ -1005,13 +967,11 @@ final class FireBaseDataBaseManager {
             getAllCoupons { coupons in
                 
                 var resultCoupons = [UserCouponInfoModel]()
-                
-                let fixedCoupons = coupons.filter{
+                let fixedCoupons = coupons.filter {
                     profileCoupons.keys.contains($0.id)
                 }
                 
                 for coupon in fixedCoupons {
-                    
                     guard let codes = profileCoupons[coupon.id] else {
                         continue
                     }
@@ -1027,17 +987,15 @@ final class FireBaseDataBaseManager {
                                                 sponsorName: coupon.sponsorName )
                         )
                     }
-                    
                 }
                 conclusion(resultCoupons)
                 
             }
-            
         }
     
     }
     
-    static func buyCoupon(profileID: String, couponID: String, _ conclusion: @escaping (String?, String?) -> ()) {
+    static func buyCoupon(profileID: String, couponID: String, _ conclusion: @escaping (String?, String?) -> Void) {
         
         profiles.child(profileID).child(FBProfileKeys.balance).observeSingleEvent(of: .value) { snapshot in
             
@@ -1051,19 +1009,15 @@ final class FireBaseDataBaseManager {
                 guard coupon.exists(),
                       let elements = coupon.value as? [String : Any],
                       var codes = elements[FBCoupons.codes] as? [String],
-                      codes.count > 0 else{
-                    
+                      codes.count > 0 else {
                     conclusion(nil, "Купоны закончились")
                     return
-                    
                 }
                 
                 guard let price = elements[FBCoupons.price] as? Int,
                       price <= balance else {
-                    
                     conclusion(nil, "Недостаточно кармы")
                     return
-                    
                 }
                 
                 let code = codes.removeFirst()
@@ -1098,6 +1052,7 @@ final class FireBaseDataBaseManager {
             
             codes.removeAll { $0 == code }
             profiles.child(profileID).child(FBProfileKeys.coupons).child(couponID).setValue(codes)
+            
         }
         
     }
@@ -1125,21 +1080,16 @@ final class FireBaseDataBaseManager {
     
     // MARK: - Observers
     
-    
-    static func createChatsObserver(conclusion: @escaping () -> ()) {
-        
+    static func createChatsObserver(conclusion: @escaping () -> Void) {
         chats.observe(.childChanged) { snapshot in
             conclusion()
         }
-        
         chats.observe(.childAdded) { snapshot in
             conclusion()
         }
-        
         chats.observe(.childRemoved) { snapshot in
             conclusion()
         }
-        
     }
     
     static func putObserverOnOnlineStatus(_ login: String, conclusion: @escaping (String?) -> ()) {
@@ -1150,7 +1100,6 @@ final class FireBaseDataBaseManager {
                 removeObserverFromOnlineStatus(login)
                 return
             }
-            
             conclusion(snapshot.value as? String)
             
         }
@@ -1165,7 +1114,6 @@ final class FireBaseDataBaseManager {
                 forceQuitFromProfile()
                 return
             }
-            
            
             profiles.child(profileID).child(FBProfileKeys.login).observe(.value) { snapshot in
                 guard snapshot.exists() else {
@@ -1204,7 +1152,6 @@ final class FireBaseDataBaseManager {
             
         }
         
-        
         profiles.child(profileID).child(FBProfileKeys.profileUpdateDate)
             .observe(.value){ snapshot in
                 
@@ -1219,7 +1166,6 @@ final class FireBaseDataBaseManager {
                 formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
                 
                 if let dateString = snapshot.value as? String, let date = formatter.date(from: dateString)  {
-                    
                     guard let lastLogInDate = UserDefaults.standard.value(forKey: ConstantKeys.lastLogInDate) as? Date,
                           lastLogInDate.isGreaterThanDate(dateToCompare: date) || lastLogInDate.equalToDate(dateToCompare: date) else {
                         removeObserversFromProfile(profileID, login)
@@ -1228,7 +1174,6 @@ final class FireBaseDataBaseManager {
                         return
                         
                     }
-
                 }
                 
             }
@@ -1278,7 +1223,6 @@ final class FireBaseDataBaseManager {
     }
     
     static func setSessionObserver(_ login: String) {
-        
         profilesInfo.child(login).child(FBProfileInfoKeys.numberOfSessions).observe(.value) { snapshot in
             
             guard snapshot.exists(), let numberOfSessions = snapshot.value as? Int else {
@@ -1287,67 +1231,51 @@ final class FireBaseDataBaseManager {
             }
         
             KeychainSwift.shared.set(String(numberOfSessions), forKey: ConstantKeys.numberOfSessions)
-            
             profilesInfo.child(login).child(FBProfileInfoKeys.numberOfSessions).onDisconnectSetValue(numberOfSessions - 1)
-            
             if numberOfSessions - 1 == 0 {
                 profilesInfo.child(login).child(FBProfileInfoKeys.onlineStatus).onDisconnectSetValue(FBOnlineStatuses.offline)
             }
             
         }
-
     }
     
-    static func setObserverToNumberOfFriends(_ login: String, _ result: @escaping (Int?) -> ()) {
-        
-        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfFriends).observe(.value){ snapshot in
+    static func setObserverToNumberOfFriends(_ login: String, _ result: @escaping (Int?) -> Void) {
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfFriends).observe(.value) { snapshot in
             guard snapshot.exists() else {
                 result(nil)
                 return
             }
-            
             result(snapshot.value as? Int)
         }
-        
     }
     
-    static func setObserverToNumberOfRespects(_ login: String, _ result: @escaping (Int?) -> ()) {
-        
-        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfRespects).observe(.value){ snapshot in
-            guard snapshot.exists() else {
-  
-                result(nil)
-                return
-            }
-
-            result(snapshot.value as? Int)
-        }
-        
-    }
-    
-    static func setObserverToBalance(_ profileID: String, _ result: @escaping (Int?) -> ()) {
-        
-        profiles.child(profileID).child(FBProfileKeys.balance).observe(.value){ snapshot in
+    static func setObserverToNumberOfRespects(_ login: String, _ result: @escaping (Int?) -> Void) {
+        profilesInfo.child(login).child(FBProfileInfoKeys.numberOfRespects).observe(.value) { snapshot in
             guard snapshot.exists() else {
                 result(nil)
                 return
             }
-            
             result(snapshot.value as? Int)
         }
-        
+    }
+    
+    static func setObserverToBalance(_ profileID: String, _ result: @escaping (Int?) -> Void) {
+        profiles.child(profileID).child(FBProfileKeys.balance).observe(.value) { snapshot in
+            guard snapshot.exists() else {
+                result(nil)
+                return
+            }
+            result(snapshot.value as? Int)
+        }
     }
     
     static func removeAccountObservers(_ profileID: String, _ login: String) {
-        
         profiles.child(profileID).child(FBProfileKeys.balance).removeAllObservers()
         profilesInfo.child(login).child(FBProfileInfoKeys.numberOfRespects).removeAllObservers()
         profilesInfo.child(login).child(FBProfileInfoKeys.numberOfFriends).removeAllObservers()
-        
     }
     
     static func removeObserversFromProfile(_ profileID: String, _ login: String) {
-        
         profiles.child(profileID).removeAllObservers()
         profiles.child(profileID).child(FBProfileKeys.login).removeAllObservers()
         profiles.child(profileID).child(FBProfileKeys.profileUpdateDate).removeAllObservers()
@@ -1365,11 +1293,8 @@ final class FireBaseDataBaseManager {
     }
     
     static func removeObserverFromFriendsList(_ profileID: String, where friendsType: FriendsTypes) {
-        
         let key = friendsType != .friends ? friendsType != .followers ? FBProfileKeys.requests : FBProfileKeys.followers : FBProfileKeys.friends
-        
         profiles.child(profileID).child(key).removeAllObservers()
-        
     }
     
     static func removeCurrentChatObserver(_ chatID: String) {
@@ -1397,10 +1322,10 @@ final class FireBaseDataBaseManager {
                                  login: login, password: password,
                                  phoneNumber: phoneNumber,
                                  secondName: "")
+        
     }
     
-    static func parseDataToProfileInfo(_ data: DataSnapshot, conclusion: @escaping (ProfileInfoModel?) -> ())  {
-        
+    static func parseDataToProfileInfo(_ data: DataSnapshot, conclusion: @escaping (ProfileInfoModel?) -> Void)  {
         guard let profileElements = data.value as? [String : AnyObject] else {
             conclusion(nil)
             return
@@ -1434,10 +1359,10 @@ final class FireBaseDataBaseManager {
                     numberOfFriends: numberOfFriends, profileType: profileType, sponsorName: sponsorName,
                     onlineStatus: onlineStatus, numberOfSessions: numberOfSessions)
             )
-        } else if let name = photoName{
+        } else if let name = photoName {
             let url = URL(string: name)
             if let url = url {
-            KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil) { (image, error, cache, imageURL) in
+            KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil) { (image, _, _, _) in
                     guard let image = image else {
                         conclusion(nil)
                         return
@@ -1453,12 +1378,12 @@ final class FireBaseDataBaseManager {
                     )
                 }
             }
-        } else { conclusion(nil) }
-        
+        } else {
+            conclusion(nil)
+        }
     }
     
-    private static func parseDataToFriend(friends: [DataSnapshot], conclusion: @escaping (Friend?, [DataSnapshot]) -> ()) {
-        
+    private static func parseDataToFriend(friends: [DataSnapshot], conclusion: @escaping (Friend?, [DataSnapshot]) -> Void) {
         let friend = friends.first!
         
         guard let profileElements = friend.value as? [String : AnyObject] else {
@@ -1480,8 +1405,7 @@ final class FireBaseDataBaseManager {
             return
             
         }
-        
-        
+
         let dateOfBirth = profileElements[FBProfileInfoKeys.dateOfBirth] as? String
         
         if photoName == ProfileModelConstants.defaultPhoto {
@@ -1496,7 +1420,7 @@ final class FireBaseDataBaseManager {
             let url = URL(string: photoName)
             if let url = url {
                 KingfisherManager.shared.retrieveImage(with: url as Resource,
-                                                       options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                                                       options: nil, progressBlock: nil){ (image, _, _, _) in
                     guard let image = image else {
                         conclusion(nil, [DataSnapshot](friends.dropFirst()))
                         return
@@ -1512,12 +1436,10 @@ final class FireBaseDataBaseManager {
                 }
             }
         }
-
     }
     
     private static func parseDataToProfileForChatModel(profiles: [DataSnapshot],
-                                                       conclusion: @escaping (ProfileForChatModel?,[DataSnapshot]) -> ()) {
-        
+                                                       conclusion: @escaping (ProfileForChatModel?,[DataSnapshot]) -> Void) {
         let profile = profiles.first!
         
         guard let profileElements = profile.value as? [String : Any] else {
@@ -1525,14 +1447,11 @@ final class FireBaseDataBaseManager {
             return
         }
         
-        
         guard let photoName = profileElements[FBProfileInfoKeys.photo] as? String,
               let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
               let onlineStatus = profileElements[FBProfileInfoKeys.onlineStatus] as? String else {
-
             conclusion(nil, [DataSnapshot](profiles.dropFirst()))
             return
-            
         }
         
         var name = "Неизвестный пользователь"
@@ -1540,11 +1459,9 @@ final class FireBaseDataBaseManager {
         let dateOfBirth = profileElements[FBProfileInfoKeys.dateOfBirth] as? String
         
         if profileType == FBProfileTypes.sponsor {
-            
            if let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String {
                 name = sponsorName
            }
-            
         } else {
             
             guard let firstName = profileElements[FBProfileInfoKeys.firstName] as? String,
@@ -1553,13 +1470,12 @@ final class FireBaseDataBaseManager {
                 conclusion(nil, [DataSnapshot](profiles.dropFirst()))
                 return
             }
-            
             name = firstName + " " + secondName
             city = userCity
+            
         }
         
         if photoName == ProfileModelConstants.defaultPhoto {
-            
             conclusion(
                 ProfileForChatModel.init(login: profile.key, name: name,
                                          photo: UIImage(named: "jpgDefaultProfile")!, city: city,
@@ -1567,19 +1483,17 @@ final class FireBaseDataBaseManager {
                                          profileType: profileType),
                 [DataSnapshot](profiles.dropFirst())
             )
-            
         } else {
-            
             let url = URL(string: photoName)
             if let url = url {
                 
-                KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                KingfisherManager.shared.retrieveImage(with: url as Resource,
+                                                       options: nil, progressBlock: nil) { (image, _, _, _) in
                     
                     guard let image = image else {
                         conclusion(nil, [DataSnapshot](profiles.dropFirst()))
                         return
                     }
-                    
                     conclusion(
                         ProfileForChatModel.init(login: profile.key, name: name,
                                                  photo: image, city: city,
@@ -1591,13 +1505,10 @@ final class FireBaseDataBaseManager {
                 }
                 
             }
-            
         }
-
     }
     
     private static func parseDataToFriendsLists(_ data: DataSnapshot) -> [String : [String]]? {
-         
         guard let profileElements = data.value as? [String : AnyObject] else { return nil }
         let friends = profileElements[FBProfileKeys.friends] as? [String] ?? []
         let followers = profileElements[FBProfileKeys.followers] as? [String] ?? []
@@ -1610,7 +1521,7 @@ final class FireBaseDataBaseManager {
         ]
      }
     
-    static func uploadPhoto( image: UIImage, completion: @escaping (( _ url: URL?) -> ())){
+    static func uploadPhoto( image: UIImage, completion: @escaping (( _ url: URL?) -> Void) ) {
             let storageRef = Storage.storage().reference().child("imageTasks/")
             let imageData = image.jpegData(compressionQuality: 0.8)
             let metaData = StorageMetadata()
@@ -1620,35 +1531,28 @@ final class FireBaseDataBaseManager {
                     completion(nil)
                     return
                 }
-                    storageRef.downloadURL(completion: {(url, error) in
+                    storageRef.downloadURL(completion: {(url, _) in
                         completion(url)
                     })
                 }
         }
     
     static func getProfileForTask(_ login: String,
-                                  _ conclusion: @escaping (ProfileForTask?) -> ()) {
-    
-    profilesInfo.child(login).observeSingleEvent(of: .value) { snapshot in
-        
+                                  _ conclusion: @escaping (ProfileForTask?) -> Void) {
+        profilesInfo.child(login).observeSingleEvent(of: .value) { snapshot in
         guard snapshot.exists() else {
             conclusion(nil)
             return
         }
-        
         parseDataToProfileForTask(profile: snapshot, conclusion: conclusion)
-        
     }
-    
 }
             
     private static func parseDataToChatInfo(_ chats: [DataSnapshot],
-                                            conclusion: @escaping (Chat?, [DataSnapshot]) -> ()) {
-        
+                                            conclusion: @escaping (Chat?, [DataSnapshot]) -> Void) {
         let chat = chats.first!
         
         guard let login = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin) else { return }
-        
         guard let chatElements = chat.value as? [String : AnyObject],
               let members = chatElements[FBChatKeys.members] as? [String],
               let messages = chatElements[FBChatKeys.messages] as? [[String : AnyObject]] else {
@@ -1657,7 +1561,6 @@ final class FireBaseDataBaseManager {
         }
         
         var allMessages = [MessageModel]()
-        
         let lastMassageDate = messages.last![FBChatMessageKeys.sentDate] as! String
         
         for message in messages {
@@ -1692,46 +1595,36 @@ final class FireBaseDataBaseManager {
                     conclusion( nil, [DataSnapshot](chats.dropFirst()) )
                 }
             }
+            
         }
     }
 
     private static func parseDataToProfileForTask(profile: DataSnapshot,
-                                                  conclusion: @escaping (ProfileForTask?) -> ()) {
-        
-        
+                                                  conclusion: @escaping (ProfileForTask?) -> Void) {
         guard let profileElements = profile.value as? [String : Any] else {
             conclusion(nil)
             return
         }
-        
-        
         guard let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
               let photo = profileElements[FBProfileInfoKeys.photo] as? String else {
-            
             conclusion(nil)
             return
-            
         }
         
         var name = "Неизвестный пользователь"
         
         if profileType == FBProfileTypes.sponsor {
-            
             guard let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String else {
                 conclusion(nil)
                 return
             }
-            
             name = sponsorName
-            
         } else {
-            
             guard let firstName = profileElements[FBProfileInfoKeys.firstName] as? String,
-                  let secondName = profileElements[FBProfileInfoKeys.secondName] as? String else{
+                  let secondName = profileElements[FBProfileInfoKeys.secondName] as? String else {
                 conclusion(nil)
                 return
             }
-            
             name = firstName + " " + secondName
         }
         
@@ -1745,8 +1638,7 @@ final class FireBaseDataBaseManager {
     }
     
     private static func parseDataToCoupons(_ coupons: [DataSnapshot],
-                                            conclusion: @escaping (CouponInfoModel?, [DataSnapshot]) -> ()) {
-        
+                                           conclusion: @escaping (CouponInfoModel?, [DataSnapshot]) -> Void) {
         let coupon = coupons.first!
         
         guard let elements = coupon.value as? [String : Any],
@@ -1754,84 +1646,69 @@ final class FireBaseDataBaseManager {
               let description = elements[FBCoupons.description] as? String,
               let sponsorLogin = elements[FBCoupons.sponsorLogin] as? String,
               let price = elements[FBCoupons.price] as? UInt else {
-            
             conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
             return
-            
         }
+        
+        let codes = elements[FBCoupons.codes] as? [String] ?? [String]()
+        
+        profilesInfo.child(sponsorLogin).observeSingleEvent(of: .value) { snapshot in
+            guard snapshot.exists() else {
+                conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
+                return
+            }
+            guard let profileElements = snapshot.value as? [String : Any],
+                  let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
+                  profileType == FBProfileTypes.sponsor,
+                  let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String,
+                  let sponsorPhoto = profileElements[FBProfileInfoKeys.photo] as? String else {
+                conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
+                return
+            }
             
-            let codes = elements[FBCoupons.codes] as? [String] ?? [String]()
-            
-            profilesInfo.child(sponsorLogin).observeSingleEvent(of: .value) { snapshot in
-                
-                guard snapshot.exists() else {
-                    conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
-                    return
-                }
-                
-                guard let profileElements = snapshot.value as? [String : Any],
-                      let profileType = profileElements[FBProfileInfoKeys.profileType] as? String,
-                      profileType == FBProfileTypes.sponsor,
-                      let sponsorName = profileElements[FBProfileInfoKeys.sponsorName] as? String,
-                      let sponsorPhoto = profileElements[FBProfileInfoKeys.photo] as? String else{
+            if sponsorPhoto == ProfileModelConstants.defaultPhoto {
+                conclusion(
+                    CouponInfoModel(id: coupon.key, name: name, description: description,
+                                    remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
+                                    sponsorPhoto: UIImage(named: "jpgDefaultProfile")!,
+                                    sponsorName: sponsorName, price: price),
+                    [DataSnapshot](coupons.dropFirst())
+                )
+            } else {
+                let url = URL(string: sponsorPhoto)
+                if let url = url {
                     
-                    conclusion( nil, [DataSnapshot](coupons.dropFirst()) )
-                    return
-                    
-                }
-                
-                if sponsorPhoto == ProfileModelConstants.defaultPhoto {
-                    
-                    conclusion(
-                        CouponInfoModel(id: coupon.key, name: name, description: description,
-                                        remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
-                                        sponsorPhoto: UIImage(named: "jpgDefaultProfile")!,
-                                        sponsorName: sponsorName, price: price),
-                        [DataSnapshot](coupons.dropFirst())
-                    )
-                    
-                } else {
-                    
-                    let url = URL(string: sponsorPhoto)
-                    if let url = url {
+                    KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
                         
-                        KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
-                            
-                            guard let image = image else {
-                                conclusion(nil, [DataSnapshot](coupons.dropFirst()))
-                                return
-                            }
-                            
-                            conclusion(
-                                CouponInfoModel(id: coupon.key, name: name, description: description,
-                                                remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
-                                                sponsorPhoto: image,
-                                                sponsorName: sponsorName, price: price),
-                                [DataSnapshot](coupons.dropFirst())
-                            )
-                            
+                        guard let image = image else {
+                            conclusion(nil, [DataSnapshot](coupons.dropFirst()))
+                            return
                         }
+                        conclusion(
+                            CouponInfoModel(id: coupon.key, name: name, description: description,
+                                            remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
+                                            sponsorPhoto: image,
+                                            sponsorName: sponsorName, price: price),
+                            [DataSnapshot](coupons.dropFirst())
+                        )
                         
                     }
                     
                 }
-        
             }
-            
-         }
+        }
+    }
     
     // MARK: - Get other info
     
-    static func getTopics(_ result: @escaping ([String]?) -> ()){
-        
-        topics.observeSingleEvent(of: .value){ snapshot in
+    static func getTopics(_ result: @escaping ([String]?) -> Void) {
+        topics.observeSingleEvent(of: .value) { snapshot in
             guard snapshot.exists() else {
                 result(nil)
                 return
             }
             result(snapshot.value as? [String])
         }
-        
     }
     
 }

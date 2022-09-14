@@ -87,7 +87,7 @@
                         <barButtonItem key="backBarButtonItem" title="Назад" id="OPh-qF-qeC"/>
                         <barButtonItem key="leftBarButtonItem" title="Sign up" id="LOR-yy-m7D">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="o5K-a2-4p0">
-                                <rect key="frame" x="16" y="6" width="92" height="32"/>
+                                <rect key="frame" x="16" y="9" width="92" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Регистрация">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -99,7 +99,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="log in" id="zGj-vt-94q">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ejo-Qi-9nS">
-                                <rect key="frame" x="255" y="6" width="49" height="32"/>
+                                <rect key="frame" x="255" y="9" width="49" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Вход">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -40,9 +40,7 @@ final class RegistrationViewController: UIViewController {
     
     private var correctTextFields = Set<RegistrationElements>()
     private let maxPhoneNumberLength = 13
-    
-    private var activeTextField: UITextField?
-    
+
     private let greenColor = CGColor(red: 0, green: 255, blue: 0, alpha: 1)
     private let redColor = CGColor(red: 255, green: 0, blue: 0, alpha: 1)
     
@@ -87,8 +85,9 @@ final class RegistrationViewController: UIViewController {
         phoneNumberVerification = nil
     }
     
-    @objc func keyboardNotification(notification: Notification){
-        
+     // MARK: - Private functions
+    
+    @objc private func keyboardNotification(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         
         guard let keyboard = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
@@ -97,10 +96,9 @@ final class RegistrationViewController: UIViewController {
         } else {
             mainScrollView.contentInset = UIEdgeInsets.zero
         }
-        
     }
     
-    private func showPopOver(_ sender: UIButton, descriptionText: String){
+    private func showPopOver(_ sender: UIButton, descriptionText: String) {
         guard let popVC = storyboard?.instantiateViewController(withIdentifier: "popVC") else {
             print("\n<didTapCheckButton> ERROR: ViewController withIdentifier \"popVC\" isn't exist\n")
             return
@@ -118,7 +116,7 @@ final class RegistrationViewController: UIViewController {
     
     // MARK: - Change Correct TextFields
     
-    private func changeCorrectTextFields(registrationElement: RegistrationElements, formFillResult: Result){
+    private func changeCorrectTextFields(registrationElement: RegistrationElements, formFillResult: Result) {
         if formFillResult == .correct {
             correctTextFields.insert(registrationElement)
         } else {
@@ -129,7 +127,6 @@ final class RegistrationViewController: UIViewController {
     }
 
     // MARK: - IBAction
-    
     
     @IBAction func didTapCheckButton(_ sender: UIButton) {
         
@@ -169,8 +166,6 @@ final class RegistrationViewController: UIViewController {
             showPopOver(sender, descriptionText: errorText ?? "Текст введен корректно")
         }
         
-        
-        
     }
     
     @IBAction private func changedAgreementSwitch(_ sender: UISwitch) {
@@ -179,7 +174,6 @@ final class RegistrationViewController: UIViewController {
     }
     
     @IBAction private func didTapRegistrationButton(_ sender: UIButton) {
-        
         guard isNetworkConected else {
             showAlert("Отсутствует доступ к интернету", "Проверьте подключение и повторите попытку", where: self)
             return
@@ -196,10 +190,8 @@ final class RegistrationViewController: UIViewController {
                                         secondName: secondNameTextField.text!
         )
 
-        
         phoneNumberVerification = PhoneNumberVerification(profile: profile, for: .registration, self)
         phoneNumberVerification?.startVerification()
-        
     }
     
     @IBAction private func touchBeganOutside(_ sender: UITapGestureRecognizer) {
@@ -211,19 +203,15 @@ final class RegistrationViewController: UIViewController {
 // MARK: - UIPopoverPresentationControllerDelegate
 
 extension RegistrationViewController: UIPopoverPresentationControllerDelegate {
-    
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
-    
 }
 
 // MARK: - UITextFieldDelegate
 
 extension RegistrationViewController: UITextFieldDelegate {
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         switch textField{
         case firstNameTextField:
             secondNameTextField.becomeFirstResponder()
@@ -241,12 +229,9 @@ extension RegistrationViewController: UITextFieldDelegate {
             return true
         }
         return true
-        
     }
     
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
         guard let registrationElement = findTextFieldByTag(textField) else {
             print("\n<textFieldDidBeginEditing> ERROR: textField doesn't apple to registration elements\n")
             return
@@ -266,7 +251,6 @@ extension RegistrationViewController: UITextFieldDelegate {
                 return
             }
         }
-        
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -375,9 +359,14 @@ extension RegistrationViewController {
         
     }
     
-    func clearAllTextFields(){
+    func clearAllTextFields() {
         
-        let textFields: [UITextField] = [firstNameTextField, secondNameTextField, loginTextField, passwordTextField, repeatPasswordTextField, phoneNumberTextField]
+        let textFields: [UITextField] = [firstNameTextField,
+                                         secondNameTextField,
+                                         loginTextField,
+                                         passwordTextField,
+                                         repeatPasswordTextField,
+                                         phoneNumberTextField]
         for textField in textFields {
             textField.text = nil
             textField.layer.borderColor = CGColor(gray: 255, alpha: 1)
@@ -390,7 +379,7 @@ extension RegistrationViewController {
         registrationButton.alpha = 0.5
     }
     
-    private func changeButtonIcon(for textField: UITextField, icon: Result){
+    private func changeButtonIcon(for textField: UITextField, icon: Result) {
         let image = UIImage(named: icon == .correct ? "iconOK" : "iconError")
         
         var button: UIButton {
@@ -434,12 +423,11 @@ extension RegistrationViewController {
             phoneNumberCheckButton.isHidden = action == .hide
         default:
             break
-            
         }
         
     }
     
-    private func isTextInTextFieldCorrect(textField: UITextField) -> Bool{
+    private func isTextInTextFieldCorrect(textField: UITextField) -> Bool {
         
         let text = textField.text ?? ""
 

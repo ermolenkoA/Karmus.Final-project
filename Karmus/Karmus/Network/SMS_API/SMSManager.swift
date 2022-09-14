@@ -46,7 +46,7 @@ final class SMSManager {
         
         defaultSession.dataTask(with: url) { (data, response, error) in
             
-            guard error == nil else{
+            guard error == nil else {
                 print("\n<SMSManager\\sendSMS> ERROR: \(error!.localizedDescription)\n")
                 completion(.error)
                 return
@@ -56,7 +56,7 @@ final class SMSManager {
 //                 print("\n<SMSManager\\sendSMS> RESPONSE: \(response!.debugDescription)\n")
             }
             
-            if data != nil{
+            if data != nil {
                 completion(.sent)
             }
 
@@ -82,7 +82,7 @@ final class SMSManager {
         
         defaultSession.dataTask(with: url) { (data, response, error) in
             
-            guard error == nil else{
+            guard error == nil else {
                 print("\n<SMSManager\\isBalanceEnough> ERROR: \(error!.localizedDescription)\n")
                 completion(Error.self, nil)
                 return

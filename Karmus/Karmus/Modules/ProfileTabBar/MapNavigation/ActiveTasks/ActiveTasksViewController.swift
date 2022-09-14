@@ -3,34 +3,37 @@ import UIKit
 
 class ActiveTasksViewController: UIViewController {
 
+    // MARK: - IBOutlet
     
     @IBOutlet weak var tableView: UITableView!
     
-    var celldataLabel: String?
-    var celldeclarationLabel: String?
-    var celltaskImageView: UIImage?
+    // MARK: - Private Properties
     
-    var refActiveTasks: DatabaseReference!
-    var refGroupActiveTasks: DatabaseReference!
-    var activeTasks = [ModelActiveTasks]()
+    private var celldataLabel: String?
+    private var celldeclarationLabel: String?
+    private var celltaskImageView: UIImage?
+    private var refActiveTasks = Database.database().reference().child("ActiveTasks")
+    private var refGroupActiveTasks = Database.database().reference().child("GroupTasks")
+    private var activeTasks = [ModelActiveTasks]()
+    
+    // MARK: - Life Cycle
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        refActiveTasks = Database.database().reference().child("ActiveTasks")
-        refGroupActiveTasks = Database.database().reference().child("GroupTasks")
         uploadData(reference: refActiveTasks)
         uploadData(reference: refGroupActiveTasks)
     }
     
-    func uploadData(reference: DatabaseReference){
+    // MARK: - Private Functions
+
+    private func uploadData(reference: DatabaseReference) {
         reference.observe(DataEventType.value, with:{(snapshot) in
         
         if snapshot.childrenCount > 0 {
             
-            for tasks in snapshot.children.allObjects as! [DataSnapshot] {
+            for tasks in snapshot.children.allObjects as? [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
                 let taskProfileName = taskObject?["name"]
                 let taskPhoto = taskObject?["photo"]
@@ -44,7 +47,17 @@ class ActiveTasksViewController: UIViewController {
                 let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
                 let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
                 
-                let task = ModelActiveTasks(imageURL: taskImage as! String, id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String, photo: taskPhoto as! String, profileName: taskProfileName as! String, login: taskLogin as! String)
+                let task = ModelActiveTasks(imageURL: taskImage as! String,
+                                            id: taskId,
+                                            latitudeCoordinate: taskLatitudeCoordinate as! Double,
+                                            longitudeCoordinate: taskLongitudeCoordinate as! Double,
+                                            date: taskDate as! String,
+                                            declaration: taskName as! String,
+                                            address: taskAddress as! String,
+                                            type: taskType as! String,
+                                            photo: taskPhoto as! String,
+                                            profileName: taskProfileName as! String,
+                                            login: taskLogin as! String)
                 
                 self.activeTasks.append(task)
             }
@@ -65,28 +78,24 @@ class ActiveTasksViewController: UIViewController {
     }
 }
 
+// MARK: - Table view data source
+
 extension ActiveTasksViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return activeTasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! ActiveTasksViewCell
-        
         cell.activeModelTask = activeTasks[indexPath.row]
-        
         celldataLabel = cell.dateLabel.text
         celldeclarationLabel = cell.declarationLabel.text
-//        celltaskImageView = cell.taskImageView.image
         return cell
-        
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: References.fromActiveTasksToDeclarationOfTasksScreen, sender: indexPath)
-  
     }
 }
         

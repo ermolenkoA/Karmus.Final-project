@@ -14,10 +14,8 @@ final class FullProfileViewController: UIViewController {
     
     @IBOutlet private weak var mainActivityIndicatorView: UIActivityIndicatorView!
     
-    
     @IBOutlet private weak var loginLabel: UILabel!
     @IBOutlet private weak var onlineStatusLabel: UILabel!
-    
     
     @IBOutlet private weak var mainScrollView: UIScrollView!
     @IBOutlet private weak var mainView: UIView!
@@ -27,7 +25,6 @@ final class FullProfileViewController: UIViewController {
     
     @IBOutlet private weak var profilePhotoImageView: UIImageView!
     @IBOutlet private weak var profileTypeImageView: UIImageView!
-    
     
     @IBOutlet private weak var numberOfFriendsView: UIView!
     @IBOutlet private weak var numberOfFriendsLabel: UILabel!
@@ -72,7 +69,6 @@ final class FullProfileViewController: UIViewController {
     }
     
     // MARK: - Private functions
-    
         
     private func standartSettings() {
         
@@ -85,17 +81,12 @@ final class FullProfileViewController: UIViewController {
         loginLabel.text = "@" + login
         
         FireBaseDataBaseManager.getProfileInfo(login) { [weak self] info in
-            
-            guard let info = info else {
-                return
-            }
+            guard let info = info else { return }
             
             if let profileType = info.profileType {
 
                 switch profileType {
-                
                 case FBProfileTypes.sponsor:
-                    
                     self?.profileTypeImageView.image = UIImage(named: "iconSponsor")
                     self?.profileTypeImageView.isHidden = false
                     
@@ -116,17 +107,14 @@ final class FullProfileViewController: UIViewController {
                     
                     self?.mainScrollView.isUserInteractionEnabled = true
                     self?.mainActivityIndicatorView.stopAnimating()
+                    
                     return
-                    
                 case FBProfileTypes.admin:
-                    
                     self?.profileTypeImageView.image = UIImage(named: "iconAdmin")
                     self?.profileTypeImageView.isHidden = false
-                    
                 default:
                     break
                 }
-                
             }
             
             if let firstName = info.firstName, let secondName = info.secondName {
@@ -178,10 +166,7 @@ final class FullProfileViewController: UIViewController {
             if let onlineStatus = info.onlineStatus {
                 self?.onlineStatusLabel.text = onlineStatus
                 
-                self?.onlineStatusLabel.text = onlineStatus
-                
                 switch onlineStatus {
-                
                 case FBOnlineStatuses.offline:
                     self?.onlineStatusLabel.textColor = .lightGray
                 case FBOnlineStatuses.online:
@@ -190,9 +175,7 @@ final class FullProfileViewController: UIViewController {
                     self?.onlineStatusLabel.textColor = .red
                 default:
                     self?.onlineStatusLabel.textColor = .clear
-                    
                 }
-                
             }
             
             self?.profilePhotoImageView.image = info.photo

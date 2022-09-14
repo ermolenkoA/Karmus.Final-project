@@ -7,24 +7,8 @@
 import CoreLocation
 import UIKit
 
-protocol ResultsMapViewControllerDelegate: AnyObject {
-    func didTapPlace(with coordinates: CLLocationCoordinate2D)
-}
-
-protocol SetDelegate {
-    func setDelegate(sender: UIViewController)
-}
-
-protocol GetAddress: AnyObject {
-    func resultAddress(address: String)
-}
-
 final class ResultsMapViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    weak var delegate: ResultsMapViewControllerDelegate?
-    weak var addressDelegate: GetAddress?
-    var sender: UIViewController?
-    var resultAddress: String?
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -32,7 +16,12 @@ final class ResultsMapViewController: UIViewController, UITableViewDelegate, UIT
                        forCellReuseIdentifier: "cell")
         return table
     }()
+    private weak var delegate: ResultsMapViewControllerDelegate?
+    private weak var addressDelegate: GetAddress?
     
+    
+    var sender: UIViewController?
+    var resultAddress: String?
     var places: [Place] = []
     
     override func viewDidLoad() {
@@ -42,59 +31,54 @@ final class ResultsMapViewController: UIViewController, UITableViewDelegate, UIT
         tableView.dataSource = self
     }
     
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
     
-    public func update(with places: [Place]) {
-        self.tableView.isHidden = false
-        self.places = places
-        tableView.reloadData()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // MARK: - Private Functions
+
+    private func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return places.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    private func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = places[indexPath.row].name
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    private func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         tableView.isHidden = true
-        
         let place = places[indexPath.row]
-
         GooglePlacesManager.shared.resolveLocation(for: place) { [weak self] result in
+            
             switch result {
             case .success(let coordinate):
                 DispatchQueue.main.async { [self] in
                     self?.delegate?.didTapPlace(with: coordinate)
                     self?.addressDelegate?
                         .resultAddress(address: self!.places[indexPath.row].name)
-//                    print(self!.resultAddress!)
                 }
             case .failure(let error):
                 print(error)
             }
+            
         }
-//        let storyboard = UIStoryboard(name: "TaskMapScreen", bundle: nil)
-//        guard let controller = storyboard.instantiateViewController(identifier: "TaskMapViewController") as? TaskMapViewController else {
-//            return
-//        }
-        
-//        controller.resultAddress = places[indexPath.row].name
-//        print(controller.resultAddress)
-//        present(controller, animated: true)
-        
+    }
+    
+    // MARK: - Public Functions
+
+    public func update(with places: [Place]) {
+        self.tableView.isHidden = false
+        self.places = places
+        tableView.reloadData()
     }
 }
+
+    // MARK: - SetDelegate
+
 extension ResultsMapViewController: SetDelegate{
     func setDelegate(sender: UIViewController) {
         self.sender = sender

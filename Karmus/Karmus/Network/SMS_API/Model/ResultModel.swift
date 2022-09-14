@@ -10,7 +10,7 @@ import Foundation
 class ResultModel: Codable {
     let balance: String
     
-    init(balance: String, viber_balance: String){
+    init(balance: String, viber_balance: String) {
         self.balance = balance
     }
     

@@ -5,7 +5,6 @@ target 'Karmus' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   
-  pod 'SwiftLint', '0.48.0'
   pod 'KeychainSwift', '20.0'
   pod 'Firebase/Database', '8.15.0'
   pod 'Firebase/Storage', '8.15.0'

@@ -17,8 +17,9 @@ protocol GetShortProfileInfoProtocol {
 
 final class CutProfileViewController: UIViewController {
     
-    @IBOutlet private weak var loginLabel: UILabel!
+    // MARK: - IBOutlet
     
+    @IBOutlet private weak var loginLabel: UILabel!
     @IBOutlet private weak var buttonActivityIndicator: UIActivityIndicatorView!
     
     @IBOutlet private weak var numberOfRestectsLabel: UILabel!
@@ -30,21 +31,23 @@ final class CutProfileViewController: UIViewController {
     
     @IBOutlet private weak var firstAndSecondNameLabel: UILabel!
     
-    
     @IBOutlet private weak var fullInfoButton: UIButton!
     @IBOutlet private weak var friendActionButton: UIButton!
     
-    private var conclusion: (() -> ())?
+    // MARK: - Private Properties
+    
+    private var conclusion: (() -> Void)?
     private var friendProfile: ShortProfileInfoModel?
     private var friendStatus: FriendsTypes?
     private let myProfileID = KeychainSwift.shared.get(ConstantKeys.currentProfile)
     private let myLogin = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profilePhotoImageView.layer.cornerRadius =
-            (view.frame.width - 40) * 0.15
+        profilePhotoImageView.layer.cornerRadius = (view.frame.width - 40) * 0.15
         setStartSettings()
     }
     
@@ -69,7 +72,6 @@ final class CutProfileViewController: UIViewController {
             fullInfoButton.isUserInteractionEnabled = false
             fullInfoButton.alpha = 0.6
             profileTypeImageView.isHidden = false
-            
         case FBProfileTypes.admin:
             profileTypeImageView.image = UIImage(named: "iconAdmin")
             profileTypeImageView.isHidden = false
@@ -81,9 +83,7 @@ final class CutProfileViewController: UIViewController {
     }
     
     private func settingsForFriendActionButton() {
-        
         switch friendStatus {
-        
         case .followers:
             friendActionButton.setTitle("Принять запрос", for: .normal)
             friendActionButton.backgroundColor = #colorLiteral(red: 0, green: 0.1107608194, blue: 1, alpha: 1)
@@ -97,9 +97,9 @@ final class CutProfileViewController: UIViewController {
             friendActionButton.setTitle("Добавить в друзья", for: .normal)
             friendActionButton.backgroundColor = .systemBlue
         }
-        
     }
     
+    // MARK: - IBAction
     
     @IBAction func didTapFriendActionButton(_ sender: UIButton) {
         
@@ -120,14 +120,12 @@ final class CutProfileViewController: UIViewController {
         }
     }
     
-    
     @IBAction func didTapFullInfoButton(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: StoryboardNames.fullProfileScreen, bundle: nil)
 
         guard let fullProfileInfoVC = storyboard.instantiateInitialViewController(),
               let friendProfile = friendProfile else {
             return
-            
         }
 
         (fullProfileInfoVC as? SetLoginProtocol)?.setLogin(login: friendProfile.login)
@@ -138,7 +136,7 @@ final class CutProfileViewController: UIViewController {
 
 extension CutProfileViewController: GetShortProfileInfoProtocol {
     func getShortProfileInfo(profile: ShortProfileInfoModel,  _ friendStatus: FriendsTypes? = nil,
-                             conclusion: (() -> ())?) {
+                             conclusion: (() -> Void)?) {
         self.friendProfile = profile
         self.friendStatus = friendStatus
         self.conclusion = conclusion

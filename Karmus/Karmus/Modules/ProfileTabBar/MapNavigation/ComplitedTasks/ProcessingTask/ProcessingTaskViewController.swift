@@ -9,70 +9,49 @@ import Kingfisher
 import KeychainSwift
 import UIKit
 
-
-
 class ProcessingTaskViewController: UIViewController {
-
     
-    @IBOutlet weak var imageTaskView: UIImageView!
-    @IBOutlet weak var dateTaskLabel: UILabel!
-    @IBOutlet weak var declarationTaskLabel: UITextView!
-    @IBOutlet weak var typeTaskLabel: UILabel!
-    @IBOutlet weak var addressTaskLabel: UILabel!
-    @IBOutlet weak var profilePhoto: UIImageView!
-    @IBOutlet weak var profileLogin: UILabel!
-    @IBOutlet weak var profileName: UILabel!
+    // MARK: - IBOutlet
     
-    var referenceComplitedTasks: DatabaseReference!
-    var referenceTasks: DatabaseReference!
-    var referenceProfile: DatabaseReference!
+    @IBOutlet private weak var imageTaskView: UIImageView!
+    @IBOutlet private weak var dateTaskLabel: UILabel!
+    @IBOutlet private weak var declarationTaskLabel: UITextView!
+    @IBOutlet private weak var typeTaskLabel: UILabel!
+    @IBOutlet private weak var addressTaskLabel: UILabel!
+    @IBOutlet private weak var profilePhoto: UIImageView!
+    @IBOutlet private weak var profileLogin: UILabel!
+    @IBOutlet private weak var profileName: UILabel!
+    
+    // MARK: - Private Properties
+    
+    private var referenceComplitedTasks: DatabaseReference!
+    private var referenceTasks: DatabaseReference!
+    private var referenceProfile: DatabaseReference!
+    private var profileId: String?
+    private var userProfileLogin: String?
+    
+    // MARK: - Public Properties
+    
     var declarationFromComplitedTasks: ModelActiveTasks!
     var uniqueKeyFromComplitedTasks: String?
-    var profileId: String?
-    var userProfileLogin: String?
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         adoptionOfData()
-      
-    }
-
-    @IBAction func didTapToNotCompliteTask(_ sender: Any) {
-        addRespect(-1)
-        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
-        referenceComplitedTasks = Database.database().reference().child("ProfilesInfo").child(profileId!).child("ProcessingTasks")
-        referenceTasks = Database.database().reference().child("ActiveTasks")
-        self.referenceComplitedTasks.child(uniqueKeyFromComplitedTasks!).removeValue()
-        showAlert()
-        
     }
     
-    @IBAction func didTapToCompliteTask(_ sender: Any) {
-        addRespect(1)
-        changeBalance(5)
-        showAlert()
-        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
-        referenceTasks = Database.database().reference().child("ProfilesInfo").child(profileId!).child("ProcessingTasks")
-        referenceComplitedTasks = Database.database().reference().child("ComplitedTasks")
-        let key = referenceComplitedTasks.childByAutoId().key
-        let task = ["address": declarationFromComplitedTasks.address,
-                    "imageURL": declarationFromComplitedTasks.imageURL,
-                    "taskName": declarationTaskLabel.text!,
-                    "taskDate": dateTaskLabel.text!
-        ] as! [String: Any]
-            self.referenceComplitedTasks.child(key!).setValue(task)
-            self.referenceTasks.child(uniqueKeyFromComplitedTasks!).removeValue()
-        }
+    // MARK: - Private functions
     
-    func adoptionOfData(){
-        
+    private func adoptionOfData() {
         declarationTaskLabel.text = declarationFromComplitedTasks.declaration
         dateTaskLabel.text = declarationFromComplitedTasks.date
         addressTaskLabel.text = declarationFromComplitedTasks.address
         typeTaskLabel.text = declarationFromComplitedTasks.type
         profileLogin.text = declarationFromComplitedTasks.login
         profileName.text = declarationFromComplitedTasks.profileName
+        
         let profileUrl = URL(string: declarationFromComplitedTasks!.photo)
         let url = URL(string: declarationFromComplitedTasks!.imageURL)
         if let url = url {
@@ -82,6 +61,7 @@ class ProcessingTaskViewController: UIViewController {
                 self.imageTaskView.kf.indicatorType = .activity
             }
         }
+        
         if let profileUrl = profileUrl {
             
             KingfisherManager.shared.retrieveImage(with: profileUrl as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
@@ -89,10 +69,9 @@ class ProcessingTaskViewController: UIViewController {
                 self.profilePhoto.kf.indicatorType = .activity
             }
         }
-        
     }
     
-    func showAlert(){
+    private func showAlert() {
         let alertController = UIAlertController(title: "Успех!", message: "", preferredStyle: .alert)
         let actionOk = UIAlertAction(title: "Oк", style: .default){[weak self] _ in
             self?.navigationController?.popToRootViewController(animated: true)
@@ -101,15 +80,15 @@ class ProcessingTaskViewController: UIViewController {
         present(alertController, animated: true)
     }
     
-    func addRespect(_ value: Int){
+    private func addRespect(_ value: Int) {
         
         Database.database().reference().child(FBDefaultKeys.profilesInfo).child(profileLogin.text!).child(FBProfileInfoKeys.numberOfRespects).observeSingleEvent(of: .value, with: { [weak self] respects in
             Database.database().reference().child(FBDefaultKeys.profilesInfo).child((self?.profileLogin.text!)!).child(FBProfileInfoKeys.numberOfRespects).setValue((respects.value as! Int) + value)
         })
-
+        
     }
     
-    func changeBalance(_ value: Int){
+    private func changeBalance(_ value: Int) {
         profileId = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
         
         referenceProfile = Database.database().reference().child(FBDefaultKeys.profiles)
@@ -131,26 +110,36 @@ class ProcessingTaskViewController: UIViewController {
         )
     }
     
+    // MARK: - IBAction
     
-//    func saveTask(reference: DatabaseReference){
-//
-//        let key = reference.childByAutoId().key
-//        let task = ["name": declarationFromComplitedTasks.profileName,
-//                    "login": declarationFromComplitedTasks.login,
-//                    "photo": declarationFromComplitedTasks.photo,
-//                    "taskType": declarationFromComplitedTasks.type,
-//                    "address": declarationFromComplitedTasks.address,
-//                    "longitudeCoordinate": declarationFromComplitedTasks.longitudeCoordinate,
-//                    "latitudeCoordinate": declarationFromComplitedTasks.latitudeCoordinate,
-//                    "taskName": declarationFromComplitedTasks.declaration,
-//                    "taskDate": declarationFromComplitedTasks.date,
-//                    "imageURL": declarationFromComplitedTasks.imageURL
-//
-//            ] as! [String: AnyObject]
-//        reference.child(key!).setValue(task)
-//
-//        }
-//
+    @IBAction func didTapToNotCompliteTask(_ sender: Any) {
+        addRespect(-1)
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
+        
+        referenceComplitedTasks = Database.database().reference().child("ProfilesInfo").child(profileId!).child("ProcessingTasks")
+        referenceTasks = Database.database().reference().child("ActiveTasks")
+        self.referenceComplitedTasks.child(uniqueKeyFromComplitedTasks!).removeValue()
+        showAlert()
+    }
+    
+    @IBAction func didTapToCompliteTask(_ sender: Any) {
+        addRespect(1)
+        changeBalance(5)
+        showAlert()
+        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
+        
+        referenceTasks = Database.database().reference().child("ProfilesInfo").child(profileId!).child("ProcessingTasks")
+        referenceComplitedTasks = Database.database().reference().child("ComplitedTasks")
+        let key = referenceComplitedTasks.childByAutoId().key
+        let task = ["address": declarationFromComplitedTasks.address,
+                    "imageURL": declarationFromComplitedTasks.imageURL,
+                    "taskName": declarationTaskLabel.text!,
+                    "taskDate": dateTaskLabel.text!
+        ] as! [String: Any]
+        
+        self.referenceComplitedTasks.child(key!).setValue(task)
+        self.referenceTasks.child(uniqueKeyFromComplitedTasks!).removeValue()
+    }
 }
 
 

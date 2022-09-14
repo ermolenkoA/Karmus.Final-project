@@ -26,15 +26,11 @@ final class IdentificationViewController: UIViewController {
     
     private var correctTextFields = Set<RegistrationElements>()
     private var phoneNumberVerification: PhoneNumberVerification?
-    
     private var isTextFieldsFill: Bool {
         passwordTextField.hasText && loginTextField.hasText
     }
-    
     private var isNetworkConected: Bool {
-
         guard Reachability.isConnectedToNetwork() else {
-            
             showAlert("Отсутствует доступ к интернету", "Проверьте подключение и повторите попытку", where: self)
             return false
         }
@@ -68,41 +64,42 @@ final class IdentificationViewController: UIViewController {
         phoneNumberVerification = nil
     }
     
-    @objc func keyboardNotification(notification: Notification) {
-        
-        guard let userInfo = notification.userInfo else { return }
-        
-        guard let keyboard = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-      
-        
-        let textField = loginTextField.isEditing ? loginTextField! : passwordTextField!
-        
-        if keyboard.minY < textField.frame.maxY - textField.transform.ty{
-            if keyboard.minY < textField.frame.maxY + 10 {
-                textField.transform.ty -= abs(keyboard.minY - textField.frame.maxY) + 10
-            } else if (textField.transform.ty != 0) && (keyboard.minY > textField.frame.maxY + 10) {
-                textField.transform.ty += abs(keyboard.minY - textField.frame.maxY) - 10
-            }
-        } else {
-            textField.transform.ty = 0
-        }
-        
-        titleLabel.transform.ty = textField.transform.ty
-        if passwordTextField.isEditing {
-            loginTextField.transform.ty = textField.transform.ty
-        } else {
-            passwordTextField.transform.ty = 0
-        }
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
+    // MARK: - Private functions
+   
+   @objc private func keyboardNotification(notification: Notification) {
+       guard let userInfo = notification.userInfo else { return }
+       
+       guard let keyboard = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
+               .cgRectValue else { return }
+       
+       let textField = loginTextField.isEditing ? loginTextField! : passwordTextField!
+       
+       if keyboard.minY < textField.frame.maxY - textField.transform.ty {
+           if keyboard.minY < textField.frame.maxY + 10 {
+               textField.transform.ty -= abs(keyboard.minY - textField.frame.maxY) + 10
+           } else if (textField.transform.ty != 0) && (keyboard.minY > textField.frame.maxY + 10) {
+               textField.transform.ty += abs(keyboard.minY - textField.frame.maxY) - 10
+           }
+       } else {
+           textField.transform.ty = 0
+       }
+       
+       titleLabel.transform.ty = textField.transform.ty
+       if passwordTextField.isEditing {
+           loginTextField.transform.ty = textField.transform.ty
+       } else {
+           passwordTextField.transform.ty = 0
+       }
+   }
+    
     // MARK: - IBAction
     
     @IBAction private func didTapForgotPasswordLabel(_ sender: UITapGestureRecognizer) {
-        
         guard isNetworkConected else { return }
         
         if let timeLeft = AntiSpam.verificationBanTime {
@@ -123,7 +120,6 @@ final class IdentificationViewController: UIViewController {
                 self.present(alert, animated: true)
                 return
             }
-            
             guard phone ~= "^(\\+375)(29|25|33|44)([\\d]{7})$" else {
                 let title = "Некорректно введён номер"
                 let message = "Повторите попытку"
@@ -144,17 +140,12 @@ final class IdentificationViewController: UIViewController {
             
             Database.database().reference().child(FBDefaultKeys.profiles).observeSingleEvent(of: .value) { [weak self] snapshot in
                 
-                guard let self = self else{
-                    return
-                }
-                
-                guard snapshot.exists() else{
+                guard let self = self else{ return }
+                guard snapshot.exists() else {
                     print("\n<IdentificationViewController\\didTapForgotPasswordLabel> ERROR: snapshot isn't exist\n")
                     showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
                     return
-                    
                 }
-                
                 guard let profiles = snapshot.children.allObjects as? [DataSnapshot] else {
                     print("\n<IdentificationViewController\\didTapForgotPasswordLabel> ERROR: profiles isn't exist\n")
                     showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
@@ -162,13 +153,11 @@ final class IdentificationViewController: UIViewController {
                 }
             
                 for profile in profiles {
-                    
                     guard let profileElements = profile.value as? [String : AnyObject] else {
                         print("\n<IdentificationViewController\\didTapForgotPasswordLabel> ERROR: profiles contains unvalid profile\n")
                         showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
                         return
                     }
-                    
                     
                     if profileElements[FBProfileKeys.phoneNumber] as? String == phone {
                         guard let profile = FireBaseDataBaseManager.parseDataForVerification(profile) else {
@@ -181,7 +170,6 @@ final class IdentificationViewController: UIViewController {
                         alert = nil
                         return
                     }
-                    
                 }
                 
                 let title = "Пользователь с такми номером не найден"
@@ -202,18 +190,16 @@ final class IdentificationViewController: UIViewController {
         
         }
         
-        let closeButton = UIAlertAction(title: "Закрыть", style: .cancel){ _ in
+        let closeButton = UIAlertAction(title: "Закрыть", style: .cancel) { _ in
             alert = nil
         }
         alert.addAction(closeButton)
         alert.addAction(okButton)
         alert.view.tintColor = UIColor.black
         self.present(alert, animated: true)
-        
     }
     
     @IBAction private func didTapSubmitButton(_ sender: UIButton) {
-        
         guard isNetworkConected else { return }
         
         if let timeLeft = AntiSpam.logInBanTime {
@@ -222,7 +208,6 @@ final class IdentificationViewController: UIViewController {
         }
         
         AntiSpam.saveNewLoginAttemp()
-        
         let login = loginTextField.text!
         
         if !(login ~= "^([A-Za-z]+([-_\\.]?[A-Za-z0-9]+){0,2}){3,}$"){
@@ -241,10 +226,7 @@ final class IdentificationViewController: UIViewController {
         }
         
         FireBaseDataBaseManager.openProfile(login: login, password: Int64(password.hash)) { [weak self] result, profileID in
-                
-            guard let self = self else {
-                return
-            }
+            guard let self = self else { return }
             
             guard result != .error else{
                 showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
@@ -260,16 +242,13 @@ final class IdentificationViewController: UIViewController {
                 KeychainSwift.shared.set(login, forKey: ConstantKeys.currentProfileLogin)
                 FireBaseDataBaseManager.getProfileUpdateDate(profileID!){ [weak self] date in
                     if date == nil {
-                        
                         let storyboard = UIStoryboard(name: StoryboardNames.newUserScreen, bundle: nil)
                         guard let greetingVC = storyboard.instantiateInitialViewController() else {
                             showAlert("Невозможно перейти", "Повторите попытку позже", where: self)
                             return
                         }
                         self?.navigationController?.pushViewController(greetingVC, animated: true)
-
                     } else {
-                        
                         UserDefaults.standard.setValue(Date(), forKey: ConstantKeys.lastLogInDate)
                         
                         let storyboard = UIStoryboard(name: StoryboardNames.accountScreen, bundle: nil)
@@ -280,10 +259,8 @@ final class IdentificationViewController: UIViewController {
                         
                         self?.view.window?.rootViewController = profileTabBarC
                         self?.view.window?.makeKeyAndVisible()
-                        
                     }
                 }
-                
             }
         }
         
@@ -292,7 +269,8 @@ final class IdentificationViewController: UIViewController {
 }
 
 extension IdentificationViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard !string.contains(" ") else {
             return false
         }
@@ -312,7 +290,6 @@ extension IdentificationViewController: UITextFieldDelegate {
 // MARK: - UISearchTextFieldDelegate
 
 extension IdentificationViewController: UISearchTextFieldDelegate {
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
@@ -326,5 +303,4 @@ extension IdentificationViewController: UISearchTextFieldDelegate {
         submitButton.alpha = isTextFieldsFill ? 1 : 0.5
         submitButton.isUserInteractionEnabled = isTextFieldsFill
     }
-    
 }

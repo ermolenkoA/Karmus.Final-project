@@ -11,44 +11,42 @@ import Kingfisher
 import UIKit
 import CoreLocation
 
-
 class DeclarationOfTasksViewController: UIViewController {
+    
+    // MARK: - IBOutlet
+    
+    @IBOutlet private weak var profileLogin: UILabel!
+    @IBOutlet private weak var profileName: UILabel!
+    @IBOutlet private weak var profilePhoto: UIImageView!
+    @IBOutlet private weak var imageOfTask: UIImageView!
+    @IBOutlet private weak var declarationOfTask: UITextView!
+    @IBOutlet private weak var dateOfTask: UILabel!
+    @IBOutlet private weak var addressOfTask: UILabel!
+    @IBOutlet private weak var typeOfTask: UILabel!
+    
+    // MARK: - Private Properties
+    
+    private var referenceTasks: DatabaseReference!
+    private var referenceActiveTasks = Database.database().reference().child("ActiveTasks")
+    private var referenceGroupTasks = Database.database().reference().child("GroupTasks")
+    private var profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
+    private var profileUserLogin: String?
+    private var addGroupTask = false
+    private var addCreateTask = false
+    
+    // MARK: - Public Properties
 
     var declarationFromActiveTasks: ModelActiveTasks!
     var declarationFromMap: ModelTasks!
     var uniqueKeyFromMap: String?
     var uniqueKeyFromActiveTasks: String?
-    
- 
-    @IBOutlet weak var profileLogin: UILabel!
-    @IBOutlet weak var profileName: UILabel!
-    @IBOutlet weak var profilePhoto: UIImageView!
-    @IBOutlet weak var imageOfTask: UIImageView!
-    @IBOutlet weak var declarationOfTask: UITextView!
-    @IBOutlet weak var dateOfTask: UILabel!
-    @IBOutlet weak var addressOfTask: UILabel!
-    @IBOutlet weak var typeOfTask: UILabel!
-    
-    
-    
-    var referenceTasks: DatabaseReference!
-    var referenceActiveTasks: DatabaseReference!
-    var referenceGroupTasks: DatabaseReference!
-    var profileId: String?
-    var profileUserLogin: String?
-  
     var latitudeCoordinateToMap: Double?
     var longitudeCoordinateToMap: Double?
     
-    var addGroupTask = false
-    var addCreateTask = false
-    
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
-       
-        referenceActiveTasks = Database.database().reference().child("ActiveTasks")
-        referenceGroupTasks = Database.database().reference().child("GroupTasks")
         choiceOfTaskFromMap()
         dataReceptionFromDeclaration()
     }
@@ -57,7 +55,6 @@ class DeclarationOfTasksViewController: UIViewController {
         super.viewDidAppear(true)
         testGroup()
         checkUserTask()
-     //   checkUserTask(reference: referenceGroupTasks)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -67,49 +64,19 @@ class DeclarationOfTasksViewController: UIViewController {
         referenceTasks = nil
     }
 
-    @IBAction func tapToAddTaskUser(_ sender: Any) {
-        print("маркер")
-        referenceTasks = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
-        if self.addCreateTask == false{
-            if self.addGroupTask == true{
-                let alert = UIAlertController(title: "У вас уже есть это задание", message: "Одинаковые задания нельзя брать", preferredStyle: .alert)
-                let alertOk = UIAlertAction(title: "Ok", style: .default)
-                alert.addAction(alertOk)
-                present(alert, animated: true)
-                print("задание уже есть")
-            }else{
-                let alert = UIAlertController(title: "Задание успешно добавлено!", message: "", preferredStyle: .alert)
-                let alertOk = UIAlertAction(title: "Отлично!", style: .default){[unowned self] _ in
-                    if let controller = self.navigationController?.viewControllers.first as? MapViewController {
-                        
-                        controller.taskLocation = CLLocationCoordinate2D(latitude: self.latitudeCoordinateToMap!, longitude: self.longitudeCoordinateToMap!)
-                        NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
-                        self.navigationController?.popToViewController(controller, animated: true)
-                    }
-                    
-                }
-                alert.addAction(alertOk)
-                present(alert, animated: true)
-                
-                self.uploadData(reference: referenceTasks)
-                print("задания нет")
-            }
-        }
-        showAlert(title: "Так не честно!", message: "Свои задания нельзя брать!", action: "Ок")
-    }
-    
-    func checkUserTask(){
+    // MARK: - Private Functions
+
+    private func checkUserTask(){
         referenceTasks = Database.database().reference().child(FBDefaultKeys.profiles).child(profileId!).child("CreatedTasks")
-    
         referenceTasks.observe(.value, with:{ [weak self](snapshot) in
-            if snapshot.exists(){
+            
+            if snapshot.exists() {
                 for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                     let taskObject = tasks.value as? [String: AnyObject]
                     let taskLogin = taskObject?["login"]
-                    print("Я  ищу   \(taskLogin)")
+                    
                     if taskLogin as? String == self?.declarationFromActiveTasks.login {
                         self?.addCreateTask = true
-                        print("TRUEE")
                     }
                 }
                 
@@ -118,27 +85,17 @@ class DeclarationOfTasksViewController: UIViewController {
         )
     }
     
-    func showAlert(title: String, message: String, action: String){
+    private func showAlert(title: String, message: String, action: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertOk = UIAlertAction(title: action, style: .default)
         alert.addAction(alertOk)
         present(alert, animated: true)
     }
+
     
-    @IBAction func tapToMapScreen(_ sender: Any) {
-        if let controller = navigationController?.viewControllers.first as? MapViewController {
-            
-            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
-            NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
-            navigationController?.popToViewController(controller, animated: true)
-        }
-    }
-    
-    
-    
-    func testGroup(){
+    private func testGroup() {
         referenceTasks = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
-        referenceTasks.observe(DataEventType.value, with:{(snapshot) in
+        referenceTasks.observe(DataEventType.value, with:{ (snapshot) in
             if snapshot.childrenCount > 0 {
                 for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                     
@@ -146,24 +103,19 @@ class DeclarationOfTasksViewController: UIViewController {
                     let taskName = taskObject?["taskName"]
                     let taskAddress = taskObject?["address"]
                     let taskDate = taskObject?["taskDate"]
-                    print("\(taskName!) + \(taskAddress!) + \(taskDate!)")
                     
                     if  taskName as? String == self.declarationOfTask.text! &&
                             taskAddress as? String == self.declarationFromActiveTasks.address
-                            && taskDate as? String == self.dateOfTask.text!
-                    {
-                    print("EEEEE")
+                            && taskDate as? String == self.dateOfTask.text! {
                         self.addGroupTask = true
-                        }
                     }
                 }
             }
+        }
         )
     }
-                             
-    func uploadData(reference: DatabaseReference){
-  //      profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
-   //     referenceTasks = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
+    
+    private func uploadData(reference: DatabaseReference){
         let key = reference.childByAutoId().key
         let task = ["name": declarationFromActiveTasks.profileName,
                     "login": declarationFromActiveTasks.login,
@@ -175,52 +127,50 @@ class DeclarationOfTasksViewController: UIViewController {
                     "imageURL":  declarationFromActiveTasks.imageURL,
                     "taskName": declarationOfTask.text!,
                     "taskDate": dateOfTask.text!
-                    ] as! [String: Any]
+        ] as! [String: Any]
         reference.child(key!).setValue(task)
-
-        if uniqueKeyFromActiveTasks != nil{
+        
+        if uniqueKeyFromActiveTasks != nil {
             self.referenceActiveTasks.child(uniqueKeyFromActiveTasks!).removeValue()
         } else {
             self.referenceActiveTasks.child(uniqueKeyFromMap!).removeValue()
         }
     }
     
-    func saveTask(imageURL: URL, completion: @escaping ((_ url: URL?) -> ())) {
-            let key = referenceTasks.childByAutoId().key
-            let task = [
-                        "taskName": declarationOfTask.text!,
-                        "taskDate": dateOfTask.text!,
-                        "imageURL": imageURL.absoluteString
-                        ] as! [String: Any]
+    private func saveTask(imageURL: URL, completion: @escaping ((_ url: URL?) -> ())) {
+        let key = referenceTasks.childByAutoId().key
+        let task = [
+            "taskName": declarationOfTask.text!,
+            "taskDate": dateOfTask.text!,
+            "imageURL": imageURL.absoluteString
+        ] as! [String: Any]
         self.referenceTasks.child(key!).setValue(task)
-        }
+    }
     
-    func choiceOfTaskFromMap(){
+    private func choiceOfTaskFromMap() {
         var boolTask = false
-        referenceGroupTasks.observe(DataEventType.value, with:{(snapshot) in
-                for tasks in snapshot.children.allObjects as! [DataSnapshot] {
-                    let taskId = tasks.key
-                    if  taskId == self.uniqueKeyFromMap
-                    {
-                        self.choiceData(reference: self.referenceGroupTasks)
-                        boolTask = true
-                        print(boolTask)
-                    }
+        referenceGroupTasks.observe(DataEventType.value, with:{ (snapshot) in
+            for tasks in snapshot.children.allObjects as! [DataSnapshot] {
+                let taskId = tasks.key
+                
+                if  taskId == self.uniqueKeyFromMap {
+                    self.choiceData(reference: self.referenceGroupTasks)
+                    boolTask = true
+                    print(boolTask)
                 }
             }
+        }
         )
         
-        if boolTask == false
-        {
+        if boolTask == false {
             self.choiceData(reference: self.referenceActiveTasks)
             print(boolTask)
         }
     }
     
-    func dataReceptionFromDeclaration(){
-        if  declarationFromActiveTasks != nil
-        {
-            print("из таблицы")
+    private func dataReceptionFromDeclaration(){
+        
+        if  declarationFromActiveTasks != nil {
             profileName.text = declarationFromActiveTasks.profileName
             profileLogin.text = declarationFromActiveTasks.login
             declarationOfTask.text = declarationFromActiveTasks.declaration
@@ -231,26 +181,34 @@ class DeclarationOfTasksViewController: UIViewController {
             typeOfTask.text = "Тип задания: \(declarationFromActiveTasks.type)"
             let url = URL(string: declarationFromActiveTasks!.imageURL)
             let urlProfile = URL(string: declarationFromActiveTasks!.photo)
+            
             if let url = url {
-                KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                KingfisherManager.shared.retrieveImage(with: url as Resource,
+                                                       options: nil,
+                                                       progressBlock: nil) { (image, error, cache, imageURL) in
                     self.imageOfTask.image = image
                     self.imageOfTask.kf.indicatorType = .activity
                 }
             }
-            if let urlProfile = urlProfile{
-                KingfisherManager.shared.retrieveImage(with: urlProfile as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+            
+            if let urlProfile = urlProfile {
+                KingfisherManager.shared.retrieveImage(with: urlProfile as Resource,
+                                                       options: nil,
+                                                       progressBlock: nil) { (image, error, cache, imageURL) in
                     self.profilePhoto.image = image
                     self.profilePhoto.kf.indicatorType = .activity
                 }
             }
         }
+        
     }
     
-    func choiceData(reference: DatabaseReference){
-
+    private func choiceData(reference: DatabaseReference){
+        
         if uniqueKeyFromMap != nil {
-            reference.child(uniqueKeyFromMap!).observeSingleEvent(of: .value){ [unowned self] snapshot in
-                if snapshot.exists(){
+            reference.child(uniqueKeyFromMap!).observeSingleEvent(of: .value) { [unowned self] snapshot in
+                
+                if snapshot.exists() {
                     
                     let taskObject = snapshot.value as! [String: AnyObject]
                     let taskProfileName = taskObject["name"]
@@ -265,7 +223,17 @@ class DeclarationOfTasksViewController: UIViewController {
                     let taskLatitudeCoordinate = taskObject["latitudeCoordinate"]
                     let taskLongitudeCoordinate = taskObject["longitudeCoordinate"]
                     
-                    let task = ModelActiveTasks(imageURL: taskImage as? String ?? "", id: taskId, latitudeCoordinate: taskLatitudeCoordinate as! Double, longitudeCoordinate: taskLongitudeCoordinate as! Double, date: taskDate as! String, declaration: taskName as! String, address: taskAddress as! String, type: taskType as! String,  photo: taskPhoto as! String, profileName: taskProfileName as! String, login: taskLogin as! String)
+                    let task = ModelActiveTasks(imageURL: taskImage as? String ?? "",
+                                                id: taskId,
+                                                latitudeCoordinate: taskLatitudeCoordinate as! Double,
+                                                longitudeCoordinate: taskLongitudeCoordinate as! Double,
+                                                date: taskDate as! String,
+                                                declaration: taskName as! String,
+                                                address: taskAddress as! String,
+                                                type: taskType as! String,
+                                                photo: taskPhoto as! String,
+                                                profileName: taskProfileName as! String,
+                                                login: taskLogin as! String)
                     
                     self.declarationFromActiveTasks = task
                     self.profileLogin.text = self.declarationFromActiveTasks.login
@@ -278,6 +246,7 @@ class DeclarationOfTasksViewController: UIViewController {
                     self.latitudeCoordinateToMap = self.declarationFromActiveTasks.latitudeCoordinate
                     let urlProfile = URL(string: self.declarationFromActiveTasks!.photo)
                     let url = URL(string: self.declarationFromActiveTasks!.imageURL)
+                    
                     if let url = url {
                         KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
                             self.imageOfTask.image = image
@@ -285,26 +254,59 @@ class DeclarationOfTasksViewController: UIViewController {
                         }
                     }
                     if let urlProfile = urlProfile {
-                        KingfisherManager.shared.retrieveImage(with: urlProfile as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
+                        KingfisherManager.shared.retrieveImage(with: urlProfile as Resource,
+                                                               options: nil,
+                                                               progressBlock: nil) { (image, error, cache, imageURL) in
                             self.profilePhoto.image = image
                             self.profilePhoto.kf.indicatorType = .activity
                         }
                     }
                 }
-                }
             }
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let controller = navigationController?.topViewController as? MapViewController {
-//
-//            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
-//        }
-//        if segue.identifier == References.fromDeclarationToMapScreen {
-//            let controller = segue.destination as! MapViewController
-//            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
-//        }
- //   }
-
+    // MARK: - IBAction
+    
+    @IBAction func tapToAddTaskUser(_ sender: Any) {
+        referenceTasks = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
+        
+        if self.addCreateTask == false {
+            
+            if self.addGroupTask == true {
+                let alert = UIAlertController(title: "У вас уже есть это задание", message: "Одинаковые задания нельзя брать", preferredStyle: .alert)
+                let alertOk = UIAlertAction(title: "Ok", style: .default)
+                alert.addAction(alertOk)
+                present(alert, animated: true)
+            } else {
+                let alert = UIAlertController(title: "Задание успешно добавлено!", message: "", preferredStyle: .alert)
+                let alertOk = UIAlertAction(title: "Отлично!", style: .default) { [unowned self] _ in
+                    
+                    if let controller = self.navigationController?.viewControllers.first as? MapViewController {
                         
+                        controller.taskLocation = CLLocationCoordinate2D(latitude: self.latitudeCoordinateToMap!, longitude: self.longitudeCoordinateToMap!)
+                        NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
+                        snavigationController?.popToViewController(controller, animated: true)
+                    }
+                    
+                }
+                alert.addAction(alertOk)
+                present(alert, animated: true)
+                
+                self.uploadData(reference: referenceTasks)
+            }
+        }
+        showAlert(title: "Так не честно!", message: "Свои задания нельзя брать!", action: "Ок")
+    }
+    
+    @IBAction func tapToMapScreen(_ sender: Any) {
+        if let controller = navigationController?.viewControllers.first as? MapViewController {
+            
+            controller.taskLocation = CLLocationCoordinate2D(latitude: latitudeCoordinateToMap!, longitude: longitudeCoordinateToMap!)
+            NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
+            navigationController?.popToViewController(controller, animated: true)
+        }
+    }
+}
+
+

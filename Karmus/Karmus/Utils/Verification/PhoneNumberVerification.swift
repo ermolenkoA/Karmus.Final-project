@@ -143,18 +143,15 @@ final class PhoneNumberVerification {
             return
         }
         
-        print("\nCODE: \(message.code)\n")
-        showEnterVerificationCodeAlert(validCode: message.code)
-        
-//        SMSManager.sendSMS(phone: phone, message: message.messageBody + message.code){ [weak self] (result) in
-//            DispatchQueue.main.async {
-//                if result == .error  {
-//                       showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self?.controller)
-//                }
-//
-//                self?.showEnterVerificationCodeAlert(validCode: message.code)
-//            }
-//        }
+        SMSManager.sendSMS(phone: phone, message: message.messageBody + message.code){ [weak self] (result) in
+            DispatchQueue.main.async {
+                if result == .error  {
+                       showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self?.controller)
+                }
+
+                self?.showEnterVerificationCodeAlert(validCode: message.code)
+            }
+        }
         
     }
     
