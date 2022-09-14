@@ -46,7 +46,6 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.1.1)
-  - SwiftLint (0.48.0)
 
 DEPENDENCIES:
   - Firebase/Database (= 8.15.0)
@@ -55,7 +54,6 @@ DEPENDENCIES:
   - KeychainSwift (= 20.0)
   - Kingfisher (~> 4.0)
   - MessageKit (= 3.8.0)
-  - SwiftLint (= 0.48.0)
 
 SPEC REPOS:
   trunk:
@@ -75,7 +73,6 @@ SPEC REPOS:
     - MessageKit
     - nanopb
     - PromisesObjC
-    - SwiftLint
 
 SPEC CHECKSUMS:
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
@@ -94,8 +91,7 @@ SPEC CHECKSUMS:
   MessageKit: a1ba0c69ebead94029867853eb44dd05b9b3f453
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  SwiftLint: 284cea64b6187c5d6bd83e9a548a64104d546447
 
-PODFILE CHECKSUM: 2f0dc27ff00db33282d4128928cba9717f34c72a
+PODFILE CHECKSUM: 027c0ba7f5d8abe8c58211fa4ddef3b52e271da2
 
 COCOAPODS: 1.11.3

@@ -39,7 +39,7 @@ class CreationTaskViewController: UIViewController, UITextFieldDelegate {
         setupGestures()
         tabBarController?.tabBar.isHidden = true
         imagePicker.delegate = self
-        datePicker()
+        setDatePicker()
         
     }
     
@@ -50,7 +50,7 @@ class CreationTaskViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Private Functions
 
-    private func datePicker(){
+    private func setDatePicker(){
         datePicker.preferredDatePickerStyle = .wheels
         dateField.inputView = datePicker
         datePicker.datePickerMode = .dateAndTime

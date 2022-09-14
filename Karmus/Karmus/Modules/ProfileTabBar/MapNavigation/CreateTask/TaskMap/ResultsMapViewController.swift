@@ -16,8 +16,8 @@ final class ResultsMapViewController: UIViewController, UITableViewDelegate, UIT
                        forCellReuseIdentifier: "cell")
         return table
     }()
-    private weak var delegate: ResultsMapViewControllerDelegate?
-    private weak var addressDelegate: GetAddress?
+    var delegate: ResultsMapViewControllerDelegate?
+    var addressDelegate: GetAddress?
     
     
     var sender: UIViewController?
@@ -38,17 +38,17 @@ final class ResultsMapViewController: UIViewController, UITableViewDelegate, UIT
     
     // MARK: - Private Functions
 
-    private func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return places.count
     }
     
-    private func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = places[indexPath.row].name
         return cell
     }
     
-    private func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.isHidden = true
         let place = places[indexPath.row]

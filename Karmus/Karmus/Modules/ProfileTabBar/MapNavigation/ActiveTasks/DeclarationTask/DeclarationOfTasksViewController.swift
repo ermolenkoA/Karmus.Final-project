@@ -57,12 +57,6 @@ class DeclarationOfTasksViewController: UIViewController {
         checkUserTask()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        referenceActiveTasks = nil
-        referenceGroupTasks = nil
-        referenceTasks = nil
-    }
 
     // MARK: - Private Functions
 
@@ -286,7 +280,7 @@ class DeclarationOfTasksViewController: UIViewController {
                         
                         controller.taskLocation = CLLocationCoordinate2D(latitude: self.latitudeCoordinateToMap!, longitude: self.longitudeCoordinateToMap!)
                         NotificationCenter.default.post(Notification(name: Notification.Name("lol")))
-                        snavigationController?.popToViewController(controller, animated: true)
+                        navigationController?.popToViewController(controller, animated: true)
                     }
                     
                 }

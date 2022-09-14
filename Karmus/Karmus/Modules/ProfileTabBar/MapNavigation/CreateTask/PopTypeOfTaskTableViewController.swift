@@ -11,7 +11,7 @@ class PopTypeOfTaskTableViewController: UITableViewController {
     
     private var handler: ((String) -> ())?
     
-    private var typeArray = ["Общее",
+    var typeArray = ["Общее",
                      "Экологическое",
                      "Культурное",
                      "Спортивное",

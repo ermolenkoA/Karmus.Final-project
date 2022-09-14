@@ -31,13 +31,13 @@ class ConditionTaskViewController: UIViewController {
     private var referenceProcessingTask: DatabaseReference!
     private var referenceActiveTask: DatabaseReference!
     private var referenceProfileInfo: DatabaseReference!
-    private var uniqueKeyFromMapAndTasks: String?
-    private var uniqueKey: String?
     private var profileId: String?
     private var profileUserLogin: String?
     
     // MARK: - Public Properties
     
+    var uniqueKey: String?
+    var uniqueKeyFromMapAndTasks: String?
     var declarationFromTasks: ModelActiveTasks!
     var profileInfo: ModelUserProfile!
     var loginForProcessing: String?

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 protocol ResultsMapViewControllerDelegate: AnyObject {
     func didTapPlace(with coordinates: CLLocationCoordinate2D)

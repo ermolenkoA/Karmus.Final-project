@@ -100,12 +100,6 @@ class MapViewController: UIViewController{
             .child("ProcessingTasks").removeAllObservers()
     }
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        refActiveTasksMap = nil
-        refTasksMap = nil
-        refGroupActiveTasks = nil
-    }
-    
     // MARK: - Private functions
     
     @objc private func reloadRegion() {
@@ -172,7 +166,7 @@ class MapViewController: UIViewController{
                 
                 self?.activeTasksMap.append(task)
             }
-            self?.mapView.didMoveToWindow
+            self?.mapView.didMoveToWindow()
             for user in self!.activeTasksMap{
                 self?.mapView.addAnnotation(user)
             }

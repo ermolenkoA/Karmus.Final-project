@@ -12,9 +12,9 @@ class ActiveTasksViewCell: UITableViewCell {
 
     // MARK: - IBOutlet
     
-    @IBOutlet private weak var taskImageView: UIImageView!
-    @IBOutlet private weak var declarationLabel: UILabel!
-    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet weak var taskImageView: UIImageView!
+    @IBOutlet weak var declarationLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     // MARK: - Model
     

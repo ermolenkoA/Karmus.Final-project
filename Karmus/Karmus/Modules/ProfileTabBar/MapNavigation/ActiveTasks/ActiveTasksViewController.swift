@@ -5,7 +5,7 @@ class ActiveTasksViewController: UIViewController {
 
     // MARK: - IBOutlet
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private  weak var tableView: UITableView!
     
     // MARK: - Private Properties
     
@@ -33,7 +33,7 @@ class ActiveTasksViewController: UIViewController {
         
         if snapshot.childrenCount > 0 {
             
-            for tasks in snapshot.children.allObjects as? [DataSnapshot] {
+            for tasks in snapshot.children.allObjects as! [DataSnapshot] {
                 let taskObject = tasks.value as? [String: AnyObject]
                 let taskProfileName = taskObject?["name"]
                 let taskPhoto = taskObject?["photo"]

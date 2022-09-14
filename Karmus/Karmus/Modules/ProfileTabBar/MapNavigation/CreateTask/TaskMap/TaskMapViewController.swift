@@ -10,26 +10,26 @@ import UIKit
 import KeychainSwift
 
 
-class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate, MKMapViewDelegate{
+final class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate, MKMapViewDelegate{
     
     // MARK: - IBOutlet
 
     @IBOutlet private weak var mapContainer: UIView!
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet private weak var mapView: MKMapView!
     
     // MARK: - Private Properties
 
     private var searchController: UISearchController!  = .init(searchResultsController: ResultsMapViewController())
-    private weak var longitudeCoordinate: Double?
-    private weak var latitudeCoordinate: Double?
-    private weak var resultAddress: String?
-    private weak var resultDeleagte: GetAddress?
-    private weak var profileLogin: String?
-    private weak var profileId: String?
-    private weak var photo: String?
-    private weak var name: String?
-    private weak var login: String?
-    private weak var addCoordinate = false
+    private var longitudeCoordinate: Double?
+    private var latitudeCoordinate: Double?
+    private var resultAddress: String?
+    private var resultDeleagte: GetAddress?
+    private var profileLogin: String?
+    private var profileId: String?
+    private var photo: String?
+    private var name: String?
+    private var login: String?
+    private var addCoordinate = false
     private weak var refActiveTasks: DatabaseReference!
     private weak var refGroupActiveTasks: DatabaseReference!
     private weak var refAccuintCreatedTasks: DatabaseReference!
@@ -37,14 +37,14 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
    
     // MARK: - Public Properties
 
-    weak var typeFromCreation: String?
-    weak var dateFromCreation: String?
-    weak var declorationFromCreation: String?
-    weak var imageFromCreation = UIImage()
-    weak var imageViewFromCreation = UIImageView()
-    weak var switchFromCreation: Bool?
-    weak var taskCoordinate: CLLocationCoordinate2D!
-    weak var uniqueKey: String?
+    var typeFromCreation: String?
+    var dateFromCreation: String?
+    var declorationFromCreation: String?
+    var imageFromCreation = UIImage()
+    var imageViewFromCreation = UIImageView()
+    var switchFromCreation: Bool?
+    var taskCoordinate: CLLocationCoordinate2D!
+    var uniqueKey: String?
     
     // MARK: - Life Cycle
 
@@ -75,7 +75,7 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
         present(alert, animated: true)
     }
     
-    private func updateSearchResults(for searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         guard let query = searchController.searchBar.text,
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               let resultVC = searchController.searchResultsController as? ResultsMapViewController else {
@@ -161,7 +161,7 @@ class TaskMapViewController: UIViewController, UISearchResultsUpdating, UISearch
                     "taskDate": dateFromCreation!,
                     "imageURL": imageURL.absoluteString,
                     "taskType": typeFromCreation!
-        ] as! [String: AnyObject]
+        ] as [String: AnyObject]
         
         referenceTask.child(key!).setValue(task)
     }
