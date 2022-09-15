@@ -30,10 +30,10 @@ final class TaskMapViewController: UIViewController, UISearchResultsUpdating, UI
     private var name: String?
     private var login: String?
     private var addCoordinate = false
-    private weak var refActiveTasks: DatabaseReference!
-    private weak var refGroupActiveTasks: DatabaseReference!
-    private weak var refAccuintCreatedTasks: DatabaseReference!
-    private weak var refTasksCoordinates: DatabaseReference!
+    private var refActiveTasks: DatabaseReference!
+    private var refGroupActiveTasks: DatabaseReference!
+    private var refAccuintCreatedTasks: DatabaseReference!
+    private var refTasksCoordinates: DatabaseReference!
    
     // MARK: - Public Properties
 

@@ -21,9 +21,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYr-GJ-jsI">
-                                <rect key="frame" x="345" y="831" width="49" height="31"/>
+                                <rect key="frame" x="305" y="831" width="89" height="31"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="add"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Добавить"/>
                                 <connections>
                                     <action selector="addTaskButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="J4i-Qz-xa3"/>
                                 </connections>
@@ -69,6 +71,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

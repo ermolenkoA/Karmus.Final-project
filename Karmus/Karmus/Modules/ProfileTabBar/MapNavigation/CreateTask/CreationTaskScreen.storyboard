@@ -65,7 +65,6 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="axo-mc-efK" secondAttribute="bottom" constant="13" id="0bh-AA-IeC"/>
                                     <constraint firstItem="axo-mc-efK" firstAttribute="top" secondItem="l0d-yt-N9C" secondAttribute="top" constant="13" id="EA9-qk-1r2"/>
                                     <constraint firstItem="LWL-9P-br7" firstAttribute="top" secondItem="l0d-yt-N9C" secondAttribute="top" id="FJ3-m9-gaX"/>
                                     <constraint firstAttribute="bottom" secondItem="axo-mc-efK" secondAttribute="bottom" constant="13" id="G7v-CJ-ar5"/>
@@ -90,7 +89,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Leb-px-Wtu">
-                                <rect key="frame" x="15" y="418" width="383.33333333333331" height="203"/>
+                                <rect key="frame" x="15" y="418" width="383.33333333333331" height="371"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -121,17 +120,6 @@
                                     <outletCollection property="gestureRecognizers" destination="hyg-i4-zug" appends="YES" id="MHJ-er-dqW"/>
                                 </connections>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uR2-Uk-XvB">
-                                <rect key="frame" x="140.66666666666666" y="641" width="132.99999999999997" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Добавить адрес">
-                                    <color key="baseForegroundColor" systemColor="labelColor"/>
-                                    <color key="baseBackgroundColor" systemColor="systemGray4Color"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="didTapToMapScreen:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="bqm-Wi-UTa"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8U-42-HoP">
                                 <rect key="frame" x="16" y="334" width="382" height="52"/>
                                 <subviews>
@@ -184,6 +172,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uR2-Uk-XvB">
+                                <rect key="frame" x="140.66666666666666" y="799" width="132.99999999999997" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Q6l-6i-WWy"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Добавить адрес">
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                    <color key="baseBackgroundColor" systemColor="systemGray4Color"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="didTapToMapScreen:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="bqm-Wi-UTa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
@@ -193,6 +195,7 @@
                             <constraint firstItem="Leb-px-Wtu" firstAttribute="top" secondItem="d8U-42-HoP" secondAttribute="bottom" constant="32" id="85K-fX-CKa"/>
                             <constraint firstItem="HFQ-hX-z6A" firstAttribute="top" secondItem="l0d-yt-N9C" secondAttribute="bottom" constant="8" symbolic="YES" id="9Pz-yF-jd1"/>
                             <constraint firstItem="uR2-Uk-XvB" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="BHj-0Q-eRF"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="uR2-Uk-XvB" secondAttribute="bottom" constant="10" id="CZ7-sS-nIU"/>
                             <constraint firstItem="l0d-yt-N9C" firstAttribute="top" secondItem="Hh6-Q8-vrW" secondAttribute="bottom" constant="10" id="D8E-Il-21h"/>
                             <constraint firstItem="Leb-px-Wtu" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="GI2-Vn-68w"/>
                             <constraint firstItem="Hh6-Q8-vrW" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.209716" constant="-7" id="Gdg-aM-mh8"/>
@@ -203,12 +206,11 @@
                             <constraint firstItem="iVU-qK-OoP" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="RGG-js-dxW"/>
                             <constraint firstItem="rz4-i8-yoL" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Ry9-T5-kwi"/>
                             <constraint firstItem="Hh6-Q8-vrW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="SEi-1Q-Bax"/>
+                            <constraint firstItem="uR2-Uk-XvB" firstAttribute="top" secondItem="Leb-px-Wtu" secondAttribute="bottom" constant="10" id="SNh-HF-iD9"/>
                             <constraint firstItem="d8U-42-HoP" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="So4-gi-fyc"/>
                             <constraint firstItem="rz4-i8-yoL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="XSV-Ka-BTZ"/>
                             <constraint firstItem="Leb-px-Wtu" firstAttribute="top" secondItem="iVU-qK-OoP" secondAttribute="bottom" constant="8" symbolic="YES" id="Xtc-iY-q2f"/>
-                            <constraint firstItem="uR2-Uk-XvB" firstAttribute="top" secondItem="Leb-px-Wtu" secondAttribute="bottom" constant="20" id="XxJ-y9-6fb"/>
                             <constraint firstItem="Hh6-Q8-vrW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="Z1V-4u-qvK"/>
-                            <constraint firstItem="Leb-px-Wtu" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.28" constant="-33.320000000000022" id="bhm-v8-Yk9"/>
                             <constraint firstItem="hSL-DS-6uI" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0611413" id="fVc-1l-Vnv"/>
                             <constraint firstItem="d8U-42-HoP" firstAttribute="top" secondItem="HFQ-hX-z6A" secondAttribute="bottom" constant="15" id="fbc-na-5bX"/>
                             <constraint firstItem="iVU-qK-OoP" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.021327" id="gZD-UF-hM2"/>

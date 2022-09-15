@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import KeychainSwift
 import UIKit
 
 class CreationTaskViewController: UIViewController, UITextFieldDelegate {
@@ -95,7 +96,7 @@ class CreationTaskViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())) {
-        let storageRef = Storage.storage().reference().child("imageTasks").child("my photo")
+        let storageRef = Storage.storage().reference().child("imageTasks").child("h")
         let imageData = taskImage.image?.jpegData(compressionQuality: 0.8)
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
