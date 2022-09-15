@@ -13,7 +13,7 @@ import Kingfisher
 
 typealias Chat = (chatID: String, interlocutor: ProfileForChatModel, messages: [MessageModel])
 
-final class FireBaseDataBaseManager {
+class FireBaseDataBaseManager {
     
     // MARK: - Private Properties
 
@@ -241,7 +241,7 @@ final class FireBaseDataBaseManager {
     }
     
     static func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> Void)) {
-        let storageRef = Storage.storage().reference().child("imageTasks")
+        let storageRef = Storage.storage().reference().child("images/\(UUID().uuidString).jpg")
         let imageData = image.jpegData(compressionQuality: 0.8)
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
@@ -1290,6 +1290,19 @@ final class FireBaseDataBaseManager {
         profiles.child(profileID).child(FBProfileKeys.requests).removeAllObservers()
 
         chats.removeAllObservers()
+        
+        profilesInfo.child(login).child("ProcessingTasks")
+            .removeAllObservers()
+        profiles.child(profileID).child("CreatedTasks")
+            .removeAllObservers()
+        profiles.child(profileID).child("Tasks")
+            .removeAllObservers()
+        Database.database().reference().child("ActiveTasks")
+            .removeAllObservers()
+        Database.database().reference().child("GroupTasks")
+            .removeAllObservers()
+        Database.database().reference().child("ComplitedTasks")
+            .removeAllObservers()
     }
     
     static func removeObserverFromFriendsList(_ profileID: String, where friendsType: FriendsTypes) {
@@ -1364,7 +1377,15 @@ final class FireBaseDataBaseManager {
             if let url = url {
             KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil) { (image, _, _, _) in
                     guard let image = image else {
-                        conclusion(nil)
+                        conclusion(
+                            ProfileInfoModel.init(
+                                firstName: firstName, secondName: secondName, photo: UIImage(named: "jpgDefaultProfile")!,
+                                photoName: photoName!, dateOfBirth: dateOfBirth, email: email,
+                                phone: phone, city: city, preferences: preferences, education: education,
+                                work: work, skills: skills, numberOfRespects: numberOfRespects,
+                                numberOfFriends: numberOfFriends, profileType: profileType, sponsorName: sponsorName,
+                                onlineStatus: onlineStatus, numberOfSessions: numberOfSessions)
+                        )
                         return
                     }
                     conclusion(
@@ -1422,7 +1443,13 @@ final class FireBaseDataBaseManager {
                 KingfisherManager.shared.retrieveImage(with: url as Resource,
                                                        options: nil, progressBlock: nil){ (image, _, _, _) in
                     guard let image = image else {
-                        conclusion(nil, [DataSnapshot](friends.dropFirst()))
+                        conclusion(
+                            Friend.init(login: friend.key, firstName: firstName, secondName: secondName,
+                                               photo: UIImage(named: "jpgDefaultProfile")!, city: city, dateOfBirth: dateOfBirth,
+                                               onlineStatus: onlineStatus, numberOfFriends: numberOfFriends,
+                                               numberOfRespects: numberOfRespects, profileType: profileType),
+                            [DataSnapshot](friends.dropFirst())
+                        )
                         return
                     }
                     
@@ -1520,22 +1547,6 @@ final class FireBaseDataBaseManager {
             FBProfileKeys.requests: requests
         ]
      }
-    
-    static func uploadPhoto( image: UIImage, completion: @escaping (( _ url: URL?) -> Void) ) {
-            let storageRef = Storage.storage().reference().child("imageTasks/")
-            let imageData = image.jpegData(compressionQuality: 0.8)
-            let metaData = StorageMetadata()
-            metaData.contentType = "image/jpeg"
-            storageRef.putData(imageData!, metadata: metaData) {(metaData, error) in
-                guard metaData != nil else {
-                    completion(nil)
-                    return
-                }
-                    storageRef.downloadURL(completion: {(url, _) in
-                        completion(url)
-                    })
-                }
-        }
     
     static func getProfileForTask(_ login: String,
                                   _ conclusion: @escaping (ProfileForTask?) -> Void) {
@@ -1681,7 +1692,14 @@ final class FireBaseDataBaseManager {
                     KingfisherManager.shared.retrieveImage(with: url as Resource, options: nil, progressBlock: nil){ (image, error, cache, imageURL) in
                         
                         guard let image = image else {
-                            conclusion(nil, [DataSnapshot](coupons.dropFirst()))
+                            conclusion(
+                                CouponInfoModel(id: coupon.key, name: name, description: description,
+                                                remainingAmount: UInt(codes.count), sponsorLogin: sponsorLogin,
+                                                sponsorPhoto: UIImage(named: "jpgDefaultProfile")!,
+                                                sponsorName: sponsorName, price: price),
+                                [DataSnapshot](coupons.dropFirst())
+                            )
+
                             return
                         }
                         conclusion(

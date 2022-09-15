@@ -75,6 +75,7 @@ final class AccountViewController: UIViewController {
         mainActivityIndicatorView.backgroundColor = .clear
         mainActivityIndicatorView.startAnimating()
         view.isUserInteractionEnabled = false
+        mainScrollView.isHidden = true
         standartSettings()
         tabBarController?.tabBar.isHidden = false
     }
@@ -112,6 +113,7 @@ final class AccountViewController: UIViewController {
             print("\n<FillAdditionalProfileInfoVC\\standartSettings> ERROR: login isn't exist in KeychainSwift\n")
             mainActivityIndicatorView.stopAnimating()
             view.isUserInteractionEnabled = true
+            mainScrollView.isHidden = false
             showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
             return
         }
@@ -169,6 +171,9 @@ final class AccountViewController: UIViewController {
                     self?.profilePhotoImageView.kf.indicatorType = .activity
                     
                     FireBaseDataBaseManager.createProfileObserver(profileID, login)
+                    self?.mainActivityIndicatorView.startAnimating()
+                    self?.view.isUserInteractionEnabled = true
+                    self?.mainScrollView.isHidden = false
                     return
                     
                 case FBProfileTypes.admin:
@@ -247,7 +252,6 @@ final class AccountViewController: UIViewController {
             self?.profilePhotoImageView.kf.indicatorType = .activity
             self?.setFullnessLabel()
             self?.standartSettingsWithObserver()
-            
         }
         
     }
@@ -294,6 +298,7 @@ final class AccountViewController: UIViewController {
         
         mainActivityIndicatorView.stopAnimating()
         view.isUserInteractionEnabled = true
+        mainScrollView.isHidden = false
     }
     
     private func setFullnessLabel(){

@@ -265,6 +265,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="IZw-Ct-FPm" firstAttribute="width" secondItem="LaK-fw-2w1" secondAttribute="width" multiplier="0.3" id="23m-Id-qyv"/>
                                             <constraint firstItem="IZw-Ct-FPm" firstAttribute="leading" secondItem="vtS-su-8J6" secondAttribute="trailing" constant="20" id="2gG-w6-PP8"/>
@@ -308,11 +309,11 @@
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="kk4-eq-Zp5">
                                 <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="color" systemColor="labelColor"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4WA-sN-khB"/>
-                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <color key="backgroundColor" red="0.14809803059151913" green="0.46516710089433638" blue="0.75094688154213207" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="4WA-sN-khB" firstAttribute="bottom" secondItem="4hh-IY-oOe" secondAttribute="bottom" id="165-UN-chZ"/>
                             <constraint firstItem="kk4-eq-Zp5" firstAttribute="centerX" secondItem="4WA-sN-khB" secondAttribute="centerX" id="9Ln-i0-qF8"/>
@@ -354,14 +355,14 @@
     </scenes>
     <resources>
         <image name="jpgDefaultProfile" width="860" height="913"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
