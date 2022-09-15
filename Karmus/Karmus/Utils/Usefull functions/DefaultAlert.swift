@@ -18,7 +18,7 @@ import UIKit
         alert = nil
     }
     alert!.addAction(okButton)
-    alert!.view.tintColor = UIColor.black
+    alert!.view.tintColor = UIColor.label
     controller?.present(alert!, animated: true)
     
 }

@@ -32,7 +32,6 @@ final class AddFriendsViewController: UIViewController {
         let backItem = UIBarButtonItem()
         backItem.title = "Поиск"
         navigationItem.backBarButtonItem = backItem
-
         
         mainTableView.delegate = self
         mainTableView.dataSource = self
@@ -43,6 +42,7 @@ final class AddFriendsViewController: UIViewController {
         searchController.searchBar.placeholder = "Введите логин..."
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        navigationItem.hidesSearchBarWhenScrolling = false
         searchController.isActive = true
     }
     

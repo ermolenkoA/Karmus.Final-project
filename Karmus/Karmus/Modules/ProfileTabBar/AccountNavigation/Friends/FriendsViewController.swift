@@ -71,12 +71,12 @@ final class FriendsViewController: UIViewController {
                 $0.isUserInteractionEnabled = false
             }
             
-            mainActivityIndicator.startAnimating()
-            
             guard let profileID = profileID else {
                 forceQuitFromProfile()
                 return
             }
+            
+            mainActivityIndicator.startAnimating()
             
             FireBaseDataBaseManager.getFriends(profileID, where: getCurrentFriendType()) { [weak self] friends in
                 
@@ -188,6 +188,11 @@ extension FriendsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard friends.count > indexPath.row else {
+            showAlert("Ошибка", "Некорректный путь, попробуйте ещё раз", where: self)
+            return
+        }
         
         let profile = friends[indexPath.row]
         

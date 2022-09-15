@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UWf-iL-1Gg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UWf-iL-1Gg">
     <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,7 +28,7 @@
                                 </label>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellID" rowHeight="80" id="T2E-jB-jJR" customClass="TasksTableViewCell" customModule="Karmus" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="65.5" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="49" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T2E-jB-jJR" id="FOA-Cu-9qB">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
@@ -107,16 +106,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZvH-KG-joP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-26.25" y="118.75"/>
-        </scene>
-        <!--MapScreen-->
-        <scene sceneID="EuH-4x-NBa">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MapScreen" id="8NN-Km-7Im" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="fUw-4I-YMO"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YDB-aL-ris" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-315" y="601"/>
         </scene>
         <!--ConditionTaskScreen-->
         <scene sceneID="lck-P7-o37">
