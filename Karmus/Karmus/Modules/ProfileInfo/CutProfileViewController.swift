@@ -22,11 +22,15 @@ final class CutProfileViewController: UIViewController {
     @IBOutlet private weak var loginLabel: UILabel!
     @IBOutlet private weak var buttonActivityIndicator: UIActivityIndicatorView!
     
+    
+    @IBOutlet private weak var numberOfRestectsView: UIView!
     @IBOutlet private weak var numberOfRestectsLabel: UILabel!
     
     @IBOutlet private weak var profileTypeImageView: UIImageView!
     @IBOutlet private weak var profilePhotoImageView: UIImageView!
     
+    
+    @IBOutlet private weak var numberOfFriendsView: UIView!
     @IBOutlet private weak var numberOfFriendsLabel: UILabel!
     
     @IBOutlet private weak var firstAndSecondNameLabel: UILabel!
@@ -69,8 +73,10 @@ final class CutProfileViewController: UIViewController {
         switch profile.profileType {
         case FBProfileTypes.sponsor:
             profileTypeImageView.image = UIImage(named: "iconSponsor")
-            fullInfoButton.isUserInteractionEnabled = false
-            fullInfoButton.alpha = 0.6
+            fullInfoButton.isHidden = true
+            numberOfFriendsView.isHidden = true
+            numberOfRestectsView.isHidden = true
+            friendActionButton.isHidden = true
             profileTypeImageView.isHidden = false
         case FBProfileTypes.admin:
             profileTypeImageView.image = UIImage(named: "iconAdmin")
