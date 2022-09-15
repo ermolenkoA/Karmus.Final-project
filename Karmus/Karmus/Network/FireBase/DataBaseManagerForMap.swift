@@ -35,7 +35,7 @@ final class DataBaseManagerForMap {
             : Database.database().reference().child(FBDefaultKeys.groupTasks)
         }
         
-        reference.observeSingleEvent(of: .childAdded) { tasks in
+        reference.observe(.value) { tasks in
             
             var resultTasks = [Any]()
             
@@ -51,32 +51,24 @@ final class DataBaseManagerForMap {
                 resultTasks.append(task)
             }
             
-            createRemovedObserver(reference, tasksType: tasksType, conclusion)
+            reference.observe(.childRemoved) { tasks in
+                var resultTasks = [Any]()
+                
+                guard tasks.exists(), let tasks = tasks.children.allObjects as? [DataSnapshot] else {
+                    conclusion(resultTasks)
+                    return
+                }
+                
+                for task in tasks {
+                    guard let task = parseTasks(task, tasksType) else {
+                        continue
+                    }
+                    resultTasks.append(task)
+                }
+                conclusion(resultTasks)
+            }
 
-            
-            conclusion(resultTasks)
-        }
-        
-    }
-    
-    private static func createRemovedObserver(_ reference: DatabaseReference,
-                                          tasksType: TasksTypes,
-                                          _ conclusion: @escaping (Any?) -> Void) {
-        
-        reference.observe(.childRemoved) { tasks in
-            var resultTasks = [Any]()
-            
-            guard tasks.exists(), let tasks = tasks.children.allObjects as? [DataSnapshot] else {
-                conclusion(resultTasks)
-                return
-            }
-            
-            for task in tasks {
-                guard let task = parseTasks(task, tasksType) else {
-                    continue
-                }
-                resultTasks.append(task)
-            }
+
             conclusion(resultTasks)
         }
         

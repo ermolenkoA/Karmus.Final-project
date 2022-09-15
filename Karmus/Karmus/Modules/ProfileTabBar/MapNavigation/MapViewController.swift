@@ -115,9 +115,10 @@ class MapViewController: UIViewController{
             }
             
             let newTasksIds = newTasks.map { $0.id }
+            let tasksIDs = self.tasksMap.map { $0.id }
             
             let tasksToRemove = self.tasksMap.filter { !newTasksIds.contains($0.id) }
-            let tasksToAdd = self.tasksMap.filter { newTasksIds.contains($0.id) }
+            let tasksToAdd = newTasks.filter { !tasksIDs.contains($0.id) }
             self.tasksMap = newTasks
             
             self.mapView.didMoveToWindow()
@@ -144,9 +145,10 @@ class MapViewController: UIViewController{
             }
             
             let newTasksIds = newTasks.map { $0.id }
+            let tasksIDs = self.activeTasksMap.map { $0.id }
             
             let tasksToRemove = self.activeTasksMap.filter { !newTasksIds.contains($0.id) }
-            let tasksToAdd = self.activeTasksMap.filter { newTasksIds.contains($0.id) }
+            let tasksToAdd = newTasks.filter { !tasksIDs.contains($0.id) }
             self.activeTasksMap = newTasks
             
             self.mapView.didMoveToWindow()
@@ -429,7 +431,7 @@ extension MapViewController: MKMapViewDelegate {
         } else if let annotation = annotation as? ModelActiveTasksMap {
             return setAnnotation(marker: annotation, color: .red)
         } else if let annotation = annotation as? ModelGroupTasksMap {
-            return setAnnotation(marker: annotation, color: .systemBlue)
+            return  setAnnotation(marker: annotation, color: .systemBlue)
         } else {
             return nil
         }
@@ -447,6 +449,7 @@ extension MapViewController: MKMapViewDelegate {
             let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
             let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
             { [unowned self] _ in
+                            
                 performSegue(withIdentifier: References.fromMapTaskToConditionTaskScreen, sender: self)
                 if let controller = navigationController?.topViewController as? ConditionTaskViewController {
                     controller.uniqueKeyFromMapAndTasks = uniqueKey
@@ -480,10 +483,17 @@ extension MapViewController: MKMapViewDelegate {
             
             let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
             let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default) { [unowned self] _ in
-                performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
-                if let controller = navigationController?.topViewController as? DeclarationOfTasksViewController {
-                    controller.uniqueKeyFromMap = uniqueKey
-                }
+                Database.database().reference().child(FBDefaultKeys.activeTasks).child(uniqueKey!).observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+                        if snapshot.exists() {
+                            self?.performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
+                            if let controller = self?.navigationController?.topViewController as? DeclarationOfTasksViewController {
+                                controller.uniqueKey = self?.uniqueKey
+                            }
+                        } else {
+                    showAlert("Ошибка", "Задания уже не существует", where: self)
+                        }
+                    }
+                )
             }
             
             let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default) { _ in
@@ -515,9 +525,10 @@ extension MapViewController: MKMapViewDelegate {
             let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
             let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
             { [unowned self] _ in
+                print("ключ \(uniqueKey)")
                 performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
                 if let controller = navigationController?.topViewController as? DeclarationOfTasksViewController {
-                    controller.uniqueKeyFromMap = uniqueKey
+                    controller.uniqueKey = uniqueKey
                 }
             }
             
