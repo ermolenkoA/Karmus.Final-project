@@ -392,11 +392,9 @@
 		5336323728CCB10A007BC5B2 /* ChatNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				53969A6B28D320AA00FF7FED /* ChatsScreen */,
 				532182BC28CDBCA2000C4DCE /* Conversation */,
 				5336324428CCB5F0007BC5B2 /* CreateNewChat */,
-				5336323828CCB12E007BC5B2 /* ChatScreen.storyboard */,
-				5336324028CCB186007BC5B2 /* ChatViewController.swift */,
-				53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */,
 			);
 			path = ChatNavigation;
 			sourceTree = "<group>";
@@ -564,6 +562,25 @@
 				5387574028BE61E20007196E /* GreetingViewController.swift */,
 			);
 			path = NewUser;
+			sourceTree = "<group>";
+		};
+		53969A6A28D3207F00FF7FED /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
+				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		53969A6B28D320AA00FF7FED /* ChatsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */,
+				5336324028CCB186007BC5B2 /* ChatViewController.swift */,
+				5336323828CCB12E007BC5B2 /* ChatScreen.storyboard */,
+			);
+			path = ChatsScreen;
 			sourceTree = "<group>";
 		};
 		53DECF9728D1CEB40035DA65 /* MapNavigation */ = {
@@ -778,7 +795,6 @@
 				5373F4DD28CCA5E100B8F380 /* ProfileInfo */,
 				5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */,
 				53378ABD28BF646E002749FE /* ChangeProfileInfo */,
-				5387573828BE5DEB0007196E /* NewUser */,
 				CE70E86128ACDE01001F508B /* MainNavigation */,
 				5348CBD428C63E9A00955D70 /* ProfileTabBar */,
 			);
@@ -796,11 +812,11 @@
 		CE70E86128ACDE01001F508B /* MainNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				53969A6A28D3207F00FF7FED /* MainScreen */,
 				CEE6718528B6563400CC8853 /* Identification */,
 				5372EAD828B7DDB100F3FFA8 /* Models */,
-				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
+				5387573828BE5DEB0007196E /* NewUser */,
 				CE15417A28B26693007731FA /* Registration */,
-				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
 			);
 			path = MainNavigation;
 			sourceTree = "<group>";

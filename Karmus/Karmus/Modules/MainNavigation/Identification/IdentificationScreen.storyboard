@@ -19,13 +19,11 @@
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите логин или номер" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="liK-pt-wkK">
                                 <rect key="frame" x="48" y="201" width="224" height="34"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="username"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Введите пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uax-8W-JfH">
                                 <rect key="frame" x="48" y="245" width="224" height="34"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
                             </textField>
@@ -55,19 +53,25 @@
                                     <outletCollection property="gestureRecognizers" destination="eWb-8I-8tF" appends="YES" id="C8a-63-iqT"/>
                                 </connections>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="iyS-oX-NQ8">
+                                <rect key="frame" x="141.5" y="221.5" width="37" height="37"/>
+                                <color key="color" systemColor="labelColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <color key="backgroundColor" red="0.16169663706351153" green="0.48123206351877146" blue="0.77629282994923854" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="liK-pt-wkK" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="-22" id="38W-xl-IiU"/>
                             <constraint firstItem="3ke-2K-8kL" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="AGd-lh-8Va"/>
+                            <constraint firstItem="iyS-oX-NQ8" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="LU9-KC-kA9"/>
                             <constraint firstItem="liK-pt-wkK" firstAttribute="top" secondItem="qTw-3C-xWa" secondAttribute="bottom" constant="70" id="Ohb-ee-V5P"/>
                             <constraint firstItem="qTw-3C-xWa" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="PhP-9M-Ru6"/>
                             <constraint firstItem="Uax-8W-JfH" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.7" id="PvA-zy-lfb"/>
                             <constraint firstItem="3ke-2K-8kL" firstAttribute="top" secondItem="xnA-Dw-AV5" secondAttribute="bottom" constant="40" id="Rb6-6v-ytW"/>
                             <constraint firstItem="qTw-3C-xWa" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="UxH-eM-XNc"/>
                             <constraint firstItem="xnA-Dw-AV5" firstAttribute="top" secondItem="Uax-8W-JfH" secondAttribute="bottom" constant="20" id="ZD8-NK-IFZ"/>
+                            <constraint firstItem="iyS-oX-NQ8" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="f0a-b5-LJ0"/>
                             <constraint firstItem="xnA-Dw-AV5" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="gOy-Iq-cBJ"/>
                             <constraint firstItem="Uax-8W-JfH" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="lS8-hj-aFJ"/>
                             <constraint firstItem="3ke-2K-8kL" firstAttribute="width" secondItem="Uax-8W-JfH" secondAttribute="width" multiplier="0.4" id="mrf-WW-kd0"/>
@@ -80,6 +84,7 @@
                     <connections>
                         <outlet property="forgotPasswordLabel" destination="xnA-Dw-AV5" id="S9E-vp-bJP"/>
                         <outlet property="loginTextField" destination="liK-pt-wkK" id="5I9-IA-Ivo"/>
+                        <outlet property="mainActivityIndicatorView" destination="iyS-oX-NQ8" id="t8d-ew-kqm"/>
                         <outlet property="passwordTextField" destination="Uax-8W-JfH" id="arv-LS-r3f"/>
                         <outlet property="submitButton" destination="3ke-2K-8kL" id="R73-GQ-2V2"/>
                         <outlet property="titleLabel" destination="qTw-3C-xWa" id="oZ5-Gp-7hf"/>
@@ -99,8 +104,8 @@
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

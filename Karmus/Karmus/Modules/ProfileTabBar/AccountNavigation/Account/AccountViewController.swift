@@ -68,14 +68,7 @@ final class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagePicker.delegate = self
-        mainScrollView.frame.size = mainScrollView.contentSize
-        mainInfoView.backgroundColor =
-            mainInfoView.backgroundColor?.withAlphaComponent(0.4)
-        additionalInfoView.backgroundColor =
-            additionalInfoView.backgroundColor?.withAlphaComponent(0.4)
-        profilePhotoImageView.layer.cornerRadius =
-            profilePhotoImageView.frame.width / 2
+        setFrameSettings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,7 +93,17 @@ final class AccountViewController: UIViewController {
     
     private func saveProfileImage(imageURL: URL) {
          Database.database().reference().child(FBDefaultKeys.profilesInfo).child(login!).child(FBProfileInfoKeys.photo).setValue(imageURL.absoluteString)
-        
+    }
+    
+    private func setFrameSettings() {
+        imagePicker.delegate = self
+        mainScrollView.frame.size = mainScrollView.contentSize
+        mainInfoView.backgroundColor =
+            mainInfoView.backgroundColor?.withAlphaComponent(0.4)
+        additionalInfoView.backgroundColor =
+            additionalInfoView.backgroundColor?.withAlphaComponent(0.4)
+        profilePhotoImageView.layer.cornerRadius =
+            profilePhotoImageView.frame.width / 2
     }
         
     private func standartSettings() {
@@ -391,7 +394,7 @@ final class AccountViewController: UIViewController {
         let backButton = UIAlertAction(title: "Вернуться", style: .default)
         alert.addAction(quitButton)
         alert.addAction(backButton)
-        backButton.setValue(UIColor.black, forKey: "titleTextColor")
+        backButton.setValue(UIColor.label, forKey: "titleTextColor")
         present(alert, animated: true)
     }
     
@@ -490,7 +493,7 @@ extension AccountViewController {
             newAlert = nil
         }
         newAlert.addAction(backButton)
-        backButton.setValue(UIColor.black, forKey: "titleTextColor")
+        backButton.setValue(UIColor.label, forKey: "titleTextColor")
         present(newAlert, animated: true)
         
     }
@@ -550,7 +553,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     
@@ -611,7 +614,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     
@@ -656,7 +659,7 @@ extension AccountViewController {
         let backButton = UIAlertAction(title: "Вернуться", style: .default)
         alert.addAction(yesButton)
         alert.addAction(backButton)
-        backButton.setValue(UIColor.black, forKey: "titleTextColor")
+        backButton.setValue(UIColor.label, forKey: "titleTextColor")
         present(alert, animated: true)
     }
     
@@ -763,7 +766,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     
@@ -865,7 +868,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     
@@ -953,7 +956,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     
