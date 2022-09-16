@@ -18,12 +18,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="oHu-k5-gWo">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="912"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYr-GJ-jsI">
-                                <rect key="frame" x="345" y="831" width="49" height="31"/>
+                                <rect key="frame" x="305" y="831" width="89" height="31"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="add"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Добавить"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="addTaskButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="J4i-Qz-xa3"/>
                                 </connections>
@@ -35,7 +43,7 @@
                             <constraint firstItem="oHu-k5-gWo" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="1Gj-jT-gRI"/>
                             <constraint firstItem="oHu-k5-gWo" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9Ll-Aq-BWs"/>
                             <constraint firstItem="kYr-GJ-jsI" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="JpQ-S9-olI"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="oHu-k5-gWo" secondAttribute="bottom" constant="-34" id="pbO-iR-QCD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="oHu-k5-gWo" secondAttribute="bottom" constant="-50" id="pbO-iR-QCD"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="oHu-k5-gWo" secondAttribute="trailing" id="wME-im-IV9"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="kYr-GJ-jsI" secondAttribute="trailing" constant="20" id="xcG-rn-MNU"/>
                         </constraints>
@@ -69,6 +77,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

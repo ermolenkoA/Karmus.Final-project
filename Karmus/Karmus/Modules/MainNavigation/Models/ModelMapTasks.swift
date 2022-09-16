@@ -10,16 +10,16 @@ import MapKit
 import UIKit
 
 class ModelTasksMap: NSObject, MKAnnotation{
-    var name: String?
+    var name: String
     var coordinate: CLLocationCoordinate2D
-    var id: String?
-    var address: String?
-    var type: String?
-    var title: String?{
+    var id: String
+    var address: String
+    var type: String
+    var title: String? {
         return type
     }
 
-    var subtitle: String?{
+    var subtitle: String? {
         return address
     }
 
@@ -33,16 +33,16 @@ class ModelTasksMap: NSObject, MKAnnotation{
 }
 
 class ModelActiveTasksMap: NSObject, MKAnnotation{
-    var name: String?
+    var name: String
     var coordinate: CLLocationCoordinate2D
-    var id: String?
-    var address: String?
-    var type: String?
-    var title: String?{
+    var id: String
+    var address: String
+    var type: String
+    var title: String? {
         return type
     }
 
-    var subtitle: String?{
+    var subtitle: String? {
         return address
     }
 
@@ -56,16 +56,16 @@ class ModelActiveTasksMap: NSObject, MKAnnotation{
 }
 
 class ModelGroupTasksMap:  NSObject, MKAnnotation{
-    var name: String?
+    var name: String
     var coordinate: CLLocationCoordinate2D
-    var id: String?
-    var address: String?
-    var type: String?
-    var title: String?{
+    var id: String
+    var address: String
+    var type: String
+    var title: String? {
         return type
     }
 
-    var subtitle: String?{
+    var subtitle: String? {
         return address
     }
 

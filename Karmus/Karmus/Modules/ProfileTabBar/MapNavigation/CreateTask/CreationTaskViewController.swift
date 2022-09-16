@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import KeychainSwift
 import UIKit
 
 class CreationTaskViewController: UIViewController, UITextFieldDelegate {
@@ -40,7 +41,8 @@ class CreationTaskViewController: UIViewController, UITextFieldDelegate {
         tabBarController?.tabBar.isHidden = true
         imagePicker.delegate = self
         setDatePicker()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)),
+                                                       name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,8 +71,29 @@ class CreationTaskViewController: UIViewController, UITextFieldDelegate {
         typeOfTask.addGestureRecognizer(tapGesture)
     }
     
+    @objc private func keyboardNotification(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        
+        guard let keyboard = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
+            .cgRectValue else { return }
+        view.transform.ty = 0
+        if keyboard.minY < taskDeclaration.frame.maxY
+            && taskDeclaration.isFirstResponder {
+            if keyboard.minY < taskDeclaration.frame.maxY + 10 {
+                view.transform.ty -= abs(keyboard.minY - taskDeclaration.frame.maxY) + 10
+            } else if (view.transform.ty != 0) && (keyboard.minY > taskDeclaration.frame.maxY + 10) {
+                view.transform.ty += abs(keyboard.minY - taskDeclaration.frame.maxY) - 10
+            }
+        }
+        else {
+            view.transform.ty = 0
+        }
+    }
+    
     @objc
     private func tappedToPop() {
+        
+        view.endEditing(true)
         
         guard let popVC = storyboard?.instantiateViewController(withIdentifier: "popVC") else { return }
         popVC.modalPresentationStyle = .popover
@@ -92,47 +115,6 @@ class CreationTaskViewController: UIViewController, UITextFieldDelegate {
             self?.present(popVC, animated: true)
         }
         
-    }
-    
-    private func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())) {
-        let storageRef = Storage.storage().reference().child("imageTasks").child("my photo")
-        let imageData = taskImage.image?.jpegData(compressionQuality: 0.8)
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpeg"
-        storageRef.putData(imageData!, metadata: metaData) {(metaData, error) in
-            guard metaData != nil else { print("error in save image")
-                completion(nil)
-                return
-            }
-            storageRef.downloadURL(completion: {(url, error) in
-                completion(url)
-            })
-        }
-    }
-    
-    private func saveTask(imageURL: URL, completion: @escaping ((_ url: URL?) -> ())) {
-        let key = refTasks.childByAutoId().key
-        uniqueKey = key
-        let task = ["taskType": typeOfTask.text!,
-                    "taskName": taskDeclaration.text!,
-                    "taskDate": dateField.text,
-                    "imageURL": imageURL.absoluteString
-        ] as! [String: Any]
-        self.refTasks.child(key!).setValue(task)
-    }
-    
-    private func saveFIRData() {
-        self.uploadPhoto(imagePickerForUpload){ url in
-            if url == nil {
-                return
-            }else{
-                self.saveTask(imageURL: url!){ success in
-                    if success != nil {
-                    }else {
-                    }
-                }
-            }
-        }
     }
     
     private func getDownloadURL(from path: String, completion: @escaping (URL?, Error?) -> Void) {
@@ -166,6 +148,11 @@ class CreationTaskViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     
     // MARK: - IBAction
     
@@ -223,3 +210,5 @@ extension CreationTaskViewController: UIPopoverPresentationControllerDelegate {
         return .none
     }
 }
+
+

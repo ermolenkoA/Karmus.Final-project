@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina3_5" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -196,7 +197,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jLA-mp-IX7">
-                                <rect key="frame" x="10" y="257" width="306" height="120"/>
+                                <rect key="frame" x="10" y="257" width="306" height="164"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
@@ -229,12 +230,12 @@
                             <constraint firstItem="Glo-Id-GMV" firstAttribute="leading" secondItem="KJI-0m-TcI" secondAttribute="trailing" constant="8" symbolic="YES" id="NrI-ZM-cfU"/>
                             <constraint firstItem="Glo-Id-GMV" firstAttribute="bottom" secondItem="KJI-0m-TcI" secondAttribute="bottom" id="PzC-XA-Yab"/>
                             <constraint firstItem="KJI-0m-TcI" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.169082" id="QHz-o8-adB"/>
+                            <constraint firstItem="EWz-mx-BcT" firstAttribute="top" secondItem="jLA-mp-IX7" secondAttribute="bottom" constant="10" id="T0N-03-qCn"/>
                             <constraint firstItem="OLm-pz-jUh" firstAttribute="width" secondItem="Glo-Id-GMV" secondAttribute="width" priority="750" id="TpX-Dw-5eN"/>
                             <constraint firstItem="EWz-mx-BcT" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="UAh-lf-Ws9"/>
                             <constraint firstItem="Vx4-z0-giJ" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.230978" id="UTo-Yb-vJc"/>
                             <constraint firstItem="tP9-kg-WVM" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.338164" id="Ull-Qf-hW6"/>
                             <constraint firstItem="tP9-kg-WVM" firstAttribute="bottom" secondItem="XFU-WX-ieq" secondAttribute="bottom" id="VB7-Vy-wHo"/>
-                            <constraint firstItem="jLA-mp-IX7" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.25" id="aaD-Lh-eNP"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OLm-pz-jUh" secondAttribute="trailing" constant="30" id="b0a-9y-NYX"/>
                             <constraint firstItem="PcN-Vb-HcU" firstAttribute="top" secondItem="Vx4-z0-giJ" secondAttribute="bottom" constant="8" symbolic="YES" id="dWj-8d-Wav"/>
                             <constraint firstItem="OLm-pz-jUh" firstAttribute="top" secondItem="KJI-0m-TcI" secondAttribute="top" id="g5i-OM-OND"/>

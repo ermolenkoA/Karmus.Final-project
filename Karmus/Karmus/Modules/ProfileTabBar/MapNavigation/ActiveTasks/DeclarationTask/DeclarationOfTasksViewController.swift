@@ -78,15 +78,7 @@ class DeclarationOfTasksViewController: UIViewController {
         }
         )
     }
-    
-    private func showAlert(title: String, message: String, action: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertOk = UIAlertAction(title: action, style: .default)
-        alert.addAction(alertOk)
-        present(alert, animated: true)
-    }
 
-    
     private func testGroup() {
         referenceTasks = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
         referenceTasks.observe(DataEventType.value, with:{ (snapshot) in
@@ -129,16 +121,6 @@ class DeclarationOfTasksViewController: UIViewController {
         } else {
             self.referenceActiveTasks.child(uniqueKeyFromMap!).removeValue()
         }
-    }
-    
-    private func saveTask(imageURL: URL, completion: @escaping ((_ url: URL?) -> ())) {
-        let key = referenceTasks.childByAutoId().key
-        let task = [
-            "taskName": declarationOfTask.text!,
-            "taskDate": dateOfTask.text!,
-            "imageURL": imageURL.absoluteString
-        ] as! [String: Any]
-        self.referenceTasks.child(key!).setValue(task)
     }
     
     private func choiceOfTaskFromMap() {
@@ -268,6 +250,7 @@ class DeclarationOfTasksViewController: UIViewController {
         if self.addCreateTask == false {
             
             if self.addGroupTask == true {
+                
                 let alert = UIAlertController(title: "У вас уже есть это задание", message: "Одинаковые задания нельзя брать", preferredStyle: .alert)
                 let alertOk = UIAlertAction(title: "Ok", style: .default)
                 alert.addAction(alertOk)
@@ -289,8 +272,9 @@ class DeclarationOfTasksViewController: UIViewController {
                 
                 self.uploadData(reference: referenceTasks)
             }
+        }else{
+        showAlert("Так не честно!", "Свои задания нельзя брать!", where: self)
         }
-        showAlert(title: "Так не честно!", message: "Свои задания нельзя брать!", action: "Ок")
     }
     
     @IBAction func tapToMapScreen(_ sender: Any) {

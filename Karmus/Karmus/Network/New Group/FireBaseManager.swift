@@ -242,18 +242,32 @@ class FireBaseDataBaseManager {
     
     static func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> Void)) {
         let storageRef = Storage.storage().reference().child("images/\(UUID().uuidString).jpg")
-        let imageData = image.jpegData(compressionQuality: 0.8)
+        let nilImage = UIImage(named: "no-image")
+        let nilImageData = nilImage!.jpegData(compressionQuality: 0.8)
+        let imageData =  image.jpegData(compressionQuality: 0.8)
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
-        storageRef.putData(imageData!, metadata: metaData) {(metaData, error) in
-            guard metaData != nil else {
-                completion(nil)
-                return
-            }
+        if ((imageData?.isEmpty) != nil) {
+            storageRef.putData(imageData!, metadata: metaData) {(metaData, error) in
+                guard metaData != nil else {
+                    completion(nil)
+                    return
+                }
                 storageRef.downloadURL(completion: {(url, _) in
                     completion(url)
                 })
             }
+        } else {
+            storageRef.putData(nilImageData!, metadata: metaData) {(metaData, error) in
+                guard metaData != nil else {
+                    completion(nil)
+                    return
+                }
+                storageRef.downloadURL(completion: {(url, _) in
+                    completion(url)
+                })
+            }
+        }
     }
     
     // MARK: - Profiles searching
@@ -862,7 +876,12 @@ class FireBaseDataBaseManager {
                     return
                 }
                 
-                parseDataToChatInfo(remainingChats, conclusion: self.chatClosure!)
+                guard let closure = self.chatClosure else {
+                    conclusion(chats)
+                    return
+                }
+                
+                parseDataToChatInfo(remainingChats, conclusion: closure)
 
             }
             

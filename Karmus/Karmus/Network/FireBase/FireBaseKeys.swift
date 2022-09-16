@@ -10,13 +10,15 @@ import Foundation
 struct FBDefaultKeys {
     static let profiles = "Profiles"
     static let profilesInfo = "ProfilesInfo"
-    static let tasks = "Tasks"
     static let topics = "Topics"
     static let chats = "Chats"
     static let coupons = "Coupons"
+    static let activeTasks = "ActiveTasks"
+    static let groupTasks = "GroupTasks"
 }
 
 struct FBProfileKeys {
+    static let tasks = "Tasks"
     static let firstName = "firstName"
     static let login = "login"
     static let password = "password"
@@ -87,4 +89,10 @@ struct FBCoupons {
     static let price = "price"
 }
 
-
+struct FBTasks {
+    static let address = "address"
+    static let taskName = "taskName"
+    static let taskType = "taskType"
+    static let latitudeCoordinate = "latitudeCoordinate"
+    static let longitudeCoordinate = "longitudeCoordinate"
+}

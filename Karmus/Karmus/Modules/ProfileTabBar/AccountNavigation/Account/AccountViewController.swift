@@ -90,6 +90,15 @@ final class AccountViewController: UIViewController {
         navigationItem.backBarButtonItem = backItem
     }
     
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .allButUpsideDown
+        } else {
+            return .all
+        }
+    }
+    
     // MARK: - Private functions
     
     private func saveProfileImage(imageURL: URL) {
