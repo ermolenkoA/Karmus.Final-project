@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="oHu-k5-gWo">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="912"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYr-GJ-jsI">
@@ -43,7 +43,7 @@
                             <constraint firstItem="oHu-k5-gWo" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="1Gj-jT-gRI"/>
                             <constraint firstItem="oHu-k5-gWo" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9Ll-Aq-BWs"/>
                             <constraint firstItem="kYr-GJ-jsI" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="JpQ-S9-olI"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="oHu-k5-gWo" secondAttribute="bottom" constant="-34" id="pbO-iR-QCD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="oHu-k5-gWo" secondAttribute="bottom" constant="-50" id="pbO-iR-QCD"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="oHu-k5-gWo" secondAttribute="trailing" id="wME-im-IV9"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="kYr-GJ-jsI" secondAttribute="trailing" constant="20" id="xcG-rn-MNU"/>
                         </constraints>

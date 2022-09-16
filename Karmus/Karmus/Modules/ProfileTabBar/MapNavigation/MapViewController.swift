@@ -52,6 +52,7 @@ class MapViewController: UIViewController{
         super.viewDidAppear(animated)
         tabBarController?.tabBar.isHidden = false
         mapView.delegate = self
+        mapView.didMoveToWindow()
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadRegion),
@@ -487,7 +488,7 @@ extension MapViewController: MKMapViewDelegate {
                         if snapshot.exists() {
                             self?.performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
                             if let controller = self?.navigationController?.topViewController as? DeclarationOfTasksViewController {
-                                controller.uniqueKey = self?.uniqueKey
+                                controller.uniqueKeyFromMap = self?.uniqueKey
                             }
                         } else {
                     showAlert("Ошибка", "Задания уже не существует", where: self)
@@ -525,10 +526,9 @@ extension MapViewController: MKMapViewDelegate {
             let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
             let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
             { [unowned self] _ in
-                print("ключ \(uniqueKey)")
                 performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
                 if let controller = navigationController?.topViewController as? DeclarationOfTasksViewController {
-                    controller.uniqueKey = uniqueKey
+                    controller.uniqueKeyFromMap = uniqueKey
                 }
             }
             

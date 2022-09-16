@@ -36,6 +36,8 @@ final class ResultsMapViewController: UIViewController, UITableViewDelegate, UIT
         tableView.frame = view.bounds
     }
     
+    
+    
     // MARK: - Private Functions
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,6 +69,11 @@ final class ResultsMapViewController: UIViewController, UITableViewDelegate, UIT
             
         }
     }
+    
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            self.view.endEditing(true)
+        }
+
     
     // MARK: - Public Functions
 

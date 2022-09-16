@@ -76,7 +76,7 @@ class CreationTaskViewController: UIViewController, UITextFieldDelegate {
         
         guard let keyboard = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue else { return }
-        
+        view.transform.ty = 0
         if keyboard.minY < taskDeclaration.frame.maxY
             && taskDeclaration.isFirstResponder {
             if keyboard.minY < taskDeclaration.frame.maxY + 10 {
@@ -84,7 +84,8 @@ class CreationTaskViewController: UIViewController, UITextFieldDelegate {
             } else if (view.transform.ty != 0) && (keyboard.minY > taskDeclaration.frame.maxY + 10) {
                 view.transform.ty += abs(keyboard.minY - taskDeclaration.frame.maxY) - 10
             }
-        } else {
+        }
+        else {
             view.transform.ty = 0
         }
     }
