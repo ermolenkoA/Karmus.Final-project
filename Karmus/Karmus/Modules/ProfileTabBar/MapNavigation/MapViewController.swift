@@ -51,10 +51,8 @@ class MapViewController: UIViewController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.tabBar.isHidden = false
-        uploadActiveTasksInMap()
-        uploadGroupTasksInMap()
-        uploadTasksInMap()
         mapView.delegate = self
+        mapView.didMoveToWindow()
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadRegion),
@@ -109,101 +107,97 @@ class MapViewController: UIViewController{
    
     
     private func uploadTasksInMap() {
-        profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
-        refTasksMap = Database.database().reference().child("Profiles").child(profileId!).child("Tasks")
-        self.mapView.removeAnnotations(mapView.annotations)
-        
-        refTasksMap.observe(.value, with:{ [weak self] (snapshot) in
-            self?.tasksMap.removeAll()
+        DataBaseManagerForMap.getTasks(tasksType: .userTasks) { [weak self] tasks in
             
-            for tasks in snapshot.children.allObjects as! [DataSnapshot] {
-                let taskObject = tasks.value as? [String: AnyObject]
-                let taskAddress = taskObject?["address"]
-                let taskName = taskObject?["taskName"]
-                let taskType = taskObject?["taskType"]
-                let taskId = tasks.key
-                let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
-                let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
-                
-                let task = ModelTasksMap(coordinate: CLLocationCoordinate2D(latitude: taskLatitudeCoordinate as! Double,
-                                                                            longitude: taskLongitudeCoordinate as! Double),
-                                         name: taskName as! String,
-                                         id: taskId,
-                                         address: taskAddress as! String,
-                                         type: taskType as! String)
-                
-                self?.tasksMap.append(task)
+            guard let self = self else { return }
+            
+            guard let newTasks = tasks as? [ModelTasksMap] else {
+                return
             }
-            self?.mapView.didMoveToWindow()
-            for user in self!.tasksMap{
-                self?.mapView.addAnnotation(user)
+            
+            let newTasksIds = newTasks.map { $0.id }
+            let tasksIDs = self.tasksMap.map { $0.id }
+            
+            let tasksToRemove = self.tasksMap.filter { !newTasksIds.contains($0.id) }
+            let tasksToAdd = newTasks.filter { !tasksIDs.contains($0.id) }
+            self.tasksMap = newTasks
+            
+            self.mapView.didMoveToWindow()
+            
+            for task in tasksToRemove {
+                self.mapView.removeAnnotation(task)
             }
-        })
+            
+            for task in tasksToAdd {
+                self.mapView.addAnnotation(task)
+            }
+            
+        }
     }
     
     private func uploadActiveTasksInMap() {
         
-        self.mapView.removeAnnotations(mapView.annotations)
-        refActiveTasksMap.observe(DataEventType.value, with:{ [weak self] (snapshot) in
-            self?.activeTasksMap.removeAll()
+        DataBaseManagerForMap.getTasks(tasksType: .activeTasks) { [weak self] tasks in
             
-            for tasks in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                let taskObject = tasks.value as? [String: AnyObject]
-                let taskAddress = taskObject?["address"]
-                let taskName = taskObject?["taskName"]
-                let taskType = taskObject?["taskType"]
-                let taskId = tasks.key
-                let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
-                let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
-                
-                let task = ModelActiveTasksMap(coordinate: CLLocationCoordinate2D(latitude: taskLatitudeCoordinate as! Double,
-                                                                                  longitude: taskLongitudeCoordinate as! Double),
-                                               name: taskName as! String,
-                                               id: taskId,
-                                               address: taskAddress as! String,
-                                               type: taskType as! String)
-                
-                self?.activeTasksMap.append(task)
+            guard let self = self else { return }
+            
+            guard let newTasks = tasks as? [ModelActiveTasksMap] else {
+                return
             }
-            self?.mapView.didMoveToWindow()
-            for user in self!.activeTasksMap{
-                self?.mapView.addAnnotation(user)
+            
+            let newTasksIds = newTasks.map { $0.id }
+            let tasksIDs = self.activeTasksMap.map { $0.id }
+            
+            let tasksToRemove = self.activeTasksMap.filter { !newTasksIds.contains($0.id) }
+            let tasksToAdd = newTasks.filter { !tasksIDs.contains($0.id) }
+            self.activeTasksMap = newTasks
+            
+            self.mapView.didMoveToWindow()
+            
+            for task in tasksToRemove {
+                self.mapView.removeAnnotation(task)
             }
-        })
+            
+            for task in tasksToAdd {
+                self.mapView.addAnnotation(task)
+            }
+            
+        }
         
     }
     
     private func uploadGroupTasksInMap() {
         
-        self.mapView.removeAnnotations(mapView.annotations)
-        refGroupActiveTasks.observe(DataEventType.value, with:{ [weak self] (snapshot) in
-            self?.groupTasksMap.removeAll()
+        print(self.mapView.annotations.count)
+        
+        DataBaseManagerForMap.getTasks(tasksType: .groupTasks) { [weak self] tasks in
             
-            for tasks in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                let taskObject = tasks.value as? [String: AnyObject]
-                let taskAddress = taskObject?["address"]
-                let taskName = taskObject?["taskName"]
-                let taskType = taskObject?["taskType"]
-                let taskId = tasks.key
-                let taskLatitudeCoordinate = taskObject?["latitudeCoordinate"]
-                let taskLongitudeCoordinate = taskObject?["longitudeCoordinate"]
-                
-                let task = ModelGroupTasksMap(coordinate: CLLocationCoordinate2D(latitude: taskLatitudeCoordinate as! Double,
-                                                                                 longitude: taskLongitudeCoordinate as! Double),
-                                              name: taskName as! String,
-                                              id: taskId,
-                                              address: taskAddress as! String,
-                                              type: taskType as! String)
-                self?.groupTasksMap.append(task)
-                
+            guard let self = self else { return }
+            
+            guard let newTasks = tasks as? [ModelGroupTasksMap] else {
+                return
             }
-            self?.mapView.didMoveToWindow()
-            for user in self!.groupTasksMap{
-                self?.mapView.addAnnotation(user)
+            
+            let newTasksIDs = newTasks.map { $0.id }
+            let tasksIDs = self.groupTasksMap.map { $0.id }
+            
+            let tasksToRemove = self.groupTasksMap.filter { !newTasksIDs.contains($0.id) }
+            let tasksToAdd = newTasks.filter { !tasksIDs.contains($0.id) }
+            self.groupTasksMap = newTasks
+            
+            self.mapView.didMoveToWindow()
+            
+            for task in tasksToRemove {
+                self.mapView.removeAnnotation(task)
             }
-        })
+            
+            for task in tasksToAdd {
+                self.mapView.addAnnotation(task)
+            }
+            
+            print(self.mapView.annotations.count)
+            
+        }
         
     }
     
@@ -435,13 +429,10 @@ extension MapViewController: MKMapViewDelegate {
         
         if let annotation = annotation as? ModelTasksMap {
             return setAnnotation(marker: annotation, color: .green)
-            
         } else if let annotation = annotation as? ModelActiveTasksMap {
             return setAnnotation(marker: annotation, color: .red)
-            
         } else if let annotation = annotation as? ModelGroupTasksMap {
             return  setAnnotation(marker: annotation, color: .systemBlue)
-            
         } else {
             return nil
         }
@@ -459,6 +450,7 @@ extension MapViewController: MKMapViewDelegate {
             let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
             let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default)
             { [unowned self] _ in
+                            
                 performSegue(withIdentifier: References.fromMapTaskToConditionTaskScreen, sender: self)
                 if let controller = navigationController?.topViewController as? ConditionTaskViewController {
                     controller.uniqueKeyFromMapAndTasks = uniqueKey
@@ -492,10 +484,17 @@ extension MapViewController: MKMapViewDelegate {
             
             let alertController = UIAlertController(title: "Задание", message: "", preferredStyle: .alert)
             let actionTask = UIAlertAction(title: "Перейти к условию задания?", style: .default) { [unowned self] _ in
-                performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
-                if let controller = navigationController?.topViewController as? DeclarationOfTasksViewController {
-                    controller.uniqueKeyFromMap = uniqueKey
-                }
+                Database.database().reference().child(FBDefaultKeys.activeTasks).child(uniqueKey!).observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+                        if snapshot.exists() {
+                            self?.performSegue(withIdentifier: References.fromMapActiveTaskToDeclarationTaskScreen, sender: self)
+                            if let controller = self?.navigationController?.topViewController as? DeclarationOfTasksViewController {
+                                controller.uniqueKeyFromMap = self?.uniqueKey
+                            }
+                        } else {
+                    showAlert("Ошибка", "Задания уже не существует", where: self)
+                        }
+                    }
+                )
             }
             
             let actionDirection = UIAlertAction(title: "Проложить маршрут?", style: .default) { _ in

@@ -27,6 +27,7 @@ class TasksTableViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        getDataFromDataBase()
     }
     
     override func viewDidAppear(_ animated: Bool) {

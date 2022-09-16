@@ -30,10 +30,10 @@ final class TaskMapViewController: UIViewController, UISearchResultsUpdating, UI
     private var name: String?
     private var login: String?
     private var addCoordinate = false
-    private weak var refActiveTasks: DatabaseReference!
-    private weak var refGroupActiveTasks: DatabaseReference!
-    private weak var refAccuintCreatedTasks: DatabaseReference!
-    private weak var refTasksCoordinates: DatabaseReference!
+    private var refActiveTasks: DatabaseReference!
+    private var refGroupActiveTasks: DatabaseReference!
+    private var refAccuintCreatedTasks: DatabaseReference!
+    private var refTasksCoordinates: DatabaseReference!
    
     // MARK: - Public Properties
 
@@ -115,23 +115,6 @@ final class TaskMapViewController: UIViewController, UISearchResultsUpdating, UI
         }
     }
     
-    private func uploadPhoto(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())) {
-        let storageRef = Storage.storage().reference().child("imageTasks").child("my photo")
-        let imageData = imageViewFromCreation.image?.jpegData(compressionQuality: 0.8)
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpeg"
-        storageRef.putData(imageData!, metadata: metaData) {(metaData, error) in
-            guard metaData != nil else {
-                completion(nil)
-                return
-            }
-            
-            storageRef.downloadURL(completion: { (url, error) in
-                completion(url)
-            })
-        }
-    }
-    
     private func dataFromProfile(reference: DatabaseReference) {
         profileLogin = KeychainSwift.shared.get(ConstantKeys.currentProfileLogin)
         profileId = KeychainSwift.shared.get(ConstantKeys.currentProfile)
@@ -147,7 +130,9 @@ final class TaskMapViewController: UIViewController, UISearchResultsUpdating, UI
         }
     }
     
-    private func saveTask(imageURL: URL, referenceTask: DatabaseReference, completion: @escaping ((_ url: URL?) -> ())) {
+    
+    
+    private func saveTask(imageURL: URL, referenceTask: DatabaseReference) {
         let key = referenceTask.childByAutoId().key
         uniqueKey = key
         
@@ -168,19 +153,11 @@ final class TaskMapViewController: UIViewController, UISearchResultsUpdating, UI
     
     private func saveFIRData(reference: DatabaseReference) {
         
-        self.uploadPhoto(imageFromCreation) { url in
+        FireBaseDataBaseManager.uploadPhoto(imageFromCreation) { url in
             if url == nil {
-                print("error1")
                 return
             } else {
-                
-                self.saveTask(imageURL: url!, referenceTask: reference) { success in
-                    if success != nil {
-                        print("Eeee")
-                    } else {
-                        print("error")
-                    }
-                }
+                self.saveTask(imageURL: url!, referenceTask: reference)
             }
         }
     }
@@ -206,6 +183,12 @@ final class TaskMapViewController: UIViewController, UISearchResultsUpdating, UI
             }
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    // MARK: - IBAction
     
     @IBAction func addTaskButton(_ sender: Any) {
         

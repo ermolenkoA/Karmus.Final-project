@@ -75,6 +75,7 @@
 		5372EAD328B7AEB000F3FFA8 /* ActiveTasksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */; };
 		5372EAD528B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */; };
 		5372EAD728B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */; };
+		537555AF28D343EE0025B970 /* DataBaseManagerForMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537555AE28D343EE0025B970 /* DataBaseManagerForMap.swift */; };
 		537F655028D0BE6F002B3AF8 /* MapEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F654F28D0BE6F002B3AF8 /* MapEnumeration.swift */; };
 		5387573E28BE5E610007196E /* NewUserScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5387573D28BE5E610007196E /* NewUserScreen.storyboard */; };
 		5387574128BE61E20007196E /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5387574028BE61E20007196E /* GreetingViewController.swift */; };
@@ -203,6 +204,7 @@
 		5372EAD228B7AEB000F3FFA8 /* ActiveTasksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTasksViewCell.swift; sourceTree = "<group>"; };
 		5372EAD428B7B8F900F3FFA8 /* DeclataionOfTasksScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeclataionOfTasksScreen.storyboard; sourceTree = "<group>"; };
 		5372EAD628B7BCAF00F3FFA8 /* DeclarationOfTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeclarationOfTasksViewController.swift; sourceTree = "<group>"; };
+		537555AE28D343EE0025B970 /* DataBaseManagerForMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManagerForMap.swift; sourceTree = "<group>"; };
 		537F654F28D0BE6F002B3AF8 /* MapEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapEnumeration.swift; sourceTree = "<group>"; };
 		5387573D28BE5E610007196E /* NewUserScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewUserScreen.storyboard; sourceTree = "<group>"; };
 		5387574028BE61E20007196E /* GreetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
@@ -392,11 +394,9 @@
 		5336323728CCB10A007BC5B2 /* ChatNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				53969A6B28D320AA00FF7FED /* ChatsScreen */,
 				532182BC28CDBCA2000C4DCE /* Conversation */,
 				5336324428CCB5F0007BC5B2 /* CreateNewChat */,
-				5336323828CCB12E007BC5B2 /* ChatScreen.storyboard */,
-				5336324028CCB186007BC5B2 /* ChatViewController.swift */,
-				53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */,
 			);
 			path = ChatNavigation;
 			sourceTree = "<group>";
@@ -566,6 +566,25 @@
 			path = NewUser;
 			sourceTree = "<group>";
 		};
+		53969A6A28D3207F00FF7FED /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
+				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		53969A6B28D320AA00FF7FED /* ChatsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				53F284D628CCE8CC0070A5FC /* ChatsTVCell.swift */,
+				5336324028CCB186007BC5B2 /* ChatViewController.swift */,
+				5336323828CCB12E007BC5B2 /* ChatScreen.storyboard */,
+			);
+			path = ChatsScreen;
+			sourceTree = "<group>";
+		};
 		53DECF9728D1CEB40035DA65 /* MapNavigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +747,7 @@
 				CE50DF6D28B7FC3000D90D4A /* FireBaseManager.swift */,
 				CE3A8A6928B8226900BCE54A /* FireBaseKeys.swift */,
 				53B0C85028BF8C83008B518B /* GooglePlacesManager.swift */,
+				537555AE28D343EE0025B970 /* DataBaseManagerForMap.swift */,
 			);
 			path = FireBase;
 			sourceTree = "<group>";
@@ -778,7 +798,6 @@
 				5373F4DD28CCA5E100B8F380 /* ProfileInfo */,
 				5316D73328AC0FC2004C8A90 /* LaunchScreen.storyboard */,
 				53378ABD28BF646E002749FE /* ChangeProfileInfo */,
-				5387573828BE5DEB0007196E /* NewUser */,
 				CE70E86128ACDE01001F508B /* MainNavigation */,
 				5348CBD428C63E9A00955D70 /* ProfileTabBar */,
 			);
@@ -796,11 +815,11 @@
 		CE70E86128ACDE01001F508B /* MainNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				53969A6A28D3207F00FF7FED /* MainScreen */,
 				CEE6718528B6563400CC8853 /* Identification */,
 				5372EAD828B7DDB100F3FFA8 /* Models */,
-				5316D72928AC0FBE004C8A90 /* ViewController.swift */,
+				5387573828BE5DEB0007196E /* NewUser */,
 				CE15417A28B26693007731FA /* Registration */,
-				5316D72B28AC0FBE004C8A90 /* Main.storyboard */,
 			);
 			path = MainNavigation;
 			sourceTree = "<group>";
@@ -1056,6 +1075,7 @@
 				5336324128CCB186007BC5B2 /* ChatViewController.swift in Sources */,
 				CE3A8A6728B8204600BCE54A /* FireBaseProfileModel.swift in Sources */,
 				532182EF28CF7167000C4DCE /* CouponModel.swift in Sources */,
+				537555AF28D343EE0025B970 /* DataBaseManagerForMap.swift in Sources */,
 				5328205528D0BF9F005142E0 /* MyCouponsTableViewController.swift in Sources */,
 				CE3A8A7628B8473600BCE54A /* ProfileModelConstants.swift in Sources */,
 				53FFF25128C76EE60054AA5D /* FriendModel.swift in Sources */,
@@ -1253,9 +1273,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7KWY9SWUN6;
+				DEVELOPMENT_TEAM = X9JXK35MFD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Karmus/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Для выбора фото";
@@ -1275,6 +1296,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vironit.Nesterovich.Ermolenko;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1288,9 +1310,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = X9JXK35MFD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Karmus/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Для выбора фото";

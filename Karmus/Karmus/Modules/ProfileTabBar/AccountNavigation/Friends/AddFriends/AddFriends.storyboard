@@ -16,10 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="07J-Qh-knt">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yMt-Zg-mXs">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -113,23 +109,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hqV-9g-ZoL">
+                                <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                                <color key="color" systemColor="labelColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hYH-eH-OzS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="tintColor" red="0.65321147440000005" green="0.80299025769999999" blue="0.94600397349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="07J-Qh-knt" firstAttribute="bottom" secondItem="yMt-Zg-mXs" secondAttribute="bottom" id="AAa-wu-jkh"/>
+                            <constraint firstItem="hqV-9g-ZoL" firstAttribute="centerY" secondItem="hYH-eH-OzS" secondAttribute="centerY" id="0cD-As-v79"/>
+                            <constraint firstItem="hqV-9g-ZoL" firstAttribute="centerX" secondItem="viJ-vQ-gwK" secondAttribute="centerXWithinMargins" id="8qg-hI-LkM"/>
                             <constraint firstItem="yMt-Zg-mXs" firstAttribute="top" secondItem="hYH-eH-OzS" secondAttribute="top" id="Eju-89-mZ8"/>
-                            <constraint firstItem="07J-Qh-knt" firstAttribute="leading" secondItem="yMt-Zg-mXs" secondAttribute="leading" id="IlI-Bc-CVL"/>
                             <constraint firstItem="hYH-eH-OzS" firstAttribute="bottom" secondItem="yMt-Zg-mXs" secondAttribute="bottom" id="N19-Wk-2h9"/>
                             <constraint firstItem="hYH-eH-OzS" firstAttribute="trailing" secondItem="yMt-Zg-mXs" secondAttribute="trailing" id="SXE-Zp-XZP"/>
                             <constraint firstItem="yMt-Zg-mXs" firstAttribute="leading" secondItem="hYH-eH-OzS" secondAttribute="leading" id="VgX-Eq-vr0"/>
-                            <constraint firstItem="07J-Qh-knt" firstAttribute="trailing" secondItem="yMt-Zg-mXs" secondAttribute="trailing" id="eRS-Rx-eZP"/>
-                            <constraint firstItem="07J-Qh-knt" firstAttribute="top" secondItem="yMt-Zg-mXs" secondAttribute="top" id="rw9-f0-mU6"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mainActivityIndicator" destination="07J-Qh-knt" id="5sa-a1-tGm"/>
+                        <outlet property="mainActivityIndicator" destination="hqV-9g-ZoL" id="cgk-mU-LXA"/>
                         <outlet property="mainTableView" destination="yMt-Zg-mXs" id="OgF-Dh-4Vf"/>
                     </connections>
                 </viewController>
@@ -139,6 +137,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

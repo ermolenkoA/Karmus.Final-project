@@ -213,7 +213,7 @@ final class PhoneNumberVerification {
                     
                     self.newAlert.addAction(closeButton)
                     self.newAlert.addAction(okButton)
-                    self.newAlert.view.tintColor = UIColor.black
+                    self.newAlert.view.tintColor = UIColor.label
                     self.controller.present(self.newAlert, animated: true)
                 
                     return
@@ -287,7 +287,7 @@ final class PhoneNumberVerification {
             }
             
             alert.addAction(closeButton)
-            alert.view.tintColor = UIColor.black
+            alert.view.tintColor = UIColor.label
             self.controller.present(alert, animated: true)
         
     }
@@ -316,8 +316,8 @@ final class PhoneNumberVerification {
             
             newAlert.addAction(closeButton)
             newAlert.addAction(backButton)
-            backButton.setValue(UIColor.black, forKey: "titleTextColor")
-            closeButton.setValue(UIColor.gray, forKey: "titleTextColor")
+            backButton.setValue(UIColor.label, forKey: "titleTextColor")
+            closeButton.setValue(UIColor.secondaryLabel, forKey: "titleTextColor")
             controller.present(newAlert, animated: true){
                 
                 var timeLeft = UInt(5)
@@ -349,7 +349,7 @@ final class PhoneNumberVerification {
             newAlert = nil
         }
         newAlert.addAction(backButton)
-        backButton.setValue(UIColor.black, forKey: "titleTextColor")
+        backButton.setValue(UIColor.label, forKey: "titleTextColor")
         controller.present(newAlert, animated: true)
         
     }
@@ -429,7 +429,7 @@ final class PhoneNumberVerification {
         let closeButton = createCloseButton(alert)
         alert.addAction(closeButton)
         alert.addAction(submitButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         self.controller.present(alert, animated: true)
         
     }

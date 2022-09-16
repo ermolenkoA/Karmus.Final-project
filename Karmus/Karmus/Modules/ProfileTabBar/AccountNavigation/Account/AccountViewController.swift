@@ -68,20 +68,14 @@ final class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagePicker.delegate = self
-        mainScrollView.frame.size = mainScrollView.contentSize
-        mainInfoView.backgroundColor =
-            mainInfoView.backgroundColor?.withAlphaComponent(0.4)
-        additionalInfoView.backgroundColor =
-            additionalInfoView.backgroundColor?.withAlphaComponent(0.4)
-        profilePhotoImageView.layer.cornerRadius =
-            profilePhotoImageView.frame.width / 2
+        setFrameSettings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         mainActivityIndicatorView.backgroundColor = .clear
         mainActivityIndicatorView.startAnimating()
         view.isUserInteractionEnabled = false
+        mainScrollView.isHidden = true
         standartSettings()
         tabBarController?.tabBar.isHidden = false
     }
@@ -96,11 +90,30 @@ final class AccountViewController: UIViewController {
         navigationItem.backBarButtonItem = backItem
     }
     
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .allButUpsideDown
+        } else {
+            return .all
+        }
+    }
+    
     // MARK: - Private functions
     
     private func saveProfileImage(imageURL: URL) {
          Database.database().reference().child(FBDefaultKeys.profilesInfo).child(login!).child(FBProfileInfoKeys.photo).setValue(imageURL.absoluteString)
-        
+    }
+    
+    private func setFrameSettings() {
+        imagePicker.delegate = self
+        mainScrollView.frame.size = mainScrollView.contentSize
+        mainInfoView.backgroundColor =
+            mainInfoView.backgroundColor?.withAlphaComponent(0.4)
+        additionalInfoView.backgroundColor =
+            additionalInfoView.backgroundColor?.withAlphaComponent(0.4)
+        profilePhotoImageView.layer.cornerRadius =
+            profilePhotoImageView.frame.width / 2
     }
         
     private func standartSettings() {
@@ -109,6 +122,7 @@ final class AccountViewController: UIViewController {
             print("\n<FillAdditionalProfileInfoVC\\standartSettings> ERROR: login isn't exist in KeychainSwift\n")
             mainActivityIndicatorView.stopAnimating()
             view.isUserInteractionEnabled = true
+            mainScrollView.isHidden = false
             showAlert("Произошла ошибка", "Обратитесь к разработчику приложения", where: self)
             return
         }
@@ -166,6 +180,9 @@ final class AccountViewController: UIViewController {
                     self?.profilePhotoImageView.kf.indicatorType = .activity
                     
                     FireBaseDataBaseManager.createProfileObserver(profileID, login)
+                    self?.mainActivityIndicatorView.startAnimating()
+                    self?.view.isUserInteractionEnabled = true
+                    self?.mainScrollView.isHidden = false
                     return
                     
                 case FBProfileTypes.admin:
@@ -244,7 +261,6 @@ final class AccountViewController: UIViewController {
             self?.profilePhotoImageView.kf.indicatorType = .activity
             self?.setFullnessLabel()
             self?.standartSettingsWithObserver()
-            
         }
         
     }
@@ -291,6 +307,7 @@ final class AccountViewController: UIViewController {
         
         mainActivityIndicatorView.stopAnimating()
         view.isUserInteractionEnabled = true
+        mainScrollView.isHidden = false
     }
     
     private func setFullnessLabel(){
@@ -391,7 +408,7 @@ final class AccountViewController: UIViewController {
         let backButton = UIAlertAction(title: "Вернуться", style: .default)
         alert.addAction(quitButton)
         alert.addAction(backButton)
-        backButton.setValue(UIColor.black, forKey: "titleTextColor")
+        backButton.setValue(UIColor.label, forKey: "titleTextColor")
         present(alert, animated: true)
     }
     
@@ -490,7 +507,7 @@ extension AccountViewController {
             newAlert = nil
         }
         newAlert.addAction(backButton)
-        backButton.setValue(UIColor.black, forKey: "titleTextColor")
+        backButton.setValue(UIColor.label, forKey: "titleTextColor")
         present(newAlert, animated: true)
         
     }
@@ -550,7 +567,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     
@@ -611,7 +628,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     
@@ -656,7 +673,7 @@ extension AccountViewController {
         let backButton = UIAlertAction(title: "Вернуться", style: .default)
         alert.addAction(yesButton)
         alert.addAction(backButton)
-        backButton.setValue(UIColor.black, forKey: "titleTextColor")
+        backButton.setValue(UIColor.label, forKey: "titleTextColor")
         present(alert, animated: true)
     }
     
@@ -763,7 +780,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     
@@ -865,7 +882,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     
@@ -953,7 +970,7 @@ extension AccountViewController {
         }
         alert.addAction(submitButton)
         alert.addAction(closeButton)
-        alert.view.tintColor = UIColor.black
+        alert.view.tintColor = UIColor.label
         present(alert, animated: true)
     }
     

@@ -19,7 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         GMSPlacesClient.provideAPIKey("AIzaSyAnp1yp1tPG0ConRQKGFCj-Irmh1cV4svc")
         
+        
         return true
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        .portrait
     }
 
     // MARK: UISceneSession Lifecycle

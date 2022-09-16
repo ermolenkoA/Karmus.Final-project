@@ -64,7 +64,7 @@ final class FullProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         mainActivityIndicatorView.backgroundColor = .clear
         mainActivityIndicatorView.startAnimating()
-        mainScrollView.isUserInteractionEnabled = false
+        mainScrollView.isHidden = true
         standartSettings()
     }
     
@@ -181,7 +181,7 @@ final class FullProfileViewController: UIViewController {
             self?.profilePhotoImageView.image = info.photo
             self?.profilePhotoImageView.kf.indicatorType = .activity
             
-            self?.mainScrollView.isUserInteractionEnabled = true
+            self?.mainScrollView.isHidden = false
             self?.mainActivityIndicatorView.stopAnimating()
         }
         
